@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TodosService } from '../../services/todos.service';
 import { ModalWindowsService } from '../../services/modalWindows.service';
+import { DialogRef } from '@angular/cdk/dialog';
 
 @Component({
   selector: 'app-new-list',
@@ -9,6 +10,8 @@ import { ModalWindowsService } from '../../services/modalWindows.service';
   styleUrls: ['./new-list.component.scss'],
 })
 export class NewListComponent {
+  @Input('dialog') dialog?: DialogRef<string>;
+
   constructor(private todoService: TodosService, private modalWindowService: ModalWindowsService) {}
 
   colors: any[] = [

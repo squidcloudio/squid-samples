@@ -21,6 +21,9 @@
     </mat-autocomplete>
   </div>
 
-
-  <app-form-buttons [control]="newListForm" modalName="newList" submitName="Create List"></app-form-buttons>
+  <app-form-buttons
+    [dialog]="dialog"
+    [control]="newListForm"
+    modalName="newList"
+    submitName="Create List"></app-form-buttons>
 </form>

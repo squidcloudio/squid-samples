@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { ModalWindowsService } from '../../../services/modalWindows.service';
+import { TodosService } from '../../../services/todos.service';
+import { DialogRef } from '@angular/cdk/dialog';
 
 @Component({
   selector: 'app-form-buttons',
@@ -11,10 +12,7 @@ export class FormButtonsComponent {
   @Input('control') control?: FormGroup;
   @Input('modalName') modalName?: string;
   @Input('submitName') submitName?: string;
+  @Input('dialog') dialog?: DialogRef<string>;
 
-  constructor(private modalWindowService: ModalWindowsService) {}
-
-  closeModalWindow(): void {
-    if (this.modalName) this.modalWindowService.closeModal(this.modalName);
-  }
+  constructor(public todoService: TodosService) {}
 }

@@ -1,12 +1,17 @@
 <div class="modal">
   <div class="modal-body">
     <div class="modal-body-header">
-      <button class="modal-body-header-button" (click)="closeModal()">
+      <button class="modal-body-header-button" (click)="dialogRef.close()">
         <img src="./assets/close.svg" alt="close-button"/>
       </button>
     </div>
     <div class="modal-body-content">
-      <ng-content></ng-content>
+      <ng-container *ngIf="data.name === 'newList'">
+        <app-new-list [dialog]="dialogRef"></app-new-list>
+      </ng-container>
+      <ng-container *ngIf="data.name === 'newItem'">
+        <app-new-item [dialog]="dialogRef"></app-new-item>
+      </ng-container>
     </div>
   </div>
 </div>

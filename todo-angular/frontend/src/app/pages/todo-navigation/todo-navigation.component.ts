@@ -2,8 +2,9 @@ import { Component } from '@angular/core';
 import { TodosService } from '../../services/todos.service';
 import { Todo } from '../../interfaces/types';
 import { Observable } from 'rxjs';
-import { ModalWindowsService } from '../../services/modalWindows.service';
 import { ModalListNames } from '../../interfaces/interfaces';
+import { Dialog } from '@angular/cdk/dialog';
+import { ModalWindowComponent } from '../../shared/modal-window/modal-window.component';
 
 @Component({
   selector: 'app-todo-navigation',
@@ -11,13 +12,10 @@ import { ModalListNames } from '../../interfaces/interfaces';
   styleUrls: ['./todo-navigation.component.scss'],
 })
 export class TodoNavigationComponent {
-  todoList?: Observable<Todo[]>;
-
-  constructor(private todoCollection: TodosService, public modalWindowService: ModalWindowsService) {
-    this.todoList = this.todoCollection.getDefaultCollection();
-  }
+  constructor(public dialog: Dialog) {}
 
   createNewList(): void {
-    this.modalWindowService.openModal(ModalListNames.newList);
+    const dialogRef = this.dialog.open(ModalWindowComponent, { data: { name: ModalListNames.newList } });
+    dialogRef.closed.subscribe();
   }
 }

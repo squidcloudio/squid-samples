@@ -4,7 +4,7 @@ import { IModalWindow } from '../interfaces/interfaces';
 @Injectable({ providedIn: 'root' })
 export class ModalWindowsService {
   modalWindows: IModalWindow = {
-    newList: true,
+    newList: false,
     newItem: false,
   };
 

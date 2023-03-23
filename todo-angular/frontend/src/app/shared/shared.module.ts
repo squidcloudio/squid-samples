@@ -11,6 +11,7 @@ import { NewItemComponent } from './new-item/new-item.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   imports: [
@@ -25,6 +26,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatAutocompleteModule,
     MatInputModule,
     MatIconModule,
+    MatDialogModule,
   ],
   exports: [
     TodoListComponent,

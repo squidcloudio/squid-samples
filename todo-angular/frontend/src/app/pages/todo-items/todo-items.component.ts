@@ -5,13 +5,16 @@ import { Item, Todo } from '../../interfaces/types';
 import { ActivatedRoute } from '@angular/router';
 import { ItemsService } from '../../services/items.service';
 import { ModalWindowsService } from '../../services/modalWindows.service';
+import { Dialog } from '@angular/cdk/dialog';
+import { ModalWindowComponent } from '../../shared/modal-window/modal-window.component';
+import { ModalListNames } from '../../interfaces/interfaces';
 
 @Component({
   selector: 'app-todo',
-  templateUrl: './todo-item.component.html',
-  styleUrls: ['todo-item.component.scss'],
+  templateUrl: './todo-items.component.html',
+  styleUrls: ['todo-items.component.scss'],
 })
-export class TodoItemComponent {
+export class TodoItemsComponent {
   todoObs: Observable<Todo> | undefined;
   itemsObs: Observable<Item[]> | undefined;
 
@@ -19,7 +22,7 @@ export class TodoItemComponent {
     private todoService: TodosService,
     private activatedRoute: ActivatedRoute,
     private itemsService: ItemsService,
-    public modalWindowService: ModalWindowsService,
+    public dialog: Dialog,
   ) {
     this.activatedRoute.params.subscribe(params => {
       const currentTodoId = params['id'];
@@ -29,6 +32,7 @@ export class TodoItemComponent {
   }
 
   openModalWindow(): void {
-    this.modalWindowService.openModal('newItem');
+    const dialogRef = this.dialog.open(ModalWindowComponent, { data: { name: ModalListNames.newItem } });
+    dialogRef.closed.subscribe();
   }
 }

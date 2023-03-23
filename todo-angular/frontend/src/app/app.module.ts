@@ -6,7 +6,7 @@ import { SquidModule } from '@squidcloud/angular';
 import { AuthGuard, AuthModule } from '@auth0/auth0-angular';
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { RouterModule, Routes } from '@angular/router';
-import { TodoItemComponent } from './pages/todo-item/todo-item.component';
+import { TodoItemsComponent } from './pages/todo-items/todo-items.component';
 import { TodoNavigationComponent } from './pages/todo-navigation/todo-navigation.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from './shared/shared.module';
@@ -14,6 +14,7 @@ import { AccountService } from './services/account.service';
 import { canActivateChild } from './guards/todo.guard';
 import { CalendarSidebarComponent } from './pages/calendar-sidebar/calendar-sidebar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
 
 const routes: Routes = [
   {
@@ -24,18 +25,24 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: TodoItemComponent,
+        component: TodoItemsComponent,
       },
       {
         path: ':id',
-        component: TodoItemComponent,
+        component: TodoItemsComponent,
       },
     ],
   },
 ];
 
 @NgModule({
-  declarations: [AppComponent, MainPageComponent, TodoItemComponent, TodoNavigationComponent, CalendarSidebarComponent],
+  declarations: [
+    AppComponent,
+    MainPageComponent,
+    TodoItemsComponent,
+    TodoNavigationComponent,
+    CalendarSidebarComponent,
+  ],
   imports: [
     BrowserModule,
     SquidModule.forRoot({
@@ -53,6 +60,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     SharedModule,
     BrowserAnimationsModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

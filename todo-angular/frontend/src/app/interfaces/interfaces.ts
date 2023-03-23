@@ -11,6 +11,11 @@ export interface IModalWindow {
 
 export enum ModalListNames {
   newList = 'newList',
+  newItem = 'newItem',
+}
+
+export interface IModalWindowData {
+  name: ModalListNames.newList | ModalListNames.newItem;
 }
 
 export interface INewList {
