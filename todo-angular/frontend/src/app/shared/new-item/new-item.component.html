@@ -1,0 +1,30 @@
+<ng-container *ngIf="collectionsObs | async as collections">
+  <form [formGroup]="newItemForm" class="item-form">
+    <h2 class="form-title">Add New item</h2>
+    <div class="form-container">
+      <select name="colors" id="colors" class="form-container__component newList-select" formControlName="list">
+        <option *ngFor="let collection of collections" [value]="collection.title"></option>
+      </select>
+      <div class="form-container__component">
+        <app-text-input controlName="title" [control]="newItemForm" inputId="title" title="title"
+                        type="text"></app-text-input>
+      </div>
+      <div class="form-container__component">
+        <app-text-input
+          controlName="title"
+          [control]="newItemForm"
+          inputId="description"
+          title="description" type="text"></app-text-input>
+      </div>
+      <div class="form-container__component">
+        <app-text-input
+          controlName="dueDate"
+          [control]="newItemForm"
+          inputId="dueDate"
+          title="Due date (MM/DD/YYYY)" type="date"></app-text-input>
+      </div>
+    </div>
+
+    <app-form-buttons [control]="newItemForm" modalName="newItem" submitName="Add Item"></app-form-buttons>
+  </form>
+</ng-container>

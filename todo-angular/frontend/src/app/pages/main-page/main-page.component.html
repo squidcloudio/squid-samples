@@ -1,0 +1,28 @@
+<header
+  class="header"
+  [ngStyle]="{
+    'background-color': todoCollection.currentTodo?.color ? todoCollection.currentTodo?.color : 'black'
+  }"
+  *ngIf="userObs | async as user">
+  <div class="wrapper">
+    <div class="logo-container">
+      <img src="./assets/logo.svg" alt="" class="logo-container-img"/>
+      <p class="logo-container-title">T•D•</p>
+    </div>
+    <div class="profile">
+      <button class="profile-theme-button">
+        <img src="./assets/theme-light.svg" alt="theme"/>
+      </button>
+      <img [src]="user.avatar" alt="" class="profile-avatar" width="32" height="32"/>
+    </div>
+  </div>
+</header>
+
+<main class="content">
+  <section class="wrapper">
+    <app-todo-navigation></app-todo-navigation>
+    <router-outlet></router-outlet>
+    <app-calendar-sidebar></app-calendar-sidebar>
+  </section>
+</main>
+<button (click)="logout()">logout</button>

@@ -1,0 +1,47 @@
+.container {
+  position: relative;
+
+  &-input {
+    background: #f8f9fc;
+    outline: 0;
+    min-width: 400px;
+    border-radius: 12px;
+    border: 1px solid #e1e6ef;
+    color: #9e9e9e;
+    padding: 14px 16px;
+    transition: all 160ms ease-in;
+
+    &:focus {
+      border: 2px solid #212121;
+      color: #212121;
+
+      background: none;
+    }
+  }
+
+  &-label {
+    position: absolute;
+    left: 18px;
+    top: 15px;
+    color: #9e9e9e;
+    cursor: text;
+    background: none;
+    padding: 0px 2px;
+    font-size: 14px;
+    transition: top 160ms ease-in, left 160ms ease-in, font-size 160ms ease-in;
+  }
+}
+
+.container-input:not(:placeholder-shown) {
+  border: 2px solid #212121;
+  color: #212121;
+  background: none;
+}
+
+.container-input:focus ~ .container-label,
+.container-input:not(:placeholder-shown).container-input:not(:focus) ~ .container-label {
+  top: -6px;
+  color: #212121;
+  background: #ffffff;
+  font-size: 11px;
+}

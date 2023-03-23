@@ -1,0 +1,22 @@
+<section class="todo-section">
+  <ng-container *ngIf="todoObs | async as todo">
+    <div class="todo-section-title">
+      <h2>{{ todo.title }}</h2>
+      <button class="todo-section-title__component details-button">
+        <img src="./assets/details.svg" alt="details">
+      </button>
+    </div>
+    <div class="todo-section-content">
+      {{itemsObs|async}}
+    </div>
+    <button class="new-items-section-button" (click)="openModalWindow()">
+      <img src="./assets/add.svg" alt="add-button"/>
+      <p class="new-items-section-button-title">New List</p>
+    </button>
+  </ng-container>
+</section>
+<ng-container *ngIf="modalWindowService.modalWindows['newItem']">
+  <app-modal-window modalName="newItem">
+    <app-new-item></app-new-item>
+  </app-modal-window>
+</ng-container>

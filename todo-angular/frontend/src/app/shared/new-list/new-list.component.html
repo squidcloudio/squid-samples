@@ -1,0 +1,26 @@
+<form action="" class="new-list-form" [formGroup]="newListForm" (ngSubmit)="setNewList()">
+  <h2 class="new-list-form-title">Create New List</h2>
+  <div class="new-list-form-container">
+    <app-text-input
+      title="Title"
+      inputId="title"
+      [control]="newListForm"
+      controlName="title"
+      type="text"></app-text-input>
+  </div>
+  <div class="select-container">
+    <input matInput formControlName="color" [matAutocomplete]="auto" class="newList-select"/>
+    <mat-icon matSuffix class="newList-select-icon">keyboard_arrow_down</mat-icon>
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let color of colors" [value]="color.name">
+        <div class="option">
+          <div [style.background-color]="color.color" class="option-color"></div>
+          <p class="option-name">{{ color.name }}</p>
+        </div>
+      </mat-option>
+    </mat-autocomplete>
+  </div>
+
+
+  <app-form-buttons [control]="newListForm" modalName="newList" submitName="Create List"></app-form-buttons>
+</form>

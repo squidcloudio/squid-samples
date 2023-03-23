@@ -1,0 +1,62 @@
+@use './src/app/app.component';
+
+.new-list-form {
+  &-title {
+    color: #212121;
+    font-size: 36px;
+    font-weight: 700;
+  }
+
+  &-container {
+    margin-top: 24px;
+    @include app.flex-column();
+    align-items: self-start;
+  }
+}
+
+.select-option {
+  background-color: green;
+}
+
+.newList-select {
+  margin-top: 24px;
+  min-width: 400px;
+  border-radius: 12px;
+  border: 1px solid #666666;
+  background: none;
+  padding: 14px 16px;
+
+  &-icon {
+    position: absolute;
+    top: 35px;
+    right: 10px;
+    z-index: -1;
+  }
+}
+
+.select-container {
+  width: 400px;
+  height: 45px;
+  position: relative;
+}
+
+.option {
+  display: flex;
+
+  &-color {
+    border-radius: 100px;
+    width: 24px;
+    height: 24px;
+  }
+
+  &-name {
+    margin-left: 32px;
+    font-size: 14px;
+    color: #212121;
+  }
+}
+
+.newList-select:focus,
+.newList-select:not(:placeholder-shown) {
+  border: 2px solid #212121;
+}

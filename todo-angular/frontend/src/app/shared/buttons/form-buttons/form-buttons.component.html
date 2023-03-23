@@ -1,0 +1,6 @@
+<div class="buttons-container" *ngIf="control">
+  <button class="buttons-container__component decline-button" (click)="closeModalWindow()">Cancel</button>
+  <button class="buttons-container__component submit-button" type="submit" [disabled]="!control.valid">
+    {{ submitName }}
+  </button>
+</div>

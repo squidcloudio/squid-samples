@@ -1,0 +1,43 @@
+@use './src/app/app.component';
+
+.header {
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.logo-container {
+  margin-left: 16px;
+  display: flex;
+  align-items: center;
+
+  &-title {
+    margin-left: 17px;
+    font-size: 20px;
+    font-weight: 700;
+  }
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+
+  &-avatar {
+    margin-left: 36px;
+    border-radius: 100px;
+  }
+
+  &-theme-button {
+    background: none;
+
+  }
+}
+
+.content {
+  margin-top: 48px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

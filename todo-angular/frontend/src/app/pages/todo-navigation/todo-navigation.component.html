@@ -1,0 +1,16 @@
+<aside class="sidebar">
+  <app-todo-list listType="defaultCollection"></app-todo-list>
+  <div class="divider"></div>
+  <div class="new-items-section">
+    <app-todo-list listType="userCollection"></app-todo-list>
+    <button class="new-items-section-button" (click)="createNewList()">
+      <img src="./assets/add.svg" alt="add-button"/>
+      <p class="new-items-section-button-title">New List</p>
+    </button>
+  </div>
+</aside>
+<ng-container *ngIf="modalWindowService.modalWindows['newList']">
+  <app-modal-window modalName="newList">
+    <app-new-list></app-new-list>
+  </app-modal-window>
+</ng-container>

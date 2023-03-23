@@ -1,0 +1,6 @@
+$radius: 12px;
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
