@@ -1,19 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+import './index.scss';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { Auth0Provider } from '@auth0/auth0-react';
+import { SquidContextProvider } from '@squidcloud/react';
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <Auth0Provider
+    domain="dev-04umd56tv7v5qeyv.us.auth0.com"
+    clientId="NVTDdwX2iikH7HpcGzqqDXpzndmshbLd"
+    authorizationParams={{
+      redirect_uri: window.location.origin,
+    }}
+  >
+    <SquidContextProvider
+      options={{
+        appId: 'mnhwpkfn8e8e0ozo23',
+        region: 'us-east-1.aws',
+      }}
+    >
+      <App />
+    </SquidContextProvider>
+  </Auth0Provider>,
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
