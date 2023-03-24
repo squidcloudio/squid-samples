@@ -1,4 +1,37 @@
-@use 'new-style';
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$frontend-primary: mat.define-palette(mat.$indigo-palette);
+$frontend-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$frontend-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$frontend-theme: mat.define-light-theme((
+  color: (
+    primary: $frontend-primary,
+    accent: $frontend-accent,
+    warn: $frontend-warn,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($frontend-theme);
+
 @import url('https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700&display=swap');
 
 * {
@@ -12,9 +45,8 @@
   background: none;
 }
 
-
 body {
-  background-color: new-style.$body-color;
+  background-color: #F7F7F7;
 }
 
 .wrapper {
@@ -32,6 +64,40 @@ html, body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-
 }
 
+
+.multiselect-item-checkbox input[type='checkbox'] + div:after {
+  background-color: transparent;
+  top: 50%;
+  left: 4px;
+  width: 8px;
+  height: 3px;
+  margin-top: -4px;
+  border-style: solid;
+  border-color: #ffffff;
+  border-width: 0 0 3px 3px;
+  border-image: none;
+  transform: rotate(-45deg) scale(0);
+}
+
+.multiselect-item-checkbox input[type='checkbox']:checked + div:after {
+  content: '';
+  transform: rotate(-45deg) scale(1);
+  transition: transform 200ms ease-out;
+}
+
+.multiselect-item-checkbox input[type='checkbox']:checked + div:before {
+  animation: borderscale 200ms ease-in;
+  background: green;
+}
+
+.multiselect-item-checkbox input[type='checkbox']:checked + div:after {
+  transform: rotate(-45deg) scale(1);
+}
+
+@keyframes borderscale {
+  50% {
+    box-shadow: 0 0 0 2px green;
+  }
+}
