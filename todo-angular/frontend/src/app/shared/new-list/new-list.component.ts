@@ -35,6 +35,6 @@ export class NewListComponent {
     const currentColor = this.colors.filter(color => color.name === this.newListForm.get('color')?.value)[0].color;
     await this.todoService.createNewList(this.newListForm.get('title')?.value, currentColor);
     this.newListForm.reset();
-    this.modalWindowService.closeModal('newList');
+    this.dialog?.close();
   }
 }
