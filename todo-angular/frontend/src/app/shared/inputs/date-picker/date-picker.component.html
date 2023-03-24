@@ -1,0 +1,14 @@
+<ng-container *ngIf="control">
+  <div class="container" [formGroup]="control">
+    <input
+      matInput
+      [matDatepicker]="picker"
+      class="container-input"
+      id="date"
+      placeholder="(MM/DD/YYYY)"
+      formControlName="dueDate"/>
+    <mat-datepicker-toggle matIconSuffix [for]="picker" class="container-picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+    <label for="date" class="container-label">Choose a date</label>
+  </div>
+</ng-container>

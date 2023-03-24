@@ -1,0 +1,105 @@
+.tag-container {
+  position: relative;
+  background: #f8f9fc;
+  outline: 0;
+  display: flex;
+  align-items: center;
+  min-width: 400px;
+  border-radius: 12px;
+  border: 1px solid #e1e6ef;
+  color: #9e9e9e;
+  padding: 14px 16px;
+  transition: all 160ms ease-in;
+
+  &-label {
+    display: none;
+  }
+
+  &:focus {
+    border: 2px solid #212121;
+    color: #212121;
+    background: none;
+  }
+
+  &:has(&-input:focus) {
+    border: 2px solid #212121;
+    color: #212121;
+    background: none;
+
+    .tag-container-label {
+      position: absolute;
+      top: -10px;
+      background-color: #ffffff;
+      padding: 2px;
+      display: block;
+    }
+  }
+
+  &:focus &-label {
+    position: absolute;
+    top: -10px;
+    background-color: #ffffff;
+    padding: 2px;
+    display: block;
+  }
+
+  &-input {
+    margin-left: 10px;
+
+    &::placeholder {
+      font-size: 14px;
+      color: #9e9e9e;
+    }
+  }
+
+  &:has(&-input:not(:placeholder-shown)) {
+    border: 2px solid #212121;
+    color: #212121;
+    background: none;
+
+    .tag-container-label {
+      position: absolute;
+      top: -10px;
+      background-color: #ffffff;
+      padding: 2px;
+      display: block;
+    }
+  }
+
+  &-list {
+    display: flex;
+    flex-wrap: wrap;
+    width: 150px;
+
+    &__component {
+      margin-left: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid #212121;
+      border-radius: 4px;
+      padding: 5px;
+      color: #212121;
+      font-weight: 700;
+      font-size: 12px;
+    }
+  }
+}
+
+.tag-component-button {
+  margin-left: 10px;
+}
+
+.active {
+  border: 2px solid #212121;
+  color: #212121;
+  background: none;
+
+  .tag-container-label {
+    position: absolute;
+    top: -10px;
+    background-color: #ffffff;
+    padding: 2px;
+    display: block;
+  }
+}

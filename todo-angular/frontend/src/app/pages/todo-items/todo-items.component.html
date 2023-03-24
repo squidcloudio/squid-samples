@@ -7,7 +7,11 @@
       </button>
     </div>
     <div class="todo-section-content">
-      {{ itemsObs | async }}
+      <ul class="todo-section-content-list">
+        <li *ngFor="let item of itemsObs | async" class="todo-section-content-list__component">
+          <app-todo-item [item]="item"></app-todo-item>
+        </li>
+      </ul>
     </div>
     <button class="new-items-section-button" (click)="openModalWindow()">
       <img src="./assets/add.svg" alt="add-button"/>

@@ -13,12 +13,12 @@
       <button class="profile-theme-button">
         <img src="./assets/theme-light.svg" alt="theme"/>
       </button>
-      <img [src]="user.avatar" alt="" class="profile-avatar" width="32" height="32"/>
+      <img [src]="(userObs|async)?.avatar" alt="" class="profile-avatar" width="32" height="32"/>
     </div>
   </div>
 </header>
 
-<main class="content">
+<main class="content ">
   <section class="wrapper">
     <app-todo-navigation></app-todo-navigation>
     <router-outlet></router-outlet>

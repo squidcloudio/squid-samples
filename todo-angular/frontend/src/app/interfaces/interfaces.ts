@@ -22,3 +22,8 @@ export interface INewList {
   title: string;
   color: string;
 }
+
+export interface ITag {
+  id: string;
+  name: string;
+}

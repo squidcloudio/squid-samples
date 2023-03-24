@@ -1,0 +1,20 @@
+<section class="item">
+  <mat-checkbox
+    color="#15C771"
+  ></mat-checkbox>
+  <article class="item-content">
+    <div class="item-content-text">
+      <p class="item-content-text-title">{{item?.title}}</p>
+      <p class="item-content-text-description">{{item?.description}}</p>
+    </div>
+    <div class="item-content-devider"></div>
+    <div class="item-content-info">
+      <p class="item-content-info__component item-content-info-date">Due Date <span
+        class="format-date">{{formatDateFormItem}}</span></p>
+      <ul class="item-content-info-tags">
+        <li *ngFor="let tag of item?.tags" class="item-content-info-tags__component">{{tag.name}}</li>
+      </ul>
+    </div>
+
+  </article>
+</section>

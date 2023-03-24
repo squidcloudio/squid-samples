@@ -10,7 +10,6 @@ import { TodoItemsComponent } from './pages/todo-items/todo-items.component';
 import { TodoNavigationComponent } from './pages/todo-navigation/todo-navigation.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from './shared/shared.module';
-import { AccountService } from './services/account.service';
 import { canActivateChild } from './guards/todo.guard';
 import { CalendarSidebarComponent } from './pages/calendar-sidebar/calendar-sidebar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -65,6 +64,4 @@ const routes: Routes = [
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {
-  constructor(private readonly _accountService: AccountService) {}
-}
+export class AppModule {}

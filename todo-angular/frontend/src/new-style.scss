@@ -1,0 +1,5 @@
+$body-color: #F7F7F7;
+$side: green;
+@mixin changeColor($color) {
+  $body-color: $color !global;
+}

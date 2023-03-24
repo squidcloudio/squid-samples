@@ -2,9 +2,10 @@
 
 .todo-section {
   @include app.flex-column();
-  align-items: center;
+  align-items: start;
 
   &-title {
+    width: 100%;
     font-size: 36px;
     color: #212121;
     font-weight: 700;
@@ -14,9 +15,18 @@
   }
 
   &-content {
+    margin-top: 16px;
     background-color: #ffffff;
     padding: 37px 28px;
     border-radius: 12px;
+
+    &-list {
+      &__component {
+        &:not(:first-child) {
+          margin-top: 47px;
+        }
+      }
+    }
   }
 }
 
