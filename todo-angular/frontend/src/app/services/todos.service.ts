@@ -3,12 +3,16 @@ import { Squid } from '@squidcloud/client';
 import { Todo } from '../interfaces/types';
 import { map, NEVER, Observable, switchMap } from 'rxjs';
 import { AccountService } from './account.service';
+import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class TodosService {
   currentTodo?: Todo;
+  todoCollection;
 
-  constructor(private readonly squid: Squid, private accountService: AccountService) {}
+  constructor(private readonly squid: Squid, private accountService: AccountService, private router: Router) {
+    this.todoCollection = this.squid.collection<Todo>('todos');
+  }
 
   getCollection(id: string): Observable<Todo[]> {
     return this.squid
@@ -24,6 +28,7 @@ export class TodosService {
       .collection<Todo>('todos')
       .query()
       .where('title', 'in', ['Today', 'Tomorrow', 'Someday'])
+      .sortBy('id')
       .snapshots()
       .pipe(map(todos => todos.map(todo => todo.data)));
   }
@@ -36,6 +41,7 @@ export class TodosService {
           .collection<Todo>('todos')
           .query()
           .where('userId', '==', user.id)
+          .sortBy('id')
           .snapshots()
           .pipe(map(todos => todos.map(todo => todo.data)));
       }),
@@ -56,5 +62,12 @@ export class TodosService {
       color: color,
     };
     await this.squid.collection<Todo>('todos').doc(newList.id).insert(newList);
+  }
+
+  deleteTodo(): void {
+    if (this.currentTodo?.id) {
+      this.squid.collection<Todo>('todos').doc(this.currentTodo?.id).delete();
+    }
+    this.router.navigate(['', '1']);
   }
 }

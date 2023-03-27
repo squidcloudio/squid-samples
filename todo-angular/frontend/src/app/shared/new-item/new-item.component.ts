@@ -2,9 +2,9 @@ import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TodosService } from '../../services/todos.service';
 import { ItemsService } from '../../services/items.service';
-import { NEVER, Observable } from 'rxjs';
 import { Item, Todo } from '../../interfaces/types';
 import { DialogRef } from '@angular/cdk/dialog';
+import { AccountService } from '../../services/account.service';
 
 @Component({
   selector: 'app-new-item',
@@ -22,12 +22,18 @@ export class NewItemComponent {
   });
   currentTodo?: Todo;
 
-  constructor(private todoService: TodosService, private itemService: ItemsService) {
+  constructor(
+    private todoService: TodosService,
+    private itemService: ItemsService,
+    private accountService: AccountService,
+  ) {
     this.currentTodo = this.todoService.currentTodo;
   }
 
-  onSubmit(): void {
+  async onSubmit(): Promise<void> {
+    const currentUser = await this.accountService.getUser();
     if (!this.currentTodo) return;
+    if (!currentUser) return;
     const newId = self.crypto.randomUUID();
     const newItem: Item = {
       title: this.newItemForm.get('title')?.value,
@@ -39,7 +45,7 @@ export class NewItemComponent {
       }),
       tags: this.newItemForm.get('tags')?.value,
       todoId: this.currentTodo.id,
-      userId: this.currentTodo.userId,
+      userId: currentUser.id,
       completed: false,
       id: newId,
     };

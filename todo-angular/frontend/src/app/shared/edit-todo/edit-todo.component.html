@@ -1,0 +1,17 @@
+<button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+  <mat-icon>more_horiz</mat-icon>
+</button>
+<mat-menu #menu="matMenu" xPosition="before">
+  <button mat-menu-item>
+    <div class="menu-component">
+      <img src="assets/edit.svg"/>
+      <span class="menu-component-text">Edit</span>
+    </div>
+  </button>
+  <button mat-menu-item (click)="deleteTodo()">
+    <div class="menu-component">
+      <img src="assets/delete.svg"/>
+      <span class="menu-component-text">Delete</span>
+    </div>
+  </button>
+</mat-menu>

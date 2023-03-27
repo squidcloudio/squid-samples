@@ -1,6 +1,9 @@
-<section class="item">
+<section class="item" [ngClass]="item?.completed?'item-completed':''">
   <mat-checkbox
     color="#15C771"
+    (click)="changeItemStatus(item?.id)"
+    [checked]="item?.completed"
+
   ></mat-checkbox>
   <article class="item-content">
     <div class="item-content-text">

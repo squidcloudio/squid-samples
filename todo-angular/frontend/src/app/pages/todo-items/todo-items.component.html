@@ -1,21 +1,37 @@
-<section class="todo-section">
-  <ng-container *ngIf="todoObs | async as todo">
+<ng-container *ngIf="todoObs | async as todo">
+  <div class="todo-section">
     <div class="todo-section-title">
       <h2>{{ todo.title }}</h2>
+      <app-edit-todo></app-edit-todo>
+    </div>
+    <div class="todo-section-content">
+      <h2 *ngIf="!(activeItemsObs | async)?.length" class="no-items-title">There is no items</h2>
+      <ul class="todo-section-content-list">
+        <li *ngFor="let item of activeItemsObs | async" class="todo-section-content-list__component">
+          <app-todo-item [item]="item"></app-todo-item>
+        </li>
+      </ul>
+      <button class="new-items-section-button" (click)="openModalWindow()">
+        <img src="./assets/add.svg" alt="add-button"/>
+        <p class="new-items-section-button-title">New Item</p>
+      </button>
+    </div>
+  </div>
+</ng-container>
+<ng-container *ngIf="completedItemsObs | async as completedItems">
+  <div class="completed-items todo-section" *ngIf="completedItems.length">
+    <div class="todo-section-title">
+      <h2>Completed</h2>
       <button class="todo-section-title__component details-button">
         <img src="./assets/details.svg" alt="details"/>
       </button>
     </div>
     <div class="todo-section-content">
       <ul class="todo-section-content-list">
-        <li *ngFor="let item of itemsObs | async" class="todo-section-content-list__component">
+        <li *ngFor="let item of completedItems" class="todo-section-content-list__component">
           <app-todo-item [item]="item"></app-todo-item>
         </li>
       </ul>
     </div>
-    <button class="new-items-section-button" (click)="openModalWindow()">
-      <img src="./assets/add.svg" alt="add-button"/>
-      <p class="new-items-section-button-title">New List</p>
-    </button>
-  </ng-container>
-</section>
+  </div>
+</ng-container>

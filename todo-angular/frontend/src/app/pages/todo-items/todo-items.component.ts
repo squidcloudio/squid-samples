@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { TodosService } from '../../services/todos.service';
-import { map, Observable } from 'rxjs';
+import { map, Observable, of, switchMap } from 'rxjs';
 import { Item, Todo } from '../../interfaces/types';
 import { ActivatedRoute } from '@angular/router';
 import { ItemsService } from '../../services/items.service';
-import { ModalWindowsService } from '../../services/modalWindows.service';
 import { Dialog } from '@angular/cdk/dialog';
 import { ModalWindowComponent } from '../../shared/modal-window/modal-window.component';
 import { ModalListNames } from '../../interfaces/interfaces';
@@ -16,7 +15,8 @@ import { ModalListNames } from '../../interfaces/interfaces';
 })
 export class TodoItemsComponent {
   todoObs: Observable<Todo> | undefined;
-  itemsObs: Observable<Item[]> | undefined;
+  activeItemsObs: Observable<Item[]> | undefined;
+  completedItemsObs?: Observable<Item[]>;
 
   constructor(
     private todoService: TodosService,
@@ -27,7 +27,16 @@ export class TodoItemsComponent {
     this.activatedRoute.params.subscribe(params => {
       const currentTodoId = params['id'];
       this.todoObs = this.todoService.getCollection(currentTodoId).pipe(map(todos => todos[0]));
-      this.itemsObs = this.itemsService.getItemsFromCurrentTodo(currentTodoId);
+      this.activeItemsObs = this.itemsService
+        .getItemsFromCurrentTodo(currentTodoId)
+        .pipe(map(items => items.filter(item => !item.completed)));
+
+      this.completedItemsObs = this.itemsService.getItemsFromCurrentTodo(currentTodoId).pipe(
+        map(items => items.filter(item => item.completed)),
+        switchMap(items => {
+          return of(items);
+        }),
+      );
     });
   }
 

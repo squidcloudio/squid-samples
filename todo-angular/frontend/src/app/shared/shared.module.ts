@@ -19,6 +19,9 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { MultiSelectComponent } from './inputs/multi-select/multi-select.component';
 import { TodoItemComponent } from './todo-item/todo-item.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { EditTodoComponent } from './edit-todo/edit-todo.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { ItemsAmountComponent } from './items-amount/items-amount.component';
 
 @NgModule({
   imports: [
@@ -39,6 +42,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     NgMultiSelectDropDownModule,
     NgClass,
     MatCheckboxModule,
+    MatMenuModule,
   ],
   exports: [
     TodoListComponent,
@@ -50,6 +54,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     DatePickerComponent,
     MultiSelectComponent,
     TodoItemComponent,
+    EditTodoComponent,
+    ItemsAmountComponent,
   ],
   providers: [],
   declarations: [
@@ -62,6 +68,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     DatePickerComponent,
     MultiSelectComponent,
     TodoItemComponent,
+    EditTodoComponent,
+    ItemsAmountComponent,
   ],
 })
 export class SharedModule {}

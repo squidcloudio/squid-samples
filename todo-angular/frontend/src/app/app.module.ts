@@ -14,6 +14,7 @@ import { canActivateChild } from './guards/todo.guard';
 import { CalendarSidebarComponent } from './pages/calendar-sidebar/calendar-sidebar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
+import { Squid } from '@squidcloud/client';
 
 const routes: Routes = [
   {

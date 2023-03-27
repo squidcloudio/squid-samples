@@ -1,7 +1,4 @@
 import { Component } from '@angular/core';
-import { TodosService } from '../../services/todos.service';
-import { Todo } from '../../interfaces/types';
-import { Observable } from 'rxjs';
 import { ModalListNames } from '../../interfaces/interfaces';
 import { Dialog } from '@angular/cdk/dialog';
 import { ModalWindowComponent } from '../../shared/modal-window/modal-window.component';

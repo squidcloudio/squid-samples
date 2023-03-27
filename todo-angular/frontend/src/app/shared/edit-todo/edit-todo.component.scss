@@ -1,0 +1,27 @@
+.menu-component {
+  display: flex;
+  align-items: start;
+
+  &-text {
+    margin-left: 12px;
+    font-weight: 400;
+    font-size: 14px;
+    color: #666666;
+  }
+
+  &:hover {
+    &-text {
+      color: #212121;
+    }
+  }
+}
+
+.mat-mdc-menu-item:hover {
+  .menu-component-text {
+    color: #212121;
+  }
+
+  img {
+    fill: #212121;
+  }
+}
