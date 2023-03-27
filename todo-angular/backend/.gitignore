@@ -2,6 +2,6 @@
 squid-api-key.json
 /dist
 /node_modules
-.idea
-.vscode
+.idea/
+.vscode/
 /mongo
