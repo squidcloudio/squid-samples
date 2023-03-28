@@ -22,6 +22,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { EditTodoComponent } from './edit-todo/edit-todo.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { ItemsAmountComponent } from './items-amount/items-amount.component';
+import {EditTodoFormComponent} from "./edit-todo-form/edit-todo-form.component";
 
 @NgModule({
   imports: [
@@ -56,6 +57,7 @@ import { ItemsAmountComponent } from './items-amount/items-amount.component';
     TodoItemComponent,
     EditTodoComponent,
     ItemsAmountComponent,
+    EditTodoFormComponent
   ],
   providers: [],
   declarations: [
@@ -70,6 +72,7 @@ import { ItemsAmountComponent } from './items-amount/items-amount.component';
     TodoItemComponent,
     EditTodoComponent,
     ItemsAmountComponent,
+    EditTodoFormComponent
   ],
 })
 export class SharedModule {}

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { IModalWindow } from '../interfaces/interfaces';
+import { ModalWindow } from '../interfaces';
 
 @Injectable({ providedIn: 'root' })
 export class ModalWindowsService {
-  modalWindows: IModalWindow = {
+  modalWindows: ModalWindow = {
     newList: false,
     newItem: false,
   };

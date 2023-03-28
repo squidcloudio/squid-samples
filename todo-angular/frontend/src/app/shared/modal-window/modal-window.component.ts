@@ -1,7 +1,7 @@
 import { Component, Inject, Input } from '@angular/core';
 import { ModalWindowsService } from '../../services/modalWindows.service';
 import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
-import { IModalWindowData } from '../../interfaces/interfaces';
+import {ModalWindowData} from "../../interfaces";
 
 @Component({
   selector: 'app-modal-window',
@@ -14,7 +14,7 @@ export class ModalWindowComponent {
   constructor(
     private modalWindowService: ModalWindowsService,
     public dialogRef: DialogRef<string>,
-    @Inject(DIALOG_DATA) public data: IModalWindowData,
+    @Inject(DIALOG_DATA) readonly data: ModalWindowData,
   ) {}
 
   closeModal(): void {

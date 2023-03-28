@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TodosService } from '../../services/todos.service';
 import { ItemsService } from '../../services/items.service';
-import { Item, Todo } from '../../interfaces/types';
+import { Item, Todo } from '../../interfaces';
 import { DialogRef } from '@angular/cdk/dialog';
 import { AccountService } from '../../services/account.service';
 
@@ -12,15 +12,15 @@ import { AccountService } from '../../services/account.service';
   styleUrls: ['./new-item.component.scss'],
 })
 export class NewItemComponent {
-  @Input('dialog') dialog?: DialogRef<string>;
+  @Input('dialog')  dialog?: DialogRef<string>;
 
-  newItemForm: FormGroup = new FormGroup({
+  readonly newItemForm: FormGroup = new FormGroup({
     title: new FormControl(null, Validators.required),
     description: new FormControl(null, Validators.required),
     dueDate: new FormControl(null, Validators.required),
     tags: new FormControl([], Validators.required),
   });
-  currentTodo?: Todo;
+ readonly currentTodo?: Todo;
 
   constructor(
     private todoService: TodosService,

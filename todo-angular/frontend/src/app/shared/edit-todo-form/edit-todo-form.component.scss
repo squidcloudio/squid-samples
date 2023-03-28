@@ -1,9 +1,8 @@
 @use './src/styles';
-.form {
-  &-title {
+.form{
+  &-title{
     @include styles.formTitle()
   }
-
   &-container {
     margin-top: 24px;
     display: flex;
@@ -16,13 +15,4 @@
       }
     }
   }
-}
-
-.newList-select {
-  margin-top: 24px;
-  min-width: 400px;
-  border-radius: 12px;
-  border: 1px solid #666666;
-  background: none;
-  padding: 14px 16px;
 }

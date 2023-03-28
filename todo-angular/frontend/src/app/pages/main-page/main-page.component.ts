@@ -11,7 +11,7 @@ import { TodosService } from '../../services/todos.service';
 export class MainPageComponent {
   readonly userObs = this.accountService.observeUser();
 
-  constructor(private accountService: AccountService, public todoCollection: TodosService) {}
+  constructor(private accountService: AccountService, readonly todoCollection: TodosService) {}
 
   logout(): void {
     this.accountService.logout();

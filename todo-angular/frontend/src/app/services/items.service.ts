@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { TodosService } from './todos.service';
 import { Squid } from '@squidcloud/client';
-import { Item } from '../interfaces/types';
+import { Item } from '../interfaces';
 import { map, NEVER, Observable, switchMap } from 'rxjs';
 import { AccountService } from './account.service';
 
@@ -37,32 +37,23 @@ export class ItemsService {
     return this.accountService.observeUser().pipe(
       switchMap(user => {
         if (!user) return NEVER;
+        const query = this.item.query().where('userId', '==', user.id);
+
         switch (todoId) {
           case '1':
-            return this.item
-              .query()
-              .where('userId', '==', user?.id)
-              .where('dueDate', '==', today)
-              .snapshots()
-              .pipe(map(items => items.map(item => item.data)));
+            query.where('dueDate', '==', today);
+            break;
           case '2':
-            return this.item
-              .query()
-              .where('userId', '==', user?.id)
-              .where('dueDate', '==', tomorrow)
-              .snapshots()
-              .pipe(map(items => items.map(item => item.data)));
+            query.where('dueDate', '==', tomorrow);
+            break;
           case '3':
-            return this.item
-              .query()
-              .where('userId', '==', user?.id)
-              .where('dueDate', 'not in', [today, tomorrow])
-              .snapshots()
-              .pipe(map(items => items.map(item => item.data)));
+            query.where('dueDate', 'not in', [today, tomorrow]);
+            break;
           default:
             return this.item
               .query()
               .where('todoId', '==', todoId)
+              .where('userId', '==', user.id)
               .snapshots()
               .pipe(
                 map(items =>
@@ -72,6 +63,7 @@ export class ItemsService {
                 ),
               );
         }
+        return query.snapshots().pipe(map(items => items.map(item => item.data)));
       }),
     );
   }

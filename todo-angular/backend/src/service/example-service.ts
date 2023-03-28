@@ -24,17 +24,4 @@ export type Item = {
   completed: boolean;
 };
 
-export class ExampleService extends SquidService {
-  @trigger("local", "todos")
-  async handleTodoDelete(request: TriggerRequest): Promise<void> {
-    let itemsFormCurrentTodo;
-    console.log(request.squidDocId);
-    if (request.mutationType === "delete") {
-      itemsFormCurrentTodo = await this.squid
-        .collection<Item>("items")
-        .query()
-        .where("todoId", "==", request.squidDocId)
-        .snapshot();
-    }
-  }
-}
+export class ExampleService extends SquidService {}

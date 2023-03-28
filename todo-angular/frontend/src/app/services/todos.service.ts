@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Squid } from '@squidcloud/client';
-import { Todo } from '../interfaces/types';
+import { Todo } from '../interfaces';
 import { map, NEVER, Observable, switchMap } from 'rxjs';
 import { AccountService } from './account.service';
 import { Router } from '@angular/router';
@@ -8,15 +8,14 @@ import { Router } from '@angular/router';
 @Injectable({ providedIn: 'root' })
 export class TodosService {
   currentTodo?: Todo;
-  todoCollection;
+ readonly todoCollection;
 
   constructor(private readonly squid: Squid, private accountService: AccountService, private router: Router) {
     this.todoCollection = this.squid.collection<Todo>('todos');
   }
 
-  getCollection(id: string): Observable<Todo[]> {
-    return this.squid
-      .collection<Todo>('todos')
+  listTodos(id: string): Observable<Todo[]> {
+    return this.todoCollection
       .query()
       .where('id', '==', id)
       .snapshots()
@@ -24,8 +23,7 @@ export class TodosService {
   }
 
   getDefaultCollection(): Observable<Todo[]> {
-    return this.squid
-      .collection<Todo>('todos')
+    return this.todoCollection
       .query()
       .where('title', 'in', ['Today', 'Tomorrow', 'Someday'])
       .sortBy('id')
@@ -37,8 +35,7 @@ export class TodosService {
     return this.accountService.observeUser().pipe(
       switchMap(user => {
         if (!user) return NEVER;
-        return this.squid
-          .collection<Todo>('todos')
+        return this.todoCollection
           .query()
           .where('userId', '==', user.id)
           .sortBy('id')
@@ -61,13 +58,17 @@ export class TodosService {
       title: title,
       color: color,
     };
-    await this.squid.collection<Todo>('todos').doc(newList.id).insert(newList);
+    await this.todoCollection.doc(newList.id).insert(newList);
   }
 
   deleteTodo(): void {
     if (this.currentTodo?.id) {
-      this.squid.collection<Todo>('todos').doc(this.currentTodo?.id).delete();
+      this.todoCollection.doc(this.currentTodo?.id).delete();
     }
     this.router.navigate(['', '1']);
+  }
+
+  changeTodo(id:string, newTitle:string):void{
+            this.todoCollection.doc(id).update({title: newTitle})
   }
 }

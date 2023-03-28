@@ -12,6 +12,9 @@
       <ng-container *ngIf="data.name === 'newItem'">
         <app-new-item [dialog]="dialogRef"></app-new-item>
       </ng-container>
+      <ng-container *ngIf="data.name === 'editTodo'">
+        <app-edit-todo-form [dialog]="dialogRef" [todoId]="" [todoTitle]="data.todoTitle" [todoId]="data.todoId"></app-edit-todo-form>
+      </ng-container>
     </div>
   </div>
 </div>

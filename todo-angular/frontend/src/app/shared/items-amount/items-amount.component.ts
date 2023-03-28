@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Todo } from '../../interfaces/types';
+import { Todo } from '../../interfaces';
 import { ItemsService } from '../../services/items.service';
 import { map, Observable, of } from 'rxjs';
 
@@ -16,6 +16,9 @@ export class ItemsAmountComponent implements OnInit {
 
   ngOnInit(): void {
     if (!this.todo) return;
-    this.amount = this.itemService.getItemsFromCurrentTodo(this.todo.id).pipe(map(items => items.length));
+    this.amount = this.itemService.getItemsFromCurrentTodo(this.todo.id).pipe(
+      map(items => items.filter(item => !item.completed)),
+      map(items => items.length),
+    );
   }
 }

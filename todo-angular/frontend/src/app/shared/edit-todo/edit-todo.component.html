@@ -1,8 +1,8 @@
-<button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+<button mat-icon-button [matMenuTriggerFor]="menu" class="menu-button">
   <mat-icon>more_horiz</mat-icon>
 </button>
 <mat-menu #menu="matMenu" xPosition="before">
-  <button mat-menu-item>
+  <button mat-menu-item (click)="openModalWindow(modalListNames.editTodo, todoTitle)">
     <div class="menu-component">
       <img src="assets/edit.svg"/>
       <span class="menu-component-text">Edit</span>

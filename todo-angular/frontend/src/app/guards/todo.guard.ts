@@ -14,7 +14,7 @@ export const canActivate: CanActivateFn = (route: ActivatedRouteSnapshot, state:
   const router = inject(Router);
   const currentIdFromParam = route.params['id'];
 
-  return todosService.getCollection(currentIdFromParam).pipe(
+  return todosService.listTodos(currentIdFromParam).pipe(
     tap(result => {
       if (!result || !currentIdFromParam) {
         router.navigate(['', 1]);

@@ -1,5 +1,5 @@
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
-import { ITag } from '../../../interfaces/interfaces';
+import { Tag } from '../../../interfaces';
 import { FormGroup } from '@angular/forms';
 
 @Component({
@@ -13,7 +13,7 @@ export class MultiSelectComponent {
   currentTag = '';
   tags = ['product', 'weekly'];
 
-  selectedTags: ITag[] = [];
+  selectedTags: Tag[] = [];
 
   focus(e: MouseEvent): void {
     e.stopImmediatePropagation();

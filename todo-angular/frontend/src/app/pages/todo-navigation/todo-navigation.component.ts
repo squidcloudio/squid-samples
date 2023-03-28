@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ModalListNames } from '../../interfaces/interfaces';
+import { ModalListNames } from '../../interfaces';
 import { Dialog } from '@angular/cdk/dialog';
 import { ModalWindowComponent } from '../../shared/modal-window/modal-window.component';
 

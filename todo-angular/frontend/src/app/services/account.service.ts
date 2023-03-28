@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
-import { User } from '../interfaces/interfaces';
+import { User } from '../interfaces';
 import { firstValueFrom, NEVER, Observable, of, switchMap } from 'rxjs';
 import { Squid } from '@squidcloud/client';
 

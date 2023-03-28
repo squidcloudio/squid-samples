@@ -1,7 +1,8 @@
 <ng-container *ngIf="control && controlName">
   <div class="container" [formGroup]="control">
     <input [type]="type" name="email" [id]="inputId" class="container-input" placeholder=" "
-           [formControlName]="controlName"/>
+           [formControlName]="controlName" [(ngModel)]="initValue"/>
     <label [for]="inputId" class="container-label">{{title}}</label>
+
   </div>
 </ng-container>
