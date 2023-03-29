@@ -14,6 +14,7 @@ import { canActivateChild } from './guards/todo.guard';
 import { CalendarSidebarComponent } from './pages/calendar-sidebar/calendar-sidebar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 
 const routes: Routes = [
   {
@@ -60,6 +61,7 @@ const routes: Routes = [
     SharedModule,
     BrowserAnimationsModule,
     MatDialogModule,
+    MatIconModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

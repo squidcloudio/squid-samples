@@ -69,11 +69,13 @@
   &-list {
     display: flex;
     flex-wrap: wrap;
-    width: 150px;
-
+    min-width: 50px;
+    max-width: 160px;
+    gap: 5px;
     &__component {
-      margin-left: 5px;
       display: flex;
+      max-inline-size: 150px;
+      overflow-wrap: anywhere;
       justify-content: space-between;
       align-items: center;
       border: 1px solid #212121;

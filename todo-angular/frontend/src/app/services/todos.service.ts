@@ -8,18 +8,18 @@ import { Router } from '@angular/router';
 @Injectable({ providedIn: 'root' })
 export class TodosService {
   currentTodo?: Todo;
- readonly todoCollection;
+  readonly todoCollection;
 
   constructor(private readonly squid: Squid, private accountService: AccountService, private router: Router) {
     this.todoCollection = this.squid.collection<Todo>('todos');
   }
 
-  listTodos(id: string): Observable<Todo[]> {
+  todo(id: string): Observable<Todo> {
     return this.todoCollection
       .query()
       .where('id', '==', id)
       .snapshots()
-      .pipe(map(todos => todos.map(todo => todo.data)));
+      .pipe(map(todos => todos.map(todo => todo.data)[0]));
   }
 
   getDefaultCollection(): Observable<Todo[]> {
@@ -68,7 +68,7 @@ export class TodosService {
     this.router.navigate(['', '1']);
   }
 
-  changeTodo(id:string, newTitle:string):void{
-            this.todoCollection.doc(id).update({title: newTitle})
+  changeTodo(id: string, newTitle: string): void {
+    this.todoCollection.doc(id).update({ title: newTitle });
   }
 }

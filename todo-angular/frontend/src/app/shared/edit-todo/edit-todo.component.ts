@@ -19,7 +19,7 @@ export class EditTodoComponent {
     this.todoService.deleteTodo();
   }
   openModalWindow(windowName: string, value?: string): void {
-    const dialogRef = this.dialog.open(ModalWindowComponent, { data: { name: windowName, todoTitle: value,todoId:this.todoId } });
+    const dialogRef = this.dialog.open(ModalWindowComponent, { data: { name: windowName, id:this.todoId } });
     dialogRef.closed.subscribe();
   }
 }

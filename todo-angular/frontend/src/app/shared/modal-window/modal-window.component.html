@@ -1,8 +1,8 @@
 <div class="modal">
   <div class="modal-body">
     <div class="modal-body-header">
-      <button class="modal-body-header-button" (click)="dialogRef.close() " (keydown.enter)="$event.preventDefault()">
-        <img src="./assets/close.svg" alt="close-button"/>
+      <button class="modal-body-header-button" (click)="dialogRef.close()" (keydown.enter)="$event.preventDefault()">
+        <img src="./assets/close.svg" alt="close-button" />
       </button>
     </div>
     <div class="modal-body-content">
@@ -10,10 +10,13 @@
         <app-new-list [dialog]="dialogRef"></app-new-list>
       </ng-container>
       <ng-container *ngIf="data.name === 'newItem'">
-        <app-new-item [dialog]="dialogRef"></app-new-item>
+        <app-new-item [dialog]="dialogRef" title="Add New Item" submitName="Add item"></app-new-item>
+      </ng-container>
+      <ng-container *ngIf="data.name === 'editItem'">
+        <app-new-item [dialog]="dialogRef" [itemId]="data.id" title="Edit Item" submitName="Save"></app-new-item>
       </ng-container>
       <ng-container *ngIf="data.name === 'editTodo'">
-        <app-edit-todo-form [dialog]="dialogRef" [todoId]="" [todoTitle]="data.todoTitle" [todoId]="data.todoId"></app-edit-todo-form>
+        <app-edit-todo-form [dialog]="dialogRef" [todoId]="" [todoId]="data.id"></app-edit-todo-form>
       </ng-container>
     </div>
   </div>

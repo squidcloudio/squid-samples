@@ -4,10 +4,11 @@ import { Squid } from '@squidcloud/client';
 import { Item } from '../interfaces';
 import { map, NEVER, Observable, switchMap } from 'rxjs';
 import { AccountService } from './account.service';
+import * as moment from 'moment';
 
 @Injectable({ providedIn: 'root' })
 export class ItemsService {
-  item = this.squid.collection<Item>('items');
+  readonly item = this.squid.collection<Item>('items');
 
   constructor(
     private todoService: TodosService,
@@ -25,15 +26,8 @@ export class ItemsService {
   }
 
   getItemsFromCurrentTodo(todoId: string): Observable<Item[]> {
-    const local = 'en-Us';
-    const options: any = {
-      month: 'numeric',
-      day: 'numeric',
-      year: 'numeric',
-    };
-    const nextDate = new Date().setDate(new Date().getDate() + 1);
-    const today = new Date().toLocaleDateString(local, options);
-    const tomorrow = new Date(nextDate).toLocaleDateString(local, options);
+    const today = moment().format('M/D/YYYY');
+    const tomorrow = moment().add(1, 'day').format('M/D/YYYY');
     return this.accountService.observeUser().pipe(
       switchMap(user => {
         if (!user) return NEVER;
@@ -66,5 +60,22 @@ export class ItemsService {
         return query.snapshots().pipe(map(items => items.map(item => item.data)));
       }),
     );
+  }
+
+  getItem(id: string): Observable<Item> {
+    return this.item
+      .query()
+      .where('id', '==', id)
+      .snapshots()
+      .pipe(
+        map(items => {
+          return items.map(item => item.data)[0];
+        }),
+      );
+  }
+  async changeItem(id: string, item: Item): Promise<void> {
+    await this.item
+      .doc(id)
+      .update({ title: item.title, description: item.description, dueDate: item.dueDate, tags: item.tags });
   }
 }

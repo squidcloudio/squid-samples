@@ -15,11 +15,13 @@ import { ModalListNames } from '../../interfaces';
 })
 export class TodoItemsComponent implements OnInit, OnDestroy {
   todoObs: Observable<Todo> | undefined;
-  readonly modalListName = ModalListNames;
   activeItemsObs: Observable<Item[]> | undefined;
   completedItemsObs?: Observable<Item[]>;
-  readonly paramsObs: Observable<Params> = this.activatedRoute.params;
   paramsSub: Subscription | undefined;
+  itemId = '';
+  readonly modalListName = ModalListNames;
+  readonly paramsObs: Observable<Params> = this.activatedRoute.params;
+
   constructor(
     private todoService: TodosService,
     private activatedRoute: ActivatedRoute,
@@ -29,7 +31,7 @@ export class TodoItemsComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.paramsSub = this.paramsObs.subscribe(params => {
       const currentTodoId = params['id'];
-      this.todoObs = this.todoService.listTodos(currentTodoId).pipe(map(todos => todos[0]));
+      this.todoObs = this.todoService.todo(currentTodoId).pipe(map(todos => todos));
       this.activeItemsObs = this.itemsService
         .getItemsFromCurrentTodo(currentTodoId)
         .pipe(map(items => items.filter(item => !item.completed)));
@@ -49,5 +51,8 @@ export class TodoItemsComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy(): void {
     this.paramsSub?.unsubscribe();
+  }
+  setItemId(id: string): void {
+    this.itemId = id;
   }
 }

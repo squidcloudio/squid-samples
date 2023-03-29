@@ -1,23 +1,22 @@
-<section class="item" [ngClass]="item?.completed?'item-completed':''">
-  <mat-checkbox
-    color="#15C771"
-    (click)="changeItemStatus(item?.id)"
-    [checked]="item?.completed"
-
-  ></mat-checkbox>
+<section class="item" [ngClass]="{ 'item-completed': item?.completed, 'item-selected': item?.id === itemId }">
+  <mat-checkbox color="#15C771" (click)="changeItemStatus(item?.id)" [checked]="item?.completed"></mat-checkbox>
   <article class="item-content">
-    <div class="item-content-text">
-      <p class="item-content-text-title">{{item?.title}}</p>
-      <p class="item-content-text-description">{{item?.description}}</p>
+    <div class="item-content-header">
+      <div class="item-content-header-text">
+        <p class="item-content-header-text-title">{{ item?.title }}</p>
+        <p class="item-content-header-text-description">{{ item?.description }}</p>
+      </div>
+      <button class="item-content-header-edit" (click)="openModalWindow(modalWindowName.editItem)"><img src="assets/edit.svg" alt="edit-button" /></button>
     </div>
+
     <div class="item-content-devider"></div>
     <div class="item-content-info">
-      <p class="item-content-info__component item-content-info-date">Due Date <span
-        class="format-date">{{formatDateFormItem}}</span></p>
+      <p class="item-content-info__component item-content-info-date">
+        Due Date <span class="format-date">{{ formatDateFormItem }}</span>
+      </p>
       <ul class="item-content-info-tags">
-        <li *ngFor="let tag of item?.tags" class="item-content-info-tags__component">{{tag.name}}</li>
+        <li *ngFor="let tag of item?.tags" class="item-content-info-tags__component">{{ tag.name }}</li>
       </ul>
     </div>
-
   </article>
 </section>

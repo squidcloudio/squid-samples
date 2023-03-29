@@ -9,9 +9,9 @@
     <div class="todo-section-content">
       <h2 *ngIf="!(activeItemsObs | async)?.length" class="no-items-title">There is no items</h2>
       <ul class="todo-section-content-list">
-        <li *ngFor="let item of activeItemsObs | async" class="todo-section-content-list__component">
+        <li *ngFor="let item of activeItemsObs | async" class="todo-section-content-list__component" (click)="setItemId(item.id)">
 
-          <app-todo-item [item]="item"></app-todo-item>
+          <app-todo-item [item]="item" [itemId]="itemId"></app-todo-item>
         </li>
       </ul>
       <ng-container *ngIf="!(todo.id === '2' || todo.id ==='3')">

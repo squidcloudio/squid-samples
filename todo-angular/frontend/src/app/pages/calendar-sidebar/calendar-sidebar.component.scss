@@ -1,7 +1,49 @@
-
 .calendar-sidebar {
   min-width: 280px;
   background-color: #ffffff;
   padding: 30px 24px;
   border-radius: 12px;
+  &-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    &-title {
+      font-weight: 700;
+      font-size: 16px;
+    }
+    &-navigation {
+    }
+  }
+
+  &-dates {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-around;
+    &__component {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 5px;
+      & p{
+        font-weight: 400;
+        font-size: 16px;
+        color: #666666;
+      }
+      &-number{
+        margin-top: 10px;
+      }
+
+      &:hover{
+        background-color: #F8F9FC;
+      }
+    }
+
+  }
 }
+.mat-icon{
+ & svg{
+    fill:green
+  }
+}
+
+

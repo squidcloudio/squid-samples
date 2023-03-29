@@ -1,8 +1,9 @@
-<ng-container *ngIf="editTodoForm">
+<ng-container *ngIf="editTodoForm && editTodoForm.get('title')?.value">
   <form [formGroup]="editTodoForm" (ngSubmit)="onSubmit()" class="form">
     <h2 class="form-title">Edit Label</h2>
     <div class="form-container">
       <div class="form-container__component">
+
         <app-text-input
           controlName="title"
           [control]="editTodoForm"

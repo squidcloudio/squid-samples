@@ -1,32 +1,35 @@
-<button
-  class="tag-container"
-  type="button"
-  id="tag"
-  [ngClass]="selectedTags.length ? 'active' : ''">
-  <ng-container *ngIf="selectedTags.length">
-    <ul class="tag-container-list">
-      <li class="tag-container-list__component" *ngFor="let selectedTag of selectedTags">
-        {{ selectedTag.name }}
-        <button class="tag-component-button" (click)="deleteTage(selectedTag.id)">
-          <img src="./assets/close.svg" width="6" height="6"/>
-        </button>
-      </li>
-    </ul>
-  </ng-container>
-  <input
-    type="text"
-    placeholder="Type to create a tag..."
-    aria-label="Number"
-    matInput
-    #inputRef
-    [matAutocomplete]="auto"
-    class="tag-container-input"
-    [(ngModel)]="currentTag"
-    (keydown.enter)="addTagFromInput()"/>
-  <label class="tag-container-label" for="tag">Tag</label>
-  <mat-autocomplete autoSelectActiveOption #auto="matAutocomplete">
-    <mat-option *ngFor="let tag of tags" [value]="tag"
-    ><p>{{ tag }}</p></mat-option
-    >
-  </mat-autocomplete>
-</button>
+<ng-container *ngIf="control ">
+  <button
+    class="tag-container"
+    type="button"
+    id="tag"
+    [ngClass]="selectedTags.length ? 'active' : ''">
+    <ng-container *ngIf="selectedTags.length">
+      <ul class="tag-container-list">
+        <li class="tag-container-list__component" *ngFor="let selectedTag of selectedTags">
+          {{ selectedTag.name }}
+          <button class="tag-component-button" (click)="deleteTage(selectedTag.id)">
+            <img src="./assets/close.svg" width="6" height="6"/>
+          </button>
+        </li>
+      </ul>
+    </ng-container>
+    <input
+      type="text"
+      placeholder="Type to create a tag..."
+      aria-label="Number"
+      matInput
+      #inputRef
+      [matAutocomplete]="auto"
+      class="tag-container-input"
+      [(ngModel)]="currentTag"
+      (keydown.enter)="addTagFromInput()"/>
+    <label class="tag-container-label" for="tag">Tag</label>
+    <mat-autocomplete autoSelectActiveOption #auto="matAutocomplete">
+      <mat-option *ngFor="let tag of tags" [value]="tag"
+      ><p>{{ tag }}</p></mat-option
+      >
+    </mat-autocomplete>
+  </button>
+</ng-container>
+

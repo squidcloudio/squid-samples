@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Tag } from '../../../interfaces';
 import { FormGroup } from '@angular/forms';
 
@@ -7,7 +7,7 @@ import { FormGroup } from '@angular/forms';
   templateUrl: 'multi-select.component.html',
   styleUrls: ['multi-select.component.scss'],
 })
-export class MultiSelectComponent {
+export class MultiSelectComponent implements OnInit {
   @Input('control') control?: FormGroup;
   @ViewChild('inputRef') inputRef?: ElementRef;
   currentTag = '';
@@ -17,6 +17,11 @@ export class MultiSelectComponent {
 
   focus(e: MouseEvent): void {
     e.stopImmediatePropagation();
+  }
+  ngOnInit(): void {
+    if (this.control) {
+      this.selectedTags = this.control.get('tags')?.value;
+    }
   }
 
   addTagFromInput(): void {

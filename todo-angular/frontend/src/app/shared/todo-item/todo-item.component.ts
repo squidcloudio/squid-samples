@@ -1,6 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Item } from '../../interfaces';
 import { ItemsService } from '../../services/items.service';
+import { Dialog } from '@angular/cdk/dialog';
+import { ModalWindowComponent } from '../modal-window/modal-window.component';
+import { ModalListNames } from '../../interfaces';
 
 @Component({
   selector: 'app-todo-item',
@@ -9,9 +12,10 @@ import { ItemsService } from '../../services/items.service';
 })
 export class TodoItemComponent implements OnInit {
   @Input('item') item?: Item;
+  @Input('itemId') itemId?: string;
   formatDateFormItem?: string;
-
-  constructor(private itemService: ItemsService) {}
+  readonly modalWindowName = ModalListNames;
+  constructor(private itemService: ItemsService, private dialog: Dialog) {}
 
   ngOnInit(): void {
     if (this.item)
@@ -25,5 +29,9 @@ export class TodoItemComponent implements OnInit {
     if (id) {
       await this.itemService.changeItemStatus(id);
     }
+  }
+  openModalWindow(windowName: string): void {
+    const dialogRef = this.dialog.open(ModalWindowComponent, { data: { name: windowName, id: this.itemId } });
+    dialogRef.closed.subscribe();
   }
 }

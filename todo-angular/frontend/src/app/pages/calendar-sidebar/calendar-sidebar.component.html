@@ -1,1 +1,19 @@
-<section class="calendar-sidebar"></section>
+<section class="calendar-sidebar">
+  <div class="calendar-sidebar-header">
+    <h2 class="calendar-sidebar-header-title">{{ selectedMonth }}</h2>
+    <div class="calendar-sidebar-header-navigation">
+      <button class="calendar-sidebar-header-navigation__component" (click)="getPrevDate()">
+        <mat-icon>arrow_back_ios</mat-icon>
+      </button>
+      <button class="calendar-sidebar-header-navigation__component" (click)="getNextDate()">
+        <mat-icon >arrow_forward_ios</mat-icon>
+      </button>
+    </div>
+  </div>
+  <ul class="calendar-sidebar-dates">
+    <li *ngFor="let calendarItem of calendarList" class="calendar-sidebar-dates__component">
+      <p class="calendar-sidebar-dates__component-title">{{ calendarItem.weekdayName }}</p>
+      <p class="calendar-sidebar-dates__component-number">{{ calendarItem.weekDayNumber }}</p>
+    </li>
+  </ul>
+</section>
