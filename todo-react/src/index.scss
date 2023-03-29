@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Karla:wght@500;700&family=Ubuntu&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@700&family=Karla:wght@500;700&display=swap');
 
 *,
 *::before,
@@ -14,6 +14,7 @@ body {
   font-weight: 500;
 
   background-color: #eaecee;
+  overflow: hidden;
 }
 
 header {
@@ -103,4 +104,226 @@ header {
   padding: 16px;
   border-radius: 12px;
   margin-top: 20px;
+
+  & > ul > li > div > div > p:nth-child(2) {
+    font-size: 12px;
+    color: #666666;
+    font-weight: 500;
+    font-family: Karla;
+    line-height: 14px;
+  }
+
+  & > ul > li > div > div > div:last-child {
+    p {
+      font-size: 12px;
+      color: #666666;
+      font-weight: 500;
+      font-family: Karla;
+      line-height: 14px;
+
+      span {
+        font-weight: 700;
+        color: #212121;
+      }
+    }
+  }
+}
+
+.modal_container-input ::placeholder {
+  color: red;
+}
+
+.modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &_container {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 48px;
+
+    width: 500px;
+
+    gap: 32px;
+
+    display: flex;
+    flex-direction: column;
+
+    & > p {
+      font-size: 36px;
+      font-weight: bold;
+    }
+
+    & > div:last-child {
+      & > button {
+        color: #9e9e9e;
+        border: 1px solid #e1e6ef;
+        background-color: #fff;
+      }
+      & > button:last-child {
+        color: #000;
+      }
+    }
+
+    &-menu {
+      background-color: #fff !important;
+      padding: 14px !important;
+
+      &:hover {
+        background-color: #f1f4fc !important;
+      }
+    }
+
+    &-item {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+    }
+
+    &-color {
+      margin-left: 20px;
+    }
+
+    & > div {
+      display: flex;
+      gap: 20px;
+      & > button {
+        cursor: pointer;
+        border: none;
+        outline: none;
+        width: 100%;
+        height: 48px;
+
+        padding: 13px 32px;
+        border-radius: 12px;
+      }
+    }
+
+    &-select {
+      background-color: #f8f9fc;
+      color: #9e9e9e;
+      border-radius: 12px !important;
+
+      line-height: 20px;
+      font-size: 14px;
+
+      &:hover {
+        border-color: transparent !important;
+      }
+    }
+
+    & > input {
+      background-color: #f8f9fc;
+      color: #9e9e9e;
+      border-radius: 12px;
+      outline: none;
+      border: none;
+      padding: 12px 16px;
+      line-height: 20px;
+      font-size: 14px;
+
+      border: 1px solid #e1e6ef;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+}
+
+.item_button {
+  padding: 25px;
+
+  display: flex;
+  align-items: center;
+  border: none;
+  outline: none;
+  color: #9e9e9e;
+  font-size: 20px;
+  cursor: pointer;
+
+  background-color: transparent;
+
+  & > span:last-child {
+    margin-left: 15px;
+  }
+}
+
+.list_button {
+  display: flex;
+  align-items: center;
+  border: none;
+  outline: none;
+  color: #9e9e9e;
+  font-size: 20px;
+  cursor: pointer;
+
+  background-color: transparent;
+
+  & > span:last-child {
+    margin-left: 15px;
+  }
+}
+
+.new_item-input {
+  border-radius: 12px !important;
+  font-size: 50px !important;
+  color: 'red';
+}
+
+.datepicker {
+  min-width: 100% !important;
+  border-radius: 12px;
+}
+
+//// tags
+///
+///
+///
+
+.tags-input-container {
+  border: 1px solid #e1e6ef;
+  background-color: #f8f9fc;
+  padding: 0.5em;
+  border-radius: 12px;
+
+  flex-wrap: wrap;
+  gap: 0.8em !important;
+
+  &_input {
+    flex-grow: 1;
+    padding: 11px 5px;
+    border: none;
+    outline: none;
+    background-color: transparent;
+  }
+
+  &:hover,
+  &:focus,
+  &:active {
+    border-color: #212121;
+  }
+}
+
+.tag-item {
+  border: 1px solid black;
+  border-radius: 4px;
+  padding: 0.15em 0.4em;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 20px;
+  /* identical to box height, or 167% */
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #212121;
+
+  & > .close {
+    margin-left: 0.5em;
+    cursor: pointer;
+  }
 }

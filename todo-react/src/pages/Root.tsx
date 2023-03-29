@@ -13,15 +13,13 @@ export type Todo = {
 
 const Root = ({ avatar }: any) => {
   const { id } = useParams();
-  console.log(id);
   const collection = useCollection<Todo>('todos');
 
   const [todos] = useQuery(collection.query().where('id', '==', `${id}`), true);
-  console.log(todos);
 
   return (
     <>
-      <header style={{ backgroundColor: '#14BE6E' }} className="header">
+      <header style={{ backgroundColor: todos ? todos.data.color : '#14BE6E' }} className="header">
         <div>
           <img src={vector} alt="" />
           <img src={td} alt="" />

@@ -1,26 +1,32 @@
 import { Box, Divider } from '@mui/material';
 import { useCollection, useQuery } from '@squidcloud/react';
-import { NavLink, useParams } from 'react-router-dom';
+import { useState } from 'react';
 
-export type Todo = {
-  id?: string;
-  title?: string;
-  color: string;
-  userId: string;
-};
+import addList from '../images/Component 1.png';
+
+import { Todo } from '../interfaces/types';
+
+import { NavLink, useParams } from 'react-router-dom';
+import ListModal from '../modals/ListModal';
 
 const ListContainer = () => {
   const { id } = useParams();
+
+  const [open, setOpen] = useState<boolean>(false);
   const collection = useCollection<Todo>('todos');
 
-  const todos = useQuery(collection.query(), true);
+  const todosList = useQuery(collection.query().where('title', 'not in', ['Today', 'Tomorrow', 'Someday']), true);
 
-  console.log(todos.map((el) => el.data));
+  const [todos] = useQuery(collection.query().where('id', '==', `${id}`), true);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
 
   return (
     <>
       <ul>
-        {todos.map((todo) => {
+        {todosList.map((todo) => {
           const { id, title, color } = todo.data;
 
           return (
@@ -37,7 +43,12 @@ const ListContainer = () => {
       <Box py={3}>
         <Divider className="divider" />
       </Box>
-      <p>Test</p>
+      <button onClick={handleOpen} className="list_button">
+        <img src={addList} alt="list" />
+        <span>New List</span>
+      </button>
+
+      <ListModal collection={collection} id={id} todos={todos} open={open} setOpen={setOpen} />
     </>
   );
 };
