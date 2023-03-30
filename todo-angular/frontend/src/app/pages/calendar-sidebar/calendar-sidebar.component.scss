@@ -95,6 +95,9 @@
     }
     &-list {
       margin-top: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
       &__component {
         display: flex;
         justify-content: space-between;

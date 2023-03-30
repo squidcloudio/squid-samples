@@ -4,9 +4,6 @@ import { filter, map, Observable, of, Subscription, switchMap } from 'rxjs';
 import { Item, Todo } from '../../interfaces';
 import { ActivatedRoute, Params } from '@angular/router';
 import { ItemsService } from '../../services/items.service';
-import { Dialog } from '@angular/cdk/dialog';
-import { ModalWindowComponent } from '../../shared/modal-window/modal-window.component';
-import { ModalListNames } from '../../interfaces';
 
 @Component({
   selector: 'app-todo',
@@ -20,14 +17,12 @@ export class TodoItemsComponent implements OnInit, OnDestroy {
   paramsSub: Subscription | undefined;
   queryParamsSub: Subscription | undefined;
   itemId = '';
-  readonly modalListName = ModalListNames;
   readonly paramsObs: Observable<Params> = this.activatedRoute.params;
 
   constructor(
     private todoService: TodosService,
     private activatedRoute: ActivatedRoute,
     private itemsService: ItemsService,
-    private dialog: Dialog,
   ) {}
   ngOnInit(): void {
     this.queryParamsSub = this.activatedRoute.queryParams.pipe(filter(params => params['itemId'])).subscribe(params => {
@@ -49,10 +44,6 @@ export class TodoItemsComponent implements OnInit, OnDestroy {
     });
   }
 
-  openModalWindow(windowName: string): void {
-    const dialogRef = this.dialog.open(ModalWindowComponent, { data: { name: windowName } });
-    dialogRef.closed.subscribe();
-  }
   ngOnDestroy(): void {
     this.paramsSub?.unsubscribe();
     this.queryParamsSub?.unsubscribe();

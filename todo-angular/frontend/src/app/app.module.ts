@@ -10,7 +10,7 @@ import { TodoItemsComponent } from './pages/todo-items/todo-items.component';
 import { TodoNavigationComponent } from './pages/todo-navigation/todo-navigation.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from './shared/shared.module';
-import { canActivateChild } from './guards/todo.guard';
+import { ChildrenGuard } from './guards/todo.guard';
 import { CalendarSidebarComponent } from './pages/calendar-sidebar/calendar-sidebar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -23,7 +23,7 @@ const routes: Routes = [
     path: '',
     component: MainPageComponent,
     canActivate: [AuthGuard],
-    canActivateChild: [canActivateChild],
+    canActivateChild: [ChildrenGuard],
     children: [
       {
         path: '',

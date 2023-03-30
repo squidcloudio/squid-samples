@@ -1,44 +1,27 @@
-import { inject, Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  CanActivateChild,
-  CanActivateChildFn,
-  CanActivateFn,
-  Router,
-  RouterStateSnapshot,
-  UrlTree,
-} from '@angular/router';
-import { filter, Observable, of, switchMap, tap } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, CanActivateChild, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { Observable, of, switchMap } from 'rxjs';
 import { TodosService } from '../services/todos.service';
 
 @Injectable({ providedIn: 'root' })
 export class ChildrenGuard implements CanActivateChild {
+  constructor(private todoService: TodosService, private router: Router) {}
   canActivateChild(
     childRoute: ActivatedRouteSnapshot,
     state: RouterStateSnapshot,
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return true;
+    const currentIdFromParam = childRoute.params['id'];
+    if (!childRoute.params.hasOwnProperty('id')) return this.router.createUrlTree(['', 1]);
+    return this.todoService.todo(currentIdFromParam).pipe(
+      switchMap(result => {
+        if (!currentIdFromParam || !result) {
+          const currentUrl = this.router.createUrlTree(['', 1]);
+          return of(currentUrl);
+        }
+
+        this.todoService.setCurrentTodo(result);
+        return of(true);
+      }),
+    );
   }
 }
-
-export const canActivate: CanActivateFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
-  const todosService = inject(TodosService);
-  const router = inject(Router);
-  const currentIdFromParam = route.params['id'];
-
-  return todosService.todo(currentIdFromParam).pipe(
-    tap(result => {
-      if (!result || !currentIdFromParam) {
-        router.navigate(['', 1]);
-      }
-    }),
-    filter(result => !!result),
-    switchMap(result => {
-      todosService.setCurrentTodo(result);
-      return of(true);
-    }),
-  );
-};
-
-export const canActivateChild: CanActivateChildFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) =>
-  canActivate(route, state);

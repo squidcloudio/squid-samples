@@ -1,5 +1,3 @@
-import { Moment } from 'moment';
-
 export interface User {
   username: string;
   email: string;
@@ -53,7 +51,4 @@ export interface CalendarList {
 export interface SelectedDate {
   date: string;
   displayDate: string;
-}
-export interface DateSidebarItems extends Item {
-  todoColor: string;
 }
