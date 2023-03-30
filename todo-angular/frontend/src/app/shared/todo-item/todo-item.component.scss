@@ -85,12 +85,12 @@
   }
 
   &-completed {
-    .item-content-text-title {
+   & .item-content-header-text-title {
       color: #666666;
       text-decoration: line-through;
     }
 
-    .item-content-text-description {
+   & .item-content-header-text-description {
       display: none;
     }
   }

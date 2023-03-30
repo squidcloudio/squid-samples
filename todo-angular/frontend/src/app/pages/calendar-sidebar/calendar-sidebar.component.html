@@ -1,19 +1,63 @@
-<section class="calendar-sidebar">
-  <div class="calendar-sidebar-header">
-    <h2 class="calendar-sidebar-header-title">{{ selectedMonth }}</h2>
-    <div class="calendar-sidebar-header-navigation">
-      <button class="calendar-sidebar-header-navigation__component" (click)="getPrevDate()">
+<section class="calendar">
+  <div class="calendar-header">
+    <h2 class="calendar-header-title">{{ selectedMonth }}</h2>
+    <div class="calendar-header-navigation">
+      <button class="calendar-header-navigation__component" (click)="getPrevDate()">
         <mat-icon>arrow_back_ios</mat-icon>
       </button>
-      <button class="calendar-sidebar-header-navigation__component" (click)="getNextDate()">
-        <mat-icon >arrow_forward_ios</mat-icon>
+      <button class="calendar--header-navigation__component" (click)="getNextDate()">
+        <mat-icon>arrow_forward_ios</mat-icon>
       </button>
     </div>
   </div>
-  <ul class="calendar-sidebar-dates">
-    <li *ngFor="let calendarItem of calendarList" class="calendar-sidebar-dates__component">
-      <p class="calendar-sidebar-dates__component-title">{{ calendarItem.weekdayName }}</p>
-      <p class="calendar-sidebar-dates__component-number">{{ calendarItem.weekDayNumber }}</p>
+  <ul class="calendar-dates">
+    <li
+      *ngFor="let calendarItem of calendarList"
+      class="calendar-dates__component"
+      [ngClass]="{ 'item-active': calendarItem.date === selectedDate.date }"
+      (click)="selectDate(calendarItem.date)">
+      <p class="calendar-dates__component-title">{{ calendarItem.weekdayName }}</p>
+      <p class="calendar-dates__component-number">{{ calendarItem.weekDayNumber }}</p>
     </li>
   </ul>
+  <mat-divider class="calendar-divider"></mat-divider>
+  <div class="calendar-items">
+    <h3 class="calendar-items-title">{{ selectedDate.displayDate }}</h3>
+    <ng-container *ngIf="activeItemsObs | async as items">
+      <ul class="calendar-items-list">
+        <ng-container *ngFor="let item of items">
+          <li class="calendar-items-list__component" (click)="goToTodoPage(item.todoId, item.id)">
+            <div class="calendar-items-list__component-container">
+              <div
+                class="calendar-items-list__component-color"
+                [ngStyle]="{ 'background-color': item.todoColor }"></div>
+              <p class="calendar-items-list__component-title">{{ item.title }}</p>
+            </div>
+            <app-edit-todo [id]="item.id" type="item"></app-edit-todo>
+          </li>
+        </ng-container>
+      </ul>
+    </ng-container>
+    <ng-container *ngIf="!(activeItemsObs | async)?.length">
+      <div class="add-item-button">
+        <app-add-item></app-add-item>
+      </div>
+    </ng-container>
+  </div>
+  <mat-divider class="calendar-divider"></mat-divider>
+  <ng-container *ngIf="expiredItemsObs | async as items">
+    <div class="calendar-expired-title">
+      <div></div>
+      <p>Overdue</p>
+    </div>
+    <ul class="calendar-expired-list">
+      <ng-container *ngFor="let item of items">
+        <li  class="calendar-expired-list__component">
+          <p>{{ item.title }}</p>
+          <span>{{ item.dueDate|transformDate }}</span>
+        </li>
+      </ng-container>
+
+    </ul>
+  </ng-container>
 </section>

@@ -15,6 +15,8 @@ import { CalendarSidebarComponent } from './pages/calendar-sidebar/calendar-side
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
+import { DateTransformPipe } from './pipes/dateTransform.pipe';
 
 const routes: Routes = [
   {
@@ -42,6 +44,7 @@ const routes: Routes = [
     TodoItemsComponent,
     TodoNavigationComponent,
     CalendarSidebarComponent,
+    DateTransformPipe,
   ],
   imports: [
     BrowserModule,
@@ -62,6 +65,7 @@ const routes: Routes = [
     BrowserAnimationsModule,
     MatDialogModule,
     MatIconModule,
+    MatDividerModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

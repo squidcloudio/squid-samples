@@ -43,9 +43,17 @@ export type Item = {
   dueDate: string;
   tags: Tag[];
   completed: boolean;
+  todoColor: string;
 };
 export interface CalendarList {
-  date: Moment;
+  date: string;
   weekdayName: string;
   weekDayNumber: string;
+}
+export interface SelectedDate {
+  date: string;
+  displayDate: string;
+}
+export interface DateSidebarItems extends Item {
+  todoColor: string;
 }

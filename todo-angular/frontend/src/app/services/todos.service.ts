@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Squid } from '@squidcloud/client';
-import { Todo } from '../interfaces';
+import { Item, Todo } from '../interfaces';
 import { map, NEVER, Observable, switchMap } from 'rxjs';
 import { AccountService } from './account.service';
 import { Router } from '@angular/router';
@@ -70,5 +70,9 @@ export class TodosService {
 
   changeTodo(id: string, newTitle: string): void {
     this.todoCollection.doc(id).update({ title: newTitle });
+  }
+  async todoColors(id: string): Promise<string> {
+    const todo = await this.todoCollection.doc(id).data;
+    return todo.color;
   }
 }

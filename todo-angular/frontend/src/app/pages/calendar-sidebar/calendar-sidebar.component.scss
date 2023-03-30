@@ -1,4 +1,4 @@
-.calendar-sidebar {
+.calendar {
   min-width: 280px;
   background-color: #ffffff;
   padding: 30px 24px;
@@ -24,26 +24,96 @@
       flex-direction: column;
       align-items: center;
       padding: 5px;
-      & p{
+      & p {
         font-weight: 400;
         font-size: 16px;
         color: #666666;
       }
-      &-number{
+      &-number {
         margin-top: 10px;
       }
 
-      &:hover{
-        background-color: #F8F9FC;
+      &:hover {
+        background-color: #f8f9fc;
+        border-radius: 8px;
+        & p {
+          color: #212121;
+          font-weight: 700;
+        }
       }
     }
+  }
+  &-divider {
+    margin-top: 24px;
+  }
+  &-items {
+    margin-top: 24px;
+    &-title {
+      padding-left: 16px;
+    }
+    &-list {
+      margin-top: 16px;
+      &__component {
+        display: flex;
+        align-items: center;
+        padding: 12px 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        justify-content: space-between;
 
+        &-container {
+          display: flex;
+          align-items: center;
+        }
+        &:hover {
+          background-color: rgba(0, 0, 0, 0.15);
+        }
+        &-color {
+          width: 10px;
+          height: 10px;
+          border-radius: 2px;
+        }
+        &-title {
+          margin-left: 6px;
+        }
+      }
+    }
+  }
+  &-expired {
+    &-title {
+      margin-top: 24px;
+      color: #ff0000;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      & div {
+        width: 10px;
+        height: 10px;
+        border-radius: 100px;
+        background-color: #ff0000;
+      }
+    }
+    &-list {
+      margin-top: 28px;
+      &__component {
+        display: flex;
+        justify-content: space-between;
+        font-weight: 500;
+        font-size: 12px;
+        color: #212121;
+      }
+    }
   }
 }
-.mat-icon{
- & svg{
-    fill:green
+.item-active {
+  background-color: #f8f9fc;
+  border-radius: 8px;
+  & p {
+    color: #212121;
+    font-weight: 700;
   }
 }
-
-
+.add-item-button {
+  margin-top: 24px;
+  padding-left: 16px;
+}

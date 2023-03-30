@@ -3,7 +3,7 @@
     <div class="todo-section-title">
       <h2>{{ todo.title }}</h2>
       <ng-container *ngIf="!(todo.id === '1' || todo.id ==='2' || todo.id ==='3')">
-        <app-edit-todo [todoTitle]="todo.title" [todoId]="todo.id"></app-edit-todo>
+        <app-edit-todo [todoTitle]="todo.title" [id]="todo.id" type="todo"></app-edit-todo>
       </ng-container>
     </div>
     <div class="todo-section-content">
@@ -14,11 +14,10 @@
           <app-todo-item [item]="item" [itemId]="itemId"></app-todo-item>
         </li>
       </ul>
-      <ng-container *ngIf="!(todo.id === '2' || todo.id ==='3')">
-        <button class="new-items-section-button" (click)="openModalWindow(modalListName.newItem)">
-          <img src="./assets/add.svg" alt="add-button" />
-          <p class="new-items-section-button-title">New Item</p>
-        </button>
+      <ng-container *ngIf="!(todo.id === '1'||todo.id === '2' || todo.id ==='3')">
+        <div class="new-items-section" >
+        <app-add-item></app-add-item>
+        </div>
       </ng-container>
     </div>
   </div>
@@ -27,7 +26,7 @@
       <div class="todo-section-title">
         <h2>Completed</h2>
         <ng-container *ngIf="!(todo.id === '1' || todo.id ==='2' || todo.id ==='3')">
-          <app-edit-todo [todoTitle]="todo.title" [todoId]="todo.id"></app-edit-todo>
+          <app-edit-todo [todoTitle]="todo.title" [id]="todo.id" type="todo"></app-edit-todo>
         </ng-container>
 
       </div>

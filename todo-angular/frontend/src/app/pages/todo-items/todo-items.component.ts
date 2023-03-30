@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TodosService } from '../../services/todos.service';
-import { map, Observable, of, Subscription, switchMap } from 'rxjs';
+import { filter, map, Observable, of, Subscription, switchMap } from 'rxjs';
 import { Item, Todo } from '../../interfaces';
 import { ActivatedRoute, Params } from '@angular/router';
 import { ItemsService } from '../../services/items.service';
@@ -18,6 +18,7 @@ export class TodoItemsComponent implements OnInit, OnDestroy {
   activeItemsObs: Observable<Item[]> | undefined;
   completedItemsObs?: Observable<Item[]>;
   paramsSub: Subscription | undefined;
+  queryParamsSub: Subscription | undefined;
   itemId = '';
   readonly modalListName = ModalListNames;
   readonly paramsObs: Observable<Params> = this.activatedRoute.params;
@@ -29,6 +30,9 @@ export class TodoItemsComponent implements OnInit, OnDestroy {
     private dialog: Dialog,
   ) {}
   ngOnInit(): void {
+    this.queryParamsSub = this.activatedRoute.queryParams.pipe(filter(params => params['itemId'])).subscribe(params => {
+      if (params) this.itemId = params['itemId'];
+    });
     this.paramsSub = this.paramsObs.subscribe(params => {
       const currentTodoId = params['id'];
       this.todoObs = this.todoService.todo(currentTodoId).pipe(map(todos => todos));
@@ -51,6 +55,7 @@ export class TodoItemsComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy(): void {
     this.paramsSub?.unsubscribe();
+    this.queryParamsSub?.unsubscribe();
   }
   setItemId(id: string): void {
     this.itemId = id;

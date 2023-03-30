@@ -18,6 +18,7 @@ export class NewItemComponent implements OnInit {
   @Input('title') title?: string;
   @Input('submitName') submitName?: string;
   newItemForm?: FormGroup;
+  currentItem?: Item;
   readonly currentTodo?: Todo;
 
   constructor(
@@ -38,6 +39,7 @@ export class NewItemComponent implements OnInit {
 
     if (this.itemId)
       this.itemService.getItem(this.itemId).subscribe(item => {
+        this.currentItem = item;
         this.newItemForm = new FormGroup({
           title: new FormControl(item.title, Validators.required),
           description: new FormControl(item.description, Validators.required),
@@ -57,7 +59,8 @@ export class NewItemComponent implements OnInit {
       description: this.newItemForm?.get('description')?.value,
       dueDate: moment(this.newItemForm?.get('dueDate')?.value).format('M/D/YYYY'),
       tags: this.newItemForm?.get('tags')?.value,
-      todoId: this.currentTodo.id,
+      todoId: this.currentItem ? this.currentItem.todoId : this.currentTodo.id,
+      todoColor: this.currentItem ? this.currentItem.todoColor : this.currentTodo.color,
       userId: currentUser.id,
       completed: false,
       id: newId,

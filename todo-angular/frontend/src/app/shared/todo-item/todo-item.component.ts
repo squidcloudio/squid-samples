@@ -30,6 +30,7 @@ export class TodoItemComponent implements OnInit {
       await this.itemService.changeItemStatus(id);
     }
   }
+
   openModalWindow(windowName: string): void {
     const dialogRef = this.dialog.open(ModalWindowComponent, { data: { name: windowName, id: this.itemId } });
     dialogRef.closed.subscribe();

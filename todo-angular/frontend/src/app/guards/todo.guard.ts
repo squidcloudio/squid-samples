@@ -1,13 +1,25 @@
-import { inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
+  CanActivateChild,
   CanActivateChildFn,
   CanActivateFn,
   Router,
   RouterStateSnapshot,
+  UrlTree,
 } from '@angular/router';
-import { filter, of, switchMap, tap } from 'rxjs';
+import { filter, Observable, of, switchMap, tap } from 'rxjs';
 import { TodosService } from '../services/todos.service';
+
+@Injectable({ providedIn: 'root' })
+export class ChildrenGuard implements CanActivateChild {
+  canActivateChild(
+    childRoute: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot,
+  ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    return true;
+  }
+}
 
 export const canActivate: CanActivateFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
   const todosService = inject(TodosService);

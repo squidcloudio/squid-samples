@@ -78,4 +78,32 @@ export class ItemsService {
       .doc(id)
       .update({ title: item.title, description: item.description, dueDate: item.dueDate, tags: item.tags });
   }
+  getItemByDate(date: string): Observable<Item[] | []> {
+    return this.accountService.observeUser().pipe(
+      switchMap(user => {
+        if (!user) return NEVER;
+        return this.item
+          .query()
+          .where('userId', '==', user.id)
+          .where('dueDate', '==', date)
+          .snapshots()
+          .pipe(map(items => items.map(item => item.data)));
+      }),
+    );
+  }
+  deleteItem(id?: string): void {
+    if (id) this.item.doc(id).delete();
+  }
+  getItems(): Observable<Item[]> {
+    return this.accountService.observeUser().pipe(
+      switchMap(user => {
+        if (!user) return NEVER;
+        return this.item
+          .query()
+          .where('userId', '==', user.id)
+          .snapshots()
+          .pipe(map(items => items.map(item => item.data)));
+      }),
+    );
+  }
 }
