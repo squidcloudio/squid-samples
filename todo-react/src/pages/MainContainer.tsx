@@ -2,6 +2,7 @@ import { Grid, Paper, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import Calendar from '../components/Calendar';
 import ListContainer from '../components/ListContainer';
+import { OptionsMenu } from '../components/MenuDetail';
 import TodoList from './TodoList';
 
 const MainContainer = () => {
@@ -12,7 +13,10 @@ const MainContainer = () => {
           <ListContainer />
         </Grid>
         <Grid item xs={12} md={7}>
-          <Typography variant="h4">In Progress</Typography>
+          <Box display="flex" justifyContent="space-between">
+            <Typography variant="h4">In Progress</Typography>
+            <OptionsMenu />
+          </Box>
           <Paper>
             <TodoList />
           </Paper>

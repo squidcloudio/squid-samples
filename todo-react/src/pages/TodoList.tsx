@@ -26,7 +26,14 @@ const TodoList = () => {
           return (
             <ListItem>
               <Box width={1} display="flex" alignItems="flex-start">
-                <Checkbox size="small" />
+                <Checkbox
+                  size="small"
+                  sx={{
+                    '&.Mui-checked': {
+                      color: todos ? todos.data.color : '',
+                    },
+                  }}
+                />
                 <Box width={1} mt={1}>
                   <Typography pb={1}>{item.data.title}</Typography>
                   <Typography mb={1}>{item.data.description}</Typography>

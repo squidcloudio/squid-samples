@@ -30,13 +30,20 @@ const ListContainer = () => {
           const { id, title, color } = todo.data;
 
           return (
-            <NavLink key={id} to={`/${id}`} className="navlink">
-              <div className="navlink_content">
+            <div className="navlink">
+              <NavLink
+                key={id}
+                to={`/${id}`}
+                className="navlink_content"
+                style={({ isActive }) => {
+                  return isActive ? { backgroundColor: '#E1E6EF' } : { backgroundColor: 'transparent' };
+                }}
+              >
                 <div className="navlink_content-color" style={{ backgroundColor: `${color}` }}></div>
                 <div className="navlink_content-title">{title}</div>
-                <div className="navlink_content-amount">2</div>
-              </div>
-            </NavLink>
+                <div className="navlink_content-amount">{2}</div>
+              </NavLink>
+            </div>
           );
         })}
       </ul>
