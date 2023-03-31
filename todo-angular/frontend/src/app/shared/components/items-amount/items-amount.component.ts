@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Todo } from '../../interfaces';
-import { ItemsService } from '../../services/items.service';
+import { Todo } from '../../../interfaces';
+import { ItemsService } from '../../../services/items.service';
 import { map, Observable, of } from 'rxjs';
 
 @Component({

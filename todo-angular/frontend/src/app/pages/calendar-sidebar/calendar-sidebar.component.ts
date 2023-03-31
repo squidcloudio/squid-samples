@@ -24,7 +24,7 @@ export class CalendarSidebarComponent implements OnInit, OnDestroy {
       .asObservable()
       .pipe(
         map(currentDate => {
-          this.selectedDate = { date: currentDate.format('M/D/YYYY'), displayDate: currentDate.format('MMMM D') };
+          this.selectedDate.date = currentDate.format('M/D/YYYY');
           this.selectedMonth = currentDate.format('MMMM YYYY');
           return moment(currentDate).startOf('week');
         }),
@@ -41,15 +41,20 @@ export class CalendarSidebarComponent implements OnInit, OnDestroy {
         }
       });
     this.activeItemsObs = this.getItemByDate();
-    this.expiredItemsObs = this.itemService
-      .getItems()
-      .pipe(map(items => items.filter(item => moment(item.dueDate) < moment())));
+    this.expiredItemsObs = this.itemService.getItems().pipe(
+      map(items =>
+        items.filter(item => {
+          const isItemIsExpired = moment(item.dueDate).startOf('day') < moment().startOf('day');
+          return isItemIsExpired && !item.completed;
+        }),
+      ),
+    );
   }
-  getPrevDate(): void {
+  getPrevWeek(): void {
     this.calendarSubj.next(moment(this.calendarSubj.value).subtract(7, 'day'));
   }
 
-  getNextDate(): void {
+  getNextWeek(): void {
     this.calendarSubj.next(moment(this.calendarSubj.value).add(7, 'day'));
   }
   selectDate(selectedDate: string): void {
@@ -60,12 +65,20 @@ export class CalendarSidebarComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.calendarSubj.unsubscribe();
   }
-  goToTodoPage(todoId: string, itemId: string): void {
-    this.router.navigate(['', todoId], { queryParams: { itemId: itemId } });
+  goToTodoPage(todoId: string, itemId: string, dueDate?: string): void {
+    const today = moment().format('M/D/YYYY');
+    const tomorrow = moment().add(1, 'day').format('M/D/YYYY');
+    const navigationId = dueDate === today ? 'today' : dueDate === tomorrow ? 'tomorrow' : 'someday';
+    this.router.navigate(['', todoId ? todoId : navigationId], { queryParams: { itemId: itemId } });
   }
   getItemByDate(): Observable<Item[]> {
-    return this.itemService
-      .getItemByDate(this.selectedDate.date)
-      .pipe(map(items => items.filter(item => moment(item.dueDate) >= moment())));
+    return this.itemService.getItemByDate(this.selectedDate.date).pipe(
+      map(items =>
+        items.filter(item => {
+          const isItemInProgress = moment(item.dueDate).startOf('day').diff(moment().startOf('day'));
+          return isItemInProgress >= 0 && !item.completed;
+        }),
+      ),
+    );
   }
 }

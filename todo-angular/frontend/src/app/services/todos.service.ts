@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Squid } from '@squidcloud/client';
-import { Item, Todo } from '../interfaces';
+import { Todo } from '../interfaces';
 import { map, NEVER, Observable, switchMap } from 'rxjs';
 import { AccountService } from './account.service';
 import { Router } from '@angular/router';
@@ -26,7 +26,7 @@ export class TodosService {
     return this.todoCollection
       .query()
       .where('title', 'in', ['Today', 'Tomorrow', 'Someday'])
-      .sortBy('id')
+      .sortBy('userId')
       .snapshots()
       .pipe(map(todos => todos.map(todo => todo.data)));
   }
@@ -65,14 +65,10 @@ export class TodosService {
     if (this.currentTodo?.id) {
       this.todoCollection.doc(this.currentTodo?.id).delete();
     }
-    this.router.navigate(['', '1']);
+    this.router.navigate(['', 'today']);
   }
 
   changeTodo(id: string, newTitle: string): void {
     this.todoCollection.doc(id).update({ title: newTitle });
-  }
-  async todoColors(id: string): Promise<string> {
-    const todo = await this.todoCollection.doc(id).data;
-    return todo.color;
   }
 }

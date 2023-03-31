@@ -22,6 +22,7 @@
     &__component {
       display: flex;
       flex-direction: column;
+      cursor: pointer;
       align-items: center;
       padding: 5px;
       & p {

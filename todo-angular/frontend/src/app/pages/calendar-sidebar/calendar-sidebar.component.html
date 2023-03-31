@@ -2,10 +2,10 @@
   <div class="calendar-header">
     <h2 class="calendar-header-title">{{ selectedMonth }}</h2>
     <div class="calendar-header-navigation">
-      <button class="calendar-header-navigation__component" (click)="getPrevDate()">
+      <button class="calendar-header-navigation__component" (click)="getPrevWeek()">
         <mat-icon>arrow_back_ios</mat-icon>
       </button>
-      <button class="calendar--header-navigation__component" (click)="getNextDate()">
+      <button class="calendar--header-navigation__component" (click)="getNextWeek()">
         <mat-icon>arrow_forward_ios</mat-icon>
       </button>
     </div>
@@ -26,7 +26,7 @@
     <ng-container *ngIf="activeItemsObs | async as items">
       <ul class="calendar-items-list">
         <ng-container *ngFor="let item of items">
-          <li class="calendar-items-list__component" (click)="goToTodoPage(item.todoId, item.id)">
+          <li class="calendar-items-list__component" (click)="goToTodoPage(item.todoId, item.id, item.dueDate)">
             <div class="calendar-items-list__component-container">
               <div
                 class="calendar-items-list__component-color"
@@ -40,7 +40,7 @@
     </ng-container>
     <ng-container *ngIf="!(activeItemsObs | async)?.length">
       <div class="add-item-button">
-        <app-add-item></app-add-item>
+        <app-add-item-button [date]="selectedDate.date"></app-add-item-button>
       </div>
     </ng-container>
   </div>
@@ -52,12 +52,11 @@
     </div>
     <ul class="calendar-expired-list">
       <ng-container *ngFor="let item of items">
-        <li  class="calendar-expired-list__component">
+        <li class="calendar-expired-list__component">
           <p>{{ item.title }}</p>
-          <span>{{ item.dueDate|transformDate }}</span>
+          <span>{{ item.dueDate | transformDate }}</span>
         </li>
       </ng-container>
-
     </ul>
   </ng-container>
 </section>

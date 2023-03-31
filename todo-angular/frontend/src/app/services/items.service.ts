@@ -5,6 +5,7 @@ import { Item } from '../interfaces';
 import { map, NEVER, Observable, switchMap } from 'rxjs';
 import { AccountService } from './account.service';
 import * as moment from 'moment';
+import { Moment } from 'moment';
 
 @Injectable({ providedIn: 'root' })
 export class ItemsService {
@@ -34,13 +35,13 @@ export class ItemsService {
         const query = this.item.query().where('userId', '==', user.id);
 
         switch (todoId) {
-          case '1':
+          case 'today':
             query.where('dueDate', '==', today);
             break;
-          case '2':
+          case 'tomorrow':
             query.where('dueDate', '==', tomorrow);
             break;
-          case '3':
+          case 'someday':
             query.where('dueDate', 'not in', [today, tomorrow]);
             break;
           default:

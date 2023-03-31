@@ -2,7 +2,7 @@
   <div class="todo-section">
     <div class="todo-section-title">
       <h2>{{ todo.title }}</h2>
-      <ng-container *ngIf="!(todo.id === '1' || todo.id ==='2' || todo.id ==='3')">
+      <ng-container *ngIf="!(todo.id === 'today' || todo.id ==='tomorrow' || todo.id ==='someday')">
         <app-edit-todo [todoTitle]="todo.title" [id]="todo.id" type="todo"></app-edit-todo>
       </ng-container>
     </div>
@@ -14,9 +14,9 @@
           <app-todo-item [item]="item" [itemId]="itemId"></app-todo-item>
         </li>
       </ul>
-      <ng-container *ngIf="!(todo.id === '1'||todo.id === '2' || todo.id ==='3')">
+      <ng-container *ngIf="!(todo.id === 'today' || todo.id ==='tomorrow' || todo.id ==='someday')">
         <div class="new-items-section" >
-        <app-add-item></app-add-item>
+        <app-add-item-button></app-add-item-button>
         </div>
       </ng-container>
     </div>

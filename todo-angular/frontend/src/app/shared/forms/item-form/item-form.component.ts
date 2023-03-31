@@ -1,24 +1,27 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { TodosService } from '../../services/todos.service';
-import { ItemsService } from '../../services/items.service';
-import { Item, Todo } from '../../interfaces';
+import { TodosService } from '../../../services/todos.service';
+import { ItemsService } from '../../../services/items.service';
+import { Item, Todo } from '../../../interfaces';
 import { DialogRef } from '@angular/cdk/dialog';
-import { AccountService } from '../../services/account.service';
+import { AccountService } from '../../../services/account.service';
 import * as moment from 'moment';
+import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-new-item',
-  templateUrl: './new-item.component.html',
-  styleUrls: ['./new-item.component.scss'],
+  selector: 'app-item-form',
+  templateUrl: './item-form.component.html',
+  styleUrls: ['./item-form.component.scss'],
 })
-export class NewItemComponent implements OnInit {
+export class ItemFormComponent implements OnInit, OnDestroy {
   @Input('dialog') dialog?: DialogRef<string>;
   @Input('itemId') itemId?: string;
   @Input('title') title?: string;
   @Input('submitName') submitName?: string;
+  @Input('date') date?: string;
   newItemForm?: FormGroup;
   currentItem?: Item;
+  itemObs?: Subscription;
   readonly currentTodo?: Todo;
 
   constructor(
@@ -33,12 +36,12 @@ export class NewItemComponent implements OnInit {
       this.newItemForm = new FormGroup({
         title: new FormControl(null, Validators.required),
         description: new FormControl(null, Validators.required),
-        dueDate: new FormControl(null, Validators.required),
+        dueDate: new FormControl(this.date ? new Date(this.date) : null, Validators.required),
         tags: new FormControl([], Validators.required),
       });
 
     if (this.itemId)
-      this.itemService.getItem(this.itemId).subscribe(item => {
+      this.itemObs = this.itemService.getItem(this.itemId).subscribe(item => {
         this.currentItem = item;
         this.newItemForm = new FormGroup({
           title: new FormControl(item.title, Validators.required),
@@ -53,6 +56,8 @@ export class NewItemComponent implements OnInit {
     const currentUser = await this.accountService.getUser();
     if (!this.currentTodo) return;
     if (!currentUser) return;
+    const isCurrentTodoDefault =
+      this.currentTodo.id === 'today' || this.currentTodo.id === 'tomorrow' || this.currentTodo.id === 'someday';
     const newId = self.crypto.randomUUID();
     const newItem: Item = {
       title: this.newItemForm?.get('title')?.value,
@@ -68,10 +73,13 @@ export class NewItemComponent implements OnInit {
     if (this.itemId) {
       await this.itemService.changeItem(this.itemId, newItem);
     } else {
-      this.itemService.addNewItem(newItem);
+      this.itemService.addNewItem(isCurrentTodoDefault ? { ...newItem, todoId: '', todoColor: '' } : newItem);
       this.newItemForm?.reset();
     }
 
     this.dialog?.close();
+  }
+  ngOnDestroy(): void {
+    this.itemObs?.unsubscribe();
   }
 }

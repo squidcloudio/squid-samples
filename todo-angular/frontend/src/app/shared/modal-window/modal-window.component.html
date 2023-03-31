@@ -7,13 +7,13 @@
     </div>
     <div class="modal-body-content">
       <ng-container *ngIf="data.name === 'newList'">
-        <app-new-list [dialog]="dialogRef"></app-new-list>
+        <app-list-form [dialog]="dialogRef"></app-list-form>
       </ng-container>
       <ng-container *ngIf="data.name === 'newItem'">
-        <app-new-item [dialog]="dialogRef" title="Add New Item" submitName="Add item"></app-new-item>
+        <app-item-form [dialog]="dialogRef" [date]="data.date" title="Add New Item" submitName="Add item"></app-item-form>
       </ng-container>
       <ng-container *ngIf="data.name === 'editItem'">
-        <app-new-item [dialog]="dialogRef" [itemId]="data.id" title="Edit Item" submitName="Save"></app-new-item>
+        <app-item-form [dialog]="dialogRef" [itemId]="data.id" title="Edit Item" submitName="Save"></app-item-form>
       </ng-container>
       <ng-container *ngIf="data.name === 'editTodo'">
         <app-edit-todo-form [dialog]="dialogRef" [todoId]="" [todoId]="data.id"></app-edit-todo-form>

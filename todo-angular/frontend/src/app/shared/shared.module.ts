@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
-import { TodoListComponent } from './todo-list/todo-list.component';
-import { NewListComponent } from './new-list/new-list.component';
+import { TodoListComponent } from './components/todo-list/todo-list.component';
+import { ListFormComponent } from './forms/list-form/list-form.component';
 import { ModalWindowComponent } from './modal-window/modal-window.component';
 import { AsyncPipe, NgClass, NgForOf, NgIf, NgStyle } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { TextInputComponent } from './inputs/text-input/text-input.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormButtonsComponent } from './buttons/form-buttons/form-buttons.component';
-import { NewItemComponent } from './new-item/new-item.component';
+import { ItemFormComponent } from './forms/item-form/item-form.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
@@ -17,13 +17,13 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { MultiSelectComponent } from './inputs/multi-select/multi-select.component';
-import { TodoItemComponent } from './todo-item/todo-item.component';
+import { TodoItemComponent } from './components/todo-item/todo-item.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { EditTodoComponent } from './edit-todo/edit-todo.component';
+import { EditTodoComponent } from './components/edit-todo/edit-todo.component';
 import { MatMenuModule } from '@angular/material/menu';
-import { ItemsAmountComponent } from './items-amount/items-amount.component';
-import { EditTodoFormComponent } from './edit-todo-form/edit-todo-form.component';
-import { AddItemComponent } from './add-item/add-item.component';
+import { ItemsAmountComponent } from './components/items-amount/items-amount.component';
+import { EditTodoFormComponent } from './forms/edit-todo-form/edit-todo-form.component';
+import { AddItemButtonComponent } from './buttons/add-item-button/add-item-button.component';
 
 @NgModule({
   imports: [
@@ -48,34 +48,34 @@ import { AddItemComponent } from './add-item/add-item.component';
   ],
   exports: [
     TodoListComponent,
-    NewListComponent,
+    ListFormComponent,
     ModalWindowComponent,
     TextInputComponent,
     FormButtonsComponent,
-    NewItemComponent,
+    ItemFormComponent,
     DatePickerComponent,
     MultiSelectComponent,
     TodoItemComponent,
     EditTodoComponent,
     ItemsAmountComponent,
     EditTodoFormComponent,
-    AddItemComponent,
+    AddItemButtonComponent,
   ],
   providers: [],
   declarations: [
     TodoListComponent,
-    NewListComponent,
+    ListFormComponent,
     ModalWindowComponent,
     TextInputComponent,
     FormButtonsComponent,
-    NewItemComponent,
+    ItemFormComponent,
     DatePickerComponent,
     MultiSelectComponent,
     TodoItemComponent,
     EditTodoComponent,
     ItemsAmountComponent,
     EditTodoFormComponent,
-    AddItemComponent,
+    AddItemButtonComponent,
   ],
 })
 export class SharedModule {}

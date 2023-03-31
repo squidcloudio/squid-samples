@@ -1,14 +1,14 @@
 import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { TodosService } from '../../services/todos.service';
+import { TodosService } from '../../../services/todos.service';
 import { DialogRef } from '@angular/cdk/dialog';
 
 @Component({
-  selector: 'app-new-list',
-  templateUrl: './new-list.component.html',
-  styleUrls: ['./new-list.component.scss'],
+  selector: 'app-list-form',
+  templateUrl: './list-form.component.html',
+  styleUrls: ['./list-form.component.scss'],
 })
-export class NewListComponent {
+export class ListFormComponent {
   @Input('dialog') dialog?: DialogRef<string>;
 
   constructor(private todoService: TodosService) {}

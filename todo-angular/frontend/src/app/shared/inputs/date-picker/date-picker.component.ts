@@ -8,4 +8,5 @@ import { FormGroup } from '@angular/forms';
 })
 export class DatePickerComponent {
   @Input('control') control?: FormGroup;
+  @Input('itemId') itemId?: string;
 }

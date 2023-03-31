@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { Todo } from '../../interfaces';
-import { TodosService } from '../../services/todos.service';
-import { ItemsService } from '../../services/items.service';
+import { Todo } from '../../../interfaces';
+import { TodosService } from '../../../services/todos.service';
+import { ItemsService } from '../../../services/items.service';
 
 @Component({
   selector: 'app-todo-list',

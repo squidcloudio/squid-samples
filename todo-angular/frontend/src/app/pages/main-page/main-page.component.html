@@ -12,10 +12,9 @@
       <button class="profile-theme-button">
         <img src="./assets/theme-light.svg" alt="theme" />
       </button>
-      <ng-container *ngIf="(userObs|async) as user ">
+      <ng-container *ngIf="userObs | async as user">
         <img [src]="user.avatar" alt="" class="profile-avatar" width="32" height="32" />
       </ng-container>
-
     </div>
   </div>
 </header>

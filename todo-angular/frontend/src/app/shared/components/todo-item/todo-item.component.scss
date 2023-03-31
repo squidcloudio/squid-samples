@@ -1,7 +1,7 @@
 .item {
   width: 100%;
   display: flex;
-  align-items: start;
+  align-items: flex-start;
   border-radius: 8px;
   padding: 21px 13px;
   cursor: pointer;
@@ -18,7 +18,7 @@
     min-width: 508px;
     &-header {
       display: flex;
-      align-items: start;
+      align-items: flex-start;
       justify-content: space-between;
       &-text {
         padding-left: 10px;

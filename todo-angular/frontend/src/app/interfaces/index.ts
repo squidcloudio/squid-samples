@@ -19,6 +19,7 @@ export enum ModalListNames {
 export interface ModalWindowData {
   name: ModalListNames.newList | ModalListNames.newItem | ModalListNames.editTodo | ModalListNames.editItem;
   id?: string;
+  date?: string;
 }
 
 export interface Tag {
