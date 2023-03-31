@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { Tag } from '../../../interfaces';
 import { FormGroup } from '@angular/forms';
 
@@ -10,28 +10,36 @@ import { FormGroup } from '@angular/forms';
 export class MultiSelectComponent implements OnInit {
   @Input('control') control?: FormGroup;
   @ViewChild('inputRef') inputRef?: ElementRef;
-  currentTag = '';
-  tags = ['product', 'weekly'];
+  tags = [
+    { id: '1', name: 'product' },
+    { id: '2', name: 'weekly' },
+  ];
 
   selectedTags: Tag[] = [];
 
+  constructor(private renderer: Renderer2) {}
   focus(e: MouseEvent): void {
     e.stopImmediatePropagation();
   }
   ngOnInit(): void {
     if (this.control) {
-      this.selectedTags = this.control.get('tags')?.value;
+      this.selectedTags = [...this.control.get('tags')?.value];
     }
   }
 
   addTagFromInput(): void {
-    if (this.currentTag && this.control) {
+    if (this.control) {
       const newId = self.crypto.randomUUID();
-      const newTag = { id: newId, name: this.currentTag };
+      const newTag = { id: newId, name: this.inputRef?.nativeElement.value };
       this.selectedTags.push(newTag);
     }
-    this.currentTag = '';
+    this.renderer.setProperty(this.inputRef?.nativeElement, 'value', '');
     this.control?.get('tags')?.setValue(this.selectedTags);
+  }
+  addTagFromSelect(item: { id: string; name: string }): void {
+    this.selectedTags.push(item);
+    this.control?.get('tags')?.setValue(this.selectedTags);
+    this.renderer.setProperty(this.inputRef?.nativeElement, 'value', '');
   }
 
   deleteTage(id: string): void {

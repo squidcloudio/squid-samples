@@ -1,14 +1,14 @@
-.form {
-  &-title {
-    color: #212121;
-    font-size: 36px;
-    font-weight: 700;
+@use '../../../../styles';
+
+.form{
+  &-title{
+    @include styles.formTitle()
   }
   &-container {
     margin-top: 24px;
     display: flex;
     flex-direction: column;
-    align-items: self-start;
+    align-items: flex-start;
 
     &__component {
       &:not(:first-child) {

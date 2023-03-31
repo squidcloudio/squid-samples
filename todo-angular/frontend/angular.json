@@ -33,7 +33,8 @@
               "src/styles.scss",
               "src/new-style.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": ["@squidcloud/client","moment"]
           },
           "configurations": {
             "production": {

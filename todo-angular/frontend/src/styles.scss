@@ -32,7 +32,6 @@ $frontend-theme: mat.define-light-theme((
 // that you are using.
 @include mat.all-component-themes($frontend-theme);
 
-@import url('https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700&display=swap');
 
 * {
   padding: 0;
@@ -53,7 +52,7 @@ body {
   min-width: 1352px;
   max-width: 1352px;
   display: flex;
-  align-items: start;
+  align-items: flex-start;
   justify-content: space-between;
 }
 
@@ -63,7 +62,7 @@ html, body {
 
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+ font-family: 'Karla', sans-serif;;
 }
 
 
@@ -103,6 +102,7 @@ body {
 }
 
 @mixin formTitle{
+  font-family: inherit;
     color: #212121;
     font-size: 36px;
     font-weight: 700;
