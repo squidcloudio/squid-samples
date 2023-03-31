@@ -5,7 +5,6 @@ import { Item } from '../interfaces';
 import { map, NEVER, Observable, switchMap } from 'rxjs';
 import { AccountService } from './account.service';
 import * as moment from 'moment';
-import { Moment } from 'moment';
 
 @Injectable({ providedIn: 'root' })
 export class ItemsService {

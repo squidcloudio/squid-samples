@@ -28,7 +28,7 @@ export class MultiSelectComponent implements OnInit {
   }
 
   addTagFromInput(): void {
-    if (this.control) {
+    if (this.control && this.inputRef?.nativeElement.value.trim()) {
       const newId = self.crypto.randomUUID();
       const newTag = { id: newId, name: this.inputRef?.nativeElement.value };
       this.selectedTags.push(newTag);
