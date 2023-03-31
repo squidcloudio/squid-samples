@@ -18,7 +18,6 @@ export class EditTodoFormComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     if (this.todoId)
       this.todoSub = this.todoService.todo(this.todoId).subscribe(todo => {
-        console.log(todo);
         this.editTodoForm = new FormGroup({
           title: new FormControl(todo.title, Validators.required),
         });

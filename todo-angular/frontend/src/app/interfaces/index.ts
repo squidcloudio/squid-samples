@@ -11,6 +11,7 @@ export enum FormatTypes {
   WEEK_DAY_NAME = 'dd',
   WEEK_DAY_NUMBER = 'D',
   DEFAULT_FORMAT = 'M/D/YYYY',
+  ISO_FORMAT = 'MM-DD-YYYY',
 }
 
 export enum ModalListNames {

@@ -40,7 +40,7 @@ export class CalendarSidebarComponent implements OnInit, OnDestroy {
     this.expiredItemsObs = this.itemService.getItems().pipe(
       map(items =>
         items.filter(item => {
-          const isItemIsExpired = moment(item.dueDate).startOf('day') < moment().startOf('day');
+          const isItemIsExpired = moment(item.dueDate, FormatTypes.ISO_FORMAT).startOf('day') < moment().startOf('day');
           return isItemIsExpired && !item.completed;
         }),
       ),
@@ -70,7 +70,9 @@ export class CalendarSidebarComponent implements OnInit, OnDestroy {
     return this.itemService.getItemByDate(this.selectedDate).pipe(
       map(items =>
         items.filter(item => {
-          const isItemInProgress = moment(item.dueDate).startOf('day').diff(moment().startOf('day'));
+          const isItemInProgress = moment(item.dueDate, FormatTypes.ISO_FORMAT)
+            .startOf('day')
+            .diff(moment().startOf('day'));
           return isItemInProgress >= 0 && !item.completed;
         }),
       ),

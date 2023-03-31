@@ -4,6 +4,6 @@ import * as moment from 'moment';
 @Pipe({ name: 'formatDate' })
 export class FormatDatePipe implements PipeTransform {
   transform(value: any, format: string): any {
-    return moment(value).format(format);
+    return moment(value, 'MM-DD-YYYY').format(format);
   }
 }
