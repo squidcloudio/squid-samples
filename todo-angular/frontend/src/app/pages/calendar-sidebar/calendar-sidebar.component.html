@@ -1,6 +1,6 @@
 <section class="calendar">
   <div class="calendar-header">
-    <h2 class="calendar-header-title">{{ selectedMonth }}</h2>
+    <h2 class="calendar-header-title">{{ selectedDate|formatDate:formatTypes.MONTH_AND_YEAR }}</h2>
     <div class="calendar-header-navigation">
       <button class="calendar-header-navigation__component" (click)="getPrevWeek()">
         <mat-icon>arrow_back_ios</mat-icon>
@@ -14,15 +14,15 @@
     <li
       *ngFor="let calendarItem of calendarList"
       class="calendar-dates__component"
-      [ngClass]="{ 'item-active': calendarItem.date === selectedDate.date }"
-      (click)="selectDate(calendarItem.date)">
-      <p class="calendar-dates__component-title">{{ calendarItem.weekdayName }}</p>
-      <p class="calendar-dates__component-number">{{ calendarItem.weekDayNumber }}</p>
+      [ngClass]="{ 'item-active': calendarItem === selectedDate }"
+      (click)="selectDate(calendarItem)">
+      <p class="calendar-dates__component-title">{{ calendarItem|formatDate:formatTypes.WEEK_DAY_NAME }}</p>
+      <p class="calendar-dates__component-number">{{ calendarItem|formatDate:formatTypes.WEEK_DAY_NUMBER }}</p>
     </li>
   </ul>
   <mat-divider class="calendar-divider"></mat-divider>
   <div class="calendar-items">
-    <h3 class="calendar-items-title">{{ selectedDate.displayDate }}</h3>
+    <h3 class="calendar-items-title">{{ selectedDate|formatDate:formatTypes.MONTH_AND_DATE }}</h3>
     <ng-container *ngIf="activeItemsObs | async as items">
       <ul class="calendar-items-list">
         <ng-container *ngFor="let item of items">
@@ -40,7 +40,7 @@
     </ng-container>
     <ng-container *ngIf="!(activeItemsObs | async)?.length">
       <div class="add-item-button">
-        <app-add-item-button [date]="selectedDate.date"></app-add-item-button>
+        <app-add-item-button [date]="selectedDate"></app-add-item-button>
       </div>
     </ng-container>
   </div>

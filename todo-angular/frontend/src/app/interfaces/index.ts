@@ -5,8 +5,12 @@ export interface User {
   id: string;
 }
 
-export interface ModalWindow {
-  [name: string]: boolean;
+export enum FormatTypes {
+  MONTH_AND_DATE = 'MMMM D',
+  MONTH_AND_YEAR = 'MMMM YYYY',
+  WEEK_DAY_NAME = 'dd',
+  WEEK_DAY_NUMBER = 'D',
+  DEFAULT_FORMAT = 'M/D/YYYY',
 }
 
 export enum ModalListNames {
