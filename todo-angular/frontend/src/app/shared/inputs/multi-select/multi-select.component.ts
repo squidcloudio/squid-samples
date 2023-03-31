@@ -36,9 +36,11 @@ export class MultiSelectComponent implements OnInit {
     this.renderer.setProperty(this.inputRef?.nativeElement, 'value', '');
     this.control?.get('tags')?.setValue(this.selectedTags);
   }
+
   addTagFromSelect(item: { id: string; name: string }): void {
     this.selectedTags.push(item);
-    this.control?.get('tags')?.setValue(this.selectedTags);
+    this.control?.get('tags')?.setValue(new Set([...this.selectedTags]));
+    this.selectedTags = [...new Set([...this.selectedTags])];
     this.renderer.setProperty(this.inputRef?.nativeElement, 'value', '');
   }
 
