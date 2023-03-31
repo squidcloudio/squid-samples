@@ -9,7 +9,7 @@ import { ModalWindowComponent } from '../../shared/modal-window/modal-window.com
   styleUrls: ['./todo-navigation.component.scss'],
 })
 export class TodoNavigationComponent {
-  constructor(public dialog: Dialog) {}
+  constructor(readonly dialog: Dialog) {}
 
   createNewList(): void {
     const dialogRef = this.dialog.open(ModalWindowComponent, { data: { name: ModalListNames.newList } });

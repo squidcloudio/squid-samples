@@ -14,5 +14,5 @@ export class FormButtonsComponent {
   @Input('submitName') submitName?: string;
   @Input('dialog') dialog?: DialogRef<string>;
 
-  constructor(public todoService: TodosService) {}
+  constructor(readonly todoService: TodosService) {}
 }
