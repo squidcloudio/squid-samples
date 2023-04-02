@@ -4,6 +4,9 @@ import vector from '../images/Vector.png';
 import td from '../images/T•D•.png';
 import themeChange from '../images/Vector-2.png';
 
+import MenuIcon from '@mui/icons-material/Edit';
+import { Box, IconButton } from '@mui/material';
+
 export type Todo = {
   id?: string;
   title?: string;
@@ -20,6 +23,11 @@ const Root = ({ avatar }: any) => {
   return (
     <>
       <header style={{ backgroundColor: todos ? todos.data.color : '#14BE6E' }} className="header">
+        {/* <Box display={{ xs: 'block', md: 'none' }}>
+          <IconButton onClick={() => console.log('ok')}>
+            <MenuIcon />
+          </IconButton>
+        </Box> */}
         <div>
           <img src={vector} alt="" />
           <img src={td} alt="" />

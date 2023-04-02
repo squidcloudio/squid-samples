@@ -1,4 +1,4 @@
-import { Checkbox, List, ListItem, Typography, Divider, Box } from '@mui/material';
+import { List } from '@mui/material';
 
 import addList from '../images/Component 1.png';
 
@@ -8,6 +8,7 @@ import { useCollection, useQuery } from '@squidcloud/react';
 
 import { Todo, Item } from '../interfaces/types';
 import ItemModal from '../modals/ItemModal';
+import StyledListItem from '../styled/StyledListItem';
 
 const TodoList = () => {
   const [open, setOpen] = useState<boolean>(false);
@@ -22,41 +23,9 @@ const TodoList = () => {
   return (
     <div className="todo">
       <List>
-        {items.map((item) => {
-          return (
-            <ListItem>
-              <Box width={1} display="flex" alignItems="flex-start">
-                <Checkbox
-                  size="small"
-                  sx={{
-                    '&.Mui-checked': {
-                      color: todos ? todos.data.color : '',
-                    },
-                  }}
-                />
-                <Box width={1} mt={1}>
-                  <Typography pb={1}>{item.data.title}</Typography>
-                  <Typography mb={1}>{item.data.description}</Typography>
-                  <Divider color="#E1E6EF" />
-                  <Box pt={1} display="flex" justifyContent="space-between">
-                    <Typography>
-                      DUE DATE: <span>{item.data.dueDate}</span>
-                    </Typography>
-                    <Typography>
-                      {item.data.tags.map((tag, i) => {
-                        return (
-                          <div className="tag-item" key={i}>
-                            <span className="text">{tag.name}</span>
-                          </div>
-                        );
-                      })}
-                    </Typography>
-                  </Box>
-                </Box>
-              </Box>
-            </ListItem>
-          );
-        })}
+        {items.map((item, i) => (
+          <StyledListItem todos={todos} item={item} index={i} />
+        ))}
 
         <button className="item_button" onClick={() => setOpen(true)}>
           <img src={addList} alt="list" />

@@ -12,27 +12,27 @@ import { StyledDatePicker } from '../styled/StyledDatePicker';
 import { CssTextField } from '../styled/CssTextField';
 import uuid from 'react-uuid';
 
-const ItemModal = ({ collection, todos, open, setOpen, items }: any) => {
+const ItemModal = ({ collection, todos, open, setOpen }: any) => {
   const titleRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLInputElement>(null);
 
-  const [value, setValue] = useState<Dayjs | Date | null | string>(null);
-  const [tags, setTags] = useState<string[]>([]);
-
-  const tagsList = items.map((item: any) => item.data.tags[0]);
-
-  console.log('collection', collection);
+  const [value, setValue] = useState<string>('');
+  const [tags, setTags] = useState<any>([]);
 
   const removeTag = (idx: number) => {
-    setTags(tags.filter((_, i) => i !== idx));
+    setTags(tags.filter((_: any, i: any) => i !== idx));
   };
 
   const handleTags = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key !== 'Enter') return;
     let inputValue = (e.currentTarget as HTMLInputElement).value.trim();
 
-    if (!inputValue.trim()) return;
-    setTags([...tags, inputValue]);
+    const newId = uuid();
+    if (inputValue) {
+      const newTag = { id: newId, name: inputValue };
+      if (!inputValue.trim()) return;
+      setTags([...tags, newTag]);
+    }
 
     (e.currentTarget as HTMLInputElement).value = '';
   };
@@ -42,18 +42,20 @@ const ItemModal = ({ collection, todos, open, setOpen, items }: any) => {
     collection.doc(itemNewId).insert({
       title: titleRef.current?.value ?? '',
       description: descriptionRef.current?.value ?? '',
-      dueDate: new Date().toLocaleDateString('en-Us', {
+      dueDate: new Date(value).toLocaleDateString('en-Us', {
         month: 'numeric',
         day: 'numeric',
         year: 'numeric',
-      }),
-      tags: tagsList,
+      } as Intl.DateTimeFormatOptions),
+      tags,
       todoId: todos.data.id,
       userId: todos.data.userId,
       completed: false,
       id: itemNewId,
     });
 
+    setValue('');
+    setTags([]);
     setOpen(false);
   };
 
@@ -62,7 +64,7 @@ const ItemModal = ({ collection, todos, open, setOpen, items }: any) => {
       <div className="modal_container">
         <p>Add New Item</p>
         <CssTextField label="Title" inputRef={titleRef} className="modal_container-input" />
-        <CssTextField label="Description" />
+        <CssTextField label="Description" inputRef={descriptionRef} />
 
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DemoContainer components={['DatePicker']}>

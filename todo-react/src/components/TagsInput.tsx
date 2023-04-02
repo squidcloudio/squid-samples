@@ -20,7 +20,7 @@ const TagsInput = ({ tags, removeTag, handleTags }: any) => {
       {tags.map((tag: any, i: any) => {
         return (
           <div className="tag-item" key={i}>
-            <span className="text">{tag}</span>
+            <span className="text">{tag.name}</span>
             <span className="close" onClick={() => removeTag(i)}>
               &times;
             </span>

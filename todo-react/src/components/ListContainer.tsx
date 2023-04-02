@@ -15,7 +15,8 @@ const ListContainer = () => {
   const [open, setOpen] = useState<boolean>(false);
   const collection = useCollection<Todo>('todos');
 
-  const todosList = useQuery(collection.query().where('title', 'not in', ['Today', 'Tomorrow', 'Someday']), true);
+  // const todosList = useQuery(collection.query().where('title', 'not in', ['Today', 'Tomorrow', 'Someday']), true);
+  const todosList = useQuery(collection.query(), true);
 
   const [todos] = useQuery(collection.query().where('id', '==', `${id}`), true);
 
@@ -26,11 +27,10 @@ const ListContainer = () => {
   return (
     <>
       <ul>
-        {todosList.map((todo) => {
+        {todosList.map((todo, i) => {
           const { id, title, color } = todo.data;
-
           return (
-            <div className="navlink">
+            <div className="navlink" key={i}>
               <NavLink
                 key={id}
                 to={`/${id}`}
