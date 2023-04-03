@@ -1,4 +1,4 @@
-<main class="main">
+<main class="main" [ngClass]="{'main-dark': themeService.isDark}">
   <router-outlet></router-outlet>
 </main>
 

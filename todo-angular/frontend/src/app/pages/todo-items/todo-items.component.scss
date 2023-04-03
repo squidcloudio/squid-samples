@@ -1,5 +1,7 @@
 @use './src/app/app.component';
-
+.current-todo{
+  display: none;
+}
 .todo-section {
   @include app.flex-column();
   align-items: flex-start;
@@ -55,4 +57,42 @@
   padding: 20px;
   font-size: 24px;
   text-align: center;
+}
+
+.todo-section-dark {
+  & .todo-section {
+    &-title {
+      color: #e2e3e4;
+    }
+    &-content {
+      background-color: #1b1f27;
+      color: #e2e3e4;
+    }
+  }
+  & .no-items-title {
+    color: #e2e3e4;
+  }
+
+}
+@media screen  and (max-width: 1351px){
+  .current-todo{
+    display: flex;
+    flex-direction: column;
+    &-color{
+      width: 16px;
+      height: 16px;
+      border-radius: 4px;
+    }
+    &-title{
+      margin-left: 16px;
+    }
+    &-amount{
+      margin-left: 6px;
+      display: flex;
+    }
+    &-info{
+      display: flex;
+    }
+
+  }
 }

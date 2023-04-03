@@ -4,6 +4,7 @@ import { Dialog } from '@angular/cdk/dialog';
 import { ModalWindowComponent } from '../../modal-window/modal-window.component';
 import { ModalListNames } from '../../../interfaces';
 import { ItemsService } from '../../../services/items.service';
+import { ThemeService } from '../../../services/theme.service';
 
 @Component({
   selector: 'app-edit-todo',
@@ -15,7 +16,12 @@ export class EditTodoComponent {
   @Input('id') id?: string;
   @Input('type') type?: string;
   readonly modalListNames = ModalListNames;
-  constructor(private todoService: TodosService, private dialog: Dialog, private itemService: ItemsService) {}
+  constructor(
+    private todoService: TodosService,
+    private dialog: Dialog,
+    private itemService: ItemsService,
+    readonly themeService: ThemeService,
+  ) {}
 
   deleteTodo(): void {
     if (this.type === 'todo') this.todoService.deleteTodo();

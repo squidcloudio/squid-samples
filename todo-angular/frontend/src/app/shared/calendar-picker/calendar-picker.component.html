@@ -1,0 +1,21 @@
+<div class="calendar-header">
+  <h2 class="calendar-header-title">{{ selectedDate|formatDate:formatTypes.MONTH_AND_YEAR }}</h2>
+  <div class="calendar-header-navigation">
+    <button class="calendar-header-navigation__component" (click)="getPrevWeek()">
+      <mat-icon class="date-navigation-icon">arrow_back_ios</mat-icon>
+    </button>
+    <button class="calendar--header-navigation__component" (click)="getNextWeek()">
+      <mat-icon class="date-navigation-icon">arrow_forward_ios</mat-icon>
+    </button>
+  </div>
+</div>
+<ul class="calendar-dates">
+  <li
+    *ngFor="let calendarItem of calendarList"
+    class="calendar-dates__component"
+    [ngClass]="{ 'item-active': calendarItem === selectedDate }"
+    (click)="selectDate(calendarItem)">
+    <p class="calendar-dates__component-title">{{ calendarItem|formatDate:formatTypes.WEEK_DAY_NAME }}</p>
+    <p class="calendar-dates__component-number">{{ calendarItem|formatDate:formatTypes.WEEK_DAY_NUMBER }}</p>
+  </li>
+</ul>

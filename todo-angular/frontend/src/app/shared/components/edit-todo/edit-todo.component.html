@@ -1,11 +1,11 @@
-<button mat-icon-button [matMenuTriggerFor]="menu" class="menu-button" [ngStyle]="{'background':type==='item'?'none':''}">
-  <mat-icon>more_horiz</mat-icon>
+<button mat-icon-button [matMenuTriggerFor]="menu" class="menu-button" [ngStyle]="{'background':type==='item'?'none':''}" [ngClass]="{'menu-button-dark': themeService.isDark}">
+  <mat-icon class="white-icon">more_horiz</mat-icon>
 </button>
 <mat-menu #menu="matMenu" xPosition="before">
   <button mat-menu-item (click)="openModalWindow()">
     <div class="menu-component">
       <img src="../../../../assets/edit.svg"/>
-      <span class="menu-component-text">Edit</span>
+      <span class="menu-component-text" >Edit</span>
     </div>
   </button>
   <button mat-menu-item (click)="deleteTodo()">

@@ -31,8 +31,10 @@
 
   &-theme-button {
     background: none;
-
   }
+}
+.burger-menu{
+  display: none;
 }
 
 .content {
@@ -41,4 +43,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+
+@media screen  and (max-width: 1350px) {
+  .burger-menu {
+    display: block;
+  }
+  .logo-container-img{
+    margin-left: 18px;
+  }
 }

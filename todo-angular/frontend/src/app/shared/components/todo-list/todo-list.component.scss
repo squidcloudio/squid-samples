@@ -34,3 +34,12 @@
     }
   }
 }
+.list-dark {
+  & .list__component{
+    color: #e2e3e4;
+  }
+  & .list__component-active {
+    color: #e2e3e4;
+    background-color: #32363e;
+  }
+}

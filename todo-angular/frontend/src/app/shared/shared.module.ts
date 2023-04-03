@@ -24,6 +24,13 @@ import { MatMenuModule } from '@angular/material/menu';
 import { ItemsAmountComponent } from './components/items-amount/items-amount.component';
 import { EditTodoFormComponent } from './forms/edit-todo-form/edit-todo-form.component';
 import { AddItemButtonComponent } from './buttons/add-item-button/add-item-button.component';
+import { SidebarNavigationComponent } from './sidebar-navigation/sidebar-navigation.component';
+import { MatListModule } from '@angular/material/list';
+import { AddTodoButtonComponent } from './buttons/add-todo-button/add-todo-button.component';
+import { CalendarPickerComponent } from './calendar-picker/calendar-picker.component';
+import { DateTransformPipe } from '../pipes/dateTransform.pipe';
+import { FormatDatePipe } from '../pipes/formatDate.pipe';
+import { CalendarItemsComponent } from './components/calendar-items/calendar-items.component';
 
 @NgModule({
   imports: [
@@ -45,6 +52,7 @@ import { AddItemButtonComponent } from './buttons/add-item-button/add-item-butto
     NgClass,
     MatCheckboxModule,
     MatMenuModule,
+    MatListModule,
   ],
   exports: [
     TodoListComponent,
@@ -60,6 +68,12 @@ import { AddItemButtonComponent } from './buttons/add-item-button/add-item-butto
     ItemsAmountComponent,
     EditTodoFormComponent,
     AddItemButtonComponent,
+    SidebarNavigationComponent,
+    AddTodoButtonComponent,
+    CalendarPickerComponent,
+    DateTransformPipe,
+    FormatDatePipe,
+    CalendarItemsComponent,
   ],
   providers: [],
   declarations: [
@@ -76,6 +90,12 @@ import { AddItemButtonComponent } from './buttons/add-item-button/add-item-butto
     ItemsAmountComponent,
     EditTodoFormComponent,
     AddItemButtonComponent,
+    SidebarNavigationComponent,
+    AddTodoButtonComponent,
+    CalendarPickerComponent,
+    DateTransformPipe,
+    FormatDatePipe,
+    CalendarItemsComponent,
   ],
 })
 export class SharedModule {}

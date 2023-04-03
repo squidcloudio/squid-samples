@@ -45,8 +45,6 @@ const routes: Routes = [
     TodoItemsComponent,
     TodoNavigationComponent,
     CalendarSidebarComponent,
-    DateTransformPipe,
-    FormatDatePipe,
   ],
   imports: [
     BrowserModule,
@@ -71,5 +69,6 @@ const routes: Routes = [
   ],
   providers: [],
   bootstrap: [AppComponent],
+  exports: [FormatDatePipe],
 })
 export class AppModule {}

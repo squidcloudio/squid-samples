@@ -31,3 +31,15 @@
     fill: #212121;
   }
 }
+.menu-button-dark{
+  background: none;
+
+ & .white-icon {
+    color: white;
+   & svg{
+     fill:white;
+   }
+  }
+
+}
+

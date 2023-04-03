@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Todo } from '../../../interfaces';
 import { TodosService } from '../../../services/todos.service';
-import { ItemsService } from '../../../services/items.service';
+import { ThemeService } from '../../../services/theme.service';
 
 @Component({
   selector: 'app-todo-list',
@@ -15,7 +15,7 @@ export class TodoListComponent implements OnInit {
 
   amount: Observable<number> = of(0);
 
-  constructor(private todoCollection: TodosService, private itemService: ItemsService) {}
+  constructor(private todoCollection: TodosService, readonly themeService: ThemeService) {}
 
   ngOnInit(): void {
     this.todoList =

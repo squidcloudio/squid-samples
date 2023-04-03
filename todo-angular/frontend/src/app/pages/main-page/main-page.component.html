@@ -5,11 +5,13 @@
   }">
   <div class="wrapper">
     <div class="logo-container">
+      <mat-icon class="burger-menu" (click)="openModalWindow()">menu</mat-icon>
       <img src="./assets/logo.svg" alt="" class="logo-container-img" />
+
       <p class="logo-container-title">T•D•</p>
     </div>
     <div class="profile">
-      <button class="profile-theme-button">
+      <button class="profile-theme-button" (click)="a()">
         <img src="./assets/theme-light.svg" alt="theme" />
       </button>
       <ng-container *ngIf="userObs | async as user">
@@ -19,11 +21,10 @@
   </div>
 </header>
 
-<main class="content">
+<main class="content dark">
   <section class="wrapper">
     <app-todo-navigation></app-todo-navigation>
     <router-outlet></router-outlet>
     <app-calendar-sidebar></app-calendar-sidebar>
   </section>
 </main>
-<button (click)="logout()">logout</button>

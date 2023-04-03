@@ -1,0 +1,23 @@
+<div class="calendar-items">
+  <h3 class="calendar-items-title">{{ calendarService.currentDate|formatDate:formatTypes.MONTH_AND_DATE }}</h3>
+  <ng-container *ngIf="activeItemsObs | async as items">
+    <ul class="calendar-items-list">
+      <ng-container *ngFor="let item of items">
+        <li class="calendar-items-list__component" (click)="goToTodoPage(item.todoId, item.id, item.dueDate)">
+          <div class="calendar-items-list__component-container">
+            <div
+              class="calendar-items-list__component-color"
+              [ngStyle]="{ 'background-color': item.todoColor }"></div>
+            <p class="calendar-items-list__component-title">{{ item.title }}</p>
+          </div>
+          <app-edit-todo [id]="item.id" type="item"></app-edit-todo>
+        </li>
+      </ng-container>
+    </ul>
+  </ng-container>
+  <ng-container *ngIf="!(activeItemsObs | async)?.length">
+    <div class="add-item-button">
+      <app-add-item-button [date]="calendarService.currentDate"></app-add-item-button>
+    </div>
+  </ng-container>
+</div>

@@ -4,6 +4,7 @@ import { filter, map, Observable, of, Subscription, switchMap } from 'rxjs';
 import { Item, Todo } from '../../interfaces';
 import { ActivatedRoute, Params } from '@angular/router';
 import { ItemsService } from '../../services/items.service';
+import { ThemeService } from '../../services/theme.service';
 
 @Component({
   selector: 'app-todo',
@@ -23,6 +24,7 @@ export class TodoItemsComponent implements OnInit, OnDestroy {
     private todoService: TodosService,
     private activatedRoute: ActivatedRoute,
     private itemsService: ItemsService,
+    readonly themeService: ThemeService,
   ) {}
   ngOnInit(): void {
     this.queryParamsSub = this.activatedRoute.queryParams.pipe(filter(params => params['itemId'])).subscribe(params => {

@@ -1,5 +1,4 @@
 .calendar {
-  min-width: 280px;
   background-color: #ffffff;
   padding: 30px 24px;
   border-radius: 12px;
@@ -120,4 +119,27 @@
 .add-item-button {
   margin-top: 24px;
   padding-left: 16px;
+}
+
+.calendar-dark {
+  background-color: #1b1f27;
+  & .date-navigation-icon {
+    color: white;
+    & svg {
+      fill: white;
+    }
+  }
+  & .item-active {
+    background-color: #32363e;
+  }
+  & .calendar-dates__component-title,
+  .calendar-dates__component-number,.calendar-expired-list__component {
+    color: #e2e3e4;
+  }
+}
+
+@media screen and (max-width: 1350px) {
+  .calendar {
+    display: none;
+  }
 }

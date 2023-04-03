@@ -1,0 +1,71 @@
+.calendar{
+  background-color: #ffffff;
+  padding: 30px 24px;
+  border-radius: 12px;
+  &-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    &-title {
+      font-weight: 700;
+      font-size: 16px;
+    }
+    &-navigation {
+    }
+  }
+
+  &-dates {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-around;
+    &__component {
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      align-items: center;
+      padding: 5px;
+      & p {
+        font-weight: 400;
+        font-size: 16px;
+        color: #666666;
+      }
+      &-number {
+        margin-top: 10px;
+      }
+
+      &:hover {
+        background-color: #f8f9fc;
+        border-radius: 8px;
+        & p {
+          color: #212121;
+          font-weight: 700;
+        }
+      }
+    }
+  }
+
+}
+.item-active {
+  background-color: #f8f9fc;
+  border-radius: 8px;
+  & p {
+    color: #212121;
+    font-weight: 700;
+  }
+}
+.calendar-dark {
+  background-color: #1b1f27;
+  & .date-navigation-icon {
+    color: white;
+    & svg {
+      fill: white;
+    }
+  }
+  & .item-active {
+    background-color: #32363e;
+  }
+  & .calendar-dates__component-title,
+  .calendar-dates__component-number,.calendar-expired-list__component {
+    color: #e2e3e4;
+  }
+}
