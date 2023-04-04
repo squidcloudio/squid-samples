@@ -5,7 +5,7 @@
     'item-completed': item?.completed,
     'item-selected': item?.id === itemId
   }">
-  <mat-checkbox color="#15C771" (click)="changeItemStatus(item?.id)" [checked]="item?.completed"></mat-checkbox>
+  <mat-checkbox color="#15C771" (click)="changeItemStatus(item?.id)" [checked]="item?.completed" ></mat-checkbox>
   <article class="item-content">
     <div class="item-content-header">
       <div class="item-content-header-text">

@@ -2,8 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BehaviorSubject, map } from 'rxjs';
 import { Moment } from 'moment/moment';
 import * as moment from 'moment/moment';
-import { FormatTypes } from '../../interfaces';
-import { CalendarService } from '../../services/calendar.service';
+import { FormatTypes } from '../../../interfaces';
+import { CalendarService } from '../../../services/calendar.service';
+import { ThemeService } from '../../../services/theme.service';
 
 @Component({
   selector: 'app-calendar-picker',
@@ -15,7 +16,7 @@ export class CalendarPickerComponent implements OnInit, OnDestroy {
   readonly formatTypes = FormatTypes;
   readonly calendarSubj: BehaviorSubject<Moment> = new BehaviorSubject(moment());
   readonly calendarList: string[] = [];
-  constructor(private calendarService: CalendarService) {}
+  constructor(private calendarService: CalendarService, readonly themeService: ThemeService) {}
   ngOnInit(): void {
     this.calendarSubj
       .asObservable()

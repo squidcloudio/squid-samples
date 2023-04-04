@@ -45,3 +45,34 @@
   background: #ffffff;
   font-size: 11px;
 }
+.container-dark {
+  & .container {
+    &-input {
+      background: #1b1f27;
+      border: 1px solid #e2e3e4;
+      color: #e2e3e4;
+      &:focus {
+        border: 2px solid #e2e3e4;
+        color: #e2e3e4;
+
+        background: none;
+      }
+    }
+    &-label {
+      color: #e2e3e4;
+    }
+  }
+  & .container-input:not(:placeholder-shown) {
+    border: 2px solid #e2e3e4;
+    color: #e2e3e4;
+    background: none;
+  }
+
+  & .container-input:focus ~ .container-label,
+  .container-input:not(:placeholder-shown).container-input:not(:focus) ~ .container-label {
+    top: -6px;
+    color: #e2e3e4;
+    background: #1b1f27;
+    font-size: 11px;
+  }
+}

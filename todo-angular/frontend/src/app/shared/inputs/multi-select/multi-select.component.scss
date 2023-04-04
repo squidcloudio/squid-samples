@@ -17,34 +17,30 @@
   }
 
   &:focus {
-    border: 2px solid #212121;
     color: #212121;
     background: none;
   }
 
-  &:has(&-input:focus) {
-    border: 2px solid #212121;
+  &:has(.tag-container-input:focus) {
     color: #212121;
     background: none;
 
     .tag-container-label {
       position: absolute;
       top: -10px;
-      background-color: #ffffff;
       padding: 2px;
       display: block;
     }
   }
 
-  &:focus &-label {
+  &:focus .tag-container-label {
     position: absolute;
     top: -10px;
-    background-color: #ffffff;
     padding: 2px;
     display: block;
   }
 
-  &-input {
+  .tag-container-input {
     margin-left: 10px;
 
     &::placeholder {
@@ -53,7 +49,7 @@
     }
   }
 
-  &:has(&-input:not(:placeholder-shown)) {
+  &:has(.tag-container-input:not(:placeholder-shown)) {
     border: 2px solid #212121;
     color: #212121;
     background: none;
@@ -61,7 +57,6 @@
     .tag-container-label {
       position: absolute;
       top: -10px;
-      background-color: #ffffff;
       padding: 2px;
       display: block;
     }
@@ -101,8 +96,42 @@
   .tag-container-label {
     position: absolute;
     top: -10px;
-    background-color: #ffffff;
     padding: 2px;
     display: block;
+  }
+}
+
+.tag-container-light {
+  .tag-container-label {
+    background-color: #ffffff;
+  }
+  &:has(.tag-container-input:focus) {
+    border: 2px solid #212121;
+  }
+}
+.tag-container-dark {
+  background-color: #1b1f27;
+  color: #e2e3e4;
+  border-color: #e2e3e4;
+  &:has(.tag-container-input:focus) {
+    border: 2px solid #e2e3e4;
+  }
+  .tag-container-input {
+    color: #e2e3e4;
+  }
+  .tag-container-label {
+    background-color: #1b1f27;
+    color: #e2e3e4;
+  }
+
+  .tag-container-list__component {
+    border: 1px solid #e2e3e4;
+    color: #e2e3e4;
+  }
+}
+.options {
+  background-color: #1b1f27;
+  & p {
+    color: #e2e3e4;
   }
 }

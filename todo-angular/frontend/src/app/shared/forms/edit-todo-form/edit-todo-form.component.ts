@@ -3,6 +3,7 @@ import { DialogRef } from '@angular/cdk/dialog';
 import { TodosService } from '../../../services/todos.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { ThemeService } from '../../../services/theme.service';
 
 @Component({
   selector: 'app-edit-todo-form',
@@ -14,7 +15,7 @@ export class EditTodoFormComponent implements OnInit, OnDestroy {
   @Input('todoId') todoId?: string;
   editTodoForm?: FormGroup = new FormGroup({});
   todoSub?: Subscription;
-  constructor(private todoService: TodosService) {}
+  constructor(private todoService: TodosService, readonly themeService: ThemeService) {}
   ngOnInit(): void {
     if (this.todoId)
       this.todoSub = this.todoService.todo(this.todoId).subscribe(todo => {

@@ -1,5 +1,6 @@
-import {Component, Input} from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { ThemeService } from '../../../services/theme.service';
 
 @Component({
   selector: 'app-text-input',
@@ -12,5 +13,5 @@ export class TextInputComponent {
   @Input('inputId') inputId?: string;
   @Input('controlName') controlName?: string;
   @Input('control') control?: FormGroup;
-
+  constructor(readonly themeService: ThemeService) {}
 }

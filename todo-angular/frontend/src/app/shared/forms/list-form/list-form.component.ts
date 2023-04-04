@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TodosService } from '../../../services/todos.service';
 import { DialogRef } from '@angular/cdk/dialog';
+import { ThemeService } from '../../../services/theme.service';
 
 @Component({
   selector: 'app-list-form',
@@ -11,7 +12,7 @@ import { DialogRef } from '@angular/cdk/dialog';
 export class ListFormComponent {
   @Input('dialog') dialog?: DialogRef<string>;
 
-  constructor(private todoService: TodosService) {}
+  constructor(private todoService: TodosService, readonly themeService: ThemeService) {}
 
   colors: any[] = [
     { color: '#E441FF', name: 'Magenta' },

@@ -1,0 +1,33 @@
+.calendar-expired {
+  &-title {
+    margin-top: 24px;
+    color: #ff0000;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    & div {
+      width: 10px;
+      height: 10px;
+      border-radius: 100px;
+      background-color: #ff0000;
+    }
+  }
+  &-list {
+    margin-top: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    &__component {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 500;
+      font-size: 12px;
+      color: #212121;
+    }
+  }
+}
+.calendar-expired-dark{
+  & .calendar-expired-list__component {
+    color: #e2e3e4;
+  }
+}

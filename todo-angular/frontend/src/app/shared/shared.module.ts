@@ -27,10 +27,12 @@ import { AddItemButtonComponent } from './buttons/add-item-button/add-item-butto
 import { SidebarNavigationComponent } from './sidebar-navigation/sidebar-navigation.component';
 import { MatListModule } from '@angular/material/list';
 import { AddTodoButtonComponent } from './buttons/add-todo-button/add-todo-button.component';
-import { CalendarPickerComponent } from './calendar-picker/calendar-picker.component';
+import { CalendarPickerComponent } from './components/calendar-picker/calendar-picker.component';
 import { DateTransformPipe } from '../pipes/dateTransform.pipe';
 import { FormatDatePipe } from '../pipes/formatDate.pipe';
 import { CalendarItemsComponent } from './components/calendar-items/calendar-items.component';
+import { ExpiredItemsComponent } from './components/expired-items/expired-items.component';
+import { CalendarModalWindowComponent } from './calendar-modal-window/calendar-modal-window.component';
 
 @NgModule({
   imports: [
@@ -74,6 +76,8 @@ import { CalendarItemsComponent } from './components/calendar-items/calendar-ite
     DateTransformPipe,
     FormatDatePipe,
     CalendarItemsComponent,
+    ExpiredItemsComponent,
+    CalendarModalWindowComponent,
   ],
   providers: [],
   declarations: [
@@ -96,6 +100,8 @@ import { CalendarItemsComponent } from './components/calendar-items/calendar-ite
     DateTransformPipe,
     FormatDatePipe,
     CalendarItemsComponent,
+    ExpiredItemsComponent,
+    CalendarModalWindowComponent,
   ],
 })
 export class SharedModule {}

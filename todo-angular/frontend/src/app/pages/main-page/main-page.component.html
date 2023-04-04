@@ -11,7 +11,7 @@
       <p class="logo-container-title">T•D•</p>
     </div>
     <div class="profile">
-      <button class="profile-theme-button" (click)="a()">
+      <button class="profile-theme-button" (click)="toggleTheme()">
         <img src="./assets/theme-light.svg" alt="theme" />
       </button>
       <ng-container *ngIf="userObs | async as user">
@@ -28,3 +28,8 @@
     <app-calendar-sidebar></app-calendar-sidebar>
   </section>
 </main>
+<button class="calendar-button" [ngStyle]="{
+    'background-color': todoCollection.currentTodo?.color ? todoCollection.currentTodo?.color : 'black'
+  }" (click)="openCalendar()">
+  <img src="assets/calendar.svg" alt="calendar-button" >
+</button>

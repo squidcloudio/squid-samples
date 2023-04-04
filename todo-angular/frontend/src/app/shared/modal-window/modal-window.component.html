@@ -1,8 +1,8 @@
-<div class="modal">
+<div class="modal" [ngClass]="{'modal-dark':themeService.isDark}">
   <div class="modal-body">
     <div class="modal-body-header">
       <button class="modal-body-header-button" (click)="dialogRef.close()" (keydown.enter)="$event.preventDefault()">
-        <img src="./assets/close.svg" alt="close-button" />
+        <img [src]="themeService.isDark?'./assets/close-dark.svg':'./assets/close.svg'" alt="close-button" />
       </button>
     </div>
     <div class="modal-body-content">

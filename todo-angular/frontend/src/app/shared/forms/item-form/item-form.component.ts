@@ -7,6 +7,7 @@ import { DialogRef } from '@angular/cdk/dialog';
 import { AccountService } from '../../../services/account.service';
 import * as moment from 'moment';
 import { Subscription } from 'rxjs';
+import { ThemeService } from '../../../services/theme.service';
 
 @Component({
   selector: 'app-item-form',
@@ -28,6 +29,7 @@ export class ItemFormComponent implements OnInit, OnDestroy {
     private todoService: TodosService,
     private itemService: ItemsService,
     private accountService: AccountService,
+    readonly themeService: ThemeService,
   ) {
     this.currentTodo = this.todoService.currentTodo;
   }

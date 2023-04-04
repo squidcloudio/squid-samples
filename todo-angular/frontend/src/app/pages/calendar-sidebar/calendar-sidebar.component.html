@@ -1,21 +1,8 @@
-<section class="calendar" [ngClass]="{'calendar-dark': themeService.isDark}">
+<div class="calendar" [ngClass]="{'calendar-dark': themeService.isDark}">
 
 <app-calendar-picker></app-calendar-picker>
   <mat-divider class="calendar-divider"></mat-divider>
   <app-calendar-items ></app-calendar-items>
   <mat-divider class="calendar-divider"></mat-divider>
-  <ng-container *ngIf="expiredItemsObs | async as items">
-    <div class="calendar-expired-title">
-      <div></div>
-      <p>Overdue</p>
-    </div>
-    <ul class="calendar-expired-list">
-      <ng-container *ngFor="let item of items">
-        <li class="calendar-expired-list__component">
-          <p>{{ item.title }}</p>
-          <span>{{ item.dueDate | transformDate }}</span>
-        </li>
-      </ng-container>
-    </ul>
-  </ng-container>
-</section>
+  <app-expired-items></app-expired-items>
+</div>

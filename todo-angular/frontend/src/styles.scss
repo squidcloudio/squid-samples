@@ -58,7 +58,7 @@ body {
   background-color: green;
   color: #e2e3e4;
 }
-
+.mdc-menu-surface.mat-mdc-autocomplete-panel {padding: 0!important;}
 .multiselect-item-checkbox input[type='checkbox'] + div:after {
   background-color: transparent;
   top: 50%;

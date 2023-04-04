@@ -1,6 +1,7 @@
 import { Component, ElementRef, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { Tag } from '../../../interfaces';
 import { FormGroup } from '@angular/forms';
+import { ThemeService } from '../../../services/theme.service';
 
 @Component({
   selector: 'app-multiselect',
@@ -17,7 +18,7 @@ export class MultiSelectComponent implements OnInit {
 
   selectedTags: Tag[] = [];
 
-  constructor(private renderer: Renderer2) {}
+  constructor(private renderer: Renderer2, readonly themeService: ThemeService) {}
   focus(e: MouseEvent): void {
     e.stopImmediatePropagation();
   }

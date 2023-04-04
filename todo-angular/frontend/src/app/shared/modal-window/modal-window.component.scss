@@ -42,3 +42,9 @@
     z-index: 900;
   }
 }
+.modal-dark{
+  & .modal-body{
+    background-color: #1B1F27;
+  }
+
+}

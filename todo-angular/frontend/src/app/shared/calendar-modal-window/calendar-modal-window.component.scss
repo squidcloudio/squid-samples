@@ -1,0 +1,19 @@
+.calendar-modal{
+  position: fixed;
+  bottom: 0;
+  right: 35vw;
+  padding: 32px;
+  min-width: 430px;
+  background-color: #ffffff;
+  border-radius: 12px 12px 0px 0px;
+  .calendar-divider{
+    width: 100%;
+    margin-top: 25px;
+  }
+  &-dark{
+    background-color: #1B1F27;
+    & .calendar-divider {
+      border-top-color: white;
+    }
+  }
+}

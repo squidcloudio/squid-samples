@@ -1,5 +1,5 @@
 <ng-container *ngIf="control && controlName">
-  <div class="container" [formGroup]="control">
+  <div class="container" [formGroup]="control" [ngClass]="{'container-dark':themeService.isDark}">
     <input [type]="type" name="email" [id]="inputId" class="container-input" placeholder=" "
            [formControlName]="controlName" [value]="control.get(controlName)?.value"/>
     <label [for]="inputId" class="container-label">{{title}}</label>

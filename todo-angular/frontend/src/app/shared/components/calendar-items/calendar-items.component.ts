@@ -3,8 +3,8 @@ import { FormatTypes, Item } from '../../../interfaces';
 import * as moment from 'moment/moment';
 import { Router } from '@angular/router';
 import { CalendarService } from '../../../services/calendar.service';
-import { map, Observable } from 'rxjs';
-import { ItemsService } from '../../../services/items.service';
+import { Observable } from 'rxjs';
+import { ThemeService } from '../../../services/theme.service';
 
 @Component({
   selector: 'app-calendar-items',
@@ -14,7 +14,7 @@ import { ItemsService } from '../../../services/items.service';
 export class CalendarItemsComponent implements OnInit {
   activeItemsObs?: Observable<Item[]>;
   readonly formatTypes = FormatTypes;
-  constructor(private router: Router, readonly calendarService: CalendarService, private itemService: ItemsService) {}
+  constructor(private router: Router, readonly calendarService: CalendarService, readonly themeService: ThemeService) {}
   ngOnInit(): void {
     this.activeItemsObs = this.calendarService.getItemsByDate(this.calendarService.currentDate);
   }

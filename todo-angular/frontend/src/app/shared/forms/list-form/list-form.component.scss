@@ -60,3 +60,25 @@
 .newList-select:not(:placeholder-shown) {
   border: 2px solid #212121;
 }
+.select-container-dark {
+
+ & .newList-select-icon{
+   color:white;
+   & svg{
+     fill:white
+   }
+ }
+  & .newList-select{
+    border-color: #E2E3E4;
+    &.mat-mdc-input-element {
+    background: none;
+    color: #E2E3E4;
+  }}
+
+}
+.options{
+  background-color: #1B1F27;
+ & .option-name{
+    color: #E2E3E4;
+  }
+}

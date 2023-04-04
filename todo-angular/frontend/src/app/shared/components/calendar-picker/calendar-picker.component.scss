@@ -23,7 +23,7 @@
       flex-direction: column;
       cursor: pointer;
       align-items: center;
-      padding: 5px;
+      padding: 15px 5px;
       & p {
         font-weight: 400;
         font-size: 16px;
@@ -53,19 +53,39 @@
     font-weight: 700;
   }
 }
-.calendar-dark {
+.dates-dark {
   background-color: #1b1f27;
+  .calendar-header-title{
+    color: #E2E3E4;
+  }
   & .date-navigation-icon {
     color: white;
     & svg {
       fill: white;
     }
   }
-  & .item-active {
-    background-color: #32363e;
+  & .calendar-dates{
+    &__component{
+      &-title{
+        color: #77797E;
+      }
+      &-number{
+        color:#A7A9AC
+      }
+    }
   }
-  & .calendar-dates__component-title,
-  .calendar-dates__component-number,.calendar-expired-list__component {
-    color: #e2e3e4;
+& .item-active{
+  background-color: #32363E;
+  & .calendar-dates{
+    &__component{
+      &-title{
+        color: #E2E3E4;
+      }
+      &-number{
+        color: #E2E3E4;
+      }
+    }
   }
+}
+
 }

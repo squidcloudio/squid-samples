@@ -1,11 +1,19 @@
 <ng-container *ngIf="control">
-  <form [formGroup]="control" class="tag-container" id="tag" [ngClass]="selectedTags.length ? 'active' : ''">
+  <form
+    [ngClass]="{
+      active: selectedTags.length,
+      'tag-container-dark': themeService.isDark,
+      'tag-container-light': !themeService.isDark
+    }"
+    [formGroup]="control"
+    class="tag-container"
+    id="tag">
     <ng-container *ngIf="selectedTags.length">
       <ul class="tag-container-list">
         <li class="tag-container-list__component" *ngFor="let selectedTag of selectedTags">
           {{ selectedTag.name }}
           <button class="tag-component-button" (click)="deleteTage(selectedTag.id)">
-            <img src="./assets/close.svg" width="6" height="6" />
+            <img [src]="themeService.isDark ? './assets/close-dark.svg' : './assets/close.svg'" width="6" height="6" />
           </button>
         </li>
       </ul>
@@ -21,7 +29,11 @@
       (keydown.enter)="addTagFromInput()" />
     <label class="tag-container-label" for="tag">Tag</label>
     <mat-autocomplete autoSelectActiveOption #auto="matAutocomplete">
-      <mat-option *ngFor="let tag of tags" [value]="tag" (click)="addTagFromSelect(tag)"
+      <mat-option
+        *ngFor="let tag of tags"
+        [value]="tag"
+        (click)="addTagFromSelect(tag)"
+        [ngClass]="{ options: themeService.isDark }"
         ><p>{{ tag.name }}</p></mat-option
       >
     </mat-autocomplete>
