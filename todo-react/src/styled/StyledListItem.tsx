@@ -1,10 +1,11 @@
+import { useState } from 'react';
 import { styled } from '@mui/material/styles';
 import { ListItem } from '@mui/material';
 
 import { Checkbox, Typography, Divider, Box, IconButton } from '@mui/material';
 
 import EditIcon from '@mui/icons-material/Edit';
-import { useState } from 'react';
+import EditItem from '../modals/EditItem';
 
 export const StyledList = styled(ListItem)({
   borderRadius: '12px',
@@ -17,6 +18,7 @@ export const StyledList = styled(ListItem)({
 
 const StyledListItem = ({ todos, item, index }: any) => {
   const [hoveredItem, setHoveredItem] = useState<any>(null);
+  const [open, setOpen] = useState<any>(false);
 
   const dueDate = item.data.dueDate ?? '';
   const formatedDueDate = new Date(dueDate)
@@ -36,7 +38,7 @@ const StyledListItem = ({ todos, item, index }: any) => {
         />
 
         {hoveredItem === index && (
-          <IconButton onClick={() => console.log('ok')} style={{ position: 'absolute', top: '10px', right: '10px' }}>
+          <IconButton onClick={() => setOpen(true)} style={{ position: 'absolute', top: '10px', right: '10px' }}>
             <EditIcon fontSize="small" />
           </IconButton>
         )}
@@ -45,7 +47,7 @@ const StyledListItem = ({ todos, item, index }: any) => {
           <Typography pb={1}>{item.data.title}</Typography>
           <Typography mb={1}>{item.data.description}</Typography>
           <Divider color="#E1E6EF" />
-          <Box pt={1} display="flex" justifyContent="space-between">
+          <Box pt={1} display="flex" justifyContent="space-between" flexWrap="wrap">
             <Typography>
               DUE DATE: <span>{formatedDueDate}</span>
             </Typography>
@@ -61,6 +63,8 @@ const StyledListItem = ({ todos, item, index }: any) => {
           </Box>
         </Box>
       </Box>
+
+      <EditItem open={open} setOpen={setOpen} index={index} todos={todos} />
     </StyledList>
   );
 };

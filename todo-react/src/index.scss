@@ -335,3 +335,114 @@ header {
     cursor: pointer;
   }
 }
+
+//// Calendar
+///
+///
+.calendar {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  &_body {
+    display: flex;
+    align-items: center;
+  }
+
+  &_header {
+    display: flex;
+    padding: 10px;
+    justify-content: space-between;
+
+    & > span {
+      font-weight: 700;
+      line-height: 150%;
+    }
+
+    &-btn {
+      display: flex;
+      justify-content: center;
+
+      & button:first-child {
+        margin-right: 30px;
+      }
+
+      & button {
+        background-color: transparent !important;
+        border: none;
+        outline: none;
+        cursor: pointer;
+      }
+    }
+
+    &-weekdays {
+      display: flex;
+    }
+  }
+}
+
+table {
+  padding: 0;
+  margin: 0;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+tbody > tr > td {
+  font-size: 16px;
+  color: #666666;
+  font-weight: 400;
+  line-height: 150%;
+}
+
+th,
+td {
+  text-align: center;
+}
+
+th {
+  color: #9e9e9e;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 150%;
+}
+
+th:hover {
+  border-radius: 6px 6px 0 0;
+}
+
+td:hover {
+  border-radius: 0 0 6px 6px;
+}
+
+.hovered {
+  background-color: #f8f9fc;
+}
+
+.table {
+  height: 72px;
+  border-radius: 100px !important;
+}
+
+.overdue {
+  display: flex;
+  align-items: center;
+  padding: 20px 0;
+  gap: 10px;
+  & > span {
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 150%;
+    color: #ff0000;
+  }
+  & > div {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #ff0000;
+  }
+}
+
+.due {
+  padding: 30px 0 60px;
+}

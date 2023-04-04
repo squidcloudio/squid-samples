@@ -5,7 +5,6 @@ export const StyledDatePicker = styled(DatePicker)(({ theme }) => ({
   '& .MuiInputBase-root': {
     borderRadius: '12px',
     backgroundColor: '#F8F9FC',
-
     '&.Mui-focused fieldset': {
       borderColor: '#212121',
     },

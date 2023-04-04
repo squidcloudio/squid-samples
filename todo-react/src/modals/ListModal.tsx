@@ -1,11 +1,16 @@
+import { useAuth0 } from '@auth0/auth0-react';
 import { MenuItem, Modal, Select, SelectChangeEvent } from '@mui/material';
+import { useQuery } from '@squidcloud/react';
 import { useState, useRef } from 'react';
 import uuid from 'react-uuid';
 import colors from '../constants/colors';
 
-const ListModal = ({ collection, id, todos, open, setOpen }: any) => {
+const ListModal = ({ id, collection, open, setOpen }: any) => {
   const titleRef = useRef<HTMLInputElement>(null);
   const [color, setColor] = useState<string>('');
+  const [todos] = useQuery(collection.query().where('id', '==', `${id}`), true);
+
+  const { user } = useAuth0();
 
   const createNewList = () => {
     const currentId = uuid();
@@ -15,7 +20,7 @@ const ListModal = ({ collection, id, todos, open, setOpen }: any) => {
         id: currentId,
         title: titleRef.current?.value || '',
         color: color,
-        userId: id,
+        userId: user?.sub,
       });
     }
 

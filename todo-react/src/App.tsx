@@ -20,7 +20,6 @@ function App() {
         const claims = await getIdTokenClaims();
         setAuthIdToken(claims?.__raw);
         setAvatar(claims?.picture);
-        console.log(claims);
       }
     };
     updateAuth();

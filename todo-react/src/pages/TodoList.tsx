@@ -14,6 +14,7 @@ const TodoList = () => {
   const [open, setOpen] = useState<boolean>(false);
 
   const { id } = useParams();
+
   const collection = useCollection<Todo>('todos');
   const itemsCollection = useCollection<Item>('items');
 
@@ -24,7 +25,7 @@ const TodoList = () => {
     <div className="todo">
       <List>
         {items.map((item, i) => (
-          <StyledListItem todos={todos} item={item} index={i} />
+          <StyledListItem key={i} todos={todos} item={item} index={i} />
         ))}
 
         <button className="item_button" onClick={() => setOpen(true)}>

@@ -1,24 +1,28 @@
 import { Box, Divider } from '@mui/material';
 import { useCollection, useQuery } from '@squidcloud/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import addList from '../images/Component 1.png';
 
-import { Todo } from '../interfaces/types';
-
 import { NavLink, useParams } from 'react-router-dom';
 import ListModal from '../modals/ListModal';
+import { Item } from '../interfaces/types';
 
-const ListContainer = () => {
+const ListContainer = ({ todosList, collection }: any) => {
   const { id } = useParams();
+  const itemsCollection = useCollection<Item>('items');
+
+  const items2 = useQuery(itemsCollection.query().where('todoId', '==', `${id}`), true);
+
+  const [itemLength, setItemLength] = useState(0);
+  useEffect(() => {
+    setItemLength(items2.length);
+    console.log(itemLength);
+  }, [itemLength, items2.length]);
 
   const [open, setOpen] = useState<boolean>(false);
-  const collection = useCollection<Todo>('todos');
-
+  // const items = useQuery(itemsCollection.query(), true);
   // const todosList = useQuery(collection.query().where('title', 'not in', ['Today', 'Tomorrow', 'Someday']), true);
-  const todosList = useQuery(collection.query(), true);
-
-  const [todos] = useQuery(collection.query().where('id', '==', `${id}`), true);
 
   const handleOpen = () => {
     setOpen(true);
@@ -27,8 +31,9 @@ const ListContainer = () => {
   return (
     <>
       <ul>
-        {todosList.map((todo, i) => {
+        {todosList.map((todo: any, i: any) => {
           const { id, title, color } = todo.data;
+
           return (
             <div className="navlink" key={i}>
               <NavLink
@@ -41,7 +46,7 @@ const ListContainer = () => {
               >
                 <div className="navlink_content-color" style={{ backgroundColor: `${color}` }}></div>
                 <div className="navlink_content-title">{title}</div>
-                <div className="navlink_content-amount">{2}</div>
+                <div className="navlink_content-amount">{items2.length}</div>
               </NavLink>
             </div>
           );
@@ -55,7 +60,7 @@ const ListContainer = () => {
         <span>New List</span>
       </button>
 
-      <ListModal collection={collection} id={id} todos={todos} open={open} setOpen={setOpen} />
+      <ListModal collection={collection} id={id} open={open} setOpen={setOpen} />
     </>
   );
 };
