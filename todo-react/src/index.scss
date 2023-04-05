@@ -393,11 +393,14 @@ tbody > tr > td {
   color: #666666;
   font-weight: 400;
   line-height: 150%;
+
+  border-radius: 0 0 6px 6px;
 }
 
 th,
 td {
   text-align: center;
+  cursor: pointer;
 }
 
 th {
@@ -405,19 +408,17 @@ th {
   font-size: 12px;
   font-weight: 500;
   line-height: 150%;
-}
 
-th:hover {
   border-radius: 6px 6px 0 0;
 }
 
-td:hover {
-  border-radius: 0 0 6px 6px;
-}
+// th:hover {
+//   border-radius: 6px 6px 0 0;
+// }
 
-.hovered {
-  background-color: #f8f9fc;
-}
+// td:hover {
+//   border-radius: 0 0 6px 6px;
+// }
 
 .table {
   height: 72px;
@@ -426,20 +427,26 @@ td:hover {
 
 .overdue {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   padding: 20px 0;
   gap: 10px;
-  & > span {
-    font-weight: 700;
-    font-size: 14px;
-    line-height: 150%;
-    color: #ff0000;
+
+  &_due-item {
+    display: flex;
+    justify-content: space-between;
   }
-  & > div {
+
+  &_dot {
     width: 10px;
     height: 10px;
     border-radius: 50%;
     background-color: #ff0000;
+  }
+  & > div > span {
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 150%;
+    color: #ff0000;
   }
 }
 

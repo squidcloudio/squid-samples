@@ -10,6 +10,7 @@ export type Todo = {
 export type Item = {
   id: string;
   todoId: string;
+  todoColor: string;
   title: string;
   userId?: string;
   description: string;

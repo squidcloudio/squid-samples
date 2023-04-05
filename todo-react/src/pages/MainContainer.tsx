@@ -3,12 +3,12 @@ import { Grid, Paper, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { useCollection, useQuery } from '@squidcloud/react';
 import { useParams } from 'react-router-dom';
-import Calendar from '../components/Calendar';
 import CompletedList from '../components/CompletedList';
 import ListContainer from '../components/ListContainer';
 import { OptionsMenu } from '../components/MenuDetail';
 import { Todo } from '../interfaces/types';
 import TodoList from './TodoList';
+import DateInfo from '../components/DateInfo';
 
 const MainContainer = () => {
   const { id } = useParams();
@@ -40,7 +40,7 @@ const MainContainer = () => {
         </Grid>
         <Grid item xs={12} md={3}>
           <Paper>
-            <Calendar />
+            <DateInfo todosList={todosList} />
           </Paper>
         </Grid>
       </Grid>
