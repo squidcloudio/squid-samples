@@ -1,7 +1,5 @@
 .item {
   width: 100%;
-  //display: flex;
-  //align-items: flex-start;
   border-radius: 8px;
   padding: 21px 13px;
   cursor: pointer;
@@ -137,7 +135,7 @@
   .item-content {
     min-width: 30vw !important;
   }
-  .item-content-info-tags{
+  .item-content-info-tags {
     max-width: 120px;
     flex-wrap: wrap;
   }

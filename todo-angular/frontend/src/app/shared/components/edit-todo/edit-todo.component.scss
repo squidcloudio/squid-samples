@@ -1,7 +1,7 @@
-.menu-button{
+.menu-button {
   cursor: pointer;
   padding: 6px 6px 4px;
-  background: #FFFFFF;
+  background: #ffffff;
   border-radius: 100px;
 }
 .menu-component {
@@ -22,7 +22,7 @@
     &-text {
       color: #212121;
       &-dark {
-       color: #e2e3e4;
+        color: #e2e3e4;
       }
     }
   }
@@ -37,14 +37,13 @@
     fill: #212121;
   }
 }
-.menu-button-dark{
+.menu-button-dark {
   background: none;
 
- & .white-icon {
+  & .white-icon {
     color: white;
-   & svg{
-     fill:white;
-   }
+    & svg {
+      fill: white;
+    }
   }
 }
-

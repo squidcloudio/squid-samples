@@ -3,8 +3,8 @@
   <ng-container *ngIf="activeItemsObs | async as items">
     <ul class="calendar-items-list">
       <ng-container *ngFor="let item of items">
-        <li class="calendar-items-list__component" (click)="goToTodoPage(item.todoId, item.id, item.dueDate)">
-          <div class="calendar-items-list__component-container">
+        <li class="calendar-items-list__component" >
+          <div class="calendar-items-list__component-container" (click)="goToTodoPage(item.todoId, item.id, item.dueDate)">
             <div
               class="calendar-items-list__component-color"
               [ngStyle]="{ 'background-color': item.todoColor }"></div>

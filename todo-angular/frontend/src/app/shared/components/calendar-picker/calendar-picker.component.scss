@@ -1,4 +1,4 @@
-.calendar{
+.calendar {
   background-color: #ffffff;
   padding: 30px 24px;
   border-radius: 12px;
@@ -43,7 +43,6 @@
       }
     }
   }
-
 }
 .item-active {
   background-color: #f8f9fc;
@@ -55,8 +54,8 @@
 }
 .dates-dark {
   background-color: #1b1f27;
-  .calendar-header-title{
-    color: #E2E3E4;
+  .calendar-header-title {
+    color: #e2e3e4;
   }
   & .date-navigation-icon {
     color: white;
@@ -64,28 +63,27 @@
       fill: white;
     }
   }
-  & .calendar-dates{
-    &__component{
-      &-title{
-        color: #77797E;
+  & .calendar-dates {
+    &__component {
+      &-title {
+        color: #77797e;
       }
-      &-number{
-        color:#A7A9AC
-      }
-    }
-  }
-& .item-active{
-  background-color: #32363E;
-  & .calendar-dates{
-    &__component{
-      &-title{
-        color: #E2E3E4;
-      }
-      &-number{
-        color: #E2E3E4;
+      &-number {
+        color: #a7a9ac;
       }
     }
   }
-}
-
+  & .item-active {
+    background-color: #32363e;
+    & .calendar-dates {
+      &__component {
+        &-title {
+          color: #e2e3e4;
+        }
+        &-number {
+          color: #e2e3e4;
+        }
+      }
+    }
+  }
 }

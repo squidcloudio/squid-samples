@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { CalendarService } from '../../../services/calendar.service';
 import { Observable } from 'rxjs';
 import { ThemeService } from '../../../services/theme.service';
+import { DialogRef } from '@angular/cdk/dialog';
 
 @Component({
   selector: 'app-calendar-items',
@@ -12,6 +13,7 @@ import { ThemeService } from '../../../services/theme.service';
   styleUrls: ['calendar-items.component.scss'],
 })
 export class CalendarItemsComponent implements OnInit {
+  @Input('dialog') dialog?: DialogRef<string>;
   activeItemsObs?: Observable<Item[]>;
   readonly formatTypes = FormatTypes;
   constructor(private router: Router, readonly calendarService: CalendarService, readonly themeService: ThemeService) {}
@@ -24,5 +26,6 @@ export class CalendarItemsComponent implements OnInit {
     const tomorrow = moment().add(1, 'day').format(FormatTypes.DEFAULT_FORMAT);
     const navigationId = dueDate === today ? 'today' : dueDate === tomorrow ? 'tomorrow' : 'someday';
     this.router.navigate(['', todoId ? todoId : navigationId], { queryParams: { itemId: itemId } });
+    this.dialog?.close();
   }
 }
