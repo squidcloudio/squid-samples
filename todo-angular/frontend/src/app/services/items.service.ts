@@ -106,4 +106,12 @@ export class ItemsService {
       }),
     );
   }
+  async deleteItemsFromTodo(): Promise<void> {
+    if (this.todoService.currentTodo?.id) {
+      const itemList = await this.item.query().where('todoId', '==', this.todoService.currentTodo.id).snapshot();
+      for (let item of itemList) {
+        await this.item.doc(item.data.id).delete();
+      }
+    }
+  }
 }

@@ -4,7 +4,7 @@
   &-input {
     background: #f8f9fc;
     outline: 0;
-    min-width: 400px;
+    min-width: 420px;
     border-radius: 12px;
     border: 1px solid #e1e6ef;
     color: #9e9e9e;
@@ -74,5 +74,10 @@
     color: #e2e3e4;
     background: #1b1f27;
     font-size: 11px;
+  }
+}
+@media screen and (min-width: 378px) and (max-width: 767px) {
+  .container-input{
+    min-width: 79vw;
   }
 }

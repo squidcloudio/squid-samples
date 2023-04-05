@@ -14,11 +14,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    h2{
+    }
   }
 
   &-content {
     margin-top: 16px;
-    width: 100%;
+    width: 50vw;
     background-color: #ffffff;
     padding: 37px 28px;
     border-radius: 12px;
@@ -74,6 +76,9 @@
   }
 }
 @media screen and (max-width: 1351px) {
+  .todo-section-content{
+    width: 80vw;
+  }
   .current-todo {
     display: flex;
     flex-direction: column;
@@ -102,5 +107,13 @@
 @media screen and (min-width: 378px) and (max-width: 767px) {
   .no-items-title {
     min-width: 30vw !important;
+  }
+  .todo-section-title{
+    h2{
+      font-size: 28px;
+    }
+  }
+  .todo-section-content{
+    padding: 37px 10px;
   }
 }

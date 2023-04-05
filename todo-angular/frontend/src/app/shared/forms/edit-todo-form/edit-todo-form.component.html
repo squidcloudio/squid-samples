@@ -1,9 +1,12 @@
-<ng-container *ngIf="editTodoForm && editTodoForm.get('title')?.value">
-  <form [formGroup]="editTodoForm" (ngSubmit)="onSubmit()" class="form" [ngClass]="{'form-dark':themeService.isDark}">
+<ng-container *ngIf="editTodoForm">
+  <form
+    [formGroup]="editTodoForm"
+    (ngSubmit)="onSubmit()"
+    class="form"
+    [ngClass]="{ 'form-dark': themeService.isDark }">
     <h2 class="form-title">Edit Label</h2>
     <div class="form-container">
       <div class="form-container__component">
-
         <app-text-input
           controlName="title"
           [control]="editTodoForm"

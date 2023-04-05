@@ -11,8 +11,6 @@
 
   &-body {
     min-width: 496px;
-    max-width: 496px;
-    margin-top: 153px;
     height: fit-content;
     padding: 28px 28px 48px 48px;
     background-color: #ffffff;
@@ -42,9 +40,18 @@
     z-index: 900;
   }
 }
-.modal-dark{
-  & .modal-body{
-    background-color: #1B1F27;
+.modal-dark {
+  & .modal-body {
+    background-color: #1b1f27;
   }
-
+}
+@media screen and (min-width: 378px) and (max-width: 767px) {
+  .modal {
+    top: 0;
+    &-body {
+      border-radius: 0px;
+      min-width: 100%;
+      min-height: 100%;
+    }
+  }
 }

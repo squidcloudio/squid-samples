@@ -1,8 +1,8 @@
 @use '../../../../styles';
 
-.form{
-  &-title{
-    @include styles.formTitle()
+.form {
+  &-title {
+    @include styles.formTitle();
   }
   &-container {
     margin-top: 24px;
@@ -17,9 +17,9 @@
     }
   }
 }
-.form-dark{
-  background-color: #1B1F27;
-  & .form-title{
-    color: #E2E3E4;
+.form-dark {
+  background-color: #1b1f27;
+  & .form-title {
+    color: #e2e3e4;
   }
 }

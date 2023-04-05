@@ -1,5 +1,5 @@
 <form action="" class="new-list-form" [formGroup]="newListForm" (ngSubmit)="setNewList()">
-  <h2 class="new-list-form-title">Create New List</h2>
+  <h2 class="new-list-form-title" [ngClass]="{ 'new-list-form-title-dark': themeService.isDark }">Create New List</h2>
   <div class="new-list-form-container">
     <app-text-input
       title="Title"
@@ -8,11 +8,11 @@
       controlName="title"
       type="text"></app-text-input>
   </div>
-  <div class="select-container" [ngClass]="{'select-container-dark':themeService.isDark}">
+  <div class="select-container" [ngClass]="{ 'select-container-dark': themeService.isDark }">
     <input matInput formControlName="color" [matAutocomplete]="auto" class="newList-select" />
     <mat-icon class="newList-select-icon">expand_more</mat-icon>
     <mat-autocomplete #auto="matAutocomplete">
-      <mat-option *ngFor="let color of colors" [value]="color.name" [ngClass]="{'options':themeService.isDark}">
+      <mat-option *ngFor="let color of colors" [value]="color.name" [ngClass]="{ options: themeService.isDark }">
         <div class="option">
           <div [style.background-color]="color.color" class="option-color"></div>
           <p class="option-name">{{ color.name }}</p>

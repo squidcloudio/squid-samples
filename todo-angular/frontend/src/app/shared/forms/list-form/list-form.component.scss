@@ -5,6 +5,9 @@
     color: #212121;
     font-size: 36px;
     font-weight: 700;
+    &-dark {
+      color: #e2e3e4;
+    }
   }
 
   &-container {
@@ -20,7 +23,7 @@
 
 .newList-select {
   margin-top: 24px;
-  min-width: 400px;
+  min-width: 420px;
   border-radius: 12px;
   border: 1px solid #666666;
   background: none;
@@ -61,24 +64,34 @@
   border: 2px solid #212121;
 }
 .select-container-dark {
-
- & .newList-select-icon{
-   color:white;
-   & svg{
-     fill:white
-   }
- }
-  & .newList-select{
-    border-color: #E2E3E4;
+  & .newList-select-icon {
+    color: white;
+    & svg {
+      fill: white;
+    }
+  }
+  & .newList-select {
+    border-color: #e2e3e4;
     &.mat-mdc-input-element {
-    background: none;
-    color: #E2E3E4;
-  }}
-
+      background: none;
+      color: #e2e3e4;
+    }
+  }
 }
-.options{
-  background-color: #1B1F27;
- & .option-name{
-    color: #E2E3E4;
+.options {
+  background-color: #1b1f27;
+  & .option-name {
+    color: #e2e3e4;
+  }
+}
+@media screen and (min-width: 378px) and (max-width: 767px) {
+  .newList-select {
+    min-width: 79vw;
+    &-icon {
+      display: none;
+    }
+  }
+  .select-container {
+    width: 0px;
   }
 }

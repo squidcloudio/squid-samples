@@ -23,8 +23,11 @@ export class EditTodoComponent {
     readonly themeService: ThemeService,
   ) {}
 
-  deleteTodo(): void {
-    if (this.type === 'todo') this.todoService.deleteTodo();
+  async deleteTodo(): Promise<void> {
+    if (this.type === 'todo') {
+      this.todoService.deleteTodo();
+      await this.itemService.deleteItemsFromTodo();
+    }
     if (this.type === 'item') this.itemService.deleteItem(this.id);
   }
   openModalWindow(): void {

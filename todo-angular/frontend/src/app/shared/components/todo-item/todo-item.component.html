@@ -1,17 +1,20 @@
 <section
-  class="item "
+  class="item"
   [ngClass]="{
     'item-dark': themeService.isDark,
     'item-completed': item?.completed,
     'item-selected': item?.id === itemId
   }">
-  <mat-checkbox color="#15C771" (click)="changeItemStatus(item?.id)" [checked]="item?.completed" ></mat-checkbox>
   <article class="item-content">
     <div class="item-content-header">
-      <div class="item-content-header-text">
-        <p class="item-content-header-text-title">{{ item?.title }}</p>
-        <p class="item-content-header-text-description">{{ item?.description }}</p>
+      <div class="item-content-header-text-container">
+        <mat-checkbox color="#15C771" (click)="changeItemStatus(item?.id)" [checked]="item?.completed"></mat-checkbox>
+        <div class="item-content-header-text">
+          <p class="item-content-header-text-title">{{ item?.title }}</p>
+          <p class="item-content-header-text-description">{{ item?.description }}</p>
+        </div>
       </div>
+
       <button class="item-content-header-edit" (click)="openModalWindow(modalWindowName.editItem)">
         <img
           [src]="themeService.isDark ? '../../../../assets/edit-white.svg' : '../../../../assets/edit.svg'"
