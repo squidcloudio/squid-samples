@@ -1,24 +1,10 @@
-// Custom Theming for Angular Material
-// For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
-// Plus imports for other components in your app.
 
-// Include the common styles for Angular Material. We include this here so that you only
-// have to load a single css file for Angular Material in your app.
-// Be sure that you only ever include this mixin once!
 @include mat.core();
 
-// Define the palettes for your theme using the Material Design palettes available in palette.scss
-// (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// hue. Available color palettes: https://material.io/design/color/
 $frontend-primary: mat.define-palette(mat.$indigo-palette);
 $frontend-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
-
-// The warn palette is optional (defaults to red).
 $frontend-warn: mat.define-palette(mat.$red-palette);
-
-// Create the theme object. A theme consists of configurations for individual
-// theming systems such as "color" or "typography".
 $frontend-theme: mat.define-light-theme(
   (
     color: (
@@ -28,10 +14,6 @@ $frontend-theme: mat.define-light-theme(
     ),
   )
 );
-
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
 @include mat.all-component-themes($frontend-theme);
 
 * {
@@ -45,53 +27,46 @@ $frontend-theme: mat.define-light-theme(
   background: none;
 }
 
-//
-//html, body {
-//  height: 100%;
-//}
-
 body {
   margin: 0;
   font-family: 'Karla', sans-serif;
+  background-color: #f7f7f7;
 }
-.body-dark{
-  background-color: green;
-  color: #e2e3e4;
-}
-.mdc-menu-surface.mat-mdc-autocomplete-panel {padding: 0!important;}
-.multiselect-item-checkbox input[type='checkbox'] + div:after {
-  background-color: transparent;
-  top: 50%;
-  left: 4px;
-  width: 8px;
-  height: 3px;
-  margin-top: -4px;
-  border-style: solid;
-  border-color: #ffffff;
-  border-width: 0 0 3px 3px;
-  border-image: none;
-  transform: rotate(-45deg) scale(0);
-}
+.body-dark {
+  background-color: #1e1e1e;
 
-.multiselect-item-checkbox input[type='checkbox']:checked + div:after {
-  content: '';
-  transform: rotate(-45deg) scale(1);
-  transition: transform 200ms ease-out;
-}
-
-.multiselect-item-checkbox input[type='checkbox']:checked + div:before {
-  animation: borderscale 200ms ease-in;
-  background: green;
-}
-
-.multiselect-item-checkbox input[type='checkbox']:checked + div:after {
-  transform: rotate(-45deg) scale(1);
-}
-
-@keyframes borderscale {
-  50% {
-    box-shadow: 0 0 0 2px green;
+  .mat-datepicker-content .mat-calendar {
+    background-color: #23272f;
   }
+  .mat-calendar-body-cell-content.mat-focus-indicator {
+    color: #e2e3e4;
+  }
+  .mat-calendar-body-label {
+    color: #e2e3e4;
+  }
+  .mat-calendar-previous-button::after,
+  .mat-calendar-next-button::after {
+    color: #e2e3e4;
+  }
+  .mat-calendar-table-header th {
+    color: #e2e3e4;
+  }
+  .mdc-button .mdc-button__label {
+    color: #e2e3e4;
+  }
+  .mat-calendar-arrow {
+    fill: #e2e3e4;
+  }
+  .mat-mdc-menu-content {
+    background-color: #23272f;
+  }
+  .mat-mdc-checkbox .mdc-checkbox .mdc-checkbox__background {
+    border-color: #e2e3e4 !important;
+  }
+}
+
+.mdc-menu-surface.mat-mdc-autocomplete-panel {
+  padding: 0 !important;
 }
 
 @mixin formTitle {
@@ -99,4 +74,9 @@ body {
   color: #212121;
   font-size: 36px;
   font-weight: 700;
+}
+
+html,
+body {
+  height: 100%;
 }

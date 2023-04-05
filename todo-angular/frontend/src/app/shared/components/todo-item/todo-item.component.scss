@@ -128,3 +128,15 @@
     background-color: #23272f !important;
   }
 }
+@media screen  and (max-width: 1350px) {
+  .item-content {
+    min-width: 60vw;
+
+  }
+}
+@media screen and (min-width: 378px)  and (max-width: 767px) {
+  .item-content{
+    min-width: 30vw !important;
+
+  }
+}

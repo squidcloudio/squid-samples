@@ -13,11 +13,17 @@
     font-weight: 400;
     font-size: 14px;
     color: #666666;
+    &-dark {
+      color: #e2e3e4;
+    }
   }
 
   &:hover {
     &-text {
       color: #212121;
+      &-dark {
+       color: #e2e3e4;
+      }
     }
   }
 }
@@ -40,6 +46,5 @@
      fill:white;
    }
   }
-
 }
 

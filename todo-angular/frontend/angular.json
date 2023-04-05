@@ -31,7 +31,7 @@
             ],
             "styles": [
               "src/styles.scss",
-              "src/new-style.scss"
+              "src/app/app.component.scss"
             ],
             "scripts": [],
             "allowedCommonJsDependencies": ["@squidcloud/client","moment"]

@@ -16,7 +16,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
-import { DateTransformPipe } from './pipes/dateTransform.pipe';
 import { FormatDatePipe } from './pipes/formatDate.pipe';
 
 const routes: Routes = [
