@@ -3,15 +3,27 @@ import { useEffect, useState, useRef } from 'react';
 
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import { Divider } from '@mui/material';
+import { Divider, IconButton } from '@mui/material';
 import { useCollection, useQuery } from '@squidcloud/react';
-import { Item } from '../interfaces/types';
-import { useParams } from 'react-router-dom';
+import { Item, Todo } from '../interfaces/types';
+import { useNavigate, useParams } from 'react-router-dom';
+
+import ThreeDotsIcon from '../images/Union.svg';
+import { useAuth0 } from '@auth0/auth0-react';
+
+import EditItem from '../modals/EditItem';
+import { OptionsMenu } from './MenuDetail';
 
 const Calendar = ({ currentDate, setCurrentDate, todosList }: any) => {
+  const [open, setOpen] = useState<any>(false);
+
   const { id } = useParams();
+  const { user } = useAuth0();
   const [hoveredDay, setHoveredDay] = useState<any>(null);
   const [selectedDay, setSelectedDay] = useState<any>(null);
+  const navigate = useNavigate();
+
+  const collection = useCollection<Item>('items');
 
   const initialDayRef = useRef(currentDate);
 
@@ -21,7 +33,7 @@ const Calendar = ({ currentDate, setCurrentDate, todosList }: any) => {
     }
   }, [currentDate]);
 
-  const imenaToday = moment(initialDayRef.current);
+  const todayDate = moment(initialDayRef.current);
 
   useEffect(() => {
     setSelectedDay(currentDate);
@@ -30,7 +42,8 @@ const Calendar = ({ currentDate, setCurrentDate, todosList }: any) => {
   const weekdays = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
   const itemsCollection = useCollection<Item>('items');
 
-  const items = useQuery(itemsCollection.query().where('todoId', '==', `${id}`), true);
+  const items = useQuery(itemsCollection.query().where('userId', '==', `${user?.sub}`), true);
+  const items2 = useQuery(itemsCollection.query().where('todoId', '==', `${id}`), true);
 
   const handleDayHover = (day: any) => {
     setHoveredDay(day);
@@ -62,12 +75,12 @@ const Calendar = ({ currentDate, setCurrentDate, todosList }: any) => {
     setSelectedDay(null);
   };
 
-  const rr = items.map((el, i) => {
+  const overdueDates = items.map((el, i) => {
     const momentDate = moment(el.data.dueDate);
-    if (momentDate.isBefore(imenaToday)) {
+    if (momentDate.isBefore(todayDate)) {
       const daysAgo = momentDate.fromNow();
       return (
-        <div className="overdue_due-item">
+        <div className="overdue_due-item" key={i}>
           <p>{el.data.title}</p>
           <p>{daysAgo}</p>
         </div>
@@ -126,23 +139,41 @@ const Calendar = ({ currentDate, setCurrentDate, todosList }: any) => {
         <>
           <p style={{ paddingTop: '20px' }}>{currentDate.format('D MMMM')}</p>
 
-          {items.map((el) => {
-            const r = moment(el.data.dueDate, 'MM/DD/YYYY');
+          {items.map((el, i) => {
+            const dueDate = moment(el.data.dueDate, 'MM/DD/YYYY');
 
-            if (r.isSame(currentDate)) {
-              return <p>{el.data.title}</p>;
+            if (dueDate.isSame(currentDate)) {
+              return (
+                <div className="sidebar_item" key={i}>
+                  <div className="sidebar_item-color" onClick={() => navigate(`/${el.data.todoId}`)}>
+                    <div></div>
+                    <span>{el.data.title}</span>
+                  </div>
+                  {/* <button onClick={() => setOpen(true)} className="sidebar_item-btn">
+                    <img src={ThreeDotsIcon} alt="" />
+                  </button> */}
+                  <OptionsMenu collection={collection} />
+                </div>
+              );
             }
           })}
+
+          <div className="sidebar_item-add">
+            <button className="sidebar_item-add-btn">
+              <span>+</span>
+              <span>New Item</span>
+            </button>
+          </div>
         </>
       </div>
       <Divider color="#E1E6EF" />
 
       <div className="overdue">
-        <div>
-          <span className="overdue_dot"></span>
+        <div className="overdue_dot">
+          <div className="overdue_dot-col"></div>
           <span>Overdue</span>
         </div>
-        {rr}
+        {overdueDates}
       </div>
     </div>
   );

@@ -20,10 +20,10 @@ const MainContainer = () => {
   const [currentTodo] = useQuery(collection.query().where('id', '==', `${id}`));
 
   return (
-    <Box px={15} py={7}>
+    <Box px={10} py={7}>
       <Grid container spacing={5}>
         <Grid item xs={12} md={2}>
-          <Box>
+          <Box className="list_container">
             <ListContainer todosList={todosList} collection={collection} />
           </Box>
         </Grid>

@@ -8,7 +8,6 @@ import Calendar from './Calendar';
 
 const DateInfo = ({ todosList }: any) => {
   const [currentDate, setCurrentDate] = useState(moment());
-  const [today, setToday] = useState(currentDate);
 
   return (
     <Box
