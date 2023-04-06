@@ -9,14 +9,13 @@
     width: 100%;
     border-bottom: 2px solid #e1e6ef;
   }
-  &-user-todos{
+  &-user-todos {
     margin-top: 32px;
   }
 }
 
-
-@media screen  and (max-width: 1350px){
-  .sidebar{
+@media screen and (max-width: 1350px) {
+  .sidebar {
     display: none;
   }
 }

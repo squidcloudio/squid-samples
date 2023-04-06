@@ -6,6 +6,5 @@ export class ThemeService {
 
   toggleTheme(): void {
     this.isDark = !this.isDark;
-    console.log(this.isDark);
   }
 }

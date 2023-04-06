@@ -49,12 +49,3 @@ export type Item = {
   completed: boolean;
   todoColor: string;
 };
-export interface CalendarList {
-  date: string;
-  weekdayName: string;
-  weekDayNumber: string;
-}
-export interface SelectedDate {
-  date: string;
-  displayDate: string;
-}

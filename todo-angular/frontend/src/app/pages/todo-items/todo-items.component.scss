@@ -14,7 +14,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    h2{
+    h2 {
     }
   }
 
@@ -76,7 +76,7 @@
   }
 }
 @media screen and (max-width: 1351px) {
-  .todo-section-content{
+  .todo-section-content {
     width: 80vw;
   }
   .current-todo {
@@ -103,7 +103,7 @@
   .no-items-title {
     min-width: 60vw;
   }
-  .todo-section-title{
+  .todo-section-title {
     margin-top: 27px;
   }
 }
@@ -111,12 +111,12 @@
   .no-items-title {
     min-width: 30vw !important;
   }
-  .todo-section-title{
-    h2{
+  .todo-section-title {
+    h2 {
       font-size: 28px;
     }
   }
-  .todo-section-content{
+  .todo-section-content {
     padding: 37px 10px;
   }
 }

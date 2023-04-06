@@ -12,7 +12,7 @@ export class CalendarService {
 
   selectDate(selectedDate: string): void {
     this.currentDate = selectedDate;
-    this.dateSubj.next(this.currentDate);
+    this.dateSubj.next(selectedDate);
   }
   getItemsByDate(date: string): Observable<Item[]> {
     return this.dateSubj.asObservable().pipe(

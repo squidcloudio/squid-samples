@@ -21,12 +21,15 @@ export class AccountService {
 
   constructor(private readonly authService: AuthService, private readonly squid: Squid) {
     this.authService.idTokenClaims$.subscribe(idToken => {
-      const rawIdToken = idToken?.__raw;
-      this.squid.setAuthIdToken(rawIdToken);
+      if (!idToken) this.authService.loginWithRedirect();
+      if (idToken) {
+        const rawIdToken = idToken?.__raw;
+        this.squid.setAuthIdToken(rawIdToken);
+      }
     });
   }
 
-  logout() {
+  logout(): void {
     this.squid.setAuthIdToken(undefined);
     this.authService.logout();
   }
@@ -37,5 +40,8 @@ export class AccountService {
 
   async getUser(): Promise<User | undefined> {
     return firstValueFrom(this.observeUser());
+  }
+  login(): void {
+    this.authService.loginWithRedirect();
   }
 }

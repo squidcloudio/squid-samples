@@ -1,27 +1,86 @@
-# Frontend
+# Todo Angular
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.1.2.
+## Overview
 
-## Development server
+this application demonstrates how user can create, update, delete and fetch data using only frontend and 
+[squid cloud service](https://docs.squid.cloud/docs/what-is-squid).
+For authentication this application use [auth0](https://auth0.com/).
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Start
 
-## Code scaffolding
+1. To install dependencies:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+    **npm install**
 
-## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+2. to run application:
 
-## Running unit tests
+     **npm start**
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
+3.  In the app.module.ts we connected squid service and auth service:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+***src/app/app.module.ts:***
 
-## Further help
+![img.png](img.png)
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+  ***environment*** contains apiKeys for squid and Auth0 in src/environments
+
+## Usage
+
+### Authentication
+ To get the access to the app user has to log in. Auth0 allows user to log in with Google. Auth0 provides ***AuthGuard*** so we can protect our routes.
+
+**src/app/app.module.ts:**
+
+![img_2.png](img_2.png)
+
+If user  logged in ***AuthService*** gets user's id token and send it to ***squid cloud***. 
+That logic is implemented inside the ***AccountService***.
+
+***src/app/services/account.service.ts:***
+
+![img_3.png](img_3.png)
+
+**idTokensClaims** is an observable that return user's token. If token  exists accountService get this token and send it to the ***squid cloud service*** using:
+
+`this.squid.setAuthIdToken(idToken);`
+
+User needs to get token, so they can work with collections. Collection are protected on the backend side.
+
+***bakcend:***
+
+![img_4.png](img_4.png)
+
+### Todo collection
+ when user is logged in they get to the main page:
+
+![img_5.png](img_5.png)
+
+Left sidebar contains list of Todos collection. 'Today', 'Tomorrow', 'Someday' todos ara default todos. Method that allows user to get collections is located in todo.service.ts
+
+***src/app/services/todos.service.ts:***
+
+![img_6.png](img_6.png)
+
+There are two types of todos: default and user's.
+
+#### Default collection.
+
+ Default todos are a todos that are already created  and contain items according to expiration date:
+
+ **Today todo:** contains items that going to be expired today.
+
+ **Tomorrow todo:** contains items that going to be expired tomorrow.
+
+ **Someday todo:** contains items that going to be expired later or already expired.
+
+#### User's collection.
+
+User's collection is a collection that is created by user.
+
+pushing the 'New List' button user can create new todo using **Angular Form** todoService.
+
+![img_7.png](img_7.png)
+
+

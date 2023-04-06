@@ -9,10 +9,6 @@
     border-radius: 12px;
     font-weight: 700;
     font-size: 16px;
-
-    &:not(:first-child) {
-      margin-left: 40px;
-    }
   }
 }
 
@@ -27,7 +23,10 @@
   border: 1px solid #9e9e9e;
 }
 @media screen and (min-width: 378px) and (max-width: 767px) {
-  .buttons-container__component{
+  .buttons-container__component {
     padding: 13px 30px;
   }
+  .buttons-container{
+    margin-top: 40%;
   }
+}

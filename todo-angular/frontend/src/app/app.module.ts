@@ -17,6 +17,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { FormatDatePipe } from './pipes/formatDate.pipe';
+import { environment } from '../environments/environment';
 
 const routes: Routes = [
   {
@@ -48,12 +49,12 @@ const routes: Routes = [
   imports: [
     BrowserModule,
     SquidModule.forRoot({
-      appId: 'mnhwpkfn8e8e0ozo23',
+      appId: environment.squidAppId,
       region: 'us-east-1.aws',
     }),
     AuthModule.forRoot({
-      domain: 'dev-04umd56tv7v5qeyv.us.auth0.com',
-      clientId: 'NVTDdwX2iikH7HpcGzqqDXpzndmshbLd',
+      domain: environment.authDomain,
+      clientId: environment.authClientId,
       authorizationParams: {
         redirect_uri: window.location.origin,
       },

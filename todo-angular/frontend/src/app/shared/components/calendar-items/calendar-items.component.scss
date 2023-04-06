@@ -41,3 +41,9 @@
     color: #e2e3e4;
   }
 }
+@media screen and (min-width: 378px) and (max-width: 767px) {
+  .calendar-items-list{
+    max-height: 120px;
+    overflow: scroll;
+  }
+}
