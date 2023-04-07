@@ -4,9 +4,9 @@
   width: 100%;
   padding: 20px;
   display: flex;
+  position: relative;
   justify-content: center;
 }
-
 .logo-container {
   margin-left: 16px;
   display: flex;
@@ -47,12 +47,27 @@
   display: none;
 }
 
-@media screen and (max-width: 1350px) {
+@media screen and (max-width: 1199px) {
+  .content {
+    display: block;
+    padding: 0px 40px;
+  }
+  .wrapper {
+    min-width: auto;
+    max-width: 100%;
+    display: block;
+  }
+
+  .profile {
+    display: none;
+  }
   .logo-container {
     margin-left: 0px;
   }
   .burger-menu {
     display: block;
+    position: absolute;
+    left: 34px;
   }
   .logo-container-img {
     margin-left: 18px;

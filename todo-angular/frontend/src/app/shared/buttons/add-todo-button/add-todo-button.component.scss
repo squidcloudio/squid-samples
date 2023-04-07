@@ -16,3 +16,13 @@
     }
   }
 }
+@media screen and (max-width: 1199px) {
+  .new-items-section-button {
+    padding-left: 12px;
+  }
+}
+@media screen and (max-width: 378px) and (max-width: 767px) {
+  .new-items-section-button {
+    padding-left: 13px;
+  }
+}

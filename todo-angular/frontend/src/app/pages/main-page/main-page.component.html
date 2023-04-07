@@ -3,23 +3,31 @@
   [ngStyle]="{
     'background-color': todoCollection.currentTodo?.color ? todoCollection.currentTodo?.color : 'black'
   }">
+  <mat-icon class="burger-menu" (click)="openModalWindow()">menu</mat-icon>
   <div class="wrapper">
     <div class="logo-container">
-      <mat-icon class="burger-menu" (click)="openModalWindow()">menu</mat-icon>
       <img src="./assets/logo.svg" alt="" class="logo-container-img" />
 
       <p class="logo-container-title">T•D•</p>
     </div>
     <div class="profile">
-      <button class="profile-theme-button" (click)="toggleTheme()">
-        <img src="./assets/theme-light.svg" alt="theme" />
-      </button>
       <ng-container *ngIf="userObs | async as user">
-        <img [src]="user.avatar" alt="" class="profile-avatar" width="32" height="32" />
+        <button [matMenuTriggerFor]="menu">
+          <img [src]="user.avatar" alt="" class="profile-avatar" width="32" height="32" />
+        </button>
+        <mat-menu #menu="matMenu" xPosition="before">
+          <div mat-menu-item>
+            <app-theme-button></app-theme-button>
+          </div>
+          <div mat-menu-item>
+            <app-logout-button></app-logout-button>
+          </div>
+        </mat-menu>
       </ng-container>
     </div>
   </div>
 </header>
+
 <main class="content dark">
   <div>
     <button

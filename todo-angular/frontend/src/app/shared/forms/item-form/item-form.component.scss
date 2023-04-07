@@ -32,3 +32,13 @@
     color: #e2e3e4;
   }
 }
+@media screen and (min-width: 378px) and (max-width: 767px) {
+  .form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .form-title {
+    min-width: 79vw;
+  }
+}

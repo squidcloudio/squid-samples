@@ -18,6 +18,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { FormatDatePipe } from './pipes/formatDate.pipe';
 import { environment } from '../environments/environment';
+import { MatMenuModule } from '@angular/material/menu';
 
 const routes: Routes = [
   {
@@ -66,6 +67,7 @@ const routes: Routes = [
     MatDialogModule,
     MatIconModule,
     MatDividerModule,
+    MatMenuModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

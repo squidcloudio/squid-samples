@@ -1,0 +1,4 @@
+<button class="logout-button" (click)="logout()">
+  <img [src]="themeService.isDark?'./assets/logout-dark.svg':'./assets/logout.svg'" alt="logout-button" width="20" height="20"/>
+  <p class="logout-button-title" [ngClass]="{'logout-button-title-dark':themeService.isDark}">Log out</p>
+</button>

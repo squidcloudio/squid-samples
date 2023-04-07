@@ -33,6 +33,8 @@ import { FormatDatePipe } from '../pipes/formatDate.pipe';
 import { CalendarItemsComponent } from './components/calendar-items/calendar-items.component';
 import { ExpiredItemsComponent } from './components/expired-items/expired-items.component';
 import { CalendarModalWindowComponent } from './calendar-modal-window/calendar-modal-window.component';
+import { ThemeButtonComponent } from './buttons/theme-button/theme-button.component';
+import { LogoutButtonComponent } from './buttons/logout-button/logout-button.component';
 
 @NgModule({
   imports: [
@@ -78,6 +80,8 @@ import { CalendarModalWindowComponent } from './calendar-modal-window/calendar-m
     CalendarItemsComponent,
     ExpiredItemsComponent,
     CalendarModalWindowComponent,
+    ThemeButtonComponent,
+    LogoutButtonComponent,
   ],
   providers: [],
   declarations: [
@@ -102,6 +106,8 @@ import { CalendarModalWindowComponent } from './calendar-modal-window/calendar-m
     CalendarItemsComponent,
     ExpiredItemsComponent,
     CalendarModalWindowComponent,
+    ThemeButtonComponent,
+    LogoutButtonComponent,
   ],
 })
 export class SharedModule {}

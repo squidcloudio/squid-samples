@@ -1,0 +1,20 @@
+.theme-button{
+  width: 100%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 10px 12px;
+  &-title {
+    color: #666666;
+    font-size: 14px;
+    &-dark{
+      color: #e2e3e4;
+    }
+  }
+}
+@media screen and (max-width: 1199px) {
+  .theme-button-title{
+    font-size: 20px;
+  }
+}

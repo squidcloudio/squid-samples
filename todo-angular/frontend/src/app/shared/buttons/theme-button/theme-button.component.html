@@ -1,0 +1,4 @@
+<button (click)="toggleTheme()" class="theme-button" >
+  <img [src]="themeService.isDark ? './assets/theme-light.svg' : './assets/theme-dark.svg'" alt="theme-button" />
+  <p class="theme-button-title" [ngClass]="{ 'theme-button-title-dark': themeService.isDark }">Dark Mode</p>
+</button>

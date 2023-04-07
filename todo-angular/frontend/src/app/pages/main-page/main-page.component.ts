@@ -1,4 +1,4 @@
-import { Component, Renderer2 } from '@angular/core';
+import { Component } from '@angular/core';
 import { AccountService } from '../../services/account.service';
 
 import { TodosService } from '../../services/todos.service';
@@ -20,14 +20,7 @@ export class MainPageComponent {
     readonly todoCollection: TodosService,
     private themeService: ThemeService,
     private dialog: Dialog,
-    private renderer: Renderer2,
   ) {}
-
-  toggleTheme(): void {
-    this.themeService.toggleTheme();
-    if (this.themeService.isDark) this.renderer.addClass(document.body, 'body-dark');
-    if (!this.themeService.isDark) this.renderer.removeClass(document.body, 'body-dark');
-  }
 
   openModalWindow(): void {
     const dialogRef = this.dialog.open(SidebarNavigationComponent);

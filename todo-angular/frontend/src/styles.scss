@@ -32,9 +32,18 @@ body {
   font-family: 'Karla', sans-serif;
   background-color: #f7f7f7;
 }
+.cdk-global-overlay-wrapper {
+  display: flex;
+  justify-content: center !important;
+  align-items: flex-end !important;
+  position: absolute;
+  z-index: 1000;
+}
+.cdk-overlay-dark-backdrop{
+  background: none !important;
+}
 .body-dark {
   background-color: #1e1e1e;
-
   .mat-datepicker-content .mat-calendar {
     background-color: #23272f;
   }
