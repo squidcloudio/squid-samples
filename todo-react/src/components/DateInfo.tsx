@@ -1,9 +1,7 @@
-import { Box, Divider } from '@mui/material';
+import { Box } from '@mui/material';
 import moment from 'moment';
 import { useState } from 'react';
 
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import Calendar from './Calendar';
 
 const DateInfo = ({ todosList }: any) => {
@@ -14,6 +12,8 @@ const DateInfo = ({ todosList }: any) => {
       sx={{
         padding: '24px',
         borderRadius: '12px',
+        minWidth: '300px',
+        backgroundColor: '#fff',
       }}
     >
       <Calendar currentDate={currentDate} setCurrentDate={setCurrentDate} todosList={todosList} />

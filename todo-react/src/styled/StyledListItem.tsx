@@ -16,7 +16,7 @@ export const StyledList = styled(ListItem)({
   },
 });
 
-const StyledListItem = ({ todos, item, index }: any) => {
+const StyledListItem = ({ todos, item, index, onClick }: any) => {
   const [hoveredItem, setHoveredItem] = useState<any>(null);
   const [open, setOpen] = useState<any>(false);
 
@@ -29,6 +29,7 @@ const StyledListItem = ({ todos, item, index }: any) => {
     <StyledList key={index} onMouseEnter={() => setHoveredItem(index)} onMouseLeave={() => setHoveredItem(null)}>
       <Box width={1} display="flex" alignItems="flex-start">
         <Checkbox
+          onClick={onClick}
           size="small"
           sx={{
             '&.Mui-checked': {

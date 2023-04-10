@@ -13,6 +13,8 @@ body {
   font-family: 'Karla';
   font-weight: 500;
 
+  height: 100vh;
+
   background-color: #eaecee;
 
   overflow-x: hidden;
@@ -30,19 +32,16 @@ header {
 
 .navlink {
   text-decoration: none;
-  flex-shrink: 0;
   &_content {
     display: flex;
-    flex-shrink: 0;
     align-items: center;
-    font-size: 20px;
     font-weight: 500;
-    padding: 8px 12px;
+    padding: 8px;
     margin: 12px 0;
     border-radius: 8px;
     text-decoration: none;
     color: #212121;
-    font-size: 20px;
+    font-size: 18px;
     line-height: 23px;
 
     &:not(:first-child) {
@@ -50,6 +49,7 @@ header {
     }
 
     &-color {
+      width: 16px;
       min-width: 16px;
       min-height: 16px;
       border-radius: 4px;
@@ -57,6 +57,7 @@ header {
 
     &-title {
       margin-left: 20px;
+      margin-right: 10px;
     }
 
     &-amount {
@@ -69,11 +70,34 @@ header {
   color: '#E1E6EF';
 }
 
+.logo {
+  display: flex;
+  justify-content: flex-start;
+
+  & > img {
+    width: 14px;
+    height: 14px;
+  }
+  & > img:last-child {
+    margin-left: 20px;
+    width: 42px;
+  }
+}
+
 .header {
   display: flex;
-  justify-content: space-between;
+
   align-items: center;
-  padding: 0 90px;
+  padding: 0 70px;
+
+  &_left {
+    display: flex;
+    align-items: center;
+  }
+
+  div:last-child {
+    margin-left: auto;
+  }
 
   div:first-child img {
     width: 14px;
@@ -81,7 +105,6 @@ header {
 
     &:last-child {
       width: 42px;
-      margin-left: 20px;
     }
   }
 
@@ -110,6 +133,8 @@ header {
   padding: 16px;
   border-radius: 12px;
   margin-top: 20px;
+
+  background-color: #fff;
 
   &_completed {
     margin-top: 80px;
@@ -533,6 +558,161 @@ th {
   }
 }
 
-.list_container > div:first-child {
-  flex-shrink: 0;
+@media screen and (max-width: 1200px) {
+  .css-1ozs4dl-MuiGrid-root {
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+
+@media screen and (min-width: 650px) and (max-width: 900px) {
+  .navlink_content-title {
+    font-size: 16px;
+  }
+
+  .css-57ri8o-MuiGrid-root {
+    padding-left: 0 !important;
+  }
+
+  .css-9c211-MuiGrid-root {
+    padding-right: 20px;
+  }
+
+  .css-sv19ot {
+  }
+
+  .css-57ri8o-MuiGrid-root {
+    display: none;
+  }
+
+  .css-1ozs4dl-MuiGrid-root {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 20px;
+  }
+
+  .header_avatar {
+    display: none;
+  }
+
+  .navlink_content-amount {
+    font-size: 16px;
+  }
+
+  .logo {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .calendar_icon {
+    display: none;
+    background-color: transparent;
+  }
+
+  .css-1ld3b9g-MuiGrid-root > .MuiGrid-item {
+    padding: 0;
+  }
+
+  .css-9c211-MuiGrid-root {
+    padding-top: 80px;
+  }
+
+  .tag-item > span {
+    font-size: 10px;
+  }
+
+  // .item_button > img {
+  //   width: 15px;
+  // }
+
+  // .item_button span {
+  //   font-size: 16px;
+  // }
+}
+
+@media screen and (max-width: 650px) {
+  .tags {
+    margin-top: 20px;
+  }
+
+  .header_avatar {
+    display: none;
+  }
+
+  .tag-item {
+  }
+
+  .css-1ozs4dl-MuiGrid-root {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .css-sv19ot {
+    margin-top: -60px;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+
+  // .css-d0c1t8 {
+  //   display: flex;
+  //   flex-direction: column;
+  // }
+
+  .css-i4eqls {
+    // margin-top: 10px;
+  }
+
+  .css-8eq9yz-MuiListItem-root {
+    padding: 0 !important;
+  }
+
+  .css-1irp71k {
+    margin-bottom: 10px;
+  }
+
+  // .calendar_icon {
+  //   right: 20px !important;
+  // }
+
+  .header {
+    padding: 0 10px;
+  }
+
+  .logo {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.calendar_modal {
+  border-radius: 12px;
+
+  max-width: 450px;
+  min-width: 400px;
+  background-color: #fff;
+
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.calendar_icon {
+  border-radius: 50%;
+
+  width: 48px;
+  height: 48px;
+  background-color: #15c771;
+
+  color: #212121;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

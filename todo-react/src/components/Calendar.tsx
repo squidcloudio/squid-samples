@@ -3,15 +3,13 @@ import { useEffect, useState, useRef } from 'react';
 
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import { Divider, IconButton } from '@mui/material';
+import { Divider } from '@mui/material';
 import { useCollection, useQuery } from '@squidcloud/react';
-import { Item, Todo } from '../interfaces/types';
+import { Item } from '../interfaces/types';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import ThreeDotsIcon from '../images/Union.svg';
 import { useAuth0 } from '@auth0/auth0-react';
 
-import EditItem from '../modals/EditItem';
 import { OptionsMenu } from './MenuDetail';
 
 const Calendar = ({ currentDate, setCurrentDate, todosList }: any) => {
@@ -75,18 +73,20 @@ const Calendar = ({ currentDate, setCurrentDate, todosList }: any) => {
     setSelectedDay(null);
   };
 
-  const overdueDates = items.map((el, i) => {
-    const momentDate = moment(el.data.dueDate);
-    if (momentDate.isBefore(todayDate)) {
-      const daysAgo = momentDate.fromNow();
-      return (
-        <div className="overdue_due-item" key={i}>
-          <p>{el.data.title}</p>
-          <p>{daysAgo}</p>
-        </div>
-      );
-    }
-  });
+  const overdueDates = items
+    .filter((item) => item.data.completed === false)
+    .map((el, i) => {
+      const momentDate = moment(el.data.dueDate);
+      if (momentDate.isBefore(todayDate)) {
+        const daysAgo = momentDate.fromNow();
+        return (
+          <div className="overdue_due-item" key={i}>
+            <p>{el.data.title}</p>
+            <p>{daysAgo}</p>
+          </div>
+        );
+      }
+    });
 
   return (
     <div className="calendar">

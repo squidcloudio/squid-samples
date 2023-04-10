@@ -15,9 +15,9 @@ const ListContainer = ({ todosList, collection }: any) => {
   const items2 = useQuery(itemsCollection.query().where('todoId', '==', `${id}`), true);
 
   const [itemLength, setItemLength] = useState(0);
+
   useEffect(() => {
     setItemLength(items2.length);
-    console.log(itemLength);
   }, [itemLength, items2.length]);
 
   const [open, setOpen] = useState<boolean>(false);
