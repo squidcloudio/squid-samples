@@ -20,7 +20,7 @@ For authentication this application use [auth0](https://auth0.com/).
 
 **_src/app/app.module.ts:_**
 
-![img.png](img.png)
+![img.png](src/app/screenshots/img.png)
 
 **_environment_** contains apiKeys for squid and Auth0 in src/environments
 
@@ -32,14 +32,14 @@ To get the access to the app user has to log in. Auth0 allows user to log in wit
 
 **src/app/app.module.ts:**
 
-![img_2.png](img_2.png)
+![img_2.png](src/app/screenshots/img_2.png)
 
 If user logged in **_AuthService_** gets user's id token and send it to **_squid cloud_**.
 That logic is implemented inside the **_AccountService_**.
 
 **_src/app/services/account.service.ts:_**
 
-![img_3.png](img_3.png)
+![img_3.png](src/app/screenshots/img_3.png)
 
 **idTokensClaims** is an observable that return user's token. If token exists accountService get this token and send it to the **_squid cloud service_** using:
 
@@ -49,13 +49,13 @@ User needs to get token, so they can work with collections. Collection are prote
 
 **_bakcend:_**
 
-![img_4.png](img_4.png)
+![img_4.png](src/app/screenshots/img_4.png)
 
 ### Todo collection
 
 when user is logged in they get to the main page:
 
-![img_5.png](img_5.png)
+![img_5.png](src/app/screenshots/img_5.png)
 
 Left sidebar contains list of Todos collection. 'Today', 'Tomorrow', 'Someday' todos ara default todos. Method that allows user to get collections is located in todo.service.ts
 
@@ -90,13 +90,13 @@ User's collection is a collection that is created by user.
 
 pushing the 'New List' button user can create new todo using **Angular Form** todoService.
 
-![img_7.png](img_7.png)
+![img_7.png](src/app/screenshots/img_7.png)
 
 **HTML**
 
 **_src/app/shared/forms/list-form/list-form.component.html:_**
 
-![img_8.png](img_8.png)
+![img_8.png](src/app/screenshots/img_8.png)
 
 setNewList() creates a new Todo using createNewList() method from todoService
 
@@ -124,7 +124,7 @@ To change current element of the Todo collection user can push 'edit-button' and
 
 **_src/app/pages/todo-items/todo-items.html:_**
 
-![img_10.png](img_10.png)
+![img_10.png](src/app/screenshots/img_10.png)
 
 **_src/app/services/todos.service.ts:_**
 
@@ -165,7 +165,7 @@ To get items:
 
 **_src/app/pages/todo-items/todo-items.component.html:_**
 
-![img_13.png](img_13.png)
+![img_13.png](src/app/screenshots/img_13.png)
 
 **_src/app/services/items.service.ts:_**
 
@@ -225,9 +225,9 @@ By pushing on the 'New Item' button a user will create a new Item for Todo on th
 
 1. By clicking on pencil user can change item using changeItem() method from itemService:
 
-![img_15.png](img_15.png)
+![img_15.png](src/app/screenshots/img_15.png)
 
-![img_16.png](img_16.png)
+![img_16.png](src/app/screenshots/img_16.png)
 
 **_src/app/services/items.service.ts:_**
 
@@ -252,7 +252,7 @@ By pushing on the 'New Item' button a user will create a new Item for Todo on th
 
 If user deletes Todo they automatically delete all items that are related to this todo. Also, user can manually delete item by clicking on the delete button on the calendar sidebar:
 
-![img_17.png](img_17.png)
+![img_17.png](src/app/screenshots/img_17.png)
 
 **_src/app/services/items.service.ts:_**
 
@@ -267,7 +267,7 @@ If user deletes Todo they automatically delete all items that are related to thi
 On the calendar user can see items filtered by date of expiration. By clicking on the particular date user will see all items related to this date.
 If there is no item 'New Item' button will appear.
 
-![img_18.png](img_18.png)
+![img_18.png](src/app/screenshots/img_18.png)
 
 get Items by date:
 
