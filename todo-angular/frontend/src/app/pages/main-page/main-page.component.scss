@@ -52,26 +52,11 @@
     display: block;
     padding: 0px 40px;
   }
-  .wrapper {
-    min-width: auto;
-    max-width: 100%;
-    display: block;
-  }
 
-  .profile {
-    display: none;
-  }
   .logo-container {
     margin-left: 0px;
   }
-  .burger-menu {
-    display: block;
-    position: absolute;
-    left: 34px;
-  }
-  .logo-container-img {
-    margin-left: 18px;
-  }
+
   .calendar-button {
     display: block;
     position: fixed !important;
@@ -81,5 +66,20 @@
     flex-shrink: 0;
     border-radius: 100px;
     box-shadow: 0px -1px 2px rgba(0, 0, 0, 0.08), 0px 4px 8px rgba(0, 0, 0, 0.12);
+  }
+}
+@media screen and (min-width: 378px) and (max-width: 768px) {
+  .profile {
+    display: none;
+  }
+  .wrapper {
+    min-width: auto;
+    max-width: 100%;
+    display: block;
+  }
+  .burger-menu {
+    display: block;
+    position: absolute;
+    left: 34px;
   }
 }

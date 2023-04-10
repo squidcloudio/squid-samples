@@ -1,8 +1,7 @@
-<div class="calendar" [ngClass]="{'calendar-dark': themeService.isDark}">
-
-<app-calendar-picker></app-calendar-picker>
+<div class="calendar" [ngClass]="{ 'calendar-dark': themeService.isDark }">
+  <app-calendar-picker></app-calendar-picker>
   <mat-divider class="calendar-divider"></mat-divider>
-  <app-calendar-items ></app-calendar-items>
+  <app-calendar-items></app-calendar-items>
   <mat-divider class="calendar-divider"></mat-divider>
   <app-expired-items></app-expired-items>
 </div>

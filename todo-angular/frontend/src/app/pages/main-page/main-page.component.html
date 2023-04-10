@@ -29,7 +29,6 @@
 </header>
 
 <main class="content dark">
-  <div>
     <button
       class="calendar-button"
       [ngStyle]="{
@@ -41,7 +40,9 @@
     <section class="wrapper">
       <app-todo-navigation></app-todo-navigation>
       <router-outlet></router-outlet>
-      <app-calendar-sidebar></app-calendar-sidebar>
+      <ng-container *ngIf="!(a|async)?.matches">
+        <app-calendar-sidebar></app-calendar-sidebar>
+      </ng-container>
+
     </section>
-  </div>
 </main>

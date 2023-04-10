@@ -15,8 +15,11 @@
   }
 }
 
-@media screen and (max-width: 1199px) {
+@media screen and (max-width: 1209px) {
   .calendar {
-    display: none;
+    position: absolute;
+    visibility:hidden;
+    padding: 0px !important;
+    display: none !important;
   }
 }
