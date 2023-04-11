@@ -35,6 +35,7 @@ const ListModal = ({ id, collection, open, setOpen }: any) => {
         <Select
           className="modal_container-select"
           defaultValue={colors[0].color}
+          value={color}
           onChange={(e: SelectChangeEvent) => setColor(e.target.value)}
         >
           {colors.map((item) => {
