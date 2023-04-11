@@ -22,11 +22,14 @@ $frontend-theme: mat.define-light-theme(
   outline: 0;
   list-style: none;
   box-sizing: border-box;
-  font-family: 'Karla';
+  font-family: 'Karla', sans-serif;
   border: none;
   background: none;
 }
 
+button {
+  cursor: pointer;
+}
 body {
   margin: 0;
   font-family: 'Karla', sans-serif;
@@ -39,7 +42,7 @@ body {
   position: absolute;
   z-index: 1000;
 }
-.cdk-overlay-dark-backdrop{
+.cdk-overlay-dark-backdrop {
   background: none !important;
 }
 .body-dark {
@@ -71,6 +74,9 @@ body {
   }
   .mat-mdc-checkbox .mdc-checkbox .mdc-checkbox__background {
     border-color: #e2e3e4 !important;
+  }
+  .mdc-menu-surface.mat-mdc-autocomplete-panel {
+    background-color: #23272f !important;
   }
 }
 

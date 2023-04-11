@@ -21,11 +21,11 @@ export class CalendarItemsComponent implements OnInit {
     this.activeItemsObs = this.calendarService.getItemsByDate(this.calendarService.currentDate);
   }
 
-  goToTodoPage(todoId: string, itemId: string, dueDate?: string): void {
+  async goToTodoPage(todoId: string, itemId: string, dueDate?: string): Promise<void> {
     const today = moment().format(FormatTypes.DEFAULT_FORMAT);
     const tomorrow = moment().add(1, 'day').format(FormatTypes.DEFAULT_FORMAT);
     const navigationId = dueDate === today ? 'today' : dueDate === tomorrow ? 'tomorrow' : 'someday';
-    this.router.navigate(['', todoId ? todoId : navigationId], { queryParams: { itemId: itemId } });
+    await this.router.navigate(['', todoId ? todoId : navigationId], { queryParams: { itemId: itemId } });
     this.dialog?.close();
   }
 }

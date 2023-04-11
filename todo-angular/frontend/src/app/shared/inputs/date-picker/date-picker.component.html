@@ -1,6 +1,5 @@
 <ng-container *ngIf="control">
-  <div class="container" [formGroup]="control" [ngClass]="{'container-dark':themeService.isDark}">
-
+  <div class="container" [formGroup]="control" [ngClass]="{ 'container-dark': themeService.isDark }">
     <input
       matInput
       [attr.disabled]="control.get('dueDate')?.valid && !itemId"
@@ -9,12 +8,8 @@
       id="date"
       placeholder="(MM/DD/YYYY)"
       formControlName="dueDate" />
-    <mat-datepicker-toggle
-      matIconSuffix
-      [for]="picker"
-      class="container-picker"
-></mat-datepicker-toggle>
-    <mat-datepicker #picker class="a" ></mat-datepicker>
+    <mat-datepicker-toggle matIconSuffix [for]="picker" class="container-picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker class="a"></mat-datepicker>
     <label for="date" class="container-label">Choose a date</label>
   </div>
 </ng-container>

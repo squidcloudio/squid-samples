@@ -14,6 +14,9 @@ export class MultiSelectComponent implements OnInit {
   tags = [
     { id: '1', name: 'product' },
     { id: '2', name: 'weekly' },
+    { id: '3', name: 'daily' },
+    { id: '4', name: 'delay' },
+    { id: '5', name: 'urgent' },
   ];
 
   selectedTags: Tag[] = [];
@@ -39,14 +42,14 @@ export class MultiSelectComponent implements OnInit {
   }
 
   addTagFromSelect(item: { id: string; name: string }): void {
-    this.selectedTags.push(item);
+    const isItemInArray = this.selectedTags.find(tag => tag.id === item.id);
+    if (!isItemInArray) this.selectedTags.push(item);
     this.control?.get('tags')?.setValue(this.selectedTags);
     this.renderer.setProperty(this.inputRef?.nativeElement, 'value', '');
   }
 
   deleteTage(id: string): void {
-    const filteredArray = this.selectedTags.filter(tag => tag.id !== id);
-    this.selectedTags = filteredArray;
+    this.selectedTags = this.selectedTags.filter(tag => tag.id !== id);
     this.control?.get('tags')?.setValue(this.selectedTags);
   }
 }

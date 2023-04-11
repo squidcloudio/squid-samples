@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AccountService } from '../../services/account.service';
 
 import { TodosService } from '../../services/todos.service';
@@ -13,7 +13,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
   templateUrl: './main-page.component.html',
   styleUrls: ['./main-page.component.scss'],
 })
-export class MainPageComponent implements OnInit {
+export class MainPageComponent {
   readonly userObs = this.accountService.observeUser();
   a = this.br.observe('(max-width: 1199px)');
   constructor(
@@ -23,7 +23,6 @@ export class MainPageComponent implements OnInit {
     private dialog: Dialog,
     private br: BreakpointObserver,
   ) {}
-  ngOnInit(): void {}
 
   openModalWindow(): void {
     const dialogRef = this.dialog.open(SidebarNavigationComponent);

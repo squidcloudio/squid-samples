@@ -1,8 +1,9 @@
 .menu-button {
-  cursor: pointer;
   padding: 6px 6px 4px;
-  background: #ffffff;
   border-radius: 100px;
+  &:hover {
+    background: #ffffff;
+  }
 }
 .menu-component {
   display: flex;
@@ -17,26 +18,8 @@
       color: #e2e3e4;
     }
   }
-
-  &:hover {
-    &-text {
-      color: #212121;
-      &-dark {
-        color: #e2e3e4;
-      }
-    }
-  }
 }
 
-.mat-mdc-menu-item:hover {
-  .menu-component-text {
-    color: #212121;
-  }
-
-  img {
-    fill: #212121;
-  }
-}
 .menu-button-dark {
   background: none;
 
@@ -46,4 +29,5 @@
       fill: white;
     }
   }
+  color: #e2e3e4;
 }

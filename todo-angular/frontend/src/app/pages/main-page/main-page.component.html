@@ -29,20 +29,19 @@
 </header>
 
 <main class="content dark">
-    <button
-      class="calendar-button"
-      [ngStyle]="{
-        'background-color': todoCollection.currentTodo?.color ? todoCollection.currentTodo?.color : 'black'
-      }"
-      (click)="openCalendar()">
-      <img src="assets/calendar.svg" alt="calendar-button" />
-    </button>
-    <section class="wrapper">
-      <app-todo-navigation></app-todo-navigation>
-      <router-outlet></router-outlet>
-      <ng-container *ngIf="!(a|async)?.matches">
-        <app-calendar-sidebar></app-calendar-sidebar>
-      </ng-container>
-
-    </section>
+  <button
+    class="calendar-button"
+    [ngStyle]="{
+      'background-color': todoCollection.currentTodo?.color ? todoCollection.currentTodo?.color : 'black'
+    }"
+    (click)="openCalendar()">
+    <img src="assets/calendar.svg" alt="calendar-button" />
+  </button>
+  <section class="wrapper">
+    <app-todo-navigation></app-todo-navigation>
+    <router-outlet></router-outlet>
+    <ng-container *ngIf="!(a | async)?.matches">
+      <app-calendar-sidebar></app-calendar-sidebar>
+    </ng-container>
+  </section>
 </main>

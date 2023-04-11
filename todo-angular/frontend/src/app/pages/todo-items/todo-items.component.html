@@ -39,7 +39,7 @@
       [ngClass]="{ 'todo-section-dark': themeService.isDark }">
       <div class="todo-section-title">
         <h2>Completed</h2>
-        <ng-container *ngIf="!(todo.id === '1' || todo.id === '2' || todo.id === '3')">
+        <ng-container *ngIf="!(todo.id === 'today' || todo.id === 'tomorrow' || todo.id === 'someday')">
           <app-edit-todo [todoTitle]="todo.title" [id]="todo.id" type="todo"></app-edit-todo>
         </ng-container>
       </div>

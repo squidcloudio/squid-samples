@@ -1,6 +1,11 @@
 <ng-container *ngIf="newItemForm">
-  <form [formGroup]="newItemForm" class="form" (ngSubmit)="onSubmit()" (keydown.enter)="$event.preventDefault()" [ngClass]="{'form-dark':themeService.isDark}">
-    <h2 class="form-title">{{title}}</h2>
+  <form
+    [formGroup]="newItemForm"
+    class="form"
+    (ngSubmit)="onSubmit()"
+    (keydown.enter)="$event.preventDefault()"
+    [ngClass]="{ 'form-dark': themeService.isDark }">
+    <h2 class="form-title">{{ title }}</h2>
     <div class="form-container">
       <div class="form-container__component">
         <app-text-input
