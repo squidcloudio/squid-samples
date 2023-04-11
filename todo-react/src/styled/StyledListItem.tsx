@@ -16,7 +16,7 @@ export const StyledList = styled(ListItem)({
   },
 });
 
-const StyledListItem = ({ todos, item, index, onClick }: any) => {
+const StyledListItem = ({ todos, item, index, onClick, isChecked }: any) => {
   const [hoveredItem, setHoveredItem] = useState<any>(null);
   const [open, setOpen] = useState<any>(false);
 
@@ -27,8 +27,10 @@ const StyledListItem = ({ todos, item, index, onClick }: any) => {
 
   return (
     <StyledList key={index} onMouseEnter={() => setHoveredItem(index)} onMouseLeave={() => setHoveredItem(null)}>
-      <Box width={1} display="flex" alignItems="flex-start">
+      <Box width={1} display="flex" alignItems="flex-start" className={isChecked && 'completed_list'}>
         <Checkbox
+          checked={isChecked}
+          disabled={isChecked}
           onClick={onClick}
           size="small"
           sx={{
@@ -38,14 +40,16 @@ const StyledListItem = ({ todos, item, index, onClick }: any) => {
           }}
         />
 
-        {hoveredItem === index && (
+        {hoveredItem === index && !isChecked && (
           <IconButton onClick={() => setOpen(true)} style={{ position: 'absolute', top: '10px', right: '10px' }}>
             <EditIcon fontSize="small" />
           </IconButton>
         )}
 
         <Box width={1} mt={1}>
-          <Typography pb={1}>{item.data.title}</Typography>
+          <Typography pb={1} className={isChecked && 'completed'}>
+            {item.data.title}
+          </Typography>
           <Typography mb={1}>{item.data.description}</Typography>
           <Divider color="#E1E6EF" />
           <Box pt={1} display="flex" justifyContent="space-between" flexWrap="wrap">
@@ -55,7 +59,7 @@ const StyledListItem = ({ todos, item, index, onClick }: any) => {
             <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
               {item.data.tags.map((tag: any, i: any) => {
                 return (
-                  <div className="tag-item" key={i}>
+                  <div className={!isChecked ? 'tag-item' : 'tag-item_completed'} key={i}>
                     <span className="text">{tag?.name}</span>
                   </div>
                 );

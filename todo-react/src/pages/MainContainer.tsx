@@ -54,7 +54,10 @@ const MainContainer = () => {
             </Box>
             <TodoList />
 
-            {/* <CompletedList /> */}
+            <Box sx={{ marginTop: '50px' }}>
+              <Typography variant="h4">Completed</Typography>
+              <CompletedList />
+            </Box>
           </Grid>
           <Grid item xs={12} lg={3}>
             <Box sx={{ display: { xs: 'none', md: 'none', lg: 'block' } }}>

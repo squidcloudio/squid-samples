@@ -40,15 +40,18 @@ const TodoList = () => {
   return (
     <div className="todo">
       <List>
-        {items.map((item: any, i: any) => (
-          <StyledListItem
-            key={i}
-            todos={todos}
-            item={item}
-            index={i}
-            onClick={() => handleCheckboxClick(item.data.id)}
-          />
-        ))}
+        {items
+          .filter((item) => item.data.completed === false)
+          .map((item: any, i: any) => (
+            <StyledListItem
+              isChecked={false}
+              key={i}
+              todos={todos}
+              item={item}
+              index={i}
+              onClick={() => handleCheckboxClick(item.data.id)}
+            />
+          ))}
 
         <button className="item_button" onClick={() => setOpen(true)}>
           <img src={addList} alt="list" />
