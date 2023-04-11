@@ -5,25 +5,20 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { Divider } from '@mui/material';
 import { useCollection, useQuery } from '@squidcloud/react';
-import { Item } from '../interfaces/types';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Item } from '../interfaces/index';
+import { useNavigate } from 'react-router-dom';
 
 import { useAuth0 } from '@auth0/auth0-react';
 
 import { OptionsMenu } from './MenuDetail';
 
 const Calendar = ({ currentDate, setCurrentDate, todosList }: any) => {
-  const [open, setOpen] = useState<any>(false);
-
-  const { id } = useParams();
   const { user } = useAuth0();
   const [hoveredDay, setHoveredDay] = useState<any>(null);
-  const [selectedDay, setSelectedDay] = useState<any>(null);
+  const [selectedDay, setSelectedDay] = useState<any>(currentDate);
   const navigate = useNavigate();
 
-  const collection = useCollection<Item>('items');
-
-  const initialDayRef = useRef(currentDate);
+  const initialDayRef = useRef(moment(currentDate));
 
   useEffect(() => {
     if (currentDate && !initialDayRef.current) {
@@ -33,15 +28,10 @@ const Calendar = ({ currentDate, setCurrentDate, todosList }: any) => {
 
   const todayDate = moment(initialDayRef.current);
 
-  useEffect(() => {
-    setSelectedDay(currentDate);
-  }, []);
-
   const weekdays = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
   const itemsCollection = useCollection<Item>('items');
 
   const items = useQuery(itemsCollection.query().where('userId', '==', `${user?.sub}`), true);
-  const items2 = useQuery(itemsCollection.query().where('todoId', '==', `${id}`), true);
 
   const handleDayHover = (day: any) => {
     setHoveredDay(day);
@@ -149,10 +139,8 @@ const Calendar = ({ currentDate, setCurrentDate, todosList }: any) => {
                     <div></div>
                     <span>{el.data.title}</span>
                   </div>
-                  {/* <button onClick={() => setOpen(true)} className="sidebar_item-btn">
-                    <img src={ThreeDotsIcon} alt="" />
-                  </button> */}
-                  <OptionsMenu collection={collection} />
+
+                  <OptionsMenu collection={itemsCollection} />
                 </div>
               );
             }

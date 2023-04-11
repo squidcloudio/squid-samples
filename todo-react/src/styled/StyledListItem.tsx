@@ -26,7 +26,7 @@ const StyledListItem = ({ todos, item, index, onClick, isChecked }: any) => {
     .toUpperCase();
 
   return (
-    <StyledList key={index} onMouseEnter={() => setHoveredItem(index)} onMouseLeave={() => setHoveredItem(null)}>
+    <StyledList onMouseEnter={() => setHoveredItem(index)} onMouseLeave={() => setHoveredItem(null)}>
       <Box width={1} display="flex" alignItems="flex-start" className={isChecked && 'completed_list'}>
         <Checkbox
           checked={isChecked}

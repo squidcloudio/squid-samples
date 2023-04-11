@@ -10,7 +10,7 @@ import { StyledDatePicker } from '../styled/StyledDatePicker';
 import { CssTextField } from '../styled/CssTextField';
 import uuid from 'react-uuid';
 import { useCollection, useQuery } from '@squidcloud/react';
-import { Item } from '../interfaces/types';
+import { Item } from '../interfaces/index';
 import { useParams } from 'react-router-dom';
 
 const EditItem = ({ open, setOpen, index, todos }: any) => {
@@ -19,9 +19,9 @@ const EditItem = ({ open, setOpen, index, todos }: any) => {
   const descriptionRef = useRef<HTMLInputElement>(null);
   const datePickerRef = useRef<HTMLDivElement>(null);
 
-  const collection = useCollection<Item>('items');
+  const todosCollection = useCollection<Item>('items');
 
-  const items = useQuery(collection.query().where('todoId', '==', `${id}`), true);
+  const items = useQuery(todosCollection.query().where('todoId', '==', `${id}`), true);
 
   const currentItem = items[index];
 
@@ -54,7 +54,7 @@ const EditItem = ({ open, setOpen, index, todos }: any) => {
   };
 
   const updateItem = () => {
-    collection.doc(currentItem.data.id).update({
+    todosCollection.doc(currentItem.data.id).update({
       title: titleRef.current?.value ?? '',
       description: descriptionRef.current?.value ?? '',
       dueDate: new Date(value).toLocaleDateString('en-Us', {

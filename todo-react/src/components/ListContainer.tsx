@@ -6,7 +6,7 @@ import addList from '../images/Component 1.png';
 
 import { NavLink, useParams } from 'react-router-dom';
 import ListModal from '../modals/ListModal';
-import { Item } from '../interfaces/types';
+import { Item } from '../interfaces/index';
 
 const ListContainer = ({ todosList, collection }: any) => {
   const { id } = useParams();
@@ -31,11 +31,11 @@ const ListContainer = ({ todosList, collection }: any) => {
   return (
     <>
       <ul>
-        {todosList.map((todo: any, i: any) => {
+        {todosList.map((todo: any) => {
           const { id, title, color } = todo.data;
 
           return (
-            <div className="navlink" key={i}>
+            <div className="navlink" key={id}>
               <NavLink
                 key={id}
                 to={`/${id}`}

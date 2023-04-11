@@ -1,20 +1,18 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import { Drawer, Grid, IconButton, Paper, Stack, ThemeProvider, Typography } from '@mui/material';
+import { Drawer, Grid, IconButton, Stack, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { useCollection, useQuery } from '@squidcloud/react';
 import CompletedList from '../components/CompletedList';
 import ListContainer from '../components/ListContainer';
 import { OptionsMenu } from '../components/MenuDetail';
-import { Todo } from '../interfaces/types';
+import { Todo } from '../interfaces/index';
 import TodoList from './TodoList';
 import DateInfo from '../components/DateInfo';
 
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 
-import MenuIcon from '@mui/icons-material/Menu';
 import { useState } from 'react';
 import CalendarModal from '../modals/CalendarModal';
-import Root from './Root';
 import Header from '../components/Header';
 
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -26,9 +24,9 @@ const MainContainer = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [open, setOpen] = useState<any>(false);
 
-  const collection = useCollection<Todo>('todos');
+  const todosCollection = useCollection<Todo>('todos');
 
-  const todosList = useQuery(collection.query().where('userId', '==', `${user?.sub}`), true);
+  const todosList = useQuery(todosCollection.query().where('userId', '==', `${user?.sub}`), true);
 
   return (
     <Stack>
@@ -36,21 +34,21 @@ const MainContainer = () => {
       <Box px={10} py={7}>
         <Drawer anchor="left" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
           <Box sx={{ p: '20px', width: '350px' }}>
-            <ListContainer todosList={todosList} collection={collection} />
+            <ListContainer todosList={todosList} collection={todosCollection} />
           </Box>
         </Drawer>
 
         <Grid container spacing={5}>
           <Grid item xs={12} md={3} lg={2} className="list">
             <Box className="list_container" sx={{ display: { xs: 'none', md: 'block' } }}>
-              <ListContainer todosList={todosList} collection={collection} />
+              <ListContainer todosList={todosList} collection={todosCollection} />
             </Box>
           </Grid>
 
           <Grid item xs={12} md={9} lg={7}>
             <Box display="flex" justifyContent="space-between">
               <Typography variant="h4">In Progress</Typography>
-              <OptionsMenu collection={collection} />
+              <OptionsMenu collection={todosCollection} />
             </Box>
             <TodoList />
 
