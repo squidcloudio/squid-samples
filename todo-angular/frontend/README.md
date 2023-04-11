@@ -28,36 +28,36 @@ For authentication this application use [auth0](https://auth0.com/).
 
 ### Authentication
 
-To get the access to the app user has to log in. Auth0 allows user to log in with Google. Auth0 provides **_AuthGuard_** so we can protect our routes.
+To get the access to the app a user has to log in. Auth0 allows the user to log in with Google. Auth0 provides **_AuthGuard_** so we can protect our routes.
 
 **src/app/app.module.ts:**
 
 ![img_2.png](src/app/screenshots/img_2.png)
 
-If user logged in **_AuthService_** gets user's id token and send it to **_squid cloud_**.
+If the user is logged in **_AuthService_** gets user's id token and send it to **_squid cloud_**.
 That logic is implemented inside the **_AccountService_**.
 
 **_src/app/services/account.service.ts:_**
 
 ![img_3.png](src/app/screenshots/img_3.png)
 
-**idTokensClaims** is an observable that return user's token. If token exists accountService get this token and send it to the **_squid cloud service_** using:
+**idTokensClaims** is an observable that return user's token. If the token exists the accountService get this token and send it to the **_squid cloud service_** using:
 
 `this.squid.setAuthIdToken(idToken);`
 
-User needs to get token, so they can work with collections. Collection are protected on the backend side.
+The user needs to get token, so they can work with collections. Collections are protected on the backend side.
 
-**_bakcend:_**
+**_backend:_**
 
 ![img_4.png](src/app/screenshots/img_4.png)
 
 ### Todo collection
 
-when user is logged in they get to the main page:
+When the user is logged in they get to the main page:
 
 ![img_5.png](src/app/screenshots/img_5.png)
 
-Left sidebar contains list of Todos collection. 'Today', 'Tomorrow', 'Someday' todos ara default todos. Method that allows user to get collections is located in todo.service.ts
+Left sidebar contains list of Todos collection. 'Today', 'Tomorrow', 'Someday' todos ara default todos. Method that allows  user to get collections is located in todo.service.ts
 
 **_src/app/services/todos.service.ts:_**
 
@@ -88,7 +88,7 @@ Default todos are a todos that are already created and contain items according t
 
 User's collection is a collection that is created by user.
 
-pushing the 'New List' button user can create new todo using **Angular Form** todoService.
+By pushing the 'New List' button the user can create a new todo using **Angular Form** todoService.
 
 ![img_7.png](src/app/screenshots/img_7.png)
 
@@ -118,7 +118,7 @@ setNewList() creates a new Todo using createNewList() method from todoService
 
 #### Change collection
 
-To change current element of the Todo collection user can push 'edit-button' and then change the name using changeTodo() method from TodosService:
+To change a current element of the Todo collection the user can push 'edit-button' and then change the name using changeTodo() method from TodosService:
 
 **HTML**
 
@@ -239,7 +239,7 @@ By pushing on the 'New Item' button a user will create a new Item for Todo on th
 }
 ```
 
-2. Clicking the checkbox user can change status of item from active to complete:
+2. By clicking the checkbox user can change status of the item from active to complete:
 
 ```
   async changeItemStatus(id: string): Promise<void> {
@@ -250,7 +250,7 @@ By pushing on the 'New Item' button a user will create a new Item for Todo on th
 
 #### Delete Item.
 
-If user deletes Todo they automatically delete all items that are related to this todo. Also, user can manually delete item by clicking on the delete button on the calendar sidebar:
+If user deletes a Todo they automatically delete all items that are related to this todo. Also, user can manually delete item by clicking on the delete button on the calendar sidebar:
 
 ![img_17.png](src/app/screenshots/img_17.png)
 
