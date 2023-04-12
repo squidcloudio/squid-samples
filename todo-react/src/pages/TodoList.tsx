@@ -4,22 +4,16 @@ import addList from '../images/Component 1.png';
 
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useCollection, useQuery } from '@squidcloud/react';
+import { useQuery } from '@squidcloud/react';
 
-import { Todo, Item } from '../interfaces/index';
 import ItemModal from '../modals/ItemModal';
 import StyledListItem from '../styled/StyledListItem';
 
-const TodoList = () => {
+const TodoList = ({ todosCollection, itemsCollection }: any) => {
   const { id } = useParams();
-
   const [open, setOpen] = useState<boolean>(false);
 
-  const todosCollection = useCollection<Todo>('todos');
-  const itemsCollection = useCollection<Item>('items');
-
   const items = useQuery(itemsCollection.query().where('todoId', '==', `${id}`), true);
-
   const [todos] = useQuery(todosCollection.query().where('id', '==', `${id}`), true);
 
   const changeStatusToCompleted = (itemId: any) => {
@@ -30,7 +24,7 @@ const TodoList = () => {
     <div className="todo">
       <List>
         {items
-          .filter((item) => item.data.completed === false)
+          ?.filter((item) => item.data.completed === false)
           .map((item: any, i: any) => (
             <StyledListItem
               isChecked={false}

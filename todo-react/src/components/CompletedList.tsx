@@ -1,28 +1,26 @@
-import { useCollection, useQuery } from '@squidcloud/react';
+import { useQuery } from '@squidcloud/react';
 import { useParams } from 'react-router-dom';
-import { Item, Todo } from '../interfaces/index';
 import StyledListItem from '../styled/StyledListItem';
-import { List } from '@mui/material';
+import { Box, List, Typography } from '@mui/material';
 
-const CompletedList = () => {
+const CompletedList = ({ todosCollection, itemsCollection }: any) => {
   const { id } = useParams();
-  const todosCollection = useCollection<Todo>('todos');
-
-  const itemsCollection = useCollection<Item>('items');
   const [todos] = useQuery(todosCollection.query().where('id', '==', `${id}`), true);
-
   const items = useQuery(itemsCollection.query().where('todoId', '==', `${id}`), true);
 
   const changeStatusToCompleted = (itemId: any) => {
     itemsCollection.doc(itemId).update({ completed: true });
   };
 
-  return (
-    <div className="todo">
-      <List>
-        {items
-          .filter((item) => item.data.completed === true)
-          .map((item: any, i: any) => (
+  const completedItems = items.filter((item) => item.data.completed === true);
+
+  return completedItems.length > 0 ? (
+    <Box sx={{ marginTop: '50px' }}>
+      <Typography variant="h4">Completed</Typography>
+
+      <div className="todo">
+        <List>
+          {completedItems.map((item: any, i: any) => (
             <StyledListItem
               isChecked={true}
               key={i}
@@ -32,9 +30,10 @@ const CompletedList = () => {
               onClick={() => changeStatusToCompleted(item.data.id)}
             />
           ))}
-      </List>
-    </div>
-  );
+        </List>
+      </div>
+    </Box>
+  ) : null;
 };
 
 export default CompletedList;

@@ -8,14 +8,7 @@ const DateInfo = ({ todosList }: any) => {
   const [currentDate, setCurrentDate] = useState(moment());
 
   return (
-    <Box
-      sx={{
-        padding: '24px',
-        borderRadius: '12px',
-        minWidth: '300px',
-        backgroundColor: '#fff',
-      }}
-    >
+    <Box className="calendar_box">
       <Calendar currentDate={currentDate} setCurrentDate={setCurrentDate} todosList={todosList} />
     </Box>
   );

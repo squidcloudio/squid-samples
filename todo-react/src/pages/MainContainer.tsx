@@ -5,7 +5,7 @@ import { useCollection, useQuery } from '@squidcloud/react';
 import CompletedList from '../components/CompletedList';
 import ListContainer from '../components/ListContainer';
 import { OptionsMenu } from '../components/MenuDetail';
-import { Todo } from '../interfaces/index';
+import { Item, Todo } from '../interfaces/index';
 import TodoList from './TodoList';
 import DateInfo from '../components/DateInfo';
 
@@ -25,6 +25,7 @@ const MainContainer = () => {
   const [open, setOpen] = useState<any>(false);
 
   const todosCollection = useCollection<Todo>('todos');
+  const itemsCollection = useCollection<Item>('items');
 
   const todosList = useQuery(todosCollection.query().where('userId', '==', `${user?.sub}`), true);
 
@@ -48,14 +49,11 @@ const MainContainer = () => {
           <Grid item xs={12} md={9} lg={7}>
             <Box display="flex" justifyContent="space-between">
               <Typography variant="h4">In Progress</Typography>
-              <OptionsMenu collection={todosCollection} />
+              <OptionsMenu todosCollection={todosCollection} itemsCollection={itemsCollection} />
             </Box>
-            <TodoList />
+            <TodoList todosCollection={todosCollection} itemsCollection={itemsCollection} />
 
-            <Box sx={{ marginTop: '50px' }}>
-              <Typography variant="h4">Completed</Typography>
-              <CompletedList />
-            </Box>
+            <CompletedList todosCollection={todosCollection} itemsCollection={itemsCollection} />
           </Grid>
           <Grid item xs={12} lg={3}>
             <Box sx={{ display: { xs: 'none', md: 'none', lg: 'block' } }}>

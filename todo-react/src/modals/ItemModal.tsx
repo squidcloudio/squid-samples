@@ -12,7 +12,7 @@ import { StyledDatePicker } from '../styled/StyledDatePicker';
 import { CssTextField } from '../styled/CssTextField';
 import uuid from 'react-uuid';
 
-const ItemModal = ({ collection, todos, open, setOpen }: any) => {
+const ItemModal = ({ collection, todos, open, setOpen, fromCalendar }: any) => {
   const titleRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLInputElement>(null);
 
@@ -50,6 +50,7 @@ const ItemModal = ({ collection, todos, open, setOpen }: any) => {
       tags,
       todoId: todos.data.id,
       userId: todos.data.userId,
+      todoColor: todos.data.color,
       completed: false,
       id: itemNewId,
     });

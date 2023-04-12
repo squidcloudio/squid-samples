@@ -6,13 +6,22 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import ThreeDotsIcon from '../images/Union.svg';
 import EditModal from '../modals/EditListModal';
 import { useParams } from 'react-router-dom';
+import { useQuery } from '@squidcloud/react';
 
-export const OptionsMenu = ({ collection }: any) => {
+export const OptionsMenu = ({ todosCollection, itemsCollection }: any) => {
   const { id } = useParams();
   const navigate = useNavigate();
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [open, setOpen] = useState<boolean>(false);
+
+  const items = useQuery(itemsCollection.query().where('todoId', '==', `${id}`), true);
+
+  const deleteItems = () => {
+    items.forEach((el) => {
+      itemsCollection.doc(el.data.id).delete();
+    });
+  };
 
   const handleOpenMenu = (event: any) => {
     setAnchorEl(event.currentTarget);
@@ -23,7 +32,8 @@ export const OptionsMenu = ({ collection }: any) => {
   };
 
   const deleteTodo = () => {
-    collection.doc(id).delete();
+    deleteItems();
+    todosCollection.doc(id).delete();
     navigate('/');
   };
 
@@ -53,7 +63,7 @@ export const OptionsMenu = ({ collection }: any) => {
           Delete
         </MenuItem>
       </Menu>
-      <EditModal collection={collection} id={id} open={open} setOpen={setOpen} />
+      <EditModal collection={todosCollection} id={id} open={open} setOpen={setOpen} />
     </>
   );
 };

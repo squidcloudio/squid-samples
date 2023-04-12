@@ -57,7 +57,7 @@ const StyledListItem = ({ todos, item, index, onClick, isChecked }: any) => {
               DUE DATE: <span>{formatedDueDate}</span>
             </Typography>
             <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
-              {item.data.tags.map((tag: any, i: any) => {
+              {item.data.tags?.map((tag: any, i: any) => {
                 return (
                   <div className={!isChecked ? 'tag-item' : 'tag-item_completed'} key={i}>
                     <span className="text">{tag?.name}</span>

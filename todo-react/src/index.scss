@@ -408,7 +408,7 @@ header {
 
   &_header {
     display: flex;
-    padding: 10px;
+    padding: 10px 0;
     justify-content: space-between;
 
     & > span {
@@ -567,7 +567,6 @@ th {
         height: 10px;
         margin-right: 10px;
         border-radius: 3px;
-        background-color: red;
       }
     }
 
@@ -588,11 +587,12 @@ th {
   }
 }
 
-@media screen and (max-width: 1200px) {
-  .css-1ozs4dl-MuiGrid-root {
-    display: flex;
-    justify-content: flex-end;
-  }
+.calendar_box {
+  background-color: #fff;
+  padding: 24px;
+  padding: 24px;
+  min-width: 300px;
+  border-radius: 12px;
 }
 
 @media screen and (min-width: 650px) and (max-width: 900px) {

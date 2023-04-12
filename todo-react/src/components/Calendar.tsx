@@ -5,18 +5,24 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { Divider } from '@mui/material';
 import { useCollection, useQuery } from '@squidcloud/react';
-import { Item } from '../interfaces/index';
-import { useNavigate } from 'react-router-dom';
+import { Item, Todo } from '../interfaces/index';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { useAuth0 } from '@auth0/auth0-react';
 
 import { OptionsMenu } from './MenuDetail';
+import ItemModal from '../modals/ItemModal';
 
-const Calendar = ({ currentDate, setCurrentDate, todosList }: any) => {
+const Calendar = ({ currentDate, setCurrentDate }: any) => {
+  const { id } = useParams();
   const { user } = useAuth0();
   const [hoveredDay, setHoveredDay] = useState<any>(null);
   const [selectedDay, setSelectedDay] = useState<any>(currentDate);
   const navigate = useNavigate();
+
+  const [open, setOpen] = useState<boolean>(false);
+  const todosCollection = useCollection<Todo>('todos');
+  const [todos] = useQuery(todosCollection.query().where('id', '==', `${id}`), true);
 
   const initialDayRef = useRef(moment(currentDate));
 
@@ -26,7 +32,7 @@ const Calendar = ({ currentDate, setCurrentDate, todosList }: any) => {
     }
   }, [currentDate]);
 
-  const todayDate = moment(initialDayRef.current);
+  const todayDate = moment.utc(initialDayRef.current).startOf('day').locale('en');
 
   const weekdays = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
   const itemsCollection = useCollection<Item>('items');
@@ -55,24 +61,22 @@ const Calendar = ({ currentDate, setCurrentDate, todosList }: any) => {
 
   const nextWeek = () => {
     setCurrentDate(currentDate.clone().add(1, 'week'));
-    setSelectedDay(null);
   };
 
   const previousWeek = () => {
     setCurrentDate(currentDate.clone().subtract(1, 'week'));
-    setSelectedDay(null);
   };
 
   const overdueDates = items
     .filter((item) => item.data.completed === false)
     .map((el, i) => {
-      const momentDate = moment(el.data.dueDate);
+      const momentDate = moment.utc(el.data.dueDate).locale('en');
       if (momentDate.isBefore(todayDate)) {
-        const daysAgo = momentDate.fromNow();
+        const daysAgo = momentDate.from(todayDate, true);
         return (
           <div className="overdue_due-item" key={i}>
             <p>{el.data.title}</p>
-            <p>{daysAgo}</p>
+            <p>{daysAgo} ago</p>
           </div>
         );
       }
@@ -132,22 +136,22 @@ const Calendar = ({ currentDate, setCurrentDate, todosList }: any) => {
           {items.map((el, i) => {
             const dueDate = moment(el.data.dueDate, 'MM/DD/YYYY');
 
-            if (dueDate.isSame(currentDate)) {
+            if (dueDate.isSame(currentDate) && el.data.completed === false) {
               return (
-                <div className="sidebar_item" key={i}>
-                  <div className="sidebar_item-color" onClick={() => navigate(`/${el.data.todoId}`)}>
-                    <div></div>
+                <div className="sidebar_item" key={i} onClick={() => navigate(`/${el.data.todoId}`)}>
+                  <div className="sidebar_item-color">
+                    <div style={{ backgroundColor: el.data.todoColor }}></div>
                     <span>{el.data.title}</span>
                   </div>
 
-                  <OptionsMenu collection={itemsCollection} />
+                  {/* <OptionsMenu itemsCollection={itemsCollection} /> */}
                 </div>
               );
             }
           })}
 
           <div className="sidebar_item-add">
-            <button className="sidebar_item-add-btn">
+            <button className="sidebar_item-add-btn" onClick={() => setOpen(true)}>
               <span>+</span>
               <span>New Item</span>
             </button>
@@ -163,6 +167,8 @@ const Calendar = ({ currentDate, setCurrentDate, todosList }: any) => {
         </div>
         {overdueDates}
       </div>
+
+      <ItemModal collection={itemsCollection} todos={todos} open={open} setOpen={setOpen} items={items} />
     </div>
   );
 };
