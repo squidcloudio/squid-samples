@@ -1,19 +1,22 @@
+@use './src/app/style/colors' as c;
+@use './src/app/style/sizes' as s;
+@use './src/app/style/typography' as t;
 .theme-button{
-  width: 100%;
+  width: s.size(full);
   display: flex;
   align-items: center;
   gap: 13px;
   padding: 10px 12px;
   &-title {
-    color: #666666;
+    color: c.colors(font-regular);
     font-size: 14px;
     &-dark{
-      color: #e2e3e4;
+      color: c.colors(font-regular,true);
     }
   }
 }
 @media screen and (max-width: 1199px) {
   .theme-button-title{
-    font-size: 20px;
+    font-size: t.text(m);
   }
 }

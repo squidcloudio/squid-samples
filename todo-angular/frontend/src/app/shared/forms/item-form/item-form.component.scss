@@ -1,8 +1,11 @@
+@use './src/app/style/colors' as c;
+@use './src/app/style/typography' as t;
+
 .form {
   &-title {
-    color: #212121;
-    font-size: 36px;
-    font-weight: 700;
+    color: c.colors(font-accent);
+    font-size: t.text(xl);
+    font-weight: t.text-weight(bold);
   }
 
   &-container {
@@ -20,16 +23,16 @@
 }
 
 .newList-select {
-  margin-top: 24px;
+  margin-top: t.text(l);
   min-width: 400px;
   border-radius: 12px;
-  border: 1px solid #666666;
+  border: 1px solid c.colors(font-regular);
   background: none;
   padding: 14px 16px;
 }
 .form-dark {
   & .form-title {
-    color: #e2e3e4;
+    color: c.colors(font, true);
   }
 }
 @media screen and (min-width: 378px) and (max-width: 767px) {

@@ -1,22 +1,25 @@
+@use './style/colors' as c;
+@use './style/typography' as t;
+@use './style/sizes' as s;
 @mixin flex-column {
   display: flex;
   flex-direction: column;
 }
 
 .main {
-  background-color: #f7f7f7;
-  width: 100%;
-  min-height: 100vh;
-  height: 100%;
+  background-color: c.colors(bg);
+  width: s.size(full);
+  min-height: s.size(100h);
+  height: s.size(full);
   padding-bottom: 20px;
   &-dark {
-    background-color: #1e1e1e;
-    color: #e2e3e4;
+    background-color: c.colors(bg, true);
+    color: c.colors(font, true);
   }
 }
 
 .wrapper {
-  min-width: 90vw;
+  min-width: s.size(90);
 
   display: flex;
   align-items: flex-start;
@@ -25,7 +28,7 @@
 
 @media screen and (max-width: 768px) {
   .wrapper {
-    min-width: 80vw;
-    max-width: 80vw;
+    min-width: s.size(80);
+    max-width: s.size(80);
   }
 }

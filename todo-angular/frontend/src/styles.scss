@@ -1,5 +1,7 @@
 @use '@angular/material' as mat;
-
+@use './app/style/colors' as color;
+@use './app/style/typography' as t;
+@use './app/style/sizes' as s;
 @include mat.core();
 
 $frontend-primary: mat.define-palette(mat.$indigo-palette);
@@ -33,7 +35,7 @@ button {
 body {
   margin: 0;
   font-family: 'Karla', sans-serif;
-  background-color: #f7f7f7;
+  background-color: color.colors(bg);
 }
 .cdk-global-overlay-wrapper {
   display: flex;
@@ -46,37 +48,37 @@ body {
   background: none !important;
 }
 .body-dark {
-  background-color: #1e1e1e;
+  background-color: color.colors(bg, true);
   .mat-datepicker-content .mat-calendar {
-    background-color: #23272f;
+    background-color: color.colors(bg-c, true);
   }
   .mat-calendar-body-cell-content.mat-focus-indicator {
-    color: #e2e3e4;
+    color: color.colors(font, true);
   }
   .mat-calendar-body-label {
-    color: #e2e3e4;
+    color: color.colors(font, true);
   }
   .mat-calendar-previous-button::after,
   .mat-calendar-next-button::after {
-    color: #e2e3e4;
+    color: color.colors(font, true);
   }
   .mat-calendar-table-header th {
-    color: #e2e3e4;
+    color: color.colors(font, true);
   }
   .mdc-button .mdc-button__label {
-    color: #e2e3e4;
+    color: color.colors(font, true);
   }
   .mat-calendar-arrow {
-    fill: #e2e3e4;
+    fill: color.colors(font, true);
   }
   .mat-mdc-menu-content {
-    background-color: #23272f;
+    background-color: color.colors(bg-c, true);
   }
   .mat-mdc-checkbox .mdc-checkbox .mdc-checkbox__background {
-    border-color: #e2e3e4 !important;
+    border-color: color.colors(font, true) !important;
   }
   .mdc-menu-surface.mat-mdc-autocomplete-panel {
-    background-color: #23272f !important;
+    background-color: color.colors(bg-c, true) !important;
   }
 }
 
@@ -86,12 +88,12 @@ body {
 
 @mixin formTitle {
   font-family: inherit;
-  color: #212121;
-  font-size: 36px;
-  font-weight: 700;
+  color: color.colors(font-accent);
+  font-size: t.text(xl);
+  font-weight: t.text-weight(bold);
 }
 
 html,
 body {
-  height: 100%;
+  height: s.size(full);
 }

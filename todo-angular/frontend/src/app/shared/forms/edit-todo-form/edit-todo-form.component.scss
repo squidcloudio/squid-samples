@@ -1,5 +1,5 @@
 @use '../../../../styles';
-
+@use './src/app/style/colors' as c;
 .form {
   &-title {
     @include styles.formTitle();
@@ -18,8 +18,8 @@
   }
 }
 .form-dark {
-  background-color: #1b1f27;
+  background-color: c.colors(bg-c, true);
   & .form-title {
-    color: #e2e3e4;
+    color: c.colors(font, true);
   }
 }

@@ -1,8 +1,11 @@
+@use './src/app/style/colors' as c;
+@use './src/app/style/sizes' as s;
+@use './src/app/style/typography' as t;
 .menu-button {
   padding: 6px 6px 4px;
   border-radius: 100px;
   &:hover {
-    background: #ffffff;
+    background: c.colors(bg-c);
   }
 }
 .menu-component {
@@ -11,11 +14,11 @@
 
   &-text {
     margin-left: 12px;
-    font-weight: 400;
-    font-size: 14px;
-    color: #666666;
+    font-weight: t.text-weight(normal);
+    font-size: t.text(xs);
+    color: c.colors(font-regular);
     &-dark {
-      color: #e2e3e4;
+      color: c.colors(font, true);
     }
   }
 }
@@ -24,10 +27,10 @@
   background: none;
 
   & .white-icon {
-    color: white;
+    color: c.colors(bg-c);
     & svg {
-      fill: white;
+      fill: c.colors(bg-c);
     }
   }
-  color: #e2e3e4;
+  color: c.colors(font, true);
 }

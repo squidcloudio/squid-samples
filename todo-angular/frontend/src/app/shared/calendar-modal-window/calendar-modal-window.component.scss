@@ -1,11 +1,14 @@
+@use './src/app/style/colors' as c;
+@use './src/app/style/sizes' as s;
+@use './src/app/style/typography' as t;
 .calendar-modal {
   padding: 32px;
   min-width: 430px;
-  background-color: #ffffff;
+  background-color: c.colors(bg-c);
   border-radius: 12px 12px 0 0;
   &-background {
-    width: 100%;
-    height: 100%;
+    width: s.size(full);
+    height: s.size(full);
     position: fixed;
     left: 0;
     top: 0;
@@ -14,13 +17,13 @@
     z-index: -1000;
   }
   .calendar-divider {
-    width: 100%;
+    width: s.size(full);
     margin-top: 25px;
   }
   &-dark {
-    background-color: #1b1f27;
+    background-color: c.colors(bg-c,true);
     & .calendar-divider {
-      border-top-color: white;
+      border-top-color: c.colors(bg-c);
     }
   }
 }
@@ -29,6 +32,6 @@
     position: fixed;
     bottom: 0;
     right: 0;
-    min-width: 100%;
+    min-width: s.size(full);
   }
 }

@@ -1,18 +1,20 @@
+@use './src/app/style/colors' as c;
+@use './src/app/style/typography' as t;
 .container {
   position: relative;
 
   &-input {
-    background: #f8f9fc;
+    background: c.colors(component-active);
     outline: 0;
     min-width: 420px;
     border-radius: 12px;
-    border: 1px solid #e1e6ef;
-    color: #9e9e9e;
+    border: 1px solid c.colors(element-active);
+    color: c.colors(font);
     padding: 14px 16px;
     transition: all 160ms ease-in;
     &:focus {
-      border: 2px solid #212121;
-      color: #212121;
+      border: 2px solid c.colors(font-accent);
+      color: c.colors(font-accent);
 
       background: none;
     }
@@ -22,7 +24,7 @@
     position: absolute;
     left: 18px;
     top: 15px;
-    color: #9e9e9e;
+    color: c.colors(font);
     cursor: text;
     background: none;
     padding: 0px 2px;
@@ -32,47 +34,47 @@
 }
 
 .container-input:not(:placeholder-shown) {
-  border: 2px solid #212121;
-  color: #212121;
+  border: 2px solid c.colors(font-accent);
+  color: c.colors(font-accent);
   background: none;
 }
 
 .container-input:focus ~ .container-label,
 .container-input:not(:placeholder-shown).container-input:not(:focus) ~ .container-label {
   top: -6px;
-  color: #212121;
-  background: #ffffff;
-  font-size: 11px;
+  color: c.colors(font-accent);
+  background: c.colors(bg-c);
+  font-size: t.text(3xs);
 }
 .container-dark {
   & .container {
     &-input {
-      background: #1b1f27;
-      border: 1px solid #e2e3e4;
-      color: #e2e3e4;
+      background: c.colors(bg-c, true);
+      border: 1px solid c.colors(font, true);
+      color: c.colors(font, true);
       &:focus {
-        border: 2px solid #e2e3e4;
-        color: #e2e3e4;
+        border: 2px solid c.colors(font, true);
+        color: c.colors(font, true);
 
         background: none;
       }
     }
     &-label {
-      color: #e2e3e4;
+      color: c.colors(font, true);
     }
   }
   & .container-input:not(:placeholder-shown) {
-    border: 2px solid #e2e3e4;
-    color: #e2e3e4;
+    border: 2px solid c.colors(font, true);
+    color: c.colors(font, true);
     background: none;
   }
 
   & .container-input:focus ~ .container-label,
   .container-input:not(:placeholder-shown).container-input:not(:focus) ~ .container-label {
     top: -6px;
-    color: #e2e3e4;
-    background: #1b1f27;
-    font-size: 11px;
+    color: c.colors(font, true);
+    background: c.colors(bg-c, true);
+    font-size: t.text(3xs);
   }
 }
 @media screen and (min-width: 378px) and (max-width: 767px) {

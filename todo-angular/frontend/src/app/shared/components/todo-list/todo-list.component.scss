@@ -1,10 +1,13 @@
+@use './src/app/style/colors' as c;
+@use './src/app/style/sizes' as s;
+@use './src/app/style/typography' as t;
 .list {
   &__component {
     padding: 8px 12px 8px 16px;
     display: flex;
     align-items: center;
     cursor: pointer;
-    font-weight: 500;
+    font-weight: t.text-weight(bolder);
 
     &:not(:first-child) {
       margin-top: 24px;
@@ -19,29 +22,29 @@
 
     &-title {
       margin-left: 16px;
-      font-size: 20px;
+      font-size: t.text(m);
       width: 154px;
     }
 
     &-amount {
       margin-left: 16px;
-      font-size: 20px;
+      font-size: t.text(m);
     }
 
     &-active,&:hover {
-      background-color: #e1e6ef;
+      background-color: c.colors(element-active);
       border-radius: 8px;
-      font-weight: 700;
+      font-weight: t.text-weight(bold);
     }
   }
 }
 .list-dark {
   & .list__component,{
-    color: #e2e3e4;
+    color: c.colors(font,true);
   }
   & .list__component-active,.list__component:hover {
-    color: #e2e3e4;
+    color: c.colors(font,true);
     border-radius: 8px;
-    background-color: #32363e;
+    background-color: c.colors(element-active,true);
   }
 }

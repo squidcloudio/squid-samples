@@ -1,12 +1,13 @@
 @use '../../../app.component';
-
+@use './src/app/style/colors' as c;
+@use './src/app/style/typography' as t;
 .new-list-form {
   &-title {
-    color: #212121;
-    font-size: 36px;
-    font-weight: 700;
+    color: c.colors(font-accent);
+    font-size: t.text(xl);
+    font-weight: t.text-weight(bold);
     &-dark {
-      color: #e2e3e4;
+      color: c.colors(font, true);
     }
   }
 
@@ -17,15 +18,11 @@
   }
 }
 
-.select-option {
-  background-color: green;
-}
-
 .newList-select {
   margin-top: 24px;
   min-width: 420px;
   border-radius: 12px;
-  border: 1px solid #666666;
+  border: 1px solid c.colors(font-regular);
   background: none;
   padding: 14px 16px;
 
@@ -55,33 +52,33 @@
   &-name {
     margin-left: 32px;
     font-size: 14px;
-    color: #212121;
+    color: c.colors(font-accent);
   }
 }
 
 .newList-select:focus,
 .newList-select:not(:placeholder-shown) {
-  border: 2px solid #212121;
+  border: 2px solid c.colors(font-accent);
 }
 .select-container-dark {
   & .newList-select-icon {
-    color: white;
+    color: c.colors(bg-c);
     & svg {
-      fill: white;
+      fill: c.colors(bg-c);
     }
   }
   & .newList-select {
-    border-color: #e2e3e4;
+    border-color: c.colors(font, true);
     &.mat-mdc-input-element {
       background: none;
-      color: #e2e3e4;
+      color: c.colors(font, true);
     }
   }
 }
 .options {
-  background-color: #1b1f27;
+  background-color: c.colors(bg-c, true);
   & .option-name {
-    color: #e2e3e4;
+    color: c.colors(font, true);
   }
 }
 @media screen and (min-width: 378px) and (max-width: 767px) {
@@ -92,6 +89,6 @@
     }
   }
   .select-container {
-    width: 0px;
+    width: 0;
   }
 }

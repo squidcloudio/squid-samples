@@ -1,7 +1,10 @@
+@use './src/app/style/colors' as c;
+@use './src/app/style/sizes' as s;
+@use './src/app/style/typography' as t;
 .calendar-expired {
   &-title {
     margin-top: 24px;
-    color: #ff0000;
+    color: c.colors(alert);
     display: flex;
     align-items: center;
     gap: 10px;
@@ -9,7 +12,7 @@
       width: 10px;
       height: 10px;
       border-radius: 100px;
-      background-color: #ff0000;
+      background-color: c.colors(alert);
     }
   }
   &-list {
@@ -21,19 +24,19 @@
       display: flex;
       cursor: pointer;
       justify-content: space-between;
-      font-weight: 500;
-      font-size: 12px;
-      color: #212121;
+      font-weight: t.text-weight(bolder);
+      font-size: t.text(xxs);
+      color: c.colors(font-accent);
     }
   }
 }
-.calendar-expired-dark{
+.calendar-expired-dark {
   & .calendar-expired-list__component {
-    color: #e2e3e4;
+    color: c.colors(font, true);
   }
 }
 @media screen and (min-width: 378px) and (max-width: 767px) {
-  .calendar-expired-list{
+  .calendar-expired-list {
     height: 60px;
     overflow: auto;
   }

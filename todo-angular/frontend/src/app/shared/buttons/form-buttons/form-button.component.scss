@@ -1,3 +1,5 @@
+@use './src/app/style/colors' as c;
+@use './src/app/style/typography' as t;
 .buttons-container {
   display: flex;
   justify-content: space-between;
@@ -7,19 +9,19 @@
   &__component {
     padding: 13px 55px;
     border-radius: 12px;
-    font-weight: 700;
-    font-size: 16px;
+    font-weight: t.text-weight(bold);
+    font-size: t.text(s);
   }
 }
 
 .submit-button {
-  background: #15c771;
-  color: #212121;
+  background: c.colors(submit);
+  color: c.colors(font-accent);
 }
 
 .decline-button {
-  color: #9e9e9e;
-  border: 1px solid #9e9e9e;
+  color: c.colors(font);
+  border: 1px solid c.colors(font);
 }
 @media screen and (min-width: 378px) and (max-width: 767px) {
   .buttons-container__component {

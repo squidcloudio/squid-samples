@@ -1,15 +1,18 @@
+@use './src/app/style/colors' as c;
+@use './src/app/style/sizes' as s;
+@use './src/app/style/typography' as t;
 .calendar-items {
-  margin-top: 24px;
-  width: 100%;
+  margin-top: t.text(l);
+  width: s.size(full);
   &-title {
-    padding-left: 16px;
+    padding-left: t.text(s);
   }
   &-list {
-    margin-top: 16px;
+    margin-top: t.text(s);
     &__component {
       display: flex;
       align-items: center;
-      padding: 12px 16px;
+      padding: t.text(xs) t.text(s);
       border-radius: 8px;
       cursor: pointer;
       justify-content: space-between;
@@ -35,14 +38,14 @@
 
 .calendar-items-dark {
   & .calendar-items-title {
-    color: #e2e3e4;
+    color: c.colors(font, true);
   }
   & .calendar-items-list__component-title {
-    color: #e2e3e4;
+    color: c.colors(font, true);
   }
 }
 @media screen and (min-width: 378px) and (max-width: 767px) {
-  .calendar-items-list{
+  .calendar-items-list {
     max-height: 120px;
     overflow: scroll;
   }

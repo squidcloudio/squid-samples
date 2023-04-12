@@ -1,5 +1,9 @@
+@use './src/app/style/colors' as c;
+@use './src/app/style/typography' as t;
+@use './src/app/style/sizes' as s;
+
 .calendar {
-  background-color: #ffffff;
+  background-color: c.colors(bg-c);
   padding: 30px 24px;
   border-radius: 12px;
   &-divider {
@@ -8,18 +12,18 @@
 }
 
 .calendar-dark {
-  background-color: #1b1f27;
+  background-color: c.colors(bg-c, true);
 
   & .calendar-divider {
-    border-top-color: white;
+    border-top-color: c.colors(bg-c);
   }
 }
 
-@media screen and (max-width: 1209px) {
+@media screen and (max-width: 1200px) {
   .calendar {
     position: absolute;
-    visibility:hidden;
-    padding: 0px !important;
+    visibility: hidden;
+    padding: s.size(0) !important;
     display: none !important;
   }
 }

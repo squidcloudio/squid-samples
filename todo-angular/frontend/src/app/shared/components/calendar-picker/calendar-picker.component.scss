@@ -1,5 +1,8 @@
+@use './src/app/style/colors' as c;
+@use './src/app/style/sizes' as s;
+@use './src/app/style/typography' as t;
 .calendar {
-  background-color: #ffffff;
+  background-color: c.colors(bg-c);
   padding: 30px 24px;
   border-radius: 12px;
   &-header {
@@ -7,8 +10,8 @@
     align-items: center;
     justify-content: space-between;
     &-title {
-      font-weight: 700;
-      font-size: 16px;
+      font-weight: t.text-weight(bold);
+      font-size: t.text(s);
     }
   }
 
@@ -24,53 +27,53 @@
       padding: 15px 5px;
       & p {
         font-weight: 400;
-        font-size: 16px;
-        color: #666666;
+        font-size: t.text(s);
+        color: c.colors(font-regular);
       }
       &-number {
         margin-top: 10px;
       }
 
       &:hover {
-        background-color: #f8f9fc;
+        background-color: c.colors(component-active);
         border-radius: 8px;
         & p {
-          color: #212121;
-          font-weight: 700;
+          color: c.colors(font-accent);
+          font-weight: t.text-weight(bold);
         }
       }
     }
   }
 }
 .date-navigation-icon {
-  color: #9E9E9E;
+  color: c.colors(font);
   & svg {
-    fill: #9E9E9E;
+    fill: c.colors(font);
   }
-  &:hover{
-    color: #212121;
+  &:hover {
+    color: c.colors(font-accent);
     & svg {
-      fill: #212121;
+      fill: c.colors(font-accent);
     }
   }
 }
 .item-active {
-  background-color: #f8f9fc;
+  background-color: c.colors(component-active);
   border-radius: 8px;
   & p {
-    color: #212121;
-    font-weight: 700;
+    color: c.colors(font-accent);
+    font-weight: t.text-weight(bold);
   }
 }
 .dates-dark {
-  background-color: #1b1f27;
+  background-color: c.colors(bg-c, true);
   .calendar-header-title {
-    color: #e2e3e4;
+    color: c.colors(font, true);
   }
   & .date-navigation-icon {
-    color: white;
+    color: c.colors(bg-c);
     & svg {
-      fill: white;
+      fill: c.colors(bg-c);
     }
   }
   & .calendar-dates {
@@ -79,19 +82,19 @@
         color: #77797e;
       }
       &-number {
-        color: #a7a9ac;
+        color: c.colors(font-regular, true);
       }
     }
   }
   & .item-active {
-    background-color: #32363e;
+    background-color: c.colors(element-active, true);
     & .calendar-dates {
       &__component {
         &-title {
-          color: #e2e3e4;
+          color: c.colors(font, true);
         }
         &-number {
-          color: #e2e3e4;
+          color: c.colors(font, true);
         }
       }
     }

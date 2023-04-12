@@ -7,8 +7,8 @@ this application demonstrates how user can create, update, delete and fetch data
 For authentication this application use [auth0](https://auth0.com/).
 
 ## Start
-
-1. To install dependencies:
+### Frontend
+1. Go to frontend folder and install dependencies:
 
    **npm install**
 
@@ -21,6 +21,20 @@ For authentication this application use [auth0](https://auth0.com/).
 **_src/app/app.module.ts:_**
 
 ![img.png](src/app/screenshots/img.png)
+
+### Backend.
+
+backend is deployed on the squid by default. To run locally:
+1. Got to the backend folder and type:
+
+```squid start```
+2. To connect local backend to the frontend, got to the frontend folder and in app.module.ts and change 'us-east-1.aws' to 'local':
+```
+    SquidModule.forRoot({
+      appId: environment.squidAppId,
+      region: 'local',
+    }),
+```
 
 **_environment_** contains apiKeys for squid and Auth0 in src/environments
 
@@ -47,11 +61,31 @@ That logic is implemented inside the **_AccountService_**.
 
 The user needs to get token, so they can work with collections. Collections are protected on the backend side.
 
-**_backend:_**
+*_backend:_*
 
-![img_4.png](src/app/screenshots/img_4.png)
+ **Squid cloud** allows the client protect the data so no one can get sensitive information from the outside. To protect
+the date squid uses [securecollection](https://docs.squid.cloud/docs/backend/security-rules/) decorator:
+ 
+***src/service/example-service.ts:***
+```
+export class ExampleService extends SquidService {
+  @secureCollection("todos", "all")
+  secureTodosCollection(): boolean {
+    return this.isAuthenticated();
+  }
+  @secureCollection("items", "all")
+  secureItemsllection(): boolean {
+    return this.isAuthenticated();
+  }
+}
 
+```
+**'todos' and 'items'** are collections that need to be protected.
+**'all'** is a method that is protected. There are 4 methods : 'read','write','update','delete'. And 'all' contains all of them.
+
+It means if the unauthorized user tries to get access to one of the collections there will be an error. Only the authorized user can work with collections.
 ### Todo collection
+
 
 When the user is logged in they get to the main page:
 
