@@ -19,7 +19,7 @@ export class ChildrenGuard implements CanActivateChild {
           this.accountService.login();
           return NEVER;
         }
-        return this.todoService.todo(currentIdFromParam).pipe(
+        return this.todoService.observeTodo(currentIdFromParam).pipe(
           switchMap(result => {
             if (!result) {
               const currentUrl = this.router.createUrlTree(['', 'today']);

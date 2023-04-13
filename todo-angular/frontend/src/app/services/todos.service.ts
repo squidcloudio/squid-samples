@@ -14,7 +14,7 @@ export class TodosService {
     this.todoCollection = this.squid.collection<Todo>('todos');
   }
 
-  todo(id: string): Observable<Todo> {
+  observeTodo(id: string): Observable<Todo> {
     return this.todoCollection
       .query()
       .where('id', '==', id)
@@ -22,7 +22,7 @@ export class TodosService {
       .pipe(map(todos => todos.map(todo => todo.data)[0]));
   }
 
-  getDefaultCollection(): Observable<Todo[]> {
+  observeDefaultCollection(): Observable<Todo[]> {
     return this.todoCollection
       .query()
       .where('title', 'in', ['Today', 'Tomorrow', 'Someday'])
@@ -31,7 +31,7 @@ export class TodosService {
       .pipe(map(todos => todos.map(todo => todo.data)));
   }
 
-  getUserCollection(): Observable<Todo[]> {
+  observeUserCollection(): Observable<Todo[]> {
     return this.accountService.observeUser().pipe(
       switchMap(user => {
         if (!user) return NEVER;

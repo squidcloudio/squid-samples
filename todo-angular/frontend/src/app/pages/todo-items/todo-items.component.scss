@@ -64,15 +64,15 @@
 .todo-section-dark {
   & .todo-section {
     &-title {
-      color: c.colors(font,true);
+      color: c.colors(font, true);
     }
     &-content {
-      background-color: c.colors(bg-c,true);
-      color: c.colors(font,true);
+      background-color: c.colors(bg-c, true);
+      color: c.colors(font, true);
     }
   }
   & .no-items-title {
-    color: c.colors(font,true);
+    color: c.colors(font, true);
   }
 }
 @media screen and (max-width: 1350px) {
@@ -113,7 +113,7 @@
     }
   }
   .no-items-title {
-    min-width: s.size(30) ;
+    min-width: s.size(30);
   }
   .todo-section-title {
     h2 {

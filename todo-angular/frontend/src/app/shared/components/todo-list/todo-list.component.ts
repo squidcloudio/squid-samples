@@ -13,14 +13,12 @@ export class TodoListComponent implements OnInit {
   @Input('listType') listType!: string;
   todoList?: Observable<Todo[]>;
 
-  amount: Observable<number> = of(0);
-
   constructor(private todoCollection: TodosService, readonly themeService: ThemeService) {}
 
   ngOnInit(): void {
     this.todoList =
       this.listType === 'defaultCollection'
-        ? this.todoCollection.getDefaultCollection()
-        : this.todoCollection.getUserCollection();
+        ? this.todoCollection.observeDefaultCollection()
+        : this.todoCollection.observeUserCollection();
   }
 }

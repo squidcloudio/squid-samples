@@ -16,8 +16,9 @@ export class ExpiredItemsComponent implements OnInit {
   @Input('dialog') dialog?: DialogRef<string>;
   expiredItemsObs?: Observable<Item[]>;
   constructor(private itemService: ItemsService, readonly themeService: ThemeService, private router: Router) {}
+
   ngOnInit(): void {
-    this.expiredItemsObs = this.itemService.getItems().pipe(
+    this.expiredItemsObs = this.itemService.observeItems().pipe(
       map(items =>
         items.filter(item => {
           const isItemIsExpired = moment(item.dueDate, FormatTypes.ISO_FORMAT).startOf('day') < moment().startOf('day');
@@ -26,6 +27,7 @@ export class ExpiredItemsComponent implements OnInit {
       ),
     );
   }
+
   gotToPage(id: string): void {
     this.router.navigate(['', 'someday'], { queryParams: { itemId: id } });
     this.dialog?.close();

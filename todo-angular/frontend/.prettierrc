@@ -7,5 +7,6 @@
   "arrowParens": "avoid",
   "trailingComma": "all",
   "bracketSameLine": true,
-  "printWidth": 120
+  "printWidth": 120,
+  "angularWhitespace": "nonBindable"
 }

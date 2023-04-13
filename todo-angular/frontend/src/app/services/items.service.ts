@@ -25,7 +25,7 @@ export class ItemsService {
     await this.item.doc(id).update({ completed: !currentItem?.data.completed });
   }
 
-  getItemsFromCurrentTodo(todoId: string): Observable<Item[]> {
+  observeTodoItems(todoId: string): Observable<Item[]> {
     const today = moment().format('M/D/YYYY');
     const tomorrow = moment().add(1, 'day').format('M/D/YYYY');
     return this.accountService.observeUser().pipe(
@@ -62,7 +62,7 @@ export class ItemsService {
     );
   }
 
-  getItem(id: string): Observable<Item> {
+  observeItem(id: string): Observable<Item> {
     return this.item
       .query()
       .where('id', '==', id)
@@ -78,7 +78,7 @@ export class ItemsService {
       .doc(id)
       .update({ title: item.title, description: item.description, dueDate: item.dueDate, tags: item.tags });
   }
-  getItemByDate(date: string): Observable<Item[] | []> {
+  observeItemsSortedByDate(date: string): Observable<Item[] | []> {
     return this.accountService.observeUser().pipe(
       switchMap(user => {
         if (!user) return NEVER;
@@ -91,10 +91,12 @@ export class ItemsService {
       }),
     );
   }
+
   deleteItem(id?: string): void {
     if (id) this.item.doc(id).delete();
   }
-  getItems(): Observable<Item[]> {
+
+  observeItems(): Observable<Item[]> {
     return this.accountService.observeUser().pipe(
       switchMap(user => {
         if (!user) return NEVER;
@@ -109,7 +111,7 @@ export class ItemsService {
   async deleteItemsFromTodo(): Promise<void> {
     if (this.todoService.currentTodo?.id) {
       const itemList = await this.item.query().where('todoId', '==', this.todoService.currentTodo.id).snapshot();
-      for (let item of itemList) {
+      for (const item of itemList) {
         await this.item.doc(item.data.id).delete();
       }
     }

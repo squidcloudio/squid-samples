@@ -21,7 +21,7 @@
     margin-top: 25px;
   }
   &-dark {
-    background-color: c.colors(bg-c,true);
+    background-color: c.colors(bg-c, true);
     & .calendar-divider {
       border-top-color: c.colors(bg-c);
     }

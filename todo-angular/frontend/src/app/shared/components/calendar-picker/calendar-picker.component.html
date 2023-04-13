@@ -1,5 +1,5 @@
-<div class="calendar-header" [ngClass]="{'dates-dark':themeService.isDark}">
-  <h2 class="calendar-header-title">{{ selectedDate|formatDate:formatTypes.MONTH_AND_YEAR }}</h2>
+<div class="calendar-header" [ngClass]="{ 'dates-dark': themeService.isDark }">
+  <h2 class="calendar-header-title">{{ selectedDate | formatDate : formatTypes.MONTH_AND_YEAR }}</h2>
   <div class="calendar-header-navigation">
     <button class="calendar-header-navigation__component" (click)="getPrevWeek()">
       <mat-icon class="date-navigation-icon">arrow_back_ios</mat-icon>
@@ -9,13 +9,13 @@
     </button>
   </div>
 </div>
-<ul class="calendar-dates" [ngClass]="{'dates-dark':themeService.isDark}">
+<ul class="calendar-dates" [ngClass]="{ 'dates-dark': themeService.isDark }">
   <li
     *ngFor="let calendarItem of calendarList"
     class="calendar-dates__component"
     [ngClass]="{ 'item-active': calendarItem === selectedDate }"
     (click)="selectDate(calendarItem)">
-    <p class="calendar-dates__component-title">{{ calendarItem|formatDate:formatTypes.WEEK_DAY_NAME }}</p>
-    <p class="calendar-dates__component-number">{{ calendarItem|formatDate:formatTypes.WEEK_DAY_NUMBER }}</p>
+    <p class="calendar-dates__component-title">{{ calendarItem | formatDate : formatTypes.WEEK_DAY_NAME }}</p>
+    <p class="calendar-dates__component-number">{{ calendarItem | formatDate : formatTypes.WEEK_DAY_NUMBER }}</p>
   </li>
 </ul>

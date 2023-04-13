@@ -105,13 +105,13 @@
   }
   & .item-content-header-text-description,
   .item-content-info-date {
-    color: c.colors(font-regular,true);
+    color: c.colors(font-regular, true);
   }
   & .item-content-info-tags__component {
     border-color: c.colors(font, true);
   }
   &:hover {
-    background-color: c.colors(component-active,true);
+    background-color: c.colors(component-active, true);
     & .item-content-header-text-title,
     .format-date,
     .item-content-info-tags__component {
@@ -119,14 +119,14 @@
     }
     & .item-content-header-text-description,
     .item-content-info-date {
-      color: c.colors(font-regular,true);
+      color: c.colors(font-regular, true);
     }
     & .item-content-info-tags__component {
       border-color: c.colors(font, true);
     }
   }
   &.item-selected {
-    background-color: c.colors(component-active,true) !important;
+    background-color: c.colors(component-active, true) !important;
   }
 }
 @media screen and (max-width: 1199px) {

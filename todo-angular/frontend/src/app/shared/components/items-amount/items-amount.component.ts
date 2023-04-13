@@ -16,7 +16,7 @@ export class ItemsAmountComponent implements OnInit {
 
   ngOnInit(): void {
     if (!this.todo) return;
-    this.amount = this.itemService.getItemsFromCurrentTodo(this.todo.id).pipe(
+    this.amount = this.itemService.observeTodoItems(this.todo.id).pipe(
       map(items => items.filter(item => !item.completed)),
       map(items => items.length),
     );

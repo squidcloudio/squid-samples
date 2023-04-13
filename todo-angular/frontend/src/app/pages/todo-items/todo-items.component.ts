@@ -26,18 +26,19 @@ export class TodoItemsComponent implements OnInit, OnDestroy {
     private itemsService: ItemsService,
     readonly themeService: ThemeService,
   ) {}
+
   ngOnInit(): void {
     this.queryParamsSub = this.activatedRoute.queryParams.pipe(filter(params => params['itemId'])).subscribe(params => {
       if (params) this.itemId = params['itemId'];
     });
     this.paramsSub = this.paramsObs.subscribe(params => {
       const currentTodoId = params['id'];
-      this.todoObs = this.todoService.todo(currentTodoId).pipe(map(todos => todos));
+      this.todoObs = this.todoService.observeTodo(currentTodoId);
       this.activeItemsObs = this.itemsService
-        .getItemsFromCurrentTodo(currentTodoId)
+        .observeTodoItems(currentTodoId)
         .pipe(map(items => items.filter(item => !item.completed)));
 
-      this.completedItemsObs = this.itemsService.getItemsFromCurrentTodo(currentTodoId).pipe(
+      this.completedItemsObs = this.itemsService.observeTodoItems(currentTodoId).pipe(
         map(items => items.filter(item => item.completed)),
         switchMap(items => {
           return of(items);
@@ -50,6 +51,7 @@ export class TodoItemsComponent implements OnInit, OnDestroy {
     this.paramsSub?.unsubscribe();
     this.queryParamsSub?.unsubscribe();
   }
+
   setItemId(id: string): void {
     this.itemId = id;
   }

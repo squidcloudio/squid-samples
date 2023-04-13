@@ -33,6 +33,7 @@ export class ItemFormComponent implements OnInit, OnDestroy {
   ) {
     this.currentTodo = this.todoService.currentTodo;
   }
+
   ngOnInit(): void {
     if (!this.itemId)
       this.newItemForm = new FormGroup({
@@ -43,7 +44,7 @@ export class ItemFormComponent implements OnInit, OnDestroy {
       });
 
     if (this.itemId)
-      this.itemObs = this.itemService.getItem(this.itemId).subscribe(item => {
+      this.itemObs = this.itemService.observeItem(this.itemId).subscribe(item => {
         this.currentItem = item;
         this.newItemForm = new FormGroup({
           title: new FormControl(item.title, Validators.required),

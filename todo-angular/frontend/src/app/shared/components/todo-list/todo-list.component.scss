@@ -31,7 +31,8 @@
       font-size: t.text(m);
     }
 
-    &-active,&:hover {
+    &-active,
+    &:hover {
       background-color: c.colors(element-active);
       border-radius: 8px;
       font-weight: t.text-weight(bold);
@@ -39,12 +40,13 @@
   }
 }
 .list-dark {
-  & .list__component,{
-    color: c.colors(font,true);
+  & .list__component {
+    color: c.colors(font, true);
   }
-  & .list__component-active,.list__component:hover {
-    color: c.colors(font,true);
+  & .list__component-active,
+  .list__component:hover {
+    color: c.colors(font, true);
     border-radius: 8px;
-    background-color: c.colors(element-active,true);
+    background-color: c.colors(element-active, true);
   }
 }

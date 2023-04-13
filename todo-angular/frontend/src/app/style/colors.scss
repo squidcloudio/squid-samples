@@ -9,7 +9,6 @@ $light-theme: (
   font: #9e9e9e,
   submit: #15c771,
   alert: #ff0000,
-
 );
 
 $dark-theme: (
@@ -21,7 +20,6 @@ $dark-theme: (
   font-regular: #a7a9ac,
   font-accent: #e2e3e4,
 );
-
 
 @function colors($key, $dark: false) {
   $theme: $light-theme;

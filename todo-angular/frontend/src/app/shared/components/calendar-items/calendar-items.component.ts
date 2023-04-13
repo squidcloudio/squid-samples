@@ -17,8 +17,9 @@ export class CalendarItemsComponent implements OnInit {
   activeItemsObs?: Observable<Item[]>;
   readonly formatTypes = FormatTypes;
   constructor(private router: Router, readonly calendarService: CalendarService, readonly themeService: ThemeService) {}
+
   ngOnInit(): void {
-    this.activeItemsObs = this.calendarService.getItemsByDate(this.calendarService.currentDate);
+    this.activeItemsObs = this.calendarService.observeItemsOnDate();
   }
 
   async goToTodoPage(todoId: string, itemId: string, dueDate?: string): Promise<void> {

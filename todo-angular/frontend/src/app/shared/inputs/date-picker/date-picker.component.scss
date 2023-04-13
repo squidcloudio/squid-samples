@@ -72,16 +72,16 @@
   & .container {
     &-input {
       background: none;
-      border: 1px solid c.colors(font,true);
-      color: c.colors(font,true);
+      border: 1px solid c.colors(font, true);
+      color: c.colors(font, true);
 
       &::placeholder {
         color: c.colors(font);
       }
 
       &:focus {
-        border: 2px solid c.colors(font,true);
-        color: c.colors(font,true);
+        border: 2px solid c.colors(font, true);
+        color: c.colors(font, true);
 
         &::placeholder {
           visibility: hidden;
@@ -92,20 +92,20 @@
     }
 
     &-label {
-      color: c.colors(font,true);
+      color: c.colors(font, true);
     }
   }
 
   .container-input:not(:placeholder-shown) {
-    border: 2px solid c.colors(font,true);
-    color: c.colors(font,true);
+    border: 2px solid c.colors(font, true);
+    color: c.colors(font, true);
   }
 
   & .container-input:focus ~ .container-label,
   .container-input:not(:placeholder-shown).container-input:not(:focus) ~ .container-label {
     top: -6px;
-    color: c.colors(font,true);
-    background: c.colors(bg-c,true);
+    color: c.colors(font, true);
+    background: c.colors(bg-c, true);
     font-size: 11px;
   }
 }
