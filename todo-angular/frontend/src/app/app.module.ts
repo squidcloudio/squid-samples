@@ -50,7 +50,7 @@ const routes: Routes = [
     BrowserModule,
     SquidModule.forRoot({
       appId: environment.squidAppId,
-      region: 'us-east-1.aws',
+      region: environment.region,
     }),
     AuthModule.forRoot({
       domain: environment.authDomain,

@@ -1,3 +1,4 @@
+import { SupportedSquidRegion } from '@squidcloud/common';
 export interface User {
   username: string;
   email: string;
@@ -49,3 +50,11 @@ export type Item = {
   completed: boolean;
   todoColor: string;
 };
+
+export interface EnvironmentDetails {
+  production: boolean;
+  squidAppId: string;
+  authDomain: string;
+  authClientId: string;
+  region: SupportedSquidRegion;
+}
