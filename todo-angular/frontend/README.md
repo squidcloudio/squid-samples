@@ -3,22 +3,27 @@
 ## Overview
 
 This application demonstrates how a user can create, update, delete, and fetch data using only the frontend and
-[squid cloud](https://docs.squid.cloud/docs/what-is-squid) service.
+the [squid cloud](https://docs.squid.cloud/docs/what-is-squid) service.
 For authentication, this application uses [auth0](https://auth0.com/).
 
 ## Start
 ### Frontend
-1. Go to frontend folder and install dependencies:
+1. Go to the frontend directory and install the npm dependencies:
 
-   **npm install**
+```
+npm install
+```
 
-2. to run application:
+2. Run the application:
 
-   **npm start**
+```
+npm start
+```   
 
-3. In the app.module.ts file, we imported and connected the SquidService and AuthService. These services handle authentication and data retrieval for the application:
 
-**_src/app/app.module.ts:_**
+3. In the `app.module.ts` we initialize Squid and the auth service:
+
+`src/app/app.module.ts:`
 
 ![img.png](src/app/screenshots/img.png)
 
@@ -28,6 +33,7 @@ backend is deployed on the squid by default. To run locally:
 1. Got to the backend folder and type:
 
 ```squid start```
+
 2. To connect the local backend to the frontend, navigate to the frontend folder and open the app.module.ts file. Then, replace the 'us-east-1.aws' value with 'local' to update the configuration and connect to the local backend:
 ```
     SquidModule.forRoot({
@@ -44,14 +50,14 @@ backend is deployed on the squid by default. To run locally:
 
 In order to access the app, a user must log in. We use **Auth0** to enable users to log in with Google. **Auth0** also provides the AuthGuard feature, which allows us to protect our routes and ensure that only authenticated users can access certain parts of the app:
 
-**src/app/app.module.ts:**
+`src/app/app.module.ts:`
 
 ![img_2.png](src/app/screenshots/img_2.png)
 
 When a user logs in, the **AuthService** retrieves the user's
 ID token and sends it to **Squid Cloud**. This functionality is implemented in the **AccountService**, which is responsible for managing user accounts and handling authentication and authorization tasks
 
-**_src/app/services/account.service.ts:_**
+`src/app/services/account.service.ts:`
 
 ![img_3.png](src/app/screenshots/img_3.png)
 
@@ -61,12 +67,12 @@ The **idTokenClaims** is an observable that returns the user's token. If the tok
 
 To work with collections, the user needs to obtain a token, which is used to protect collections on the backend. This ensures that only authenticated and authorized users can access and modify collections in the application.
 
-*_backend:_*
+***Backend:***
 
 **Squid cloud** provides a way for the client to protect data from outside access, preventing sensitive information from being exposed.
 To achieve this, Squid uses the **secureCollection** decorator, which is explained in more detail in the security rules [documentation](https://docs.squid.cloud/docs/backend/security-rules/)
  
-***src/service/example-service.ts:***
+`src/service/example-service.ts:`
 ```
 export class ExampleService extends SquidService {
   @secureCollection("todos", "all")
@@ -95,7 +101,7 @@ the user can access various collections and perform actions such as creating, up
 The left sidebar on the main page contains a list of collections, including the 'Todos' collection. This collection includes default todos such as 'Today', 'Tomorrow', and 'Someday'.
 The TodoService is responsible for providing the method that allows users to access collections
 
-**_src/app/services/todos.service.ts:_**
+`src/app/services/todos.service.ts:`
 
 ```
   getDefaultCollection(): Observable<Todo[]> {
@@ -130,13 +136,13 @@ BBy clicking the 'New List' button, the user can create a new todo using an **An
 
 **HTML**
 
-**_src/app/shared/forms/list-form/list-form.component.html:_**
+```src/app/shared/forms/list-form/list-form.component.html:```
 
 ![img_8.png](src/app/screenshots/img_8.png)
 
-setNewList() creates a new Todo using createNewList() method from todoService
+`setNewList()` creates a new Todo using `createNewList()` method from todoService
 
-**_src/app/services/todos.service.ts:_**
+```src/app/services/todos.service.ts:```
 
 ```
   async createNewList(title: string, color: string): Promise<void> {
@@ -159,11 +165,11 @@ This will call the changeTodo() method from the TodoService, which allows the us
 
 **HTML**
 
-**_src/app/pages/todo-items/todo-items.html:_**
+`src/app/pages/todo-items/todo-items.html:`
 
 ![img_10.png](src/app/screenshots/img_10.png)
 
-**_src/app/services/todos.service.ts:_**
+`src/app/services/todos.service.ts:`
 
 ```
 
@@ -178,7 +184,7 @@ When the user deletes a collection, they are redirected to the 'Today' collectio
 
 Delete collection:
 
-**_src/app/services/todos.service.ts:_**
+`src/app/services/todos.service.ts:`
 
 ```
 
@@ -193,17 +199,17 @@ Delete collection:
 
 ### Items collection:
 
-**this.item** is a shortcut for `this.squid.collection<Item>('items')`
+`this.item` is a shortcut for `this.squid.collection<Item>('items')`
 
 #### Get Items.
 
-When the user clicks on a particular Todo, they are taken to a page displaying the Items related to that Todo. If the user clicks on one of the default todos, the items will be automatically filtered by date. To retrieve the items, the getItems() method from the TodoService is called.
+When the user clicks on a particular Todo, they are taken to a page displaying the Items related to that Todo. If the user clicks on one of the default todos, the items will be automatically filtered by date. To retrieve the items, the `getItems()` method from the TodoService is called.
 
 **_src/app/pages/todo-items/todo-items.component.html:_**
 
 ![img_13.png](src/app/screenshots/img_13.png)
 
-**_src/app/services/items.service.ts:_**
+`src/app/services/items.service.ts:`
 
 ```angularts
 
@@ -247,9 +253,9 @@ getItemsFromCurrentTodo(todoId: string): Observable<Item[]> {
 
 #### Create Item.
 
-When the user clicks on the 'New Item' button, a new Item for the current Todo is created using the addNewItem() method from the ItemService:
+When the user clicks on the 'New Item' button, a new Item for the current Todo is created using the `addNewItem()` method from the ItemService:
 
-**_src/app/services/items.service.ts:_**
+`src/app/services/items.service.ts:`
 
 ```
   addNewItem(item: Item): void {
@@ -259,13 +265,13 @@ When the user clicks on the 'New Item' button, a new Item for the current Todo i
 
 #### Change Item
 
-1. When the user clicks on the pencil icon, they can edit the item by using the changeItem() method from the ItemService.:
+1. When the user clicks on the pencil icon, they can edit the item by using the `changeItem()` method from the ItemService.:
 
 ![img_15.png](src/app/screenshots/img_15.png)
 
 ![img_16.png](src/app/screenshots/img_16.png)
 
-**_src/app/services/items.service.ts:_**
+`src/app/services/items.service.ts:`
 
 ```
  async changeItem(id: string, item: Item): Promise<void> {
@@ -291,7 +297,7 @@ Additionally, the user can manually delete an item by clicking the delete button
 
 ![img_17.png](src/app/screenshots/img_17.png)
 
-**_src/app/services/items.service.ts:_**
+`src/app/services/items.service.ts:`
 
 ```
   deleteItem(id?: string): void {
@@ -307,7 +313,7 @@ If there are no items related to a particular date, the "New Item" button will a
 
 get Items by date:
 
-**_src/app/services/items.service.ts:_**
+`src/app/services/items.service.ts:`
 
 ```
   getItemByDate(date: string): Observable<Item[] | []> {
@@ -327,4 +333,6 @@ get Items by date:
 
 
 
-There is a list of expired items below the 'active items' section. These items have already passed their expiration date
+There is a list of expired items below the 'active items' section. These items have already passed their expiration date:
+
+![img.png](img.png)
