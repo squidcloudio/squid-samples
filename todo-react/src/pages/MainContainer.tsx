@@ -62,7 +62,7 @@ const MainContainer = () => {
             {!isSmallScreen && (
               <Box className="calendar_icon">
                 <IconButton onClick={() => setOpen(true)}>
-                  <CalendarTodayIcon sx={{ display: { xs: 'block', md: 'block', lg: 'none' } }} fontSize="small" />
+                  <CalendarTodayIcon fontSize="small" />
                 </IconButton>
               </Box>
             )}

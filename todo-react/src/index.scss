@@ -591,11 +591,24 @@ th {
   background-color: #fff;
   padding: 24px;
   padding: 24px;
-  min-width: 300px;
+  min-width: 280px;
   border-radius: 12px;
 }
 
+@media screen and (min-width: 900px) and (max-width: 1200px) {
+  .css-1ozs4dl-MuiGrid-root {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 20px;
+  }
+}
+
 @media screen and (min-width: 650px) and (max-width: 900px) {
+  .calendar_icon {
+    display: none;
+    background-color: transparent;
+  }
+
   .navlink_content-title {
     font-size: 16px;
   }
@@ -654,14 +667,28 @@ th {
   .tag-item > span {
     font-size: 10px;
   }
+}
 
-  // .item_button > img {
-  //   width: 15px;
-  // }
+@media screen and (max-width: 1200px) {
+  .calendar_box {
+    display: none;
+  }
+  .css-9c211-MuiGrid-root {
+    max-width: 100%;
+    flex-basis: 100%;
+    min-width: 75%;
+    flex-grow: 1;
+  }
 
-  // .item_button span {
-  //   font-size: 16px;
-  // }
+  .css-57ri8o-MuiGrid-root {
+    -webkit-flex-basis: 25%;
+    -ms-flex-preferred-size: 25%;
+    flex-basis: 25%;
+
+    flex-grow: 0;
+    max-width: 25%;
+    min-width: 25%;
+  }
 }
 
 @media screen and (max-width: 650px) {
