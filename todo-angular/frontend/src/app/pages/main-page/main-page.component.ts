@@ -15,7 +15,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 })
 export class MainPageComponent {
   readonly userObs = this.accountService.observeUser();
-  a = this.br.observe('(max-width: 1199px)');
+  a = this.br.observe('(max-width: 1200px)');
   constructor(
     private accountService: AccountService,
     readonly todoCollection: TodosService,

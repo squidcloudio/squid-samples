@@ -6,10 +6,10 @@ export interface User {
 }
 
 export enum FormatTypes {
-  MONTH_AND_DATE = 'MMMM D',
+  MONTH_AND_DATE = 'MMMM d',
   MONTH_AND_YEAR = 'MMMM YYYY',
-  WEEK_DAY_NAME = 'dd',
-  WEEK_DAY_NUMBER = 'D',
+  WEEK_DAY_NAME = 'EEEEEE',
+  WEEK_DAY_NUMBER = 'd',
   DEFAULT_FORMAT = 'M/D/YYYY',
   ISO_FORMAT = 'MM-DD-YYYY',
 }

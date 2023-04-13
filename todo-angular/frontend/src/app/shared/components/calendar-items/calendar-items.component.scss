@@ -4,9 +4,6 @@
 .calendar-items {
   margin-top: t.text(l);
   width: s.size(full);
-  &-title {
-    padding-left: t.text(s);
-  }
   &-list {
     margin-top: t.text(s);
     &__component {

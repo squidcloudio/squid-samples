@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import * as moment from 'moment';
+import * as dayjs from 'dayjs';
 import { FormatTypes, Item } from '../interfaces';
 import { ItemsService } from './items.service';
 import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class CalendarService {
-  currentDate = moment().format(FormatTypes.DEFAULT_FORMAT);
+  currentDate = dayjs().format(FormatTypes.DEFAULT_FORMAT);
   dateSubj: BehaviorSubject<string> = new BehaviorSubject(this.currentDate);
 
   constructor(private itemService: ItemsService) {}
@@ -17,14 +17,12 @@ export class CalendarService {
   }
 
   observeItemsOnDate(): Observable<Item[]> {
-    return this.dateSubj.asObservable().pipe(
+    return this.dateSubj.pipe(
       switchMap(date => {
         return this.itemService.observeItemsSortedByDate(date).pipe(
           map(items =>
             items.filter(item => {
-              const isItemInProgress = moment(item.dueDate, FormatTypes.ISO_FORMAT)
-                .startOf('day')
-                .diff(moment().startOf('day'));
+              const isItemInProgress = dayjs(item.dueDate).diff(dayjs(), 'day');
               return isItemInProgress >= 0 && !item.completed;
             }),
           ),

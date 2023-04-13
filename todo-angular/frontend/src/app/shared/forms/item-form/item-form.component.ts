@@ -5,7 +5,7 @@ import { ItemsService } from '../../../services/items.service';
 import { Item, Todo } from '../../../interfaces';
 import { DialogRef } from '@angular/cdk/dialog';
 import { AccountService } from '../../../services/account.service';
-import * as moment from 'moment';
+import * as dayjs from 'dayjs';
 import { Subscription } from 'rxjs';
 import { ThemeService } from '../../../services/theme.service';
 
@@ -65,7 +65,7 @@ export class ItemFormComponent implements OnInit, OnDestroy {
     const newItem: Item = {
       title: this.newItemForm?.get('title')?.value,
       description: this.newItemForm?.get('description')?.value,
-      dueDate: moment(this.newItemForm?.get('dueDate')?.value).format('M/D/YYYY'),
+      dueDate: dayjs(this.newItemForm?.get('dueDate')?.value).format('M/D/YYYY'),
       tags: this.newItemForm?.get('tags')?.value,
       todoId: this.currentItem ? this.currentItem.todoId : this.currentTodo.id,
       todoColor: this.currentItem ? this.currentItem.todoColor : this.currentTodo.color,

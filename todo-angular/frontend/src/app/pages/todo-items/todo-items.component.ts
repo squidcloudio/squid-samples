@@ -38,12 +38,9 @@ export class TodoItemsComponent implements OnInit, OnDestroy {
         .observeTodoItems(currentTodoId)
         .pipe(map(items => items.filter(item => !item.completed)));
 
-      this.completedItemsObs = this.itemsService.observeTodoItems(currentTodoId).pipe(
-        map(items => items.filter(item => item.completed)),
-        switchMap(items => {
-          return of(items);
-        }),
-      );
+      this.completedItemsObs = this.itemsService
+        .observeTodoItems(currentTodoId)
+        .pipe(map(items => items.filter(item => item.completed)));
     });
   }
 

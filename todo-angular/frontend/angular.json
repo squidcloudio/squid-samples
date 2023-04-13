@@ -34,7 +34,7 @@
               "src/app/app.component.scss"
             ],
             "scripts": [],
-            "allowedCommonJsDependencies": ["@squidcloud/client","moment"]
+            "allowedCommonJsDependencies": ["@squidcloud/client","dayjs"]
           },
           "configurations": {
             "production": {

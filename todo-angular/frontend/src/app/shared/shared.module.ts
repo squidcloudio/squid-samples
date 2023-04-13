@@ -1,8 +1,8 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { TodoListComponent } from './components/todo-list/todo-list.component';
 import { ListFormComponent } from './forms/list-form/list-form.component';
 import { ModalWindowComponent } from './modal-window/modal-window.component';
-import { AsyncPipe, NgClass, NgForOf, NgIf, NgStyle } from '@angular/common';
+import { AsyncPipe, DatePipe, NgClass, NgForOf, NgIf, NgStyle } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { TextInputComponent } from './inputs/text-input/text-input.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -28,8 +28,7 @@ import { SidebarNavigationComponent } from './sidebar-navigation/sidebar-navigat
 import { MatListModule } from '@angular/material/list';
 import { AddTodoButtonComponent } from './buttons/add-todo-button/add-todo-button.component';
 import { CalendarPickerComponent } from './components/calendar-picker/calendar-picker.component';
-import { DateTransformPipe } from '../pipes/dateTransform.pipe';
-import { FormatDatePipe } from '../pipes/formatDate.pipe';
+import { TimeSincePipe } from '../pipes/timeSince.pipe';
 import { CalendarItemsComponent } from './components/calendar-items/calendar-items.component';
 import { ExpiredItemsComponent } from './components/expired-items/expired-items.component';
 import { CalendarModalWindowComponent } from './calendar-modal-window/calendar-modal-window.component';
@@ -57,6 +56,7 @@ import { LogoutButtonComponent } from './buttons/logout-button/logout-button.com
     MatCheckboxModule,
     MatMenuModule,
     MatListModule,
+    DatePipe,
   ],
   exports: [
     TodoListComponent,
@@ -75,8 +75,7 @@ import { LogoutButtonComponent } from './buttons/logout-button/logout-button.com
     SidebarNavigationComponent,
     AddTodoButtonComponent,
     CalendarPickerComponent,
-    DateTransformPipe,
-    FormatDatePipe,
+    TimeSincePipe,
     CalendarItemsComponent,
     ExpiredItemsComponent,
     CalendarModalWindowComponent,
@@ -84,6 +83,7 @@ import { LogoutButtonComponent } from './buttons/logout-button/logout-button.com
     LogoutButtonComponent,
   ],
   providers: [],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [
     TodoListComponent,
     ListFormComponent,
@@ -101,8 +101,7 @@ import { LogoutButtonComponent } from './buttons/logout-button/logout-button.com
     SidebarNavigationComponent,
     AddTodoButtonComponent,
     CalendarPickerComponent,
-    DateTransformPipe,
-    FormatDatePipe,
+    TimeSincePipe,
     CalendarItemsComponent,
     ExpiredItemsComponent,
     CalendarModalWindowComponent,

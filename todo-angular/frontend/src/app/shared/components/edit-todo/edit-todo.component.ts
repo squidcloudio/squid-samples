@@ -24,11 +24,11 @@ export class EditTodoComponent {
   ) {}
 
   async deleteTodo(): Promise<void> {
-    if (this.type === 'todo') {
-      this.todoService.deleteTodo();
-      await this.itemService.deleteItemsFromTodo();
+    if (this.type === 'todo' && this.id) {
+      this.todoService.deleteTodo(this.id);
+      await this.itemService.deleteItemsFromTodo(this.id);
     }
-    if (this.type === 'item') this.itemService.deleteItem(this.id);
+    if (this.type === 'item' && this.id) this.itemService.deleteItem(this.id);
   }
   openModalWindow(): void {
     const dialogRef =

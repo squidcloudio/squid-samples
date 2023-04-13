@@ -3,7 +3,7 @@ import { map, Observable } from 'rxjs';
 import { FormatTypes, Item } from '../../../interfaces';
 import { ItemsService } from '../../../services/items.service';
 import { ThemeService } from '../../../services/theme.service';
-import * as moment from 'moment/moment';
+import * as dayjs from 'dayjs';
 import { Router } from '@angular/router';
 import { DialogRef } from '@angular/cdk/dialog';
 
@@ -21,7 +21,7 @@ export class ExpiredItemsComponent implements OnInit {
     this.expiredItemsObs = this.itemService.observeItems().pipe(
       map(items =>
         items.filter(item => {
-          const isItemIsExpired = moment(item.dueDate, FormatTypes.ISO_FORMAT).startOf('day') < moment().startOf('day');
+          const isItemIsExpired = dayjs(item.dueDate, FormatTypes.ISO_FORMAT).startOf('day') < dayjs().startOf('day');
           return isItemIsExpired && !item.completed;
         }),
       ),

@@ -4,11 +4,11 @@ import { Squid } from '@squidcloud/client';
 import { Item } from '../interfaces';
 import { map, NEVER, Observable, switchMap } from 'rxjs';
 import { AccountService } from './account.service';
-import * as moment from 'moment';
+import * as dayjs from 'dayjs';
 
 @Injectable({ providedIn: 'root' })
 export class ItemsService {
-  readonly item = this.squid.collection<Item>('items');
+  readonly itemCollection = this.squid.collection<Item>('items');
 
   constructor(
     private todoService: TodosService,
@@ -17,45 +17,39 @@ export class ItemsService {
   ) {}
 
   addNewItem(item: Item): void {
-    this.item.doc(item.id).insert(item);
+    this.itemCollection.doc(item.id).insert(item).then();
   }
 
   async changeItemStatus(id: string): Promise<void> {
-    const currentItem = await this.item.doc(id).snapshot();
-    await this.item.doc(id).update({ completed: !currentItem?.data.completed });
+    const currentItem = await this.itemCollection.doc(id).snapshot();
+    await this.itemCollection.doc(id).update({ completed: !currentItem?.data.completed });
   }
 
   observeTodoItems(todoId: string): Observable<Item[]> {
-    const today = moment().format('M/D/YYYY');
-    const tomorrow = moment().add(1, 'day').format('M/D/YYYY');
+    const today = dayjs().format('M/D/YYYY');
+    const tomorrow = dayjs().add(1, 'day').format('M/D/YYYY');
     return this.accountService.observeUser().pipe(
       switchMap(user => {
         if (!user) return NEVER;
-        const query = this.item.query().where('userId', '==', user.id);
+        const query = this.itemCollection.query().eq('userId', user.id);
 
         switch (todoId) {
           case 'today':
-            query.where('dueDate', '==', today);
+            query.eq('dueDate', today);
             break;
           case 'tomorrow':
-            query.where('dueDate', '==', tomorrow);
+            query.eq('dueDate', tomorrow);
             break;
           case 'someday':
-            query.where('dueDate', 'not in', [today, tomorrow]);
+            query.nin('dueDate', [today, tomorrow]);
             break;
           default:
-            return this.item
+            return this.itemCollection
               .query()
-              .where('todoId', '==', todoId)
-              .where('userId', '==', user.id)
+              .eq('todoId', todoId)
+              .eq('userId', user.id)
               .snapshots()
-              .pipe(
-                map(items =>
-                  items.map(item => {
-                    return item.data;
-                  }),
-                ),
-              );
+              .pipe(map(items => items.map(item => item.data)));
         }
         return query.snapshots().pipe(map(items => items.map(item => item.data)));
       }),
@@ -63,9 +57,9 @@ export class ItemsService {
   }
 
   observeItem(id: string): Observable<Item> {
-    return this.item
+    return this.itemCollection
       .query()
-      .where('id', '==', id)
+      .eq('id', id)
       .snapshots()
       .pipe(
         map(items => {
@@ -73,47 +67,48 @@ export class ItemsService {
         }),
       );
   }
+
   async changeItem(id: string, item: Item): Promise<void> {
-    await this.item
+    await this.itemCollection
       .doc(id)
       .update({ title: item.title, description: item.description, dueDate: item.dueDate, tags: item.tags });
   }
+
   observeItemsSortedByDate(date: string): Observable<Item[] | []> {
     return this.accountService.observeUser().pipe(
       switchMap(user => {
         if (!user) return NEVER;
-        return this.item
+        return this.itemCollection
           .query()
-          .where('userId', '==', user.id)
-          .where('dueDate', '==', date)
+          .eq('userId', user.id)
+          .eq('dueDate', date)
           .snapshots()
           .pipe(map(items => items.map(item => item.data)));
       }),
     );
   }
 
-  deleteItem(id?: string): void {
-    if (id) this.item.doc(id).delete();
+  deleteItem(id: string): void {
+    if (id) this.itemCollection.doc(id).delete().then();
   }
 
   observeItems(): Observable<Item[]> {
     return this.accountService.observeUser().pipe(
       switchMap(user => {
         if (!user) return NEVER;
-        return this.item
+        return this.itemCollection
           .query()
-          .where('userId', '==', user.id)
+          .eq('userId', user.id)
           .snapshots()
           .pipe(map(items => items.map(item => item.data)));
       }),
     );
   }
-  async deleteItemsFromTodo(): Promise<void> {
-    if (this.todoService.currentTodo?.id) {
-      const itemList = await this.item.query().where('todoId', '==', this.todoService.currentTodo.id).snapshot();
-      for (const item of itemList) {
-        await this.item.doc(item.data.id).delete();
-      }
+
+  async deleteItemsFromTodo(id: string): Promise<void> {
+    const itemList = await this.itemCollection.query().eq('todoId', id).snapshot();
+    for (const item of itemList) {
+      await this.itemCollection.doc(item.data.id).delete();
     }
   }
 }

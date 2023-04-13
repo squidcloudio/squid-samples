@@ -17,7 +17,7 @@ export class TodosService {
   observeTodo(id: string): Observable<Todo> {
     return this.todoCollection
       .query()
-      .where('id', '==', id)
+      .eq('id', id)
       .snapshots()
       .pipe(map(todos => todos.map(todo => todo.data)[0]));
   }
@@ -25,7 +25,7 @@ export class TodosService {
   observeDefaultCollection(): Observable<Todo[]> {
     return this.todoCollection
       .query()
-      .where('title', 'in', ['Today', 'Tomorrow', 'Someday'])
+      .in('title', ['Today', 'Tomorrow', 'Someday'])
       .sortBy('userId')
       .snapshots()
       .pipe(map(todos => todos.map(todo => todo.data)));
@@ -37,7 +37,7 @@ export class TodosService {
         if (!user) return NEVER;
         return this.todoCollection
           .query()
-          .where('userId', '==', user.id)
+          .eq('userId', user.id)
           .sortBy('id')
           .snapshots()
           .pipe(map(todos => todos.map(todo => todo.data)));
@@ -61,11 +61,9 @@ export class TodosService {
     await this.todoCollection.doc(newList.id).insert(newList);
   }
 
-  deleteTodo(): void {
-    if (this.currentTodo?.id) {
-      this.todoCollection.doc(this.currentTodo?.id).delete();
-    }
-    this.router.navigate(['', 'today']);
+  deleteTodo(id: string): void {
+    this.todoCollection.doc(id).delete();
+    this.router.navigate(['', 'today']).then();
   }
 
   changeTodo(id: string, newTitle: string): void {

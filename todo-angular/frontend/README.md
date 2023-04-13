@@ -7,7 +7,9 @@ the [squid cloud](https://docs.squid.cloud/docs/what-is-squid) service.
 For authentication, this application uses [auth0](https://auth0.com/).
 
 ## Start
+
 ### Frontend
+
 1. Go to the frontend directory and install the npm dependencies:
 
 ```
@@ -18,8 +20,7 @@ npm install
 
 ```
 npm start
-```   
-
+```
 
 3. In the `app.module.ts` we initialize Squid and the auth service:
 
@@ -30,11 +31,13 @@ npm start
 ### Backend.
 
 backend is deployed on the squid by default. To run locally:
+
 1. Got to the backend folder and type:
 
-```squid start```
+`squid start`
 
 2. To connect the local backend to the frontend, navigate to the frontend folder and open the app.module.ts file. Then, replace the 'us-east-1.aws' value with 'local' to update the configuration and connect to the local backend:
+
 ```
     SquidModule.forRoot({
       appId: environment.squidAppId,
@@ -59,7 +62,33 @@ ID token and sends it to **Squid Cloud**. This functionality is implemented in t
 
 `src/app/services/account.service.ts:`
 
-![img_3.png](src/app/screenshots/img_3.png)
+```
+export class AccountService {
+  private readonly userObs: Observable<User | undefined> = this.authService.user$.pipe(
+    switchMap(user => {
+      if (user === undefined) return NEVER;
+      if (!user) return of(undefined);
+      return of({
+        username: user.nickname!,
+        email: user.email!,
+        avatar: user.picture!,
+        id: user.sub!,
+      });
+    }),
+  );
+
+  constructor(private readonly authService: AuthService, private readonly squid: Squid) {
+    this.authService.idTokenClaims$.subscribe(idToken => {
+      if (!idToken) this.authService.loginWithRedirect();
+      if (idToken) {
+        const rawIdToken = idToken?.__raw;
+        this.squid.setAuthIdToken(rawIdToken);
+      }
+    });
+  }
+  }
+
+```
 
 The **idTokenClaims** is an observable that returns the user's token. If the token exists, the AccountService retrieves it and sends it to the **_squid cloud service_**:
 
@@ -67,12 +96,13 @@ The **idTokenClaims** is an observable that returns the user's token. If the tok
 
 To work with collections, the user needs to obtain a token, which is used to protect collections on the backend. This ensures that only authenticated and authorized users can access and modify collections in the application.
 
-***Backend:***
+**_Backend:_**
 
 **Squid cloud** provides a way for the client to protect data from outside access, preventing sensitive information from being exposed.
 To achieve this, Squid uses the **secureCollection** decorator, which is explained in more detail in the security rules [documentation](https://docs.squid.cloud/docs/backend/security-rules/)
- 
+
 `src/service/example-service.ts:`
+
 ```
 export class ExampleService extends SquidService {
   @secureCollection("todos", "all")
@@ -86,12 +116,13 @@ export class ExampleService extends SquidService {
 }
 
 ```
+
 **'todos' and 'items'** are collections that need to be protected.
 **'all'** is a method that is protected. There are 4 methods : 'read','write','update','delete'. And 'all' contains all of them.
 
 It means if the unauthorized user tries to get access to one of the collections there will be an error. Only the authorized user can work with collections.
-### Todo collection
 
+### Todo collection
 
 After logging in, the user is directed to the main page, which provides an overview of the application's features and functionality. From the main page,
 the user can access various collections and perform actions such as creating, updating, and deleting items within them:
@@ -104,10 +135,10 @@ The TodoService is responsible for providing the method that allows users to acc
 `src/app/services/todos.service.ts:`
 
 ```
-  getDefaultCollection(): Observable<Todo[]> {
+  observeDefaultCollection(): Observable<Todo[]> {
     return this.todoCollection
       .query()
-      .where('title', 'in', ['Today', 'Tomorrow', 'Someday'])
+      .in('title', ['Today', 'Tomorrow', 'Someday'])
       .sortBy('userId')
       .snapshots()
       .pipe(map(todos => todos.map(todo => todo.data)));
@@ -136,13 +167,13 @@ BBy clicking the 'New List' button, the user can create a new todo using an **An
 
 **HTML**
 
-```src/app/shared/forms/list-form/list-form.component.html:```
+`src/app/shared/forms/list-form/list-form.component.html:`
 
 ![img_8.png](src/app/screenshots/img_8.png)
 
 `setNewList()` creates a new Todo using `createNewList()` method from todoService
 
-```src/app/services/todos.service.ts:```
+`src/app/services/todos.service.ts:`
 
 ```
   async createNewList(title: string, color: string): Promise<void> {
@@ -203,7 +234,7 @@ Delete collection:
 
 #### Get Items.
 
-When the user clicks on a particular Todo, they are taken to a page displaying the Items related to that Todo. If the user clicks on one of the default todos, the items will be automatically filtered by date. To retrieve the items, the `getItems()` method from the TodoService is called.
+When the user clicks on a particular Todo, they are taken to a page displaying the Items related to that Todo. If the user clicks on one of the default todos, the items will be automatically filtered by date. To retrieve the items, the `ObserveTodoItems()` method from the ItemService is called.
 
 **_src/app/pages/todo-items/todo-items.component.html:_**
 
@@ -211,44 +242,39 @@ When the user clicks on a particular Todo, they are taken to a page displaying t
 
 `src/app/services/items.service.ts:`
 
-```angularts
-
-getItemsFromCurrentTodo(todoId: string): Observable<Item[]> {
-    const today = moment().format('M/D/YYYY');
-    const tomorrow = moment().add(1, 'day').format('M/D/YYYY');
+```
+observeTodoItems(todoId: string): Observable<Item[]> {
+    const today = dayjs().format('M/D/YYYY');
+    const tomorrow = dayjs().add(1, 'day').format('M/D/YYYY');
     return this.accountService.observeUser().pipe(
       switchMap(user => {
         if (!user) return NEVER;
-        const query = this.item.query().where('userId', '==', user.id);
+        const query = this.itemCollection.query().eq('userId', user.id);
 
         switch (todoId) {
           case 'today':
-            query.where('dueDate', '==', today);
+            query.eq('dueDate', today);
             break;
           case 'tomorrow':
-            query.where('dueDate', '==', tomorrow);
+            query.eq('dueDate', tomorrow);
             break;
           case 'someday':
-            query.where('dueDate', 'not in', [today, tomorrow]);
+            query.nin('dueDate', [today, tomorrow]);
             break;
           default:
-            return this.item
+            return this.itemCollection
               .query()
-              .where('todoId', '==', todoId)
-              .where('userId', '==', user.id)
+              .eq('todoId', todoId)
+              .eq('userId', user.id)
               .snapshots()
-              .pipe(
-                map(items =>
-                  items.map(item => {
-                    return item.data;
-                  }),
-                ),
-              );
+              .pipe(map(items => items.map(item => item.data)));
         }
         return query.snapshots().pipe(map(items => items.map(item => item.data)));
       }),
     );
   }
+
+
 ```
 
 #### Create Item.
@@ -258,8 +284,8 @@ When the user clicks on the 'New Item' button, a new Item for the current Todo i
 `src/app/services/items.service.ts:`
 
 ```
-  addNewItem(item: Item): void {
-    this.item.doc(item.id).insert(item);
+    addNewItem(item: Item): void {
+    this.itemCollection.doc(item.id).insert(item).then();
   }
 ```
 
@@ -316,22 +342,21 @@ get Items by date:
 `src/app/services/items.service.ts:`
 
 ```
-  getItemByDate(date: string): Observable<Item[] | []> {
+  observeItemsSortedByDate(date: string): Observable<Item[] | []> {
     return this.accountService.observeUser().pipe(
       switchMap(user => {
         if (!user) return NEVER;
-        return this.item
+        return this.itemCollection
           .query()
-          .where('userId', '==', user.id)
-          .where('dueDate', '==', date)
+          .eq('userId', user.id)
+          .eq('dueDate', date)
           .snapshots()
           .pipe(map(items => items.map(item => item.data)));
       }),
     );
   }
+
 ```
-
-
 
 There is a list of expired items below the 'active items' section. These items have already passed their expiration date:
 
