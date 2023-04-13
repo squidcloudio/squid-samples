@@ -669,6 +669,12 @@ th {
   }
 }
 
+@media screen and (min-width: 1200px) and (max-width: 1200px) {
+  .calendar_box {
+    display: none;
+  }
+}
+
 @media screen and (max-width: 1200px) {
   .css-9c211-MuiGrid-root {
     max-width: 100%;
