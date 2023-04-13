@@ -10,6 +10,7 @@ import { useQuery } from '@squidcloud/react';
 
 export const OptionsMenu = ({ todosCollection, itemsCollection }: any) => {
   const { id } = useParams();
+  console.log(id);
   const navigate = useNavigate();
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -39,9 +40,11 @@ export const OptionsMenu = ({ todosCollection, itemsCollection }: any) => {
 
   return (
     <>
-      <IconButton onClick={handleOpenMenu}>
-        <img src={ThreeDotsIcon} alt="" />
-      </IconButton>
+      {!['today', 'tomorrow', 'someday'].includes(id as string) && (
+        <IconButton onClick={handleOpenMenu}>
+          <img src={ThreeDotsIcon} alt="" />
+        </IconButton>
+      )}
       <Menu
         onClick={handleCloseMenu}
         anchorEl={anchorEl}

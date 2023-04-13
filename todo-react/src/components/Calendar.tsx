@@ -150,8 +150,8 @@ const Calendar = ({ currentDate, setCurrentDate }: any) => {
             }
           })}
 
-          <div className="sidebar_item-add">
-            <button className="sidebar_item-add-btn" onClick={() => setOpen(true)}>
+          <div className="sidebar_item-add" onClick={() => setOpen(true)}>
+            <button className="sidebar_item-add-btn">
               <span>+</span>
               <span>New Item</span>
             </button>

@@ -1,6 +1,6 @@
 import { Box, Divider } from '@mui/material';
 import { useCollection, useQuery } from '@squidcloud/react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import addList from '../images/Component 1.png';
 
@@ -21,8 +21,8 @@ const ListContainer = ({ todosList, collection }: any) => {
   }, [itemLength, items2.length]);
 
   const [open, setOpen] = useState<boolean>(false);
-  // const items = useQuery(itemsCollection.query(), true);
-  // const todosList = useQuery(collection.query().where('title', 'not in', ['Today', 'Tomorrow', 'Someday']), true);
+
+  const datesList = useQuery(collection.query().where('title', 'in', ['Today', 'Tomorrow', 'Someday']), true);
 
   const handleOpen = () => {
     setOpen(true);
@@ -30,6 +30,31 @@ const ListContainer = ({ todosList, collection }: any) => {
 
   return (
     <>
+      <ul>
+        {datesList.map((todo: any) => {
+          const { id, title, color } = todo.data;
+
+          return (
+            <div className="navlink" key={id}>
+              <NavLink
+                key={id}
+                to={`/${id}`}
+                className="navlink_content"
+                style={({ isActive }) => {
+                  return isActive ? { backgroundColor: '#E1E6EF' } : { backgroundColor: 'transparent' };
+                }}
+              >
+                <div className="navlink_content-color" style={{ backgroundColor: `${color}` }}></div>
+                <div className="navlink_content-title">{title}</div>
+                <div className="navlink_content-amount">{0}</div>
+              </NavLink>
+            </div>
+          );
+        })}
+      </ul>
+      <Box py={3}>
+        <Divider className="divider" />
+      </Box>
       <ul>
         {todosList.map((todo: any) => {
           const { id, title, color } = todo.data;
@@ -46,7 +71,7 @@ const ListContainer = ({ todosList, collection }: any) => {
               >
                 <div className="navlink_content-color" style={{ backgroundColor: `${color}` }}></div>
                 <div className="navlink_content-title">{title}</div>
-                <div className="navlink_content-amount">{items2.length}</div>
+                <div className="navlink_content-amount">{2}</div>
               </NavLink>
             </div>
           );

@@ -7,7 +7,7 @@ import colors from '../constants/colors';
 
 const ListModal = ({ id, collection, open, setOpen }: any) => {
   const titleRef = useRef<HTMLInputElement>(null);
-  const [color, setColor] = useState<string>('');
+  const [color, setColor] = useState<string>(colors[0].color);
   const [todos] = useQuery(collection.query().where('id', '==', `${id}`), true);
 
   const { user } = useAuth0();
@@ -34,7 +34,6 @@ const ListModal = ({ id, collection, open, setOpen }: any) => {
         <input type="text" placeholder="Title" ref={titleRef} />
         <Select
           className="modal_container-select"
-          defaultValue={colors[0].color}
           value={color}
           onChange={(e: SelectChangeEvent) => setColor(e.target.value)}
         >
