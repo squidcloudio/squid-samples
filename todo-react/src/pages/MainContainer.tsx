@@ -16,9 +16,11 @@ import CalendarModal from '../modals/CalendarModal';
 import Header from '../components/Header';
 
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { useParams } from 'react-router-dom';
 
 const MainContainer = () => {
   const isSmallScreen = useMediaQuery('(min-width:1200px)');
+  const { id } = useParams();
 
   const { user } = useAuth0();
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -27,11 +29,13 @@ const MainContainer = () => {
   const todosCollection = useCollection<Todo>('todos');
   const itemsCollection = useCollection<Item>('items');
 
+  const [todos] = useQuery(todosCollection.query().where('id', '==', `${id}`), true);
+
   const todosList = useQuery(todosCollection.query().where('userId', '==', `${user?.sub}`), true);
 
   return (
     <Stack>
-      <Header setDrawerOpen={setDrawerOpen} />
+      <Header setDrawerOpen={setDrawerOpen} todosCollection={todosCollection} todos={todos} />
       <Box px={10} py={7}>
         <Drawer anchor="left" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
           <Box sx={{ p: '20px', width: '350px' }}>
@@ -51,7 +55,7 @@ const MainContainer = () => {
               <Typography variant="h4">In Progress</Typography>
               <OptionsMenu todosCollection={todosCollection} itemsCollection={itemsCollection} />
             </Box>
-            <TodoList todosCollection={todosCollection} itemsCollection={itemsCollection} />
+            <TodoList itemsCollection={itemsCollection} todos={todos} />
 
             <CompletedList todosCollection={todosCollection} itemsCollection={itemsCollection} />
           </Grid>
@@ -61,7 +65,10 @@ const MainContainer = () => {
             </Box>
             {!isSmallScreen && (
               <Box className="calendar_icon">
-                <IconButton onClick={() => setOpen(true)}>
+                <IconButton
+                  onClick={() => setOpen(true)}
+                  style={{ backgroundColor: todos ? todos.data.color : '#dad' }}
+                >
                   <CalendarTodayIcon fontSize="small" />
                 </IconButton>
               </Box>

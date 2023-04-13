@@ -1,20 +1,13 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
-import { useCollection, useQuery } from '@squidcloud/react';
 import vector from '../images/Vector.png';
 import td from '../images/T•D•.png';
 import { useAuth0 } from '@auth0/auth0-react';
-import { Todo } from '../interfaces/index';
 import { IconButton } from '@mui/material';
 
 import MenuIcon from '@mui/icons-material/Menu';
 
-const Header = ({ setDrawerOpen }: any) => {
+const Header = ({ setDrawerOpen, todos }: any) => {
   const { user } = useAuth0();
-  const { id } = useParams();
-  const todosCollection = useCollection<Todo>('todos');
 
-  const [todos] = useQuery(todosCollection.query().where('id', '==', `${id}`), true);
   return (
     <>
       <header style={{ backgroundColor: todos ? todos.data.color : '#14BE6E' }} className="header">
