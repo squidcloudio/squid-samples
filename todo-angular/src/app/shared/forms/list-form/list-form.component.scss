@@ -1,0 +1,94 @@
+@use '../../../app.component';
+@use '../../../style/colors' as c;
+@use '../../../style/typography' as t;
+.new-list-form {
+  &-title {
+    color: c.colors(font-accent);
+    font-size: t.text(xl);
+    font-weight: t.text-weight(bold);
+    &-dark {
+      color: c.colors(font, true);
+    }
+  }
+
+  &-container {
+    margin-top: 24px;
+    @include app.flex-column();
+    align-items: self-start;
+  }
+}
+
+.newList-select {
+  margin-top: 24px;
+  min-width: 420px;
+  border-radius: 12px;
+  border: 1px solid c.colors(font-regular);
+  background: none;
+  padding: 14px 16px;
+
+  &-icon {
+    position: absolute;
+    top: 35px;
+    right: 10px;
+    z-index: -1;
+  }
+}
+
+.select-container {
+  width: 400px;
+  height: 45px;
+  position: relative;
+}
+
+.option {
+  display: flex;
+
+  &-color {
+    border-radius: 100px;
+    width: 24px;
+    height: 24px;
+  }
+
+  &-name {
+    margin-left: 32px;
+    font-size: 14px;
+    color: c.colors(font-accent);
+  }
+}
+
+.newList-select:focus,
+.newList-select:not(:placeholder-shown) {
+  border: 2px solid c.colors(font-accent);
+}
+.select-container-dark {
+  & .newList-select-icon {
+    color: c.colors(bg-c);
+    & svg {
+      fill: c.colors(bg-c);
+    }
+  }
+  & .newList-select {
+    border-color: c.colors(font, true);
+    &.mat-mdc-input-element {
+      background: none;
+      color: c.colors(font, true);
+    }
+  }
+}
+.options {
+  background-color: c.colors(bg-c, true);
+  & .option-name {
+    color: c.colors(font, true);
+  }
+}
+@media screen and (min-width: 378px) and (max-width: 767px) {
+  .newList-select {
+    min-width: 79vw;
+    &-icon {
+      display: none;
+    }
+  }
+  .select-container {
+    width: 0;
+  }
+}

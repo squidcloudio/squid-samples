@@ -1,0 +1,34 @@
+@use 'style/colors' as c;
+@use 'style/typography' as t;
+@use 'style/sizes' as s;
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  background-color: c.colors(bg);
+  width: s.size(full);
+  min-height: s.size(100h);
+  height: s.size(full);
+  padding-bottom: 20px;
+  &-dark {
+    background-color: c.colors(bg, true);
+    color: c.colors(font, true);
+  }
+}
+
+.wrapper {
+  min-width: s.size(90);
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 768px) {
+  .wrapper {
+    min-width: s.size(80);
+    max-width: s.size(80);
+  }
+}
