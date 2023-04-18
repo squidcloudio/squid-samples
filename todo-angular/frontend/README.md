@@ -3,8 +3,8 @@
 ## Overview
 
 This application demonstrates how a user can create, update, delete, and fetch data using only the frontend and
-the [squid cloud](https://docs.squid.cloud/docs/what-is-squid) service.
-For authentication, this application uses [auth0](https://auth0.com/).
+the [Squid Cloud](https://docs.squid.cloud/docs/what-is-squid) service.
+For authentication, this application uses [Auth0](https://auth0.com/).
 
 ## Start
 
@@ -22,30 +22,40 @@ npm install
 npm start
 ```
 
-3. In the `app.module.ts` we initialize Squid and the auth service:
-
-`src/app/app.module.ts:`
+3. In the `src/app/app.module.ts:` we initialize Squid and the auth service:
 
 ![img.png](src/app/screenshots/img.png)
 
 ### Backend.
 
-backend is deployed on the squid by default. To run locally:
-
-1. Got to the backend folder and type:
-
-`squid start`
-
-2. To connect the local backend to the frontend, navigate to the frontend folder and open the app.module.ts file. Then, replace the 'us-east-1.aws' value with 'local' to update the configuration and connect to the local backend:
+Getting started with Squid Cloud involves generating a backend template project. The first step is to install the Squid Cloud CLI:
 
 ```
-    SquidModule.forRoot({
-      appId: environment.squidAppId,
-      region: 'local',
-    }),
+ npm install -g @squidcloud/cli
 ```
 
-**_environment_** contains apiKeys for squid and Auth0 in src/environments
+Once the Squid Cloud CLI is installed, you can generate a template project using the following command which can be copied from the application overview page in the Squid Cloud Console:
+
+```
+squid init todo-backend --appId mnhwpkfn8e8e0ozo23 --apiKey 04d39b3c-2c6d-4eab-8d23-3d11eb2e8c65
+```
+
+1. Got to the backend directory and type:
+
+```
+squid start
+```
+
+2. To connect the frontend client to the local backend, navigate to the frontend directory and open the `app.module.ts` file. Then, replace `us-east-1.aws` with `local`. To update the configuration and connect to the local backend:
+
+```typescript
+SquidModule.forRoot({
+  appId: environment.squidAppId,
+  region: 'local',
+});
+```
+
+**_environment_** contains apiKeys for Squid and Auth0 in `src/environments`
 
 ## Usage
 
@@ -62,7 +72,7 @@ ID token and sends it to **Squid Cloud**. This functionality is implemented in t
 
 `src/app/services/account.service.ts:`
 
-```
+```typescript
 export class AccountService {
   private readonly userObs: Observable<User | undefined> = this.authService.user$.pipe(
     switchMap(user => {
@@ -86,39 +96,39 @@ export class AccountService {
       }
     });
   }
-  }
-
+}
 ```
 
 The **idTokenClaims** is an observable that returns the user's token. If the token exists, the AccountService retrieves it and sends it to the **_squid cloud service_**:
 
-`this.squid.setAuthIdToken(idToken);`
+```typescript
+this.squid.setAuthIdToken(idToken);
+```
 
 To work with collections, the user needs to obtain a token, which is used to protect collections on the backend. This ensures that only authenticated and authorized users can access and modify collections in the application.
 
 **_Backend:_**
 
-**Squid cloud** provides a way for the client to protect data from outside access, preventing sensitive information from being exposed.
+**Squid Cloud** provides a way for the client to protect data from outside access, preventing sensitive information from being exposed.
 To achieve this, Squid uses the **secureCollection** decorator, which is explained in more detail in the security rules [documentation](https://docs.squid.cloud/docs/backend/security-rules/)
 
 `src/service/example-service.ts:`
 
-```
+```typescript
 export class ExampleService extends SquidService {
-  @secureCollection("todos", "all")
+  @secureCollection('todos', 'all')
   secureTodosCollection(): boolean {
     return this.isAuthenticated();
   }
-  @secureCollection("items", "all")
+  @secureCollection('items', 'all')
   secureItemsllection(): boolean {
     return this.isAuthenticated();
   }
 }
-
 ```
 
 **'todos' and 'items'** are collections that need to be protected.
-**'all'** is a method that is protected. There are 4 methods : 'read','write','update','delete'. And 'all' contains all of them.
+**'all'** is a method that is protected. There are 4 methods : 'read', 'write', 'update', 'delete'. And 'all' contains all of them.
 
 It means if the unauthorized user tries to get access to one of the collections there will be an error. Only the authorized user can work with collections.
 
@@ -134,14 +144,14 @@ The TodoService is responsible for providing the method that allows users to acc
 
 `src/app/services/todos.service.ts:`
 
-```
+```typescript
   observeDefaultCollection(): Observable<Todo[]> {
     return this.todoCollection
       .query()
       .in('title', ['Today', 'Tomorrow', 'Someday'])
       .sortBy('userId')
       .snapshots()
-      .pipe(map(todos => todos.map(todo => todo.data)));
+      .pipe(map(todos => todos.map(todo => todo.data)))
   }
 ```
 
@@ -161,7 +171,7 @@ Default todos are pre-existing collections of items that are created with expira
 
 A user's collection is a custom collection that is created by the user. This collection can include any items that the user wants to organize, and can be modified and updated as needed.
 
-BBy clicking the 'New List' button, the user can create a new todo using an **Angular Form** that is provided by the TodoService.
+By clicking the 'New List' button, the user can create a new todo using an **Angular Form** that is provided by the TodoService.
 
 ![img_7.png](src/app/screenshots/img_7.png)
 
@@ -175,7 +185,7 @@ BBy clicking the 'New List' button, the user can create a new todo using an **An
 
 `src/app/services/todos.service.ts:`
 
-```
+```typescript
   async createNewList(title: string, color: string): Promise<void> {
     const userId = await this.accountService.getUser();
     const listId = self.crypto.randomUUID();
@@ -192,7 +202,7 @@ BBy clicking the 'New List' button, the user can create a new todo using an **An
 #### Change collection
 
 If the user wants to modify an existing element in the Todo collection, they can click the 'edit' button next to the corresponding element.
-This will call the changeTodo() method from the TodoService, which allows the user to modify the name of the Todo.
+This will call the `changeTodo()` method from the TodoService, which allows the user to modify the name of the Todo.
 
 **HTML**
 
@@ -202,11 +212,12 @@ This will call the changeTodo() method from the TodoService, which allows the us
 
 `src/app/services/todos.service.ts:`
 
-```
+```typescript
 
   changeTodo(id: string, newTitle: string): void {
     this.todoCollection.doc(id).update({ title: newTitle });
   }
+  
 ```
 
 #### Delete Collection.
@@ -217,7 +228,7 @@ Delete collection:
 
 `src/app/services/todos.service.ts:`
 
-```
+```typescript
 
   deleteTodo(): void {
     if (this.currentTodo?.id) {
@@ -242,7 +253,7 @@ When the user clicks on a particular Todo, they are taken to a page displaying t
 
 `src/app/services/items.service.ts:`
 
-```
+```typescript
 observeTodoItems(todoId: string): Observable<Item[]> {
     const today = dayjs().format('M/D/YYYY');
     const tomorrow = dayjs().add(1, 'day').format('M/D/YYYY');
@@ -283,7 +294,7 @@ When the user clicks on the 'New Item' button, a new Item for the current Todo i
 
 `src/app/services/items.service.ts:`
 
-```
+```typescript
     addNewItem(item: Item): void {
     this.itemCollection.doc(item.id).insert(item).then();
   }
@@ -299,7 +310,7 @@ When the user clicks on the 'New Item' button, a new Item for the current Todo i
 
 `src/app/services/items.service.ts:`
 
-```
+```typescript
  async changeItem(id: string, item: Item): Promise<void> {
   await this.item
   .doc(id)
@@ -309,7 +320,7 @@ When the user clicks on the 'New Item' button, a new Item for the current Todo i
 
 2. By clicking the checkbox, the user can change the status of the item from active to complete:
 
-```
+```typescript
   async changeItemStatus(id: string): Promise<void> {
     const currentItem = await this.item.doc(id).snapshot();
     await this.item.doc(id).update({ completed: !currentItem?.data.completed });
@@ -325,7 +336,7 @@ Additionally, the user can manually delete an item by clicking the delete button
 
 `src/app/services/items.service.ts:`
 
-```
+```typescript
   deleteItem(id?: string): void {
     if (id) this.item.doc(id).delete();
   }
@@ -341,7 +352,7 @@ get Items by date:
 
 `src/app/services/items.service.ts:`
 
-```
+```typescript
   observeItemsSortedByDate(date: string): Observable<Item[] | []> {
     return this.accountService.observeUser().pipe(
       switchMap(user => {
