@@ -10,7 +10,7 @@ For authentication, this application uses [Auth0](https://auth0.com/).
 
 ### Frontend
 
-1.Please navigate to the frontend directory and proceed with installing the npm dependencies:
+1.Please navigate to the todo-angular directory and proceed with installing the npm dependencies:
 
 ```
 npm install
@@ -46,7 +46,7 @@ squid init todo-backend --appId mnhwpkfn8e8e0ozo23 --apiKey 04d39b3c-2c6d-4eab-8
 squid start
 ```
 
-2. To connect the frontend client to the local backend, navigate to the frontend directory and open the `app.module.ts` file. Then, replace `us-east-1.aws` with `local`. To update the configuration and connect to the local backend:
+2. To connect the frontend client to the local backend, navigate to the todo-angular directory and open the `app.module.ts` file. Then, replace `us-east-1.aws` with `local`. To update the configuration and connect to the local backend:
 
 ```typescript
 SquidModule.forRoot({
@@ -63,7 +63,7 @@ SquidModule.forRoot({
 
 To establish a connection between the frontend client and the local backend, follow these steps:
 
-1. Navigate to the frontend directory and open the app.module.ts file.
+1. Navigate to the todo-angular directory and open the app.module.ts file.
 2. Locate the us-east-1.aws parameter and replace it with local.
 3. Save the changes to update the configuration and establish a connection to the local backend.
 
