@@ -1,0 +1,10 @@
+@use './src/app/style/typography' as t;
+.list-component-amount {
+  padding: 8px 12px 8px 16px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-weight: t.text-weight(bolder);
+  margin-left: 16px;
+  font-size: t.text(m);
+}

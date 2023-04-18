@@ -1,0 +1,99 @@
+@use '@angular/material' as mat;
+@use './app/style/colors' as color;
+@use './app/style/typography' as t;
+@use './app/style/sizes' as s;
+@include mat.core();
+
+$frontend-primary: mat.define-palette(mat.$indigo-palette);
+$frontend-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$frontend-warn: mat.define-palette(mat.$red-palette);
+$frontend-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $frontend-primary,
+      accent: $frontend-accent,
+      warn: $frontend-warn,
+    ),
+  )
+);
+@include mat.all-component-themes($frontend-theme);
+
+* {
+  padding: 0;
+  margin: 0;
+  outline: 0;
+  list-style: none;
+  box-sizing: border-box;
+  font-family: 'Karla', sans-serif;
+  border: none;
+  background: none;
+}
+
+button {
+  cursor: pointer;
+}
+body {
+  margin: 0;
+  font-family: 'Karla', sans-serif;
+  background-color: color.colors(bg);
+}
+.cdk-global-overlay-wrapper {
+  display: flex;
+  justify-content: center !important;
+  align-items: flex-end !important;
+  position: absolute;
+  z-index: 1000;
+}
+.cdk-overlay-dark-backdrop {
+  background: none !important;
+}
+.body-dark {
+  background-color: color.colors(bg, true);
+  .mat-datepicker-content .mat-calendar {
+    background-color: color.colors(bg-c, true);
+  }
+  .mat-calendar-body-cell-content.mat-focus-indicator {
+    color: color.colors(font, true);
+  }
+  .mat-calendar-body-label {
+    color: color.colors(font, true);
+  }
+  .mat-calendar-previous-button::after,
+  .mat-calendar-next-button::after {
+    color: color.colors(font, true);
+  }
+  .mat-calendar-table-header th {
+    color: color.colors(font, true);
+  }
+  .mdc-button .mdc-button__label {
+    color: color.colors(font, true);
+  }
+  .mat-calendar-arrow {
+    fill: color.colors(font, true);
+  }
+  .mat-mdc-menu-content {
+    background-color: color.colors(bg-c, true);
+  }
+  .mat-mdc-checkbox .mdc-checkbox .mdc-checkbox__background {
+    border-color: color.colors(font, true) !important;
+  }
+  .mdc-menu-surface.mat-mdc-autocomplete-panel {
+    background-color: color.colors(bg-c, true) !important;
+  }
+}
+
+.mdc-menu-surface.mat-mdc-autocomplete-panel {
+  padding: 0 !important;
+}
+
+@mixin formTitle {
+  font-family: inherit;
+  color: color.colors(font-accent);
+  font-size: t.text(xl);
+  font-weight: t.text-weight(bold);
+}
+
+html,
+body {
+  height: s.size(full);
+}

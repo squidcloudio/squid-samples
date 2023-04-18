@@ -1,0 +1,10 @@
+<div class="buttons-container" *ngIf="control">
+  <button class="buttons-container__component decline-button" (click)="dialog?.close()">Cancel</button>
+  <button
+    class="buttons-container__component submit-button"
+    [style.background-color]="todoService.currentTodo?.color"
+    type="submit"
+    [disabled]="!control.valid">
+    {{ submitName }}
+  </button>
+</div>

@@ -1,0 +1,26 @@
+$font-size: (
+  xxl: 54px,
+  xl: 36px,
+  l: 24px,
+  m: 20px,
+  s: 16px,
+  xs: 14px,
+  xxs: 12px,
+  3xs: 11px,
+);
+
+$weight: (
+  bold: 700,
+  bolder: 500,
+  normal: 400,
+);
+
+@function text($key) {
+  $val: map-get($font-size, $key);
+  @return $val;
+}
+
+@function text-weight($key) {
+  $val: map-get($weight, $key);
+  @return $val;
+}

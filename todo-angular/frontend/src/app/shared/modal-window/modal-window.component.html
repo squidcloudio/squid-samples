@@ -1,0 +1,28 @@
+<div class="modal" [ngClass]="{ 'modal-dark': themeService.isDark }">
+  <div class="modal-body">
+    <div class="modal-body-header">
+      <button class="modal-body-header-button" (click)="dialogRef.close()" (keydown.enter)="$event.preventDefault()">
+        <img [src]="themeService.isDark ? './assets/close-dark.svg' : './assets/close.svg'" alt="close-button" />
+      </button>
+    </div>
+    <div class="modal-body-content">
+      <ng-container *ngIf="data.name === 'newList'">
+        <app-list-form [dialog]="dialogRef"></app-list-form>
+      </ng-container>
+      <ng-container *ngIf="data.name === 'newItem'">
+        <app-item-form
+          [dialog]="dialogRef"
+          [date]="data.date"
+          title="Add New Item"
+          submitName="Add item"></app-item-form>
+      </ng-container>
+      <ng-container *ngIf="data.name === 'editItem'">
+        <app-item-form [dialog]="dialogRef" [itemId]="data.id" title="Edit Item" submitName="Save"></app-item-form>
+      </ng-container>
+      <ng-container *ngIf="data.name === 'editTodo'">
+        <app-edit-todo-form [dialog]="dialogRef" [todoId]="" [todoId]="data.id"></app-edit-todo-form>
+      </ng-container>
+    </div>
+  </div>
+</div>
+<div class="modal-background"></div>

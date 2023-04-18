@@ -1,0 +1,22 @@
+@use './src/app/style/colors' as c;
+@use './src/app/style/sizes' as s;
+@use './src/app/style/typography' as t;
+.logout-button {
+  width: s.size(full);
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 10px 12px;
+  &-title {
+    color: c.colors(font-regular);
+    font-size: 14px;
+    &-dark {
+      color: c.colors(font-regular, true);
+    }
+  }
+}
+@media screen and (max-width: 1199px) {
+  .logout-button-title {
+    font-size: t.text(m);
+  }
+}

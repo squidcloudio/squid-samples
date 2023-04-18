@@ -1,0 +1,144 @@
+@use './src/app/style/colors' as c;
+@use './src/app/style/typography' as t;
+.tag-container {
+  position: relative;
+  background: c.colors(component-active);
+  outline: 0;
+  display: flex;
+  align-items: center;
+  min-width: 420px;
+  border-radius: 12px;
+  border: 1px solid c.colors(element-active);
+  color: c.colors(font);
+  padding: 14px 16px;
+  transition: all 160ms ease-in;
+
+  &-label {
+    font-size: t.text(3xs);
+    display: none;
+  }
+
+  &:focus {
+    color: c.colors(font-accent);
+    background: none;
+  }
+
+  &:has(.tag-container-input:focus) {
+    color: c.colors(font-accent);
+    background: none;
+
+    .tag-container-label {
+      position: absolute;
+      top: -10px;
+      padding: 2px;
+      display: block;
+    }
+  }
+
+  &:focus .tag-container-label {
+    position: absolute;
+    top: -10px;
+    padding: 2px;
+    display: block;
+  }
+
+  .tag-container-input {
+    margin-left: 10px;
+
+    &::placeholder {
+      font-size: t.text(xs);
+      color: c.colors(font);
+    }
+  }
+
+  &:has(.tag-container-input:not(:placeholder-shown)) {
+    border: 2px solid c.colors(font-accent);
+    color: c.colors(font-accent);
+    background: none;
+
+    .tag-container-label {
+      position: absolute;
+      top: -10px;
+      padding: 2px;
+      display: block;
+    }
+  }
+
+  &-list {
+    display: flex;
+    flex-wrap: wrap;
+    min-width: 50px;
+    max-width: 150px;
+    gap: 5px;
+    &__component {
+      display: flex;
+      max-inline-size: 150px;
+      overflow-wrap: anywhere;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid c.colors(font-accent);
+      border-radius: 4px;
+      padding: 5px;
+      color: c.colors(font-accent);
+      font-weight: t.text-weight(bold);
+      font-size: t.text(xxs);
+    }
+  }
+}
+
+.tag-component-button {
+  margin-left: 10px;
+}
+
+.active {
+  border: 2px solid c.colors(font-accent);
+  color: c.colors(font-accent);
+  background: none;
+
+  .tag-container-label {
+    position: absolute;
+    top: -10px;
+    padding: 2px;
+    display: block;
+  }
+}
+
+.tag-container-light {
+  .tag-container-label {
+    background-color: c.colors(bg-c);
+  }
+  &:has(.tag-container-input:focus) {
+    border: 2px solid c.colors(font-accent);
+  }
+}
+.tag-container-dark {
+  background-color: c.colors(bg-c, true);
+  color: c.colors(font, true);
+  border-color: c.colors(font, true);
+  &:has(.tag-container-input:focus) {
+    border: 2px solid c.colors(font, true);
+  }
+  .tag-container-input {
+    color: c.colors(font, true);
+  }
+  .tag-container-label {
+    background-color: c.colors(bg-c, true);
+    color: c.colors(font, true);
+  }
+
+  .tag-container-list__component {
+    border: 1px solid c.colors(font, true);
+    color: c.colors(font, true);
+  }
+}
+.options {
+  background-color: c.colors(bg-c, true);
+  & p {
+    color: c.colors(font, true);
+  }
+}
+@media screen and (min-width: 378px) and (max-width: 767px) {
+  .tag-container {
+    min-width: 79vw;
+  }
+}
