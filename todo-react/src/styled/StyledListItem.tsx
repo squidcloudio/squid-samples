@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { styled } from '@mui/material/styles';
 import { ListItem } from '@mui/material';
 
@@ -6,15 +6,7 @@ import { Checkbox, Typography, Divider, Box, IconButton } from '@mui/material';
 
 import EditIcon from '@mui/icons-material/Edit';
 import EditItem from '../modals/EditItem';
-
-export const StyledList = styled(ListItem)({
-  borderRadius: '12px',
-  paddingBottom: '16px',
-  '&:hover': {
-    backgroundColor: '#F8F9FC',
-    cursor: 'pointer',
-  },
-});
+import { ThemeContext } from '../context';
 
 const StyledListItem = ({ todos, item, index, onClick, isChecked }: any) => {
   const [hoveredItem, setHoveredItem] = useState<any>(null);
@@ -24,6 +16,17 @@ const StyledListItem = ({ todos, item, index, onClick, isChecked }: any) => {
   const formatedDueDate = new Date(dueDate)
     .toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
     .toUpperCase();
+
+  const { theme } = useContext(ThemeContext);
+
+  const StyledList = styled(ListItem)({
+    borderRadius: '12px',
+    paddingBottom: '16px',
+    '&:hover': {
+      backgroundColor: theme === 'dark' ? '#23272F' : '#F8F9FC',
+      cursor: 'pointer',
+    },
+  });
 
   return (
     <StyledList onMouseEnter={() => setHoveredItem(index)} onMouseLeave={() => setHoveredItem(null)}>
@@ -42,7 +45,7 @@ const StyledListItem = ({ todos, item, index, onClick, isChecked }: any) => {
 
         {hoveredItem === index && !isChecked && (
           <IconButton onClick={() => setOpen(true)} style={{ position: 'absolute', top: '10px', right: '10px' }}>
-            <EditIcon fontSize="small" />
+            <EditIcon fontSize="small" style={{ color: theme ? '#fff' : '#000' }} />
           </IconButton>
         )}
 
@@ -54,12 +57,13 @@ const StyledListItem = ({ todos, item, index, onClick, isChecked }: any) => {
           <Divider color="#E1E6EF" />
           <Box pt={1} display="flex" justifyContent="space-between" flexWrap="wrap">
             <Typography>
-              DUE DATE: <span>{formatedDueDate}</span>
+              <span className={`span-${theme}`}>DUE DATE: </span>
+              <span className={`span-${theme}`}>{formatedDueDate}</span>
             </Typography>
             <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
               {item.data.tags?.map((tag: any, i: any) => {
                 return (
-                  <div className={!isChecked ? 'tag-item' : 'tag-item_completed'} key={i}>
+                  <div className={!isChecked ? `tag-item tag-${theme}` : 'tag-item_completed'} key={i}>
                     <span className="text">{tag?.name}</span>
                   </div>
                 );

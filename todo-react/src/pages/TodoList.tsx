@@ -9,18 +9,18 @@ import { useQuery } from '@squidcloud/react';
 import ItemModal from '../modals/ItemModal';
 import StyledListItem from '../styled/StyledListItem';
 
-const TodoList = ({ itemsCollection, todos }: any) => {
+const TodoList = ({ itemsCollection, todos, theme }: any) => {
   const { id } = useParams();
   const [open, setOpen] = useState<boolean>(false);
 
   const items = useQuery(itemsCollection.query().where('todoId', '==', `${id}`), true);
 
-  const changeStatusToCompleted = (itemId: any) => {
+  const changeStatusToCompleted = (itemId: string) => {
     itemsCollection.doc(itemId).update({ completed: true });
   };
 
   return (
-    <div className="todo">
+    <div className={`todo todo-${theme}`}>
       <List>
         {items
           ?.filter((item) => item.data.completed === false)

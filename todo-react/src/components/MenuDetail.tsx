@@ -10,7 +10,6 @@ import { useQuery } from '@squidcloud/react';
 
 export const OptionsMenu = ({ todosCollection, itemsCollection }: any) => {
   const { id } = useParams();
-  console.log(id);
   const navigate = useNavigate();
 
   const [anchorEl, setAnchorEl] = useState(null);

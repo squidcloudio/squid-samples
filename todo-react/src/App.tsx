@@ -5,7 +5,6 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import Login from './pages/Login';
 import MainContainer from './pages/MainContainer';
-import Root from './pages/Root';
 
 function App() {
   const [avatar, setAvatar] = useState<string | undefined>('');
@@ -28,13 +27,16 @@ function App() {
   const router = createBrowserRouter([
     {
       path: '/',
-      element: <Root avatar={avatar} />,
-      errorElement: <h1>Page Not found</h1>,
-      children: [
-        { index: true, element: <MainContainer /> },
-        { path: '/:id', element: <MainContainer /> },
-        { path: 'login', element: <Login /> },
-      ],
+      element: <MainContainer />,
+      errorElement: <h1>Error</h1>,
+    },
+    {
+      path: '/:id',
+      element: <MainContainer />,
+    },
+    {
+      path: '/login',
+      element: <Login />,
     },
   ]);
 

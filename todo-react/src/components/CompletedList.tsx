@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import StyledListItem from '../styled/StyledListItem';
 import { Box, List, Typography } from '@mui/material';
 
-const CompletedList = ({ todosCollection, itemsCollection }: any) => {
+const CompletedList = ({ todosCollection, itemsCollection, theme }: any) => {
   const { id } = useParams();
   const [todos] = useQuery(todosCollection.query().where('id', '==', `${id}`), true);
   const items = useQuery(itemsCollection.query().where('todoId', '==', `${id}`), true);
@@ -18,7 +18,7 @@ const CompletedList = ({ todosCollection, itemsCollection }: any) => {
     <Box sx={{ marginTop: '50px' }}>
       <Typography variant="h4">Completed</Typography>
 
-      <div className="todo">
+      <div className={`todo todo-${theme}`}>
         <List>
           {completedItems.map((item: any, i: any) => (
             <StyledListItem

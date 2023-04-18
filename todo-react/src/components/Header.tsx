@@ -4,9 +4,12 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { IconButton } from '@mui/material';
 
 import MenuIcon from '@mui/icons-material/Menu';
+import { useContext } from 'react';
+import { Theme, ThemeContext } from '../context';
 
 const Header = ({ setDrawerOpen, todos }: any) => {
   const { user } = useAuth0();
+  const { theme, setTheme } = useContext(ThemeContext);
 
   return (
     <>
@@ -16,7 +19,7 @@ const Header = ({ setDrawerOpen, todos }: any) => {
         </IconButton>
         <div className="logo">
           <img src={vector} alt="" />
-          <img src={td} alt="" />
+          <img src={td} alt="" onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')} />
         </div>
         <div>
           <img src={user?.picture} alt="avatar" className="header_avatar" />

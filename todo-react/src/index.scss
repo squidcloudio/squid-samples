@@ -15,8 +15,6 @@ body {
 
   height: 100vh;
 
-  background-color: #eaecee;
-
   overflow-x: hidden;
 }
 
@@ -66,8 +64,16 @@ header {
   }
 }
 
-.divider {
-  color: '#E1E6EF';
+// &-light {
+//   background-color: '#1e1e1e';
+// }
+
+// &-dark {
+//   background-color: '#E1E6EF';
+// }
+
+.dark {
+  background-color: #1e1e1e;
 }
 
 .logo {
@@ -135,6 +141,11 @@ header {
   margin-top: 20px;
 
   background-color: #fff;
+
+  &-dark {
+    background-color: #1b1f27;
+    color: #fff;
+  }
 
   &_completed {
     margin-top: 80px;
@@ -389,8 +400,11 @@ header {
   }
 }
 
-.tag-completed {
-  color: red;
+.tag {
+  &-dark {
+    color: #fff;
+    border: 1px solid #fff;
+  }
 }
 
 //// Calendar
@@ -400,6 +414,14 @@ header {
   display: flex;
   flex-direction: column;
   height: 100%;
+
+  &_box {
+    background-color: #fff;
+  }
+
+  &-dark {
+    background-color: #1b1f27;
+  }
 
   &_body {
     display: flex;
@@ -528,6 +550,9 @@ th {
     cursor: pointer;
 
     &-add {
+      &_dark {
+        background-color: transparent;
+      }
       background-color: #f7f7f7;
       font-size: 14px;
       font-weight: 500;
@@ -588,7 +613,6 @@ th {
 }
 
 .calendar_box {
-  background-color: #fff;
   padding: 24px;
   padding: 24px;
   min-width: 280px;
@@ -751,11 +775,17 @@ th {
 }
 
 .calendar_modal {
+  &-dark {
+    background-color: #1b1f27;
+  }
+
+  &-light {
+    background-color: #fff;
+  }
   border-radius: 12px;
 
   max-width: 450px;
   min-width: 400px;
-  background-color: #fff;
 
   position: absolute;
   left: 50%;
@@ -774,4 +804,29 @@ th {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.theme {
+  &-light {
+    background-color: #eaecee;
+  }
+
+  &-dark {
+    background-color: #1e1e1e;
+    color: #fff;
+  }
+}
+
+.divider {
+  &-dark {
+    background-color: #eaecee;
+  }
+}
+
+.sidebar_item-dark {
+  background-color: transparent;
+}
+
+.span-dark {
+  color: #fff !important;
 }

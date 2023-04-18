@@ -1,16 +1,18 @@
 import { Box, Divider } from '@mui/material';
 import { useCollection, useQuery } from '@squidcloud/react';
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import addList from '../images/Component 1.png';
 
 import { NavLink, useParams } from 'react-router-dom';
 import ListModal from '../modals/ListModal';
 import { Item } from '../interfaces/index';
+import { ThemeContext } from '../context';
 
 const ListContainer = ({ todosList, collection }: any) => {
   const { id } = useParams();
   const itemsCollection = useCollection<Item>('items');
+  const { theme } = useContext(ThemeContext);
 
   const items2 = useQuery(itemsCollection.query().where('todoId', '==', `${id}`), true);
 
@@ -39,9 +41,11 @@ const ListContainer = ({ todosList, collection }: any) => {
               <NavLink
                 key={id}
                 to={`/${id}`}
-                className="navlink_content"
+                className={`navlink_content theme-${theme}`}
                 style={({ isActive }) => {
-                  return isActive ? { backgroundColor: '#E1E6EF' } : { backgroundColor: 'transparent' };
+                  return isActive
+                    ? { backgroundColor: theme === 'dark' ? '#32363E' : '#E1E6EF' }
+                    : { backgroundColor: 'transparent' };
                 }}
               >
                 <div className="navlink_content-color" style={{ backgroundColor: `${color}` }}></div>
@@ -53,7 +57,7 @@ const ListContainer = ({ todosList, collection }: any) => {
         })}
       </ul>
       <Box py={3}>
-        <Divider className="divider" />
+        <Divider className={`divider-${theme}`} />
       </Box>
       <ul>
         {todosList.map((todo: any) => {
@@ -64,9 +68,11 @@ const ListContainer = ({ todosList, collection }: any) => {
               <NavLink
                 key={id}
                 to={`/${id}`}
-                className="navlink_content"
+                className={`navlink_content theme-${theme}`}
                 style={({ isActive }) => {
-                  return isActive ? { backgroundColor: '#E1E6EF' } : { backgroundColor: 'transparent' };
+                  return isActive
+                    ? { backgroundColor: theme === 'dark' ? '#32363E' : '#E1E6EF' }
+                    : { backgroundColor: 'transparent' };
                 }}
               >
                 <div className="navlink_content-color" style={{ backgroundColor: `${color}` }}></div>
@@ -77,9 +83,11 @@ const ListContainer = ({ todosList, collection }: any) => {
           );
         })}
       </ul>
-      <Box py={3}>
-        <Divider className="divider" />
-      </Box>
+      {todosList.length > 0 && (
+        <Box py={3}>
+          <Divider className={`divider-${theme}`} />
+        </Box>
+      )}
       <button onClick={handleOpen} className="list_button">
         <img src={addList} alt="list" />
         <span>New List</span>

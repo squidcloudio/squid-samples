@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useContext } from 'react';
 
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
@@ -12,6 +12,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 
 import { OptionsMenu } from './MenuDetail';
 import ItemModal from '../modals/ItemModal';
+import { ThemeContext } from '../context';
 
 const Calendar = ({ currentDate, setCurrentDate }: any) => {
   const { id } = useParams();
@@ -19,6 +20,7 @@ const Calendar = ({ currentDate, setCurrentDate }: any) => {
   const [hoveredDay, setHoveredDay] = useState<any>(null);
   const [selectedDay, setSelectedDay] = useState<any>(currentDate);
   const navigate = useNavigate();
+  const { theme } = useContext(ThemeContext);
 
   const [open, setOpen] = useState<boolean>(false);
   const todosCollection = useCollection<Todo>('todos');
@@ -54,7 +56,7 @@ const Calendar = ({ currentDate, setCurrentDate }: any) => {
       return {};
     }
     if (selectedDay && weekday === selectedDay.format('dd')) {
-      return { backgroundColor: '#F4F6FA' };
+      return { backgroundColor: theme === 'dark' ? '#32363E' : '#F4F6FA' };
     }
     return {};
   };
@@ -74,7 +76,7 @@ const Calendar = ({ currentDate, setCurrentDate }: any) => {
       if (momentDate.isBefore(todayDate)) {
         const daysAgo = momentDate.from(todayDate, true);
         return (
-          <div className="overdue_due-item" key={i}>
+          <div className="overdue_due-item" key={i} style={{ color: theme === 'dark' ? '#fff' : '#000' }}>
             <p>{el.data.title}</p>
             <p>{daysAgo} ago</p>
           </div>
@@ -85,13 +87,13 @@ const Calendar = ({ currentDate, setCurrentDate }: any) => {
   return (
     <div className="calendar">
       <div className="calendar_header">
-        <span>{currentDate.format('MMMM YYYY')}</span>
+        <span style={{ color: theme === 'dark' ? '#fff' : '#000' }}>{currentDate.format('MMMM YYYY')}</span>
         <div className="calendar_header-btn">
           <button onClick={previousWeek}>
-            <ArrowBackIosNewIcon fontSize="medium" />
+            <ArrowBackIosNewIcon fontSize="medium" style={{ color: theme === 'dark' ? '#fff' : '#000' }} />
           </button>
           <button onClick={nextWeek}>
-            <ArrowForwardIosIcon fontSize="medium" style={{ backgroundColor: 'transparent' }} />
+            <ArrowForwardIosIcon fontSize="medium" style={{ color: theme === 'dark' ? '#fff' : '#000' }} />
           </button>
         </div>
       </div>
@@ -131,7 +133,9 @@ const Calendar = ({ currentDate, setCurrentDate }: any) => {
       <div className="due">
         <Divider color="#E1E6EF" />
         <>
-          <p style={{ paddingTop: '20px' }}>{currentDate.format('D MMMM')}</p>
+          <p style={{ color: theme === 'dark' ? '#fff' : '#000', paddingTop: '20px' }}>
+            {currentDate.format('D MMMM')}
+          </p>
 
           {items.map((el, i) => {
             const dueDate = moment(el.data.dueDate, 'MM/DD/YYYY');
@@ -150,8 +154,8 @@ const Calendar = ({ currentDate, setCurrentDate }: any) => {
             }
           })}
 
-          <div className="sidebar_item-add" onClick={() => setOpen(true)}>
-            <button className="sidebar_item-add-btn">
+          <div className={`sidebar_item-add sidebar_item-add_${theme}`} onClick={() => setOpen(true)}>
+            <button className={`sidebar_item-add-btn sidebar_item-${theme}`}>
               <span>+</span>
               <span>New Item</span>
             </button>
