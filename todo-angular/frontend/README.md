@@ -10,13 +10,13 @@ For authentication, this application uses [Auth0](https://auth0.com/).
 
 ### Frontend
 
-1. Go to the frontend directory and install the npm dependencies:
+1.Please navigate to the frontend directory and proceed with installing the npm dependencies:
 
 ```
 npm install
 ```
 
-2. Run the application:
+2. Use the command to start the application:
 
 ```
 npm start
@@ -61,7 +61,11 @@ SquidModule.forRoot({
 
 ### Authentication
 
-In order to access the app, a user must log in. We use **Auth0** to enable users to log in with Google. **Auth0** also provides the AuthGuard feature, which allows us to protect our routes and ensure that only authenticated users can access certain parts of the app:
+To establish a connection between the frontend client and the local backend, follow these steps:
+
+1. Navigate to the frontend directory and open the app.module.ts file.
+2. Locate the us-east-1.aws parameter and replace it with local.
+3. Save the changes to update the configuration and establish a connection to the local backend.
 
 `src/app/app.module.ts:`
 
@@ -247,7 +251,7 @@ Delete collection:
 
 When the user clicks on a particular Todo, they are taken to a page displaying the Items related to that Todo. If the user clicks on one of the default todos, the items will be automatically filtered by date. To retrieve the items, the `ObserveTodoItems()` method from the ItemService is called.
 
-**_src/app/pages/todo-items/todo-items.component.html:_**
+`src/app/pages/todo-items/todo-items.component.html:`
 
 ![img_13.png](src/app/screenshots/img_13.png)
 
