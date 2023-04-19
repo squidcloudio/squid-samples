@@ -45,7 +45,7 @@ const StyledListItem = ({ todos, item, index, onClick, isChecked }: any) => {
 
         {hoveredItem === index && !isChecked && (
           <IconButton onClick={() => setOpen(true)} style={{ position: 'absolute', top: '10px', right: '10px' }}>
-            <EditIcon fontSize="small" style={{ color: theme ? '#fff' : '#000' }} />
+            <EditIcon fontSize="small" style={{ color: theme === 'dark' ? '#fff' : '#000' }} />
           </IconButton>
         )}
 
