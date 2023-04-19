@@ -1,7 +1,7 @@
 import { Component, ElementRef, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
-import { Tag } from '../../../interfaces';
+import { Tag } from '../../interfaces';
 import { FormGroup } from '@angular/forms';
-import { ThemeService } from '../../../services/theme.service';
+import { ThemeService } from '../../services/theme.service';
 
 @Component({
   selector: 'app-multiselect',

@@ -4,8 +4,8 @@ import { AccountService } from '../../services/account.service';
 import { TodosService } from '../../services/todos.service';
 import { ThemeService } from '../../services/theme.service';
 import { Dialog } from '@angular/cdk/dialog';
-import { SidebarNavigationComponent } from '../../shared/sidebar-navigation/sidebar-navigation.component';
-import { CalendarModalWindowComponent } from '../../shared/calendar-modal-window/calendar-modal-window.component';
+import { SidebarNavigationComponent } from '../../sidebar-navigation/sidebar-navigation.component';
+import { CalendarModalWindowComponent } from '../../calendar-modal-window/calendar-modal-window.component';
 import { BreakpointObserver } from '@angular/cdk/layout';
 
 @Component({

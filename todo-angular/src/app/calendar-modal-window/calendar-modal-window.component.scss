@@ -1,6 +1,6 @@
-@use '../../style/colors' as c;
-@use '../../style/sizes' as s;
-@use '../../style/typography' as t;
+@use '../style/colors' as c;
+@use '../style/sizes' as s;
+@use '../style/typography' as t;
 .calendar-modal {
   padding: 32px;
   min-width: 430px;

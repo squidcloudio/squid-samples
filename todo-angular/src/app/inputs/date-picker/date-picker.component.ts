@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { ThemeService } from '../../../services/theme.service';
+import { ThemeService } from '../../services/theme.service';
 
 @Component({
   selector: 'app-date-picker',

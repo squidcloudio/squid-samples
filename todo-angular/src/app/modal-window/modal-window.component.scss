@@ -1,6 +1,6 @@
-@use '../../style/colors' as c;
-@use '../../style/typography' as t;
-@use '../../style/sizes' as s;
+@use '../style/colors' as c;
+@use '../style/typography' as t;
+@use '../style/sizes' as s;
 .modal {
   position: fixed;
   left: 0;

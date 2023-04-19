@@ -1,5 +1,5 @@
-@use '../../../style/colors' as c;
-@use '../../../style/typography' as t;
+@use '../../style/colors' as c;
+@use '../../style/typography' as t;
 .tag-container {
   position: relative;
   background: c.colors(component-active);

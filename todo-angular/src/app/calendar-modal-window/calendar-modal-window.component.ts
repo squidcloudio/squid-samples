@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { DialogRef } from '@angular/cdk/dialog';
-import { ThemeService } from '../../services/theme.service';
+import { ThemeService } from '../services/theme.service';
 
 @Component({
   selector: 'app-calendar-window',

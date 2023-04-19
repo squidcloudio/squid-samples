@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Item } from '../../interfaces';
 import { ItemsService } from '../../services/items.service';
 import { Dialog } from '@angular/cdk/dialog';
-import { ModalWindowComponent } from '../../shared/modal-window/modal-window.component';
+import { ModalWindowComponent } from '../../modal-window/modal-window.component';
 import { ModalListNames } from '../../interfaces';
 import { ThemeService } from '../../services/theme.service';
 

@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { ModalListNames } from '../../interfaces';
 import { Dialog } from '@angular/cdk/dialog';
-import { ModalWindowComponent } from '../../shared/modal-window/modal-window.component';
+import { ModalWindowComponent } from '../../modal-window/modal-window.component';
 
 @Component({
   selector: 'app-add-item-button',

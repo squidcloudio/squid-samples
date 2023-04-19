@@ -1,5 +1,5 @@
-@use '../../style/colors' as c;
-@use '../../style/sizes' as s;
+@use '../style/colors' as c;
+@use '../style/sizes' as s;
 .sidebar-navigation {
   position: fixed;
   left: 0;

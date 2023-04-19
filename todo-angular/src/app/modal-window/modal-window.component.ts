@@ -1,7 +1,7 @@
 import { Component, Inject, Input } from '@angular/core';
 import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
-import { ModalWindowData } from '../../interfaces';
-import { ThemeService } from '../../services/theme.service';
+import { ModalWindowData } from '../interfaces';
+import { ThemeService } from '../services/theme.service';
 
 @Component({
   selector: 'app-modal-window',
