@@ -1,0 +1,29 @@
+@use '../../style/colors' as c;
+@use '../../style/typography' as t;
+.new-items-section {
+  margin-top: 36px;
+
+  &-button {
+    margin-top: 32px;
+    display: flex;
+    align-items: center;
+    padding-left: 12px;
+
+    &-title {
+      margin-left: 16px;
+      font-weight: t.text-weight(bolder);
+      font-size: t.text(m);
+      color: c.colors(font);
+    }
+  }
+}
+@media screen and (max-width: 1199px) {
+  .new-items-section-button {
+    padding-left: 12px;
+  }
+}
+@media screen and (max-width: 378px) and (max-width: 767px) {
+  .new-items-section-button {
+    padding-left: 13px;
+  }
+}

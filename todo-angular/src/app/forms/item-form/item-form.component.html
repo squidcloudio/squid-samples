@@ -1,0 +1,39 @@
+<ng-container *ngIf="newItemForm">
+  <form
+    [formGroup]="newItemForm"
+    class="form"
+    (ngSubmit)="onSubmit()"
+    (keydown.enter)="$event.preventDefault()"
+    [ngClass]="{ 'form-dark': themeService.isDark }">
+    <h2 class="form-title">{{ title }}</h2>
+    <div class="form-container">
+      <div class="form-container__component">
+        <app-text-input
+          controlName="title"
+          [control]="newItemForm"
+          inputId="title"
+          title="title"
+          type="text"></app-text-input>
+      </div>
+      <div class="form-container__component">
+        <app-text-input
+          controlName="description"
+          [control]="newItemForm"
+          inputId="description"
+          title="description"
+          type="text"></app-text-input>
+      </div>
+      <div class="form-container__component">
+        <app-date-picker [itemId]="itemId" [control]="newItemForm"></app-date-picker>
+      </div>
+      <div class="form-container__component">
+        <app-multiselect [control]="newItemForm"></app-multiselect>
+      </div>
+    </div>
+    <app-form-buttons
+      [control]="newItemForm"
+      modalName="newItem"
+      [submitName]="submitName"
+      [dialog]="dialog"></app-form-buttons>
+  </form>
+</ng-container>

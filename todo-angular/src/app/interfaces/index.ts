@@ -58,3 +58,8 @@ export interface EnvironmentDetails {
   authClientId: string;
   region: SupportedSquidRegion;
 }
+
+export interface Color {
+  color: string;
+  name: string;
+}

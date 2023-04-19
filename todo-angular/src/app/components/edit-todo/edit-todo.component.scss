@@ -1,0 +1,36 @@
+@use '../../style/colors' as c;
+@use '../../style/sizes' as s;
+@use '../../style/typography' as t;
+.menu-button {
+  padding: 6px 6px 4px;
+  border-radius: 100px;
+  &:hover {
+    background: c.colors(bg-c);
+  }
+}
+.menu-component {
+  display: flex;
+  align-items: flex-start;
+
+  &-text {
+    margin-left: 12px;
+    font-weight: t.text-weight(normal);
+    font-size: t.text(xs);
+    color: c.colors(font-regular);
+    &-dark {
+      color: c.colors(font, true);
+    }
+  }
+}
+
+.menu-button-dark {
+  background: none;
+
+  & .white-icon {
+    color: c.colors(bg-c);
+    & svg {
+      fill: c.colors(bg-c);
+    }
+  }
+  color: c.colors(font, true);
+}
