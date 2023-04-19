@@ -25,12 +25,14 @@
 
 .menu-button-dark {
   background: none;
+ &:hover{
+   .white-icon {
+     color: c.colors(bg,true);
+     & svg {
+       fill: c.colors(bg,true);
+     }
+   }
+ }
 
-  & .white-icon {
-    color: c.colors(bg-c);
-    & svg {
-      fill: c.colors(bg-c);
-    }
-  }
   color: c.colors(font, true);
 }
