@@ -1,0 +1,37 @@
+@use '../style/colors' as c;
+@use '../style/sizes' as s;
+@use '../style/typography' as t;
+.calendar-modal {
+  padding: 32px;
+  min-width: 430px;
+  background-color: c.colors(bg-c);
+  border-radius: 12px 12px 0 0;
+  &-background {
+    width: s.size(full);
+    height: s.size(full);
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: #000;
+    opacity: 0.6;
+    z-index: -1000;
+  }
+  .calendar-divider {
+    width: s.size(full);
+    margin-top: 25px;
+  }
+  &-dark {
+    background-color: c.colors(bg-c, true);
+    & .calendar-divider {
+      border-top-color: c.colors(bg-c);
+    }
+  }
+}
+@media screen and (min-width: 378px) and (max-width: 767px) {
+  .calendar-modal {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    min-width: s.size(full);
+  }
+}

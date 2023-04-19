@@ -1,0 +1,84 @@
+@use '../../style/colors' as c;
+@use '../../style/typography' as t;
+.container {
+  position: relative;
+
+  &-input {
+    background: c.colors(component-active);
+    outline: 0;
+    min-width: 420px;
+    border-radius: 12px;
+    border: 1px solid c.colors(element-active);
+    color: c.colors(font);
+    padding: 14px 16px;
+    transition: all 160ms ease-in;
+    &:focus {
+      border: 2px solid c.colors(font-accent);
+      color: c.colors(font-accent);
+
+      background: none;
+    }
+  }
+
+  &-label {
+    position: absolute;
+    left: 18px;
+    top: 15px;
+    color: c.colors(font);
+    cursor: text;
+    background: none;
+    padding: 0px 2px;
+    font-size: 14px;
+    transition: top 160ms ease-in, left 160ms ease-in, font-size 160ms ease-in;
+  }
+}
+
+.container-input:not(:placeholder-shown) {
+  border: 2px solid c.colors(font-accent);
+  color: c.colors(font-accent);
+  background: none;
+}
+
+.container-input:focus ~ .container-label,
+.container-input:not(:placeholder-shown).container-input:not(:focus) ~ .container-label {
+  top: -6px;
+  color: c.colors(font-accent);
+  background: c.colors(bg-c);
+  font-size: t.text(3xs);
+}
+.container-dark {
+  & .container {
+    &-input {
+      background: c.colors(bg-c, true);
+      border: 1px solid c.colors(font, true);
+      color: c.colors(font, true);
+      &:focus {
+        border: 2px solid c.colors(font, true);
+        color: c.colors(font, true);
+
+        background: none;
+      }
+    }
+    &-label {
+      color: c.colors(font, true);
+    }
+  }
+  & .container-input:not(:placeholder-shown) {
+    border: 2px solid c.colors(font, true);
+    color: c.colors(font, true);
+    background: none;
+  }
+
+  & .container-input:focus ~ .container-label,
+  .container-input:not(:placeholder-shown).container-input:not(:focus) ~ .container-label {
+    top: -6px;
+    color: c.colors(font, true);
+    background: c.colors(bg-c, true);
+    font-size: t.text(3xs);
+  }
+}
+@media screen and (min-width: 378px) and (max-width: 767px) {
+  .container-input {
+    min-width: 79vw;
+  }
+}

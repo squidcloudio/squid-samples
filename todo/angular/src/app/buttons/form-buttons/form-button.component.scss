@@ -1,0 +1,35 @@
+@use '../../style/colors' as c;
+@use '../../style/typography' as t;
+.buttons-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 48px;
+
+  &__component {
+    padding: 13px 55px;
+    border-radius: 12px;
+    font-weight: t.text-weight(bold);
+    font-size: t.text(s);
+  }
+}
+
+.submit-button {
+  background: c.colors(submit);
+  color: c.colors(font-accent);
+}
+
+.decline-button {
+  color: c.colors(font);
+  border: 1px solid c.colors(font);
+}
+@media screen and (min-width: 378px) and (max-width: 767px) {
+  .buttons-container__component {
+    padding: 13px 30px;
+  }
+  .buttons-container {
+    margin-top: 30%;
+    min-width: 79vw;
+    max-width: 79vw;
+  }
+}
