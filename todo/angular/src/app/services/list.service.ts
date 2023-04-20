@@ -6,7 +6,7 @@ import { AccountService } from './account.service';
 import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
-export class TodosService {
+export class ListService {
   currentList?: List;
   readonly listCollection;
 
@@ -14,7 +14,7 @@ export class TodosService {
     this.listCollection = this.squid.collection<List>('lists');
   }
 
-  observeTodo(id: string): Observable<List> {
+  observeList(id: string): Observable<List> {
     return this.listCollection
       .query()
       .eq('id', id)
@@ -61,12 +61,12 @@ export class TodosService {
     await this.listCollection.doc(newList.id).insert(newList);
   }
 
-  deleteTodo(id: string): void {
+  deleteList(id: string): void {
     this.listCollection.doc(id).delete();
     this.router.navigate(['', 'today']).then();
   }
 
-  changeTodo(id: string, newTitle: string): void {
+  changeList(id: string, newTitle: string): void {
     this.listCollection.doc(id).update({ title: newTitle });
   }
 }

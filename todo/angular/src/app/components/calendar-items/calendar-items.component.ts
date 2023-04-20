@@ -19,7 +19,7 @@ export class CalendarItemsComponent implements OnInit {
   constructor(private router: Router, readonly calendarService: CalendarService, readonly themeService: ThemeService) {}
 
   ngOnInit(): void {
-    this.activeItemsObs = this.calendarService.observeItemsOnDate();
+    this.activeItemsObs = this.calendarService.observeTasksOnDate();
   }
 
   async goToTodoPage(todoId: string, itemId: string, dueDate?: string): Promise<void> {

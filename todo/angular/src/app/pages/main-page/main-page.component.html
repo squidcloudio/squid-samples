@@ -1,7 +1,7 @@
 <header
   class="header"
   [ngStyle]="{
-    'background-color': todoCollection.currentList?.color ? todoCollection.currentList?.color : 'black'
+    'background-color': listCollection.currentList?.color ? listCollection.currentList?.color : 'black'
   }">
   <mat-icon class="burger-menu" (click)="openModalWindow()">menu</mat-icon>
   <div class="wrapper">
@@ -32,7 +32,7 @@
   <button
     class="calendar-button"
     [ngStyle]="{
-      'background-color': todoCollection.currentList?.color ? todoCollection.currentList?.color : 'black'
+      'background-color': listCollection.currentList?.color ? listCollection.currentList?.color : 'black'
     }"
     (click)="openCalendar()">
     <img src="../../../assets/calendar.svg" alt="calendar-button" />

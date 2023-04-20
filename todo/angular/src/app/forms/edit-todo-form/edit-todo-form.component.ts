@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { DialogRef } from '@angular/cdk/dialog';
-import { TodosService } from '../../services/todos.service';
+import { ListService } from '../../services/list.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { ThemeService } from '../../services/theme.service';
@@ -15,10 +15,10 @@ export class EditTodoFormComponent implements OnInit, OnDestroy {
   @Input('todoId') todoId?: string;
   editTodoForm?: FormGroup;
   todoSub?: Subscription;
-  constructor(private todoService: TodosService, readonly themeService: ThemeService) {}
+  constructor(private listService: ListService, readonly themeService: ThemeService) {}
   ngOnInit(): void {
     if (this.todoId) {
-      this.todoSub = this.todoService.observeTodo(this.todoId).subscribe(todo => {
+      this.todoSub = this.listService.observeList(this.todoId).subscribe(todo => {
         this.editTodoForm = new FormGroup({
           title: new FormControl(todo.title, Validators.required),
         });
@@ -27,7 +27,7 @@ export class EditTodoFormComponent implements OnInit, OnDestroy {
   }
   onSubmit(): void {
     if (this.todoId && this.editTodoForm) {
-      this.todoService.changeTodo(this.todoId, this.editTodoForm.get('title')?.value);
+      this.listService.changeList(this.todoId, this.editTodoForm.get('title')?.value);
       this.editTodoForm.reset();
       this.dialog?.close();
     }

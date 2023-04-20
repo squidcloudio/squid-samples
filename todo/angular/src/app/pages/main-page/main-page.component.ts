@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AccountService } from '../../services/account.service';
 
-import { TodosService } from '../../services/todos.service';
+import { ListService } from '../../services/list.service';
 import { ThemeService } from '../../services/theme.service';
 import { Dialog } from '@angular/cdk/dialog';
 import { SidebarNavigationComponent } from '../../sidebar-navigation/sidebar-navigation.component';
@@ -18,7 +18,7 @@ export class MainPageComponent {
   a = this.br.observe('(max-width: 1200px)');
   constructor(
     private accountService: AccountService,
-    readonly todoCollection: TodosService,
+    readonly listCollection: ListService,
     private themeService: ThemeService,
     private dialog: Dialog,
     private br: BreakpointObserver,

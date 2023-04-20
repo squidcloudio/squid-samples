@@ -13,7 +13,7 @@
       <span class="menu-component-text" [ngClass]="{ 'menu-component-text-dark': themeService.isDark }">Edit</span>
     </div>
   </button>
-  <button mat-menu-item (click)="deleteTodo()">
+  <button mat-menu-item (click)="deleteList()">
     <div class="menu-component">
       <img [src]="themeService.isDark ? '../../../../assets/delete-white.svg' : '../../../../assets/delete.svg'" />
       <span class="menu-component-text" [ngClass]="{ 'menu-component-text-dark': themeService.isDark }">Delete</span>

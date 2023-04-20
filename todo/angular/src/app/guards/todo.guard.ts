@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivateChild, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { NEVER, Observable, of, switchMap } from 'rxjs';
-import { TodosService } from '../services/todos.service';
+import { ListService } from '../services/list.service';
 import { AccountService } from '../services/account.service';
 
 @Injectable({ providedIn: 'root' })
 export class ChildrenGuard implements CanActivateChild {
-  constructor(private todoService: TodosService, private router: Router, private accountService: AccountService) {}
+  constructor(private listService: ListService, private router: Router, private accountService: AccountService) {}
   canActivateChild(
     childRoute: ActivatedRouteSnapshot,
     state: RouterStateSnapshot,
@@ -19,14 +19,14 @@ export class ChildrenGuard implements CanActivateChild {
           this.accountService.login();
           return NEVER;
         }
-        return this.todoService.observeTodo(currentIdFromParam).pipe(
+        return this.listService.observeList(currentIdFromParam).pipe(
           switchMap(result => {
             if (!result) {
               const currentUrl = this.router.createUrlTree(['', 'today']);
               return of(currentUrl);
             }
 
-            this.todoService.setCurrentList(result);
+            this.listService.setCurrentList(result);
             return of(true);
           }),
         );

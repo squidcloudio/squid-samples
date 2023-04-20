@@ -4,17 +4,17 @@ import { Dialog } from '@angular/cdk/dialog';
 import { ModalWindowComponent } from '../../modal-window/modal-window.component';
 
 @Component({
-  selector: 'app-add-item-button',
-  templateUrl: 'add-item-button.component.html',
+  selector: 'app-add-task-button',
+  templateUrl: 'add-task-button.component.html',
   styleUrls: ['add-item-button.component.scss'],
 })
-export class AddItemButtonComponent {
+export class AddTaskButtonComponent {
   @Input('date') date?: string;
   readonly modalListName = ModalListNames;
   constructor(private dialog: Dialog) {}
   openModalWindow(): void {
     const dialogRef = this.dialog.open(ModalWindowComponent, {
-      data: { name: this.modalListName.newItem, date: this.date },
+      data: { name: this.modalListName.newTask, date: this.date },
     });
     dialogRef.closed.subscribe();
   }

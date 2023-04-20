@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { List } from '../../interfaces';
-import { ItemsService } from '../../services/items.service';
+import { TaskService } from '../../services/tasks.service';
 import { map, Observable, of } from 'rxjs';
 
 @Component({
@@ -12,11 +12,11 @@ export class ItemsAmountComponent implements OnInit {
   @Input('todo') todo?: List;
   amount: Observable<number> = of(0);
 
-  constructor(private itemService: ItemsService) {}
+  constructor(private taskService: TaskService) {}
 
   ngOnInit(): void {
     if (!this.todo) return;
-    this.amount = this.itemService.observeTodoItems(this.todo.id).pipe(
+    this.amount = this.taskService.observeTaskList(this.todo.id).pipe(
       map(items => items.filter(item => !item.completed)),
       map(items => items.length),
     );

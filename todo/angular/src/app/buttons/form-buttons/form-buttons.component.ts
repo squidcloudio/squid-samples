@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { TodosService } from '../../services/todos.service';
+import { ListService } from '../../services/list.service';
 import { DialogRef } from '@angular/cdk/dialog';
 
 @Component({
@@ -14,5 +14,5 @@ export class FormButtonsComponent {
   @Input('submitName') submitName?: string;
   @Input('dialog') dialog?: DialogRef<string>;
 
-  constructor(readonly todoService: TodosService) {}
+  constructor(readonly listService: ListService) {}
 }

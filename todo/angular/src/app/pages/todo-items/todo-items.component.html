@@ -1,9 +1,9 @@
-<ng-container *ngIf="todoObs | async as todo">
+<ng-container *ngIf="listObs | async as list">
   <div class="current-todo">
     <div class="current-todo-info">
-      <div class="current-todo-color" [ngStyle]="{ 'background-color': todo.color }"></div>
-      <p class="current-todo-title">{{ todo.title }}</p>
-      <div class="current-todo-amount">(<app-items-amount [todo]="todo"></app-items-amount>)</div>
+      <div class="current-todo-color" [ngStyle]="{ 'background-color': list.color }"></div>
+      <p class="current-todo-title">{{ list.title }}</p>
+      <div class="current-todo-amount">(<app-items-amount [todo]="list"></app-items-amount>)</div>
     </div>
 
     <mat-divider style="margin-top: 25px"></mat-divider>
@@ -11,8 +11,8 @@
   <div class="todo-section" [ngClass]="{ 'todo-section-dark': themeService.isDark }">
     <div class="todo-section-title">
       <h2>In Progress</h2>
-      <ng-container *ngIf="!(todo.id === 'today' || todo.id === 'tomorrow' || todo.id === 'someday')">
-        <app-edit-todo [todoTitle]="todo.title" [id]="todo.id" type="todo"></app-edit-todo>
+      <ng-container *ngIf="!(list.id === 'today' || list.id === 'tomorrow' || list.id === 'someday')">
+        <app-edit-todo [todoTitle]="list.title" [id]="list.id" type="todo"></app-edit-todo>
       </ng-container>
     </div>
     <div class="todo-section-content">
@@ -25,9 +25,9 @@
           <app-todo-item [item]="item" [itemId]="itemId"></app-todo-item>
         </li>
       </ul>
-      <ng-container *ngIf="!(todo.id === 'today' || todo.id === 'tomorrow' || todo.id === 'someday')">
+      <ng-container *ngIf="!(list.id === 'today' || list.id === 'tomorrow' || list.id === 'someday')">
         <div class="new-items-section">
-          <app-add-item-button></app-add-item-button>
+          <app-add-task-button></app-add-task-button>
         </div>
       </ng-container>
     </div>
@@ -39,8 +39,8 @@
       [ngClass]="{ 'todo-section-dark': themeService.isDark }">
       <div class="todo-section-title">
         <h2>Completed</h2>
-        <ng-container *ngIf="!(todo.id === 'today' || todo.id === 'tomorrow' || todo.id === 'someday')">
-          <app-edit-todo [todoTitle]="todo.title" [id]="todo.id" type="todo"></app-edit-todo>
+        <ng-container *ngIf="!(list.id === 'today' || list.id === 'tomorrow' || list.id === 'someday')">
+          <app-edit-todo [todoTitle]="list.title" [id]="list.id" type="todo"></app-edit-todo>
         </ng-container>
       </div>
       <div class="todo-section-content">

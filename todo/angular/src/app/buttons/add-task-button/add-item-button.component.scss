@@ -1,9 +1,9 @@
 @use '../../style/colors' as c;
 @use '../../style/typography' as t;
-.new-item-section {
+.new-task-section {
   &-button {
     display: flex;
-    align-items: center;
+    align-tasks: center;
 
     &-title {
       margin-left: 16px;

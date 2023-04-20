@@ -37,7 +37,7 @@ import { TodoItemComponent } from './components/todo-item/todo-item.component';
 import { EditTodoComponent } from './components/edit-todo/edit-todo.component';
 import { ItemsAmountComponent } from './components/items-amount/items-amount.component';
 import { EditTodoFormComponent } from './forms/edit-todo-form/edit-todo-form.component';
-import { AddItemButtonComponent } from './buttons/add-item-button/add-item-button.component';
+import { AddTaskButtonComponent } from './buttons/add-task-button/add-task-button.component';
 import { SidebarNavigationComponent } from './sidebar-navigation/sidebar-navigation.component';
 import { AddTodoButtonComponent } from './buttons/add-todo-button/add-todo-button.component';
 import { CalendarPickerComponent } from './components/calendar-picker/calendar-picker.component';
@@ -86,7 +86,7 @@ const routes: Routes = [
     EditTodoComponent,
     ItemsAmountComponent,
     EditTodoFormComponent,
-    AddItemButtonComponent,
+    AddTaskButtonComponent,
     SidebarNavigationComponent,
     AddTodoButtonComponent,
     CalendarPickerComponent,

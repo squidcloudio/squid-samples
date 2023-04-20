@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { TodosService } from '../../services/todos.service';
+import { ListService } from '../../services/list.service';
 import { DialogRef } from '@angular/cdk/dialog';
 import { ThemeService } from '../../services/theme.service';
 import { Color } from '../../interfaces';
@@ -24,7 +24,7 @@ export class ListFormComponent {
     { color: '#4484E5', name: 'Blue' },
   ];
   selectedColor: Color = this.colors[0];
-  constructor(private todoService: TodosService, readonly themeService: ThemeService) {}
+  constructor(private listService: ListService, readonly themeService: ThemeService) {}
 
   newListForm: FormGroup = new FormGroup({
     title: new FormControl(null, Validators.required),
@@ -33,7 +33,7 @@ export class ListFormComponent {
 
   async setNewList(): Promise<void> {
     const currentColor = this.colors.filter(color => color.name === this.newListForm.get('color')?.value)[0].color;
-    await this.todoService.createNewList(this.newListForm.get('title')?.value, currentColor);
+    await this.listService.createNewList(this.newListForm.get('title')?.value, currentColor);
     this.newListForm.reset();
     this.dialog?.close();
   }

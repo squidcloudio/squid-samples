@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { List } from '../../interfaces';
-import { TodosService } from '../../services/todos.service';
+import { ListService } from '../../services/list.service';
 import { ThemeService } from '../../services/theme.service';
 
 @Component({
@@ -13,12 +13,12 @@ export class TodoListComponent implements OnInit {
   @Input('listType') listType!: string;
   todoList?: Observable<List[]>;
 
-  constructor(private todoCollection: TodosService, readonly themeService: ThemeService) {}
+  constructor(private listService: ListService, readonly themeService: ThemeService) {}
 
   ngOnInit(): void {
     this.todoList =
       this.listType === 'defaultCollection'
-        ? this.todoCollection.observeDefaultCollection()
-        : this.todoCollection.observeUserCollection();
+        ? this.listService.observeDefaultCollection()
+        : this.listService.observeUserCollection();
   }
 }

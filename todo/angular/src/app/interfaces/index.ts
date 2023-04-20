@@ -17,13 +17,13 @@ export enum FormatTypes {
 
 export enum ModalListNames {
   newList = 'newList',
-  newItem = 'newItem',
-  editTodo = 'editTodo',
-  editItem = 'editItem',
+  newTask = 'newItem',
+  editList = 'editTodo',
+  editTask = 'editItem',
 }
 
 export interface ModalWindowData {
-  name: ModalListNames.newList | ModalListNames.newItem | ModalListNames.editTodo | ModalListNames.editItem;
+  name: ModalListNames.newList | ModalListNames.newTask | ModalListNames.editList | ModalListNames.editTask;
   id?: string;
   date?: string;
 }

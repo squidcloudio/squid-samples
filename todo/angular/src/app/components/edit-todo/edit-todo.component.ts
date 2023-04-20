@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { TodosService } from '../../services/todos.service';
+import { ListService } from '../../services/list.service';
 import { Dialog } from '@angular/cdk/dialog';
 import { ModalWindowComponent } from '../../modal-window/modal-window.component';
 import { ModalListNames } from '../../interfaces';
-import { ItemsService } from '../../services/items.service';
+import { TaskService } from '../../services/tasks.service';
 import { ThemeService } from '../../services/theme.service';
 
 @Component({
@@ -17,24 +17,24 @@ export class EditTodoComponent {
   @Input('type') type?: string;
   readonly modalListNames = ModalListNames;
   constructor(
-    private todoService: TodosService,
+    private listService: ListService,
     private dialog: Dialog,
-    private itemService: ItemsService,
+    private taskService: TaskService,
     readonly themeService: ThemeService,
   ) {}
 
-  async deleteTodo(): Promise<void> {
+  async deleteList(): Promise<void> {
     if (this.type === 'todo' && this.id) {
-      this.todoService.deleteTodo(this.id);
-      await this.itemService.deleteItemsFromTodo(this.id);
+      this.listService.deleteList(this.id);
+      await this.taskService.deleteTasksFromList(this.id);
     }
-    if (this.type === 'item' && this.id) this.itemService.deleteItem(this.id);
+    if (this.type === 'item' && this.id) this.taskService.deleteTask(this.id);
   }
   openModalWindow(): void {
     const dialogRef =
       this.type === 'todo'
-        ? this.dialog.open(ModalWindowComponent, { data: { name: this.modalListNames.editTodo, id: this.id } })
-        : this.dialog.open(ModalWindowComponent, { data: { name: this.modalListNames.editItem, id: this.id } });
+        ? this.dialog.open(ModalWindowComponent, { data: { name: this.modalListNames.editList, id: this.id } })
+        : this.dialog.open(ModalWindowComponent, { data: { name: this.modalListNames.editTask, id: this.id } });
 
     dialogRef.closed.subscribe();
   }

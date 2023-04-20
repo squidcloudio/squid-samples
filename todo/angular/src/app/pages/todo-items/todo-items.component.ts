@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { TodosService } from '../../services/todos.service';
+import { ListService } from '../../services/list.service';
 import { filter, map, Observable, Subscription } from 'rxjs';
 import { Task, List } from '../../interfaces';
 import { ActivatedRoute, Params } from '@angular/router';
-import { ItemsService } from '../../services/items.service';
+import { TaskService } from '../../services/tasks.service';
 import { ThemeService } from '../../services/theme.service';
 
 @Component({
@@ -12,7 +12,7 @@ import { ThemeService } from '../../services/theme.service';
   styleUrls: ['todo-items.component.scss'],
 })
 export class TodoItemsComponent implements OnInit, OnDestroy {
-  todoObs: Observable<List> | undefined;
+  listObs: Observable<List> | undefined;
   activeItemsObs: Observable<Task[]> | undefined;
   completedItemsObs?: Observable<Task[]>;
   paramsSub: Subscription | undefined;
@@ -21,9 +21,9 @@ export class TodoItemsComponent implements OnInit, OnDestroy {
   readonly paramsObs: Observable<Params> = this.activatedRoute.params;
 
   constructor(
-    private todoService: TodosService,
+    private listService: ListService,
     private activatedRoute: ActivatedRoute,
-    private itemsService: ItemsService,
+    private TaskService: TaskService,
     readonly themeService: ThemeService,
   ) {}
 
@@ -33,14 +33,14 @@ export class TodoItemsComponent implements OnInit, OnDestroy {
     });
     this.paramsSub = this.paramsObs.subscribe(params => {
       const currentTodoId = params['id'];
-      this.todoObs = this.todoService.observeTodo(currentTodoId);
-      this.activeItemsObs = this.itemsService
-        .observeTodoItems(currentTodoId)
-        .pipe(map(items => items.filter(item => !item.completed)));
+      this.listObs = this.listService.observeList(currentTodoId);
+      this.activeItemsObs = this.TaskService.observeTaskList(currentTodoId).pipe(
+        map(items => items.filter(item => !item.completed)),
+      );
 
-      this.completedItemsObs = this.itemsService
-        .observeTodoItems(currentTodoId)
-        .pipe(map(items => items.filter(item => item.completed)));
+      this.completedItemsObs = this.TaskService.observeTaskList(currentTodoId).pipe(
+        map(items => items.filter(item => item.completed)),
+      );
     });
   }
 

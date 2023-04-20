@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { TodosService } from '../../services/todos.service';
-import { ItemsService } from '../../services/items.service';
+import { ListService } from '../../services/list.service';
+import { TaskService } from '../../services/tasks.service';
 import { Task, List } from '../../interfaces';
 import { DialogRef } from '@angular/cdk/dialog';
 import { AccountService } from '../../services/account.service';
@@ -26,12 +26,12 @@ export class ItemFormComponent implements OnInit, OnDestroy {
   readonly currentTodo?: List;
 
   constructor(
-    private todoService: TodosService,
-    private itemService: ItemsService,
+    private listService: ListService,
+    private taskService: TaskService,
     private accountService: AccountService,
     readonly themeService: ThemeService,
   ) {
-    this.currentTodo = this.todoService.currentList;
+    this.currentTodo = this.listService.currentList;
   }
 
   ngOnInit(): void {
@@ -44,7 +44,7 @@ export class ItemFormComponent implements OnInit, OnDestroy {
       });
 
     if (this.itemId)
-      this.itemObs = this.itemService.observeItem(this.itemId).subscribe(item => {
+      this.itemObs = this.taskService.observeTask(this.itemId).subscribe(item => {
         this.currentItem = item;
         this.newItemForm = new FormGroup({
           title: new FormControl(item.title, Validators.required),
@@ -74,9 +74,9 @@ export class ItemFormComponent implements OnInit, OnDestroy {
       id: newId,
     };
     if (this.itemId) {
-      await this.itemService.changeItem(this.itemId, newItem);
+      await this.taskService.changeTask(this.itemId, newItem);
     } else {
-      this.itemService.addNewItem(isCurrentTodoDefault ? { ...newItem, todoId: '', todoColor: '' } : newItem);
+      this.taskService.addNewTask(isCurrentTodoDefault ? { ...newItem, todoId: '', todoColor: '' } : newItem);
       this.newItemForm?.reset();
     }
 

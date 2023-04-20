@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Task } from '../../interfaces';
-import { ItemsService } from '../../services/items.service';
+import { TaskService } from '../../services/tasks.service';
 import { Dialog } from '@angular/cdk/dialog';
 import { ModalWindowComponent } from '../../modal-window/modal-window.component';
 import { ModalListNames } from '../../interfaces';
@@ -16,7 +16,7 @@ export class TodoItemComponent implements OnInit {
   @Input('itemId') itemId?: string;
   formatDateFormItem?: string;
   readonly modalWindowName = ModalListNames;
-  constructor(private itemService: ItemsService, private dialog: Dialog, readonly themeService: ThemeService) {}
+  constructor(private taskService: TaskService, private dialog: Dialog, readonly themeService: ThemeService) {}
 
   ngOnInit(): void {
     if (this.item)
@@ -26,9 +26,9 @@ export class TodoItemComponent implements OnInit {
       });
   }
 
-  async changeItemStatus(id?: string): Promise<void> {
+  async changeTaskStatus(id?: string): Promise<void> {
     if (id) {
-      await this.itemService.changeItemStatus(id);
+      await this.taskService.changeTaskStatus(id);
     }
   }
 
