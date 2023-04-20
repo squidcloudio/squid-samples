@@ -3,12 +3,12 @@ import { Modal } from '@mui/material';
 import { useCollection, useQuery } from '@squidcloud/react';
 
 import DateInfo from '../components/DateInfo';
-import { Todo } from '../interfaces/index';
+import { List } from '../interfaces/index';
 
 const CalendarModal = ({ open, setOpen }: any) => {
   const { user } = useAuth0();
 
-  const todosCollection = useCollection<Todo>('todos');
+  const todosCollection = useCollection<List>('lists');
   const todosList = useQuery(todosCollection.query().where('userId', '==', `${user?.sub}`), true);
 
   return (

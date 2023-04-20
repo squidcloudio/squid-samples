@@ -7,7 +7,7 @@ import { useCollection, useQuery, useSquid } from '@squidcloud/react';
 import CompletedList from '../components/CompletedList';
 import ListContainer from '../components/ListContainer';
 import { OptionsMenu } from '../components/MenuDetail';
-import { Item, Todo } from '../interfaces/index';
+import { List, Task } from '../interfaces/index';
 import TodoList from './TodoList';
 import DateInfo from '../components/DateInfo';
 
@@ -35,8 +35,8 @@ const MainContainer = React.memo(() => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [open, setOpen] = useState<any>(false);
 
-  const todosCollection = useCollection<Todo>('List');
-  const itemsCollection = useCollection<Item>('Task');
+  const todosCollection = useCollection<List>('lists');
+  const itemsCollection = useCollection<Task>('tasks');
 
   const [todos] = useQuery(todosCollection.query().where('id', '==', `${id}`), true);
 

@@ -6,12 +6,12 @@ import addList from '../images/Component 1.png';
 
 import { NavLink, useParams } from 'react-router-dom';
 import ListModal from '../modals/ListModal';
-import { Item } from '../interfaces/index';
+import { Task } from '../interfaces/index';
 import { ThemeContext } from '../context';
 
 const ListContainer = ({ todosList, collection }: any) => {
   const { id } = useParams();
-  const itemsCollection = useCollection<Item>('items');
+  const itemsCollection = useCollection<Task>('tasks');
   const { theme } = useContext(ThemeContext);
 
   const items2 = useQuery(itemsCollection.query().where('todoId', '==', `${id}`), true);

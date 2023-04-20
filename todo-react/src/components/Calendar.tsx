@@ -5,7 +5,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { Divider } from '@mui/material';
 import { useCollection, useQuery } from '@squidcloud/react';
-import { Item, Todo } from '../interfaces/index';
+import { List, Task } from '../interfaces/index';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { useAuth0 } from '@auth0/auth0-react';
@@ -23,7 +23,7 @@ const Calendar = ({ currentDate, setCurrentDate }: any) => {
   const { theme } = useContext(ThemeContext);
 
   const [open, setOpen] = useState<boolean>(false);
-  const todosCollection = useCollection<Todo>('List');
+  const todosCollection = useCollection<List>('lists');
   const [todos] = useQuery(todosCollection.query().where('id', '==', `${id}`), true);
 
   const initialDayRef = useRef(moment(currentDate));
@@ -37,7 +37,7 @@ const Calendar = ({ currentDate, setCurrentDate }: any) => {
   const todayDate = moment.utc(initialDayRef.current).startOf('day').locale('en');
 
   const weekdays = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
-  const itemsCollection = useCollection<Item>('items');
+  const itemsCollection = useCollection<Task>('tasks');
 
   const items = useQuery(itemsCollection.query().where('userId', '==', `${user?.sub}`), true);
 

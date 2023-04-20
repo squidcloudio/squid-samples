@@ -37,7 +37,8 @@ const TodoList = ({ itemsCollection, todos, theme }: any) => {
     itemsCollection
       .query()
       .where('userId', '==', `${user?.sub}`)
-      .where('dueDate', '!=', `${tomorrow || momentString}`),
+      .where('dueDate', '!=', `${momentString}`)
+      .where('dueDate', '!=', `${tomorrow}`),
     true,
   );
 

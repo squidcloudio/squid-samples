@@ -10,7 +10,7 @@ import { StyledDatePicker } from '../styled/StyledDatePicker';
 import { CssTextField } from '../styled/CssTextField';
 import uuid from 'react-uuid';
 import { useCollection, useQuery } from '@squidcloud/react';
-import { Item } from '../interfaces/index';
+import { Task } from '../interfaces/index';
 import { useParams } from 'react-router-dom';
 
 const EditItem = ({ open, setOpen, index, todos }: any) => {
@@ -19,7 +19,7 @@ const EditItem = ({ open, setOpen, index, todos }: any) => {
   const descriptionRef = useRef<HTMLInputElement>(null);
   const datePickerRef = useRef<HTMLDivElement>(null);
 
-  const todosCollection = useCollection<Item>('items');
+  const todosCollection = useCollection<Task>('tasks');
 
   const items = useQuery(todosCollection.query().where('todoId', '==', `${id}`), true);
 

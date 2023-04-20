@@ -3,14 +3,14 @@ export interface Tag {
   name: string;
 }
 
-export type Todo = {
+export type List = {
   id: string;
   title?: string;
   color: string;
   userId: string;
 };
 
-export type Item = {
+export type Task = {
   id: string;
   todoId: string;
   todoColor: string;
