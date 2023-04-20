@@ -1,0 +1,39 @@
+<ng-container *ngIf="newTaskForm">
+  <form
+    [formGroup]="newTaskForm"
+    class="form"
+    (ngSubmit)="onSubmit()"
+    (keydown.enter)="$event.preventDefault()"
+    [ngClass]="{ 'form-dark': themeService.isDark }">
+    <h2 class="form-title">{{ title }}</h2>
+    <div class="form-container">
+      <div class="form-container__component">
+        <app-text-input
+          controlName="title"
+          [control]="newTaskForm"
+          inputId="title"
+          title="title"
+          type="text"></app-text-input>
+      </div>
+      <div class="form-container__component">
+        <app-text-input
+          controlName="description"
+          [control]="newTaskForm"
+          inputId="description"
+          title="description"
+          type="text"></app-text-input>
+      </div>
+      <div class="form-container__component">
+        <app-date-picker [itemId]="taskId" [control]="newTaskForm"></app-date-picker>
+      </div>
+      <div class="form-container__component">
+        <app-multiselect [control]="newTaskForm"></app-multiselect>
+      </div>
+    </div>
+    <app-form-buttons
+      [control]="newTaskForm"
+      modalName="newItem"
+      [submitName]="submitName"
+      [dialog]="dialog"></app-form-buttons>
+  </form>
+</ng-container>

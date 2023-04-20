@@ -38,7 +38,7 @@
     <img src="../../../assets/calendar.svg" alt="calendar-button" />
   </button>
   <section class="wrapper">
-    <app-todo-navigation></app-todo-navigation>
+    <app-list-navigation></app-list-navigation>
     <router-outlet></router-outlet>
     <ng-container *ngIf="!(a | async)?.matches">
       <app-calendar-sidebar></app-calendar-sidebar>

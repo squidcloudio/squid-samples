@@ -1,0 +1,23 @@
+<div class="calendar-tasks" [ngClass]="{ 'calendar-tasks-dark': themeService.isDark }">
+  <h3 class="calendar-tasks-title">{{ calendarService.currentDate | date : formatTypes.MONTH_AND_DATE }}</h3>
+  <ng-container *ngIf="activeTasksObs | async as tasks">
+    <ul class="calendar-tasks-list">
+      <ng-container *ngFor="let task of tasks">
+        <li class="calendar-tasks-list__component">
+          <div
+            class="calendar-tasks-list__component-container"
+            (click)="goToTodoPage(task.todoId, task.id, task.dueDate)">
+            <div class="calendar-tasks-list__component-color" [ngStyle]="{ 'background-color': task.todoColor }"></div>
+            <p class="calendar-tasks-list__component-title">{{ task.title }}</p>
+          </div>
+          <app-edit-list [id]="task.id" type="task"></app-edit-list>
+        </li>
+      </ng-container>
+    </ul>
+  </ng-container>
+  <ng-container *ngIf="!(activeTasksObs | async)?.length">
+    <div class="add-task-button">
+      <app-add-task-button [date]="calendarService.currentDate"></app-add-task-button>
+    </div>
+  </ng-container>
+</div>

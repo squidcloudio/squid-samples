@@ -6,7 +6,7 @@ import { ModalWindowComponent } from '../../modal-window/modal-window.component'
 @Component({
   selector: 'app-add-task-button',
   templateUrl: 'add-task-button.component.html',
-  styleUrls: ['add-item-button.component.scss'],
+  styleUrls: ['add-task-button.component.scss'],
 })
 export class AddTaskButtonComponent {
   @Input('date') date?: string;

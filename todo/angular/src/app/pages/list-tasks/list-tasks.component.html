@@ -1,0 +1,55 @@
+<ng-container *ngIf="listObs | async as list">
+  <div class="current-list">
+    <div class="current-list-info">
+      <div class="current-list-color" [ngStyle]="{ 'background-color': list.color }"></div>
+      <p class="current-list-title">{{ list.title }}</p>
+      <div class="current-list-amount">(<app-tasks-amount [list]="list"></app-tasks-amount>)</div>
+    </div>
+
+    <mat-divider style="margin-top: 25px"></mat-divider>
+  </div>
+  <div class="list-section" [ngClass]="{ 'list-section-dark': themeService.isDark }">
+    <div class="list-section-title">
+      <h2>In Progress</h2>
+      <ng-container *ngIf="!(list.id === 'today' || list.id === 'tomorrow' || list.id === 'someday')">
+        <app-edit-list [listTitle]="list.title" [id]="list.id" type="list"></app-edit-list>
+      </ng-container>
+    </div>
+    <div class="list-section-content">
+      <h2 *ngIf="!(activeTasksObs | async)?.length" class="no-tasks-title">There is no tasks</h2>
+      <ul class="list-section-content-list">
+        <li
+          *ngFor="let task of activeTasksObs | async"
+          class="list-section-content-list__component"
+          (click)="settaskId(task.id)">
+          <app-list-task [task]="task" [taskId]="taskId"></app-list-task>
+        </li>
+      </ul>
+      <ng-container *ngIf="!(list.id === 'today' || list.id === 'tomorrow' || list.id === 'someday')">
+        <div class="new-tasks-section">
+          <app-add-task-button></app-add-task-button>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  <ng-container *ngIf="completedTasksObs | async as completedtasks">
+    <div
+      class="completed-tasks list-section"
+      *ngIf="completedtasks.length"
+      [ngClass]="{ 'list-section-dark': themeService.isDark }">
+      <div class="list-section-title">
+        <h2>Completed</h2>
+        <ng-container *ngIf="!(list.id === 'today' || list.id === 'tomorrow' || list.id === 'someday')">
+          <app-edit-list [listTitle]="list.title" [id]="list.id" type="list"></app-edit-list>
+        </ng-container>
+      </div>
+      <div class="list-section-content">
+        <ul class="list-section-content-list">
+          <li *ngFor="let task of completedtasks" class="list-section-content-list__component">
+            <app-list-task [task]="task"></app-list-task>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>

@@ -10,7 +10,7 @@ For authentication, this application uses [Auth0](https://auth0.com/).
 
 ### Frontend
 
-1.Please navigate to the todo-angular directory and proceed with installing the npm dependencies:
+1.Please navigate to the angular directory and proceed with installing the npm dependencies:
 
 ```
 npm install
@@ -24,8 +24,27 @@ npm start
 
 3. In the `src/app/app.module.ts:` we initialize Squid and the auth service:
 
-![img.png](src/app/screenshots/img.png)
+```typescript
+{
+    ...
+  imports: [
+    BrowserModule,
+    SquidModule.forRoot({
+      appId: environment.squidAppId,
+      region: environment.region,
+    }),
+    AuthModule.forRoot({
+      domain: environment.authDomain,
+      clientId: environment.authClientId,
+      authorizationParams: {
+        redirect_uri: window.location.origin,
+      },
+    }),
+    ...
+    
+}
 
+```
 ### Backend.
 
 Getting started with Squid Cloud involves generating a backend template project. The first step is to install the Squid Cloud CLI:
@@ -46,7 +65,7 @@ squid init todo-backend --appId mnhwpkfn8e8e0ozo23 --apiKey 04d39b3c-2c6d-4eab-8
 squid start
 ```
 
-2. To connect the frontend client to the local backend, navigate to the todo-angular directory and open the `app.module.ts` file. Then, replace `us-east-1.aws` with `local`. To update the configuration and connect to the local backend:
+2. To connect the frontend client to the local backend, navigate to the angular directory and open the `app.module.ts` file. Then, replace `us-east-1.aws` with `local`. To update the configuration and connect to the local backend:
 
 ```typescript
 SquidModule.forRoot({
@@ -63,13 +82,32 @@ SquidModule.forRoot({
 
 To establish a connection between the frontend client and the local backend, follow these steps:
 
-1. Navigate to the todo-angular directory and open the app.module.ts file.
+1. Navigate to the angular directory and open the app.module.ts file.
 2. Locate the us-east-1.aws parameter and replace it with local.
 3. Save the changes to update the configuration and establish a connection to the local backend.
 
 `src/app/app.module.ts:`
 
-![img_2.png](src/app/screenshots/img_2.png)
+```typescript
+const routes: Routes = [
+  {
+    path: '',
+    component: MainPageComponent,
+    canActivate: [AuthGuard],
+    canActivateChild: [ChildrenGuard],
+    children: [
+      {
+        path: '',
+        component: ListTasksComponent,
+      },
+      {
+        path: ':id',
+        component: ListTasksComponent,
+      },
+    ],
+  },
+];
+```
 
 When a user logs in, the **AuthService** retrieves the user's
 ID token and sends it to **Squid Cloud**. This functionality is implemented in the **AccountService**, which is responsible for managing user accounts and handling authentication and authorization tasks
@@ -77,30 +115,16 @@ ID token and sends it to **Squid Cloud**. This functionality is implemented in t
 `src/app/services/account.service.ts:`
 
 ```typescript
-export class AccountService {
-  private readonly userObs: Observable<User | undefined> = this.authService.user$.pipe(
-    switchMap(user => {
-      if (user === undefined) return NEVER;
-      if (!user) return of(undefined);
-      return of({
-        username: user.nickname!,
-        email: user.email!,
-        avatar: user.picture!,
-        id: user.sub!,
-      });
-    }),
-  );
-
   constructor(private readonly authService: AuthService, private readonly squid: Squid) {
-    this.authService.idTokenClaims$.subscribe(idToken => {
-      if (!idToken) this.authService.loginWithRedirect();
-      if (idToken) {
-        const rawIdToken = idToken?.__raw;
-        this.squid.setAuthIdToken(rawIdToken);
-      }
-    });
-  }
+  this.authService.idTokenClaims$.subscribe(idToken => {
+    if (!idToken) this.authService.loginWithRedirect();
+    if (idToken) {
+      const rawIdToken = idToken?.__raw;
+      this.squid.setAuthIdToken(rawIdToken);
+    }
+  });
 }
+
 ```
 
 The **idTokenClaims** is an observable that returns the user's token. If the token exists, the AccountService retrieves it and sends it to the **_squid cloud service_**:
@@ -119,65 +143,68 @@ To achieve this, Squid uses the **secureCollection** decorator, which is explain
 `src/service/example-service.ts:`
 
 ```typescript
+import { SquidService, secureCollection } from "@squidcloud/backend";
+
 export class ExampleService extends SquidService {
-  @secureCollection('todos', 'all')
-  secureTodosCollection(): boolean {
+  @secureCollection("lists", "all")
+  secureListCollection(): boolean {
     return this.isAuthenticated();
   }
-  @secureCollection('items', 'all')
-  secureItemsllection(): boolean {
+  @secureCollection("tasks", "all")
+  secureTaskCollection(): boolean {
     return this.isAuthenticated();
   }
 }
 ```
 
-**'todos' and 'items'** are collections that need to be protected.
+**'lists' and 'tasks'** are collections that need to be protected.
 **'all'** is a method that is protected. There are 4 methods : 'read', 'write', 'update', 'delete'. And 'all' contains all of them.
 
 It means if the unauthorized user tries to get access to one of the collections there will be an error. Only the authorized user can work with collections.
 
-### Todo collection
+### List collection
 
 After logging in, the user is directed to the main page, which provides an overview of the application's features and functionality. From the main page,
 the user can access various collections and perform actions such as creating, updating, and deleting items within them:
 
-![img_5.png](src/app/screenshots/img_5.png)
+![img_1.png](img_1.png)
 
-The left sidebar on the main page contains a list of collections, including the 'Todos' collection. This collection includes default todos such as 'Today', 'Tomorrow', and 'Someday'.
-The TodoService is responsible for providing the method that allows users to access collections
+The left sidebar on the main page contains a collection of lists. This collection includes default lists such as 'Today', 'Tomorrow', and 'Someday'.
+The 'ListService' is responsible for providing the method that allows users to access collections:
 
 `src/app/services/todos.service.ts:`
 
 ```typescript
-  observeDefaultCollection(): Observable<Todo[]> {
-    return this.todoCollection
-      .query()
-      .in('title', ['Today', 'Tomorrow', 'Someday'])
-      .sortBy('userId')
-      .snapshots()
-      .pipe(map(todos => todos.map(todo => todo.data)))
-  }
+  observeDefaultCollection(): Observable<List[]> {
+  return this.listCollection
+    .query()
+    .in('title', ['Today', 'Tomorrow', 'Someday'])
+    .sortBy('userId')
+    .snapshots()
+    .pipe(map(todos => todos.map(todo => todo.data)));
+}
+
 ```
 
-There are two types of todos: default and user's.
+There are two types of lists: default and user's.
 
 #### Default collection.
 
-Default todos are pre-existing collections of items that are created with expiration dates. These todos include items such as 'Today', 'Tomorrow', and 'Someday', and the items within each todo are organized based on their expiration date:
+Default lists are pre-existing collections of tasks that are created with expiration dates. These collections include lists such as 'Today', 'Tomorrow', and 'Someday', and the tasks within each list are organized based on their expiration date:
 
-**Today todo:** contains items that going to be expired today.
+**Today list:** contains tasks that going to be expired today.
 
-**Tomorrow todo:** contains items that going to be expired tomorrow.
+**Tomorrow list:** contains tasks that going to be expired tomorrow.
 
-**Someday todo:** contains items that going to be expired later or already expired.
+**Someday list:** contains tasks that going to be expired later or already expired.
 
 #### User's collection.
 
 A user's collection is a custom collection that is created by the user. This collection can include any items that the user wants to organize, and can be modified and updated as needed.
 
-By clicking the 'New List' button, the user can create a new todo using an **Angular Form** that is provided by the TodoService.
+By clicking the 'New List' button, the user can create a new list using an **Angular Form** that is provided by the ListService.
 
-![img_7.png](src/app/screenshots/img_7.png)
+![img_2.png](img_2.png)
 
 **HTML**
 
@@ -187,192 +214,192 @@ By clicking the 'New List' button, the user can create a new todo using an **Ang
 
 `setNewList()` creates a new Todo using `createNewList()` method from todoService
 
-`src/app/services/todos.service.ts:`
+`src/app/services/list.service.ts:`
 
 ```typescript
   async createNewList(title: string, color: string): Promise<void> {
-    const userId = await this.accountService.getUser();
-    const listId = self.crypto.randomUUID();
-    const newList: Todo = {
-      id: listId,
-      userId: userId?.id,
-      title: title,
-      color: color,
-    };
-    await this.todoCollection.doc(newList.id).insert(newList);
-  }
+  const userId = await this.accountService.getUser();
+  const listId = self.crypto.randomUUID();
+  const newList: List = {
+  id: listId,
+  userId: userId?.id,
+  title: title,
+  color: color,
+};
+await this.listCollection.doc(newList.id).insert(newList);
+}
 ```
 
 #### Change collection
 
-If the user wants to modify an existing element in the Todo collection, they can click the 'edit' button next to the corresponding element.
-This will call the `changeTodo()` method from the TodoService, which allows the user to modify the name of the Todo.
+If the user wants to modify an existing element in the List collection, they can click the 'edit' button next to the corresponding element.
+This will call the `changeList()` method from the ListService, which allows the user to modify the name of the List.
 
 **HTML**
 
-`src/app/pages/todo-items/todo-items.html:`
+`src/app/pages/list-tasks/list-tasks.html:`
 
 ![img_10.png](src/app/screenshots/img_10.png)
 
-`src/app/services/todos.service.ts:`
+`src/app/services/list.service.ts:`
 
 ```typescript
 
-  changeTodo(id: string, newTitle: string): void {
-    this.todoCollection.doc(id).update({ title: newTitle });
+  changeList(id: string, newTitle: string): void {
+    this.listCollection.doc(id).update({ title: newTitle });
   }
   
 ```
 
-#### Delete Collection.
+#### Delete List.
 
-When the user deletes a collection, they are redirected to the 'Today' collection page:
+When the user deletes a list, they are redirected to the 'Today' list page:
 
-Delete collection:
+Delete list:
 
-`src/app/services/todos.service.ts:`
+`src/app/services/list.service.ts:`
 
 ```typescript
 
-  deleteTodo(): void {
-    if (this.currentTodo?.id) {
-      this.todoCollection.doc(this.currentTodo?.id).delete();
+  deleteList(): void {
+    if (this.currentList?.id) {
+      this.listCollection.doc(this.currentList?.id).delete();
     }
     this.router.navigate(['', 'today']);
   }
 
 ```
 
-### Items collection:
+### Tasks collection:
 
-`this.item` is a shortcut for `this.squid.collection<Item>('items')`
+`this.taskCollection` is a shortcut for `this.squid.collection<Task>('tasks')`
 
-#### Get Items.
+#### Get Tasks.
 
-When the user clicks on a particular Todo, they are taken to a page displaying the Items related to that Todo. If the user clicks on one of the default todos, the items will be automatically filtered by date. To retrieve the items, the `ObserveTodoItems()` method from the ItemService is called.
+When the user clicks on a particular List, they are taken to a page displaying the Tasks related to that List. If the user clicks on one of the default lists, the tasks will be automatically filtered by date. To retrieve the tasks, the `observeTaskList()` method from the TasksService is called.
 
-`src/app/pages/todo-items/todo-items.component.html:`
+`src/app/pages/list-tasks/list-tasks.component.html:`
 
 ![img_13.png](src/app/screenshots/img_13.png)
 
-`src/app/services/items.service.ts:`
+`src/app/services/task.service.ts:`
 
 ```typescript
-observeTodoItems(todoId: string): Observable<Item[]> {
-    const today = dayjs().format('M/D/YYYY');
-    const tomorrow = dayjs().add(1, 'day').format('M/D/YYYY');
-    return this.accountService.observeUser().pipe(
-      switchMap(user => {
-        if (!user) return NEVER;
-        const query = this.itemCollection.query().eq('userId', user.id);
+  observeTaskList(todoId: string): Observable<Task[]> {
+  const today = dayjs().format('M/D/YYYY');
+  const tomorrow = dayjs().add(1, 'day').format('M/D/YYYY');
+  return this.accountService.observeUser().pipe(
+    switchMap(user => {
+      if (!user) return NEVER;
+      const query = this.taskCollection.query().eq('userId', user.id);
 
-        switch (todoId) {
-          case 'today':
-            query.eq('dueDate', today);
-            break;
-          case 'tomorrow':
-            query.eq('dueDate', tomorrow);
-            break;
-          case 'someday':
-            query.nin('dueDate', [today, tomorrow]);
-            break;
-          default:
-            return this.itemCollection
-              .query()
-              .eq('todoId', todoId)
-              .eq('userId', user.id)
-              .snapshots()
-              .pipe(map(items => items.map(item => item.data)));
-        }
-        return query.snapshots().pipe(map(items => items.map(item => item.data)));
-      }),
-    );
-  }
+      switch (todoId) {
+        case 'today':
+          query.eq('dueDate', today);
+          break;
+        case 'tomorrow':
+          query.eq('dueDate', tomorrow);
+          break;
+        case 'someday':
+          query.nin('dueDate', [today, tomorrow]);
+          break;
+        default:
+          return this.taskCollection
+            .query()
+            .eq('todoId', todoId)
+            .eq('userId', user.id)
+            .snapshots()
+            .pipe(map(items => items.map(item => item.data)));
+      }
+      return query.snapshots().pipe(map(items => items.map(item => item.data)));
+    }),
+  );
+}
 
 
 ```
 
-#### Create Item.
+#### Create Task.
 
-When the user clicks on the 'New Item' button, a new Item for the current Todo is created using the `addNewItem()` method from the ItemService:
+When the user clicks on the 'New Task' button, a new Task for the current List is created using the `addNewTask()` method from the TaskService:
 
-`src/app/services/items.service.ts:`
+`src/app/services/task.service.ts:`
 
 ```typescript
-    addNewItem(item: Item): void {
-    this.itemCollection.doc(item.id).insert(item).then();
-  }
+  addNewTask(item: Task): void {
+  this.taskCollection.doc(item.id).insert(item).then();
+}
 ```
 
-#### Change Item
+#### Change Task
 
-1. When the user clicks on the pencil icon, they can edit the item by using the `changeItem()` method from the ItemService.:
+1. When the user clicks on the pencil icon, they can edit the task by using the `changeTask()` method from the TaskService.:
 
 ![img_15.png](src/app/screenshots/img_15.png)
 
 ![img_16.png](src/app/screenshots/img_16.png)
 
-`src/app/services/items.service.ts:`
+`src/app/services/task.service.ts:`
 
 ```typescript
- async changeItem(id: string, item: Item): Promise<void> {
-  await this.item
-  .doc(id)
-  .update({ title: item.title, description: item.description, dueDate: item.dueDate, tags: item.tags });
+  async changeTask(id: string, task: Task): Promise<void> {
+  await this.taskCollection
+    .doc(id)
+    .update({ title: task.title, description: task.description, dueDate: task.dueDate, tags: task.tags });
 }
 ```
 
-2. By clicking the checkbox, the user can change the status of the item from active to complete:
+2. By clicking the checkbox, the user can change the status of the task from active to complete:
 
 ```typescript
-  async changeItemStatus(id: string): Promise<void> {
-    const currentItem = await this.item.doc(id).snapshot();
-    await this.item.doc(id).update({ completed: !currentItem?.data.completed });
-  }
+  async changeTaskStatus(id: string): Promise<void> {
+  const currentItem = await this.taskCollection.doc(id).snapshot();
+  await this.taskCollection.doc(id).update({ completed: !currentItem?.data.completed });
+}
 ```
 
-#### Delete Item.
+#### Delete Task.
 
-If the user deletes a Todo, all items related to that Todo are automatically deleted.
-Additionally, the user can manually delete an item by clicking the delete button on the calendar sidebar:
+If the user deletes a List, all tasks related to that List are automatically deleted.
+Additionally, the user can manually delete a task by clicking the delete button on the calendar sidebar:
 
 ![img_17.png](src/app/screenshots/img_17.png)
 
-`src/app/services/items.service.ts:`
+`src/app/services/task.service.ts:`
 
 ```typescript
-  deleteItem(id?: string): void {
-    if (id) this.item.doc(id).delete();
-  }
+  deleteTask(id: string): void {
+  if (id) this.taskCollection.doc(id).delete().then();
+}
 ```
 
 ### Calendar
 
-If there are no items related to a particular date, the "New Item" button will appear, allowing the user to add new items to the selected date.
+If there are no items related to a particular date, the "New Task" button will appear, allowing the user to add new Task to the selected date.
 
 ![img_18.png](src/app/screenshots/img_18.png)
 
-get Items by date:
+get Tasks by date:
 
-`src/app/services/items.service.ts:`
+`src/app/services/task.service.ts:`
 
 ```typescript
-  observeItemsSortedByDate(date: string): Observable<Item[] | []> {
-    return this.accountService.observeUser().pipe(
-      switchMap(user => {
-        if (!user) return NEVER;
-        return this.itemCollection
-          .query()
-          .eq('userId', user.id)
-          .eq('dueDate', date)
-          .snapshots()
-          .pipe(map(items => items.map(item => item.data)));
-      }),
-    );
-  }
+  observeTasksSortedByDate(date: string): Observable<Task[] | []> {
+  return this.accountService.observeUser().pipe(
+    switchMap(user => {
+      if (!user) return NEVER;
+      return this.taskCollection
+        .query()
+        .eq('userId', user.id)
+        .eq('dueDate', date)
+        .snapshots()
+        .pipe(map(items => items.map(item => item.data)));
+    }),
+  );
+}
 
 ```
 
-There is a list of expired items below the 'active items' section. These items have already passed their expiration date:
+There is a list of expired tasks below the 'active tasks' section. These tasks have already passed their expiration date:
 
 ![img.png](img.png)

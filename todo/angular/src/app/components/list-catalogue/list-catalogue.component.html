@@ -1,0 +1,11 @@
+<ng-container *ngIf="listCatalogObs | async as listCatalog">
+  <ul class="list" [ngClass]="{ 'list-dark': themeService.isDark }">
+    <ng-container *ngFor="let list of listCatalog">
+      <li class="list__component" [routerLink]="['', list.id]" routerLinkActive="list__component-active">
+        <div class="list__component-color" [ngStyle]="{ 'background-color': list.color }"></div>
+        <p class="list__component-title">{{ list.title }}</p>
+        <app-tasks-amount [list]="list"></app-tasks-amount>
+      </li>
+    </ng-container>
+  </ul>
+</ng-container>

@@ -1,0 +1,35 @@
+<section
+  class="task"
+  [ngClass]="{
+    'task-dark': themeService.isDark,
+    'task-completed': task?.completed,
+    'task-selected': task?.id === taskId
+  }">
+  <article class="task-content">
+    <div class="task-content-header">
+      <div class="task-content-header-text-container">
+        <mat-checkbox color="#15C771" (click)="changeTaskStatus(task?.id)" [checked]="task?.completed"></mat-checkbox>
+        <div class="task-content-header-text">
+          <p class="task-content-header-text-title">{{ task?.title }}</p>
+          <p class="task-content-header-text-description">{{ task?.description }}</p>
+        </div>
+      </div>
+
+      <button class="task-content-header-edit" (click)="openModalWindow(modalWindowName.editTask)">
+        <img
+          [src]="themeService.isDark ? '../../../../assets/edit-white.svg' : '../../../../assets/edit.svg'"
+          alt="edit-button'" />
+      </button>
+    </div>
+
+    <div class="task-content-devider"></div>
+    <div class="task-content-info">
+      <p class="task-content-info__component task-content-info-date">
+        Due Date <span class="format-date">{{ formatDateFormTask }}</span>
+      </p>
+      <ul class="task-content-info-tags">
+        <li *ngFor="let tag of task?.tags" class="task-content-info-tags__component">{{ tag.name }}</li>
+      </ul>
+    </div>
+  </article>
+</section>

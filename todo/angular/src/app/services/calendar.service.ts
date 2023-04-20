@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as dayjs from 'dayjs';
 import { FormatTypes, Task } from '../interfaces';
-import { TaskService } from './tasks.service';
+import { TaskService } from './task.service';
 import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
