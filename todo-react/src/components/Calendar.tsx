@@ -12,7 +12,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 
 import { OptionsMenu } from './MenuDetail';
 import ItemModal from '../modals/ItemModal';
-import { ThemeContext } from '../context/ThemeContext';
+import { ThemeContext } from '../context';
 
 const Calendar = ({ currentDate, setCurrentDate }: any) => {
   const { id } = useParams();

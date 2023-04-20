@@ -2,7 +2,7 @@ import { List } from '@mui/material';
 
 import addList from '../images/Component 1.png';
 
-import { useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@squidcloud/react';
 
@@ -42,23 +42,28 @@ const TodoList = ({ itemsCollection, todos, theme }: any) => {
     true,
   );
 
-  console.log(someday);
+  const handleSetOpen = useCallback((value: any) => {
+    setOpen(value);
+  }, []);
 
-  const changeStatusToCompleted = (itemId: string) => {
-    itemsCollection.doc(itemId).update({ completed: true });
-  };
+  const changeStatusToCompleted = useCallback(
+    (itemId: string) => {
+      itemsCollection.doc(itemId).update({ completed: true });
+    },
+    [itemsCollection],
+  );
 
-  let listContent;
-
-  if (id === 'today') {
-    listContent = todaysItems;
-  } else if (id === 'tomorrow') {
-    listContent = tomorrowItems;
-  } else if (id === 'someday') {
-    listContent = someday;
-  } else {
-    listContent = allItems;
-  }
+  const listContent = useMemo(() => {
+    if (id === 'today') {
+      return todaysItems;
+    } else if (id === 'tomorrow') {
+      return tomorrowItems;
+    } else if (id === 'someday') {
+      return someday;
+    } else {
+      return allItems;
+    }
+  }, [allItems, id, todaysItems, tomorrowItems, someday]);
 
   return (
     <div className={`todo todo-${theme}`}>
@@ -77,7 +82,7 @@ const TodoList = ({ itemsCollection, todos, theme }: any) => {
           ))}
 
         {!(id === 'today' || id === 'tomorrow' || id === 'someday') && (
-          <button className="item_button" onClick={() => setOpen(true)}>
+          <button className="item_button" onClick={handleSetOpen}>
             <img src={addList} alt="list" />
             <span>New Item</span>
           </button>

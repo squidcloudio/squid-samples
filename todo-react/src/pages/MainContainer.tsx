@@ -17,17 +17,16 @@ import Header from '../components/Header';
 
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useParams } from 'react-router-dom';
-import { ThemeContext } from '../context/ThemeContext';
+import { ThemeContext } from '../context';
 
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { ThemeProvider } from '../context/ThemeContext';
 import React from 'react';
 
 const MainContainer = React.memo(() => {
   const isSmallScreen = useMediaQuery('(min-width:1200px)');
-  const { theme } = useContext(ThemeContext);
+  const { theme, setTheme } = useContext(ThemeContext);
 
   const { id } = useParams();
 
@@ -43,21 +42,12 @@ const MainContainer = React.memo(() => {
   const todosList = useQuery(todosCollection.query().where('userId', '==', `${user?.sub}`), true);
 
   return (
-    <ThemeProvider>
+    <ThemeContext.Provider value={{ theme, setTheme }}>
       <Stack className={`theme-${theme}`}>
         <Header setDrawerOpen={setDrawerOpen} todosCollection={todosCollection} todos={todos} />
         <Box px={10} py={7}>
           <Drawer anchor="left" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
-            <Box
-              sx={{
-                p: '20px',
-                width: '350px',
-                backgroundColor: theme === 'light' ? '#fff' : '#1b1f27',
-                height: '100%',
-                display: 'flex',
-                flexDirection: 'column',
-              }}
-            >
+            <Box className="sidebar_menu" sx={{ backgroundColor: theme === 'light' ? '#fff' : '#1b1f27' }}>
               <ListContainer todosList={todosList} collection={todosCollection} />
               <div className="sidebar_profile">
                 <IconButton style={{ color: theme === 'dark' ? '#fff' : '#000' }}>
@@ -92,7 +82,7 @@ const MainContainer = React.memo(() => {
                 <OptionsMenu todosCollection={todosCollection} itemsCollection={itemsCollection} />
               </Box>
 
-              <TodoList itemsCollection={itemsCollection} todos={todos} theme={theme} />
+              <TodoList itemsCollection={itemsCollection} todos={todos} />
 
               <CompletedList todosCollection={todosCollection} itemsCollection={itemsCollection} theme={theme} />
             </Grid>
@@ -116,7 +106,7 @@ const MainContainer = React.memo(() => {
           <CalendarModal open={open} setOpen={setOpen} />
         </Box>
       </Stack>
-    </ThemeProvider>
+    </ThemeContext.Provider>
   );
 });
 

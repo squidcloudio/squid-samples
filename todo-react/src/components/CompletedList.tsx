@@ -2,11 +2,14 @@ import { useQuery } from '@squidcloud/react';
 import { useParams } from 'react-router-dom';
 import StyledListItem from '../styled/StyledListItem';
 import { Box, List, Typography } from '@mui/material';
+import React, { useContext } from 'react';
+import { ThemeContext } from '../context';
 
-const CompletedList = ({ todosCollection, itemsCollection, theme }: any) => {
+const CompletedList = React.memo(({ todosCollection, itemsCollection }: any) => {
   const { id } = useParams();
   const [todos] = useQuery(todosCollection.query().where('id', '==', `${id}`), true);
   const items = useQuery(itemsCollection.query().where('todoId', '==', `${id}`), true);
+  const { theme } = useContext(ThemeContext);
 
   const changeStatusToCompleted = (itemId: any) => {
     itemsCollection.doc(itemId).update({ completed: true });
@@ -34,6 +37,6 @@ const CompletedList = ({ todosCollection, itemsCollection, theme }: any) => {
       </div>
     </Box>
   ) : null;
-};
+});
 
 export default CompletedList;

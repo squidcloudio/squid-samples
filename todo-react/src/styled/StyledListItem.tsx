@@ -1,12 +1,11 @@
 import { useContext, useState } from 'react';
-import { styled } from '@mui/material/styles';
-import { ListItem } from '@mui/material';
 
 import { Checkbox, Typography, Divider, Box, IconButton } from '@mui/material';
 
 import EditIcon from '@mui/icons-material/Edit';
 import EditItem from '../modals/EditItem';
-import { ThemeContext } from '../context/ThemeContext';
+import { ThemeContext } from '../context';
+import StyledListWrapper from './StyledList';
 
 const StyledListItem = ({ todos, item, index, onClick, isChecked }: any) => {
   const [hoveredItem, setHoveredItem] = useState<any>(null);
@@ -19,17 +18,16 @@ const StyledListItem = ({ todos, item, index, onClick, isChecked }: any) => {
 
   const { theme } = useContext(ThemeContext);
 
-  const StyledList = styled(ListItem)({
-    borderRadius: '12px',
-    paddingBottom: '16px',
-    '&:hover': {
-      backgroundColor: theme === 'dark' ? '#23272F' : '#F8F9FC',
-      cursor: 'pointer',
-    },
-  });
-
   return (
-    <StyledList onMouseEnter={() => setHoveredItem(index)} onMouseLeave={() => setHoveredItem(null)}>
+    <StyledListWrapper
+      onMouseEnter={() => setHoveredItem(index)}
+      onMouseLeave={() => setHoveredItem(null)}
+      sx={{
+        '&:hover': {
+          backgroundColor: theme === 'dark' ? '#23272F' : '#F8F9FC',
+        },
+      }}
+    >
       <Box width={1} display="flex" alignItems="flex-start" className={isChecked && 'completed_list'}>
         <Checkbox
           checked={isChecked}
@@ -74,7 +72,7 @@ const StyledListItem = ({ todos, item, index, onClick, isChecked }: any) => {
       </Box>
 
       <EditItem open={open} setOpen={setOpen} index={index} todos={todos} />
-    </StyledList>
+    </StyledListWrapper>
   );
 };
 

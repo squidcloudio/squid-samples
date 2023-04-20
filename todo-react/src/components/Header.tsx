@@ -5,7 +5,7 @@ import { IconButton, ListItemIcon, Menu, MenuItem } from '@mui/material';
 
 import MenuIcon from '@mui/icons-material/Menu';
 import { useCallback, useContext, useState } from 'react';
-import { ThemeContext } from '../context/ThemeContext';
+import { ThemeContext } from '../context';
 
 import LogoutIcon from '@mui/icons-material/Logout';
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';

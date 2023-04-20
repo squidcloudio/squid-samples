@@ -13,7 +13,7 @@ import { useCollection, useQuery } from '@squidcloud/react';
 import { Task } from '../interfaces/index';
 import { useParams } from 'react-router-dom';
 
-const EditItem = ({ open, setOpen, index, todos }: any) => {
+const EditItem = React.memo(({ open, setOpen, index, todos }: any) => {
   const { id } = useParams();
   const titleRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLInputElement>(null);
@@ -105,6 +105,6 @@ const EditItem = ({ open, setOpen, index, todos }: any) => {
       </div>
     </Modal>
   );
-};
+});
 
 export default EditItem;
