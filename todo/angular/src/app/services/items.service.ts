@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { TodosService } from './todos.service';
 import { Squid } from '@squidcloud/client';
-import { Item } from '../interfaces';
+import { Task } from '../interfaces';
 import { map, NEVER, Observable, switchMap } from 'rxjs';
 import { AccountService } from './account.service';
 import * as dayjs from 'dayjs';
 
 @Injectable({ providedIn: 'root' })
 export class ItemsService {
-  readonly itemCollection = this.squid.collection<Item>('items');
+  readonly itemCollection = this.squid.collection<Task>('tasks');
 
   constructor(
     private todoService: TodosService,
@@ -16,7 +16,7 @@ export class ItemsService {
     private accountService: AccountService,
   ) {}
 
-  addNewItem(item: Item): void {
+  addNewItem(item: Task): void {
     this.itemCollection.doc(item.id).insert(item).then();
   }
 
@@ -25,7 +25,7 @@ export class ItemsService {
     await this.itemCollection.doc(id).update({ completed: !currentItem?.data.completed });
   }
 
-  observeTodoItems(todoId: string): Observable<Item[]> {
+  observeTodoItems(todoId: string): Observable<Task[]> {
     const today = dayjs().format('M/D/YYYY');
     const tomorrow = dayjs().add(1, 'day').format('M/D/YYYY');
     return this.accountService.observeUser().pipe(
@@ -56,7 +56,7 @@ export class ItemsService {
     );
   }
 
-  observeItem(id: string): Observable<Item> {
+  observeItem(id: string): Observable<Task> {
     return this.itemCollection
       .query()
       .eq('id', id)
@@ -68,13 +68,13 @@ export class ItemsService {
       );
   }
 
-  async changeItem(id: string, item: Item): Promise<void> {
+  async changeItem(id: string, item: Task): Promise<void> {
     await this.itemCollection
       .doc(id)
       .update({ title: item.title, description: item.description, dueDate: item.dueDate, tags: item.tags });
   }
 
-  observeItemsSortedByDate(date: string): Observable<Item[] | []> {
+  observeItemsSortedByDate(date: string): Observable<Task[] | []> {
     return this.accountService.observeUser().pipe(
       switchMap(user => {
         if (!user) return NEVER;
@@ -92,7 +92,7 @@ export class ItemsService {
     if (id) this.itemCollection.doc(id).delete().then();
   }
 
-  observeItems(): Observable<Item[]> {
+  observeItems(): Observable<Task[]> {
     return this.accountService.observeUser().pipe(
       switchMap(user => {
         if (!user) return NEVER;

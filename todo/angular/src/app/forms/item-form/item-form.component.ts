@@ -2,7 +2,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TodosService } from '../../services/todos.service';
 import { ItemsService } from '../../services/items.service';
-import { Item, Todo } from '../../interfaces';
+import { Task, List } from '../../interfaces';
 import { DialogRef } from '@angular/cdk/dialog';
 import { AccountService } from '../../services/account.service';
 import * as dayjs from 'dayjs';
@@ -21,9 +21,9 @@ export class ItemFormComponent implements OnInit, OnDestroy {
   @Input('submitName') submitName?: string;
   @Input('date') date?: string;
   newItemForm?: FormGroup;
-  currentItem?: Item;
+  currentItem?: Task;
   itemObs?: Subscription;
-  readonly currentTodo?: Todo;
+  readonly currentTodo?: List;
 
   constructor(
     private todoService: TodosService,
@@ -31,7 +31,7 @@ export class ItemFormComponent implements OnInit, OnDestroy {
     private accountService: AccountService,
     readonly themeService: ThemeService,
   ) {
-    this.currentTodo = this.todoService.currentTodo;
+    this.currentTodo = this.todoService.currentList;
   }
 
   ngOnInit(): void {
@@ -62,7 +62,7 @@ export class ItemFormComponent implements OnInit, OnDestroy {
     const isCurrentTodoDefault =
       this.currentTodo.id === 'today' || this.currentTodo.id === 'tomorrow' || this.currentTodo.id === 'someday';
     const newId = self.crypto.randomUUID();
-    const newItem: Item = {
+    const newItem: Task = {
       title: this.newItemForm?.get('title')?.value,
       description: this.newItemForm?.get('description')?.value,
       dueDate: dayjs(this.newItemForm?.get('dueDate')?.value).format('M/D/YYYY'),

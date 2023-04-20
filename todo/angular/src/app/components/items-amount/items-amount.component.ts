@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Todo } from '../../interfaces';
+import { List } from '../../interfaces';
 import { ItemsService } from '../../services/items.service';
 import { map, Observable, of } from 'rxjs';
 
@@ -9,7 +9,7 @@ import { map, Observable, of } from 'rxjs';
   styleUrls: ['items-amount.component.scss'],
 })
 export class ItemsAmountComponent implements OnInit {
-  @Input('todo') todo?: Todo;
+  @Input('todo') todo?: List;
   amount: Observable<number> = of(0);
 
   constructor(private itemService: ItemsService) {}

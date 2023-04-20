@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { Todo } from '../../interfaces';
+import { Observable } from 'rxjs';
+import { List } from '../../interfaces';
 import { TodosService } from '../../services/todos.service';
 import { ThemeService } from '../../services/theme.service';
 
@@ -11,7 +11,7 @@ import { ThemeService } from '../../services/theme.service';
 })
 export class TodoListComponent implements OnInit {
   @Input('listType') listType!: string;
-  todoList?: Observable<Todo[]>;
+  todoList?: Observable<List[]>;
 
   constructor(private todoCollection: TodosService, readonly themeService: ThemeService) {}
 

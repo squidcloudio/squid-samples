@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormatTypes, Item } from '../../interfaces';
+import { FormatTypes, Task } from '../../interfaces';
 import * as dayjs from 'dayjs';
 import { Router } from '@angular/router';
 import { CalendarService } from '../../services/calendar.service';
@@ -14,7 +14,7 @@ import { DialogRef } from '@angular/cdk/dialog';
 })
 export class CalendarItemsComponent implements OnInit {
   @Input('dialog') dialog?: DialogRef<string>;
-  activeItemsObs?: Observable<Item[]>;
+  activeItemsObs?: Observable<Task[]>;
   readonly formatTypes = FormatTypes;
   constructor(private router: Router, readonly calendarService: CalendarService, readonly themeService: ThemeService) {}
 

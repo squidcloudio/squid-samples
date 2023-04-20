@@ -2,7 +2,7 @@
   <button class="buttons-container__component decline-button" (click)="dialog?.close()">Cancel</button>
   <button
     class="buttons-container__component submit-button"
-    [style.background-color]="todoService.currentTodo?.color"
+    [style.background-color]="todoService.currentList?.color"
     type="submit"
     [disabled]="!control.valid">
     {{ submitName }}

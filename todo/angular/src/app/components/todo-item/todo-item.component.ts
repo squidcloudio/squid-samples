@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Item } from '../../interfaces';
+import { Task } from '../../interfaces';
 import { ItemsService } from '../../services/items.service';
 import { Dialog } from '@angular/cdk/dialog';
 import { ModalWindowComponent } from '../../modal-window/modal-window.component';
@@ -12,7 +12,7 @@ import { ThemeService } from '../../services/theme.service';
   styleUrls: ['todo-item.component.scss'],
 })
 export class TodoItemComponent implements OnInit {
-  @Input('item') item?: Item;
+  @Input('item') item?: Task;
   @Input('itemId') itemId?: string;
   formatDateFormItem?: string;
   readonly modalWindowName = ModalListNames;

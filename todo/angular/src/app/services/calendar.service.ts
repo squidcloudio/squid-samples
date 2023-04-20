@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as dayjs from 'dayjs';
-import { FormatTypes, Item } from '../interfaces';
+import { FormatTypes, Task } from '../interfaces';
 import { ItemsService } from './items.service';
 import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
 
@@ -16,7 +16,7 @@ export class CalendarService {
     this.dateSubj.next(selectedDate);
   }
 
-  observeItemsOnDate(): Observable<Item[]> {
+  observeItemsOnDate(): Observable<Task[]> {
     return this.dateSubj.pipe(
       switchMap(date => {
         return this.itemService.observeItemsSortedByDate(date).pipe(

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { FormatTypes, Item } from '../../interfaces';
+import { FormatTypes, Task } from '../../interfaces';
 import { ItemsService } from '../../services/items.service';
 import { ThemeService } from '../../services/theme.service';
 import * as dayjs from 'dayjs';
@@ -14,7 +14,7 @@ import { DialogRef } from '@angular/cdk/dialog';
 })
 export class ExpiredItemsComponent implements OnInit {
   @Input('dialog') dialog?: DialogRef<string>;
-  expiredItemsObs?: Observable<Item[]>;
+  expiredItemsObs?: Observable<Task[]>;
   constructor(private itemService: ItemsService, readonly themeService: ThemeService, private router: Router) {}
 
   ngOnInit(): void {

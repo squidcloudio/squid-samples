@@ -26,7 +26,7 @@ export class ChildrenGuard implements CanActivateChild {
               return of(currentUrl);
             }
 
-            this.todoService.setCurrentTodo(result);
+            this.todoService.setCurrentList(result);
             return of(true);
           }),
         );

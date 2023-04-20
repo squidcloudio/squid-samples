@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TodosService } from '../../services/todos.service';
-import { filter, map, Observable, of, Subscription, switchMap } from 'rxjs';
-import { Item, Todo } from '../../interfaces';
+import { filter, map, Observable, Subscription } from 'rxjs';
+import { Task, List } from '../../interfaces';
 import { ActivatedRoute, Params } from '@angular/router';
 import { ItemsService } from '../../services/items.service';
 import { ThemeService } from '../../services/theme.service';
@@ -12,9 +12,9 @@ import { ThemeService } from '../../services/theme.service';
   styleUrls: ['todo-items.component.scss'],
 })
 export class TodoItemsComponent implements OnInit, OnDestroy {
-  todoObs: Observable<Todo> | undefined;
-  activeItemsObs: Observable<Item[]> | undefined;
-  completedItemsObs?: Observable<Item[]>;
+  todoObs: Observable<List> | undefined;
+  activeItemsObs: Observable<Task[]> | undefined;
+  completedItemsObs?: Observable<Task[]>;
   paramsSub: Subscription | undefined;
   queryParamsSub: Subscription | undefined;
   itemId = '';
