@@ -167,7 +167,7 @@ It means if the unauthorized user tries to get access to one of the collections 
 After logging in, the user is directed to the main page, which provides an overview of the application's features and functionality. From the main page,
 the user can access various collections and perform actions such as creating, updating, and deleting items within them:
 
-![img_1.png](img_1.png)
+![img_1.png](src/app/screenshots/img_1.png)
 
 The left sidebar on the main page contains a collection of lists. This collection includes default lists such as 'Today', 'Tomorrow', and 'Someday'.
 The 'ListService' is responsible for providing the method that allows users to access collections:
@@ -204,7 +204,7 @@ A user's collection is a custom collection that is created by the user. This col
 
 By clicking the 'New List' button, the user can create a new list using an **Angular Form** that is provided by the ListService.
 
-![img_2.png](img_2.png)
+![img_2.png](src/app/screenshots/img_2.png)
 
 **HTML**
 
@@ -239,7 +239,7 @@ This will call the `changeList()` method from the ListService, which allows the 
 
 `src/app/pages/list-tasks/list-tasks.html:`
 
-![img_10.png](src/app/screenshots/img_10.png)
+![img_10.png](src/app/screenshots/img_9.png)
 
 `src/app/services/list.service.ts:`
 
@@ -280,7 +280,7 @@ When the user clicks on a particular List, they are taken to a page displaying t
 
 `src/app/pages/list-tasks/list-tasks.component.html:`
 
-![img_13.png](src/app/screenshots/img_13.png)
+![img_13.png](src/app/screenshots/img_6.png)
 
 `src/app/services/task.service.ts:`
 
@@ -335,9 +335,9 @@ When the user clicks on the 'New Task' button, a new Task for the current List i
 
 1. When the user clicks on the pencil icon, they can edit the task by using the `changeTask()` method from the TaskService.:
 
-![img_15.png](src/app/screenshots/img_15.png)
+![img_15.png](src/app/screenshots/img_10.png)
 
-![img_16.png](src/app/screenshots/img_16.png)
+![img_16.png](src/app/screenshots/img_11.png)
 
 `src/app/services/task.service.ts:`
 
@@ -402,4 +402,4 @@ get Tasks by date:
 
 There is a list of expired tasks below the 'active tasks' section. These tasks have already passed their expiration date:
 
-![img.png](img.png)
+![img.png](src/app/screenshots/img.png)

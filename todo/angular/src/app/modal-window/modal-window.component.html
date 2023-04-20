@@ -17,7 +17,7 @@
           submitName="Add item"></app-task-form>
       </ng-container>
       <ng-container *ngIf="data.name === 'editItem'">
-        <app-task-form [dialog]="dialogRef" [taskId]="data.id" title="Edit Item" submitName="Save"></app-task-form>
+        <app-task-form [dialog]="dialogRef" [taskId]="data.id" title="Edit Task" submitName="Save"></app-task-form>
       </ng-container>
       <ng-container *ngIf="data.name === 'editTodo'">
         <app-edit-list-form [dialog]="dialogRef" [listId]="" [listId]="data.id"></app-edit-list-form>
