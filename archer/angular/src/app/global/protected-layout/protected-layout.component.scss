@@ -1,0 +1,103 @@
+@import 'colors';
+
+.global_layout {
+  .navigation_bar {
+    padding: 0 70px;
+    height: 80px;
+    width: 100%;
+    background: #23272F;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .logo {
+      cursor: pointer;
+      width: 226px;
+      height: 26px;
+      line-height: 0;
+    }
+
+    .search_input_container {
+      display: flex;
+      background: #F1F3F9;
+      border-radius: 8px;
+      align-items: center;
+      height: 40px;
+      width: 488px;
+      position: relative;
+
+      .search_icon {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        margin-left: 16px;
+        height: 16px;
+        width: 16px;
+        line-height: 0;
+        cursor: text;
+      }
+
+      .search_input {
+        padding-left: 48px;
+        flex: 1 1 auto;
+        border: none;
+        height: 100%;
+        background: transparent;
+      }
+
+      .clear_button {
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 16px;
+        position: absolute;
+        right: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: $text2;
+        cursor: pointer;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    .main_content {
+
+    }
+  }
+}
+
+::ng-deep .filtered_tickers_container {
+  border-radius: 8px !important;
+  margin-top: 12px !important;
+
+  .ticker {
+    min-height: auto !important;
+    padding-top: 12px !important;
+    padding-bottom: 12px !important;
+
+    .mdc-list-item__primary-text {
+      width: 100%;
+      display: flex;
+      align-items: center;
+
+      .ticker_id {
+        flex: 0 0 65px;
+        margin-right: 27px;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 16px;
+      }
+
+      .ticker_name {
+        flex: 1 1 auto;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 16px;
+      }
+    }
+  }
+
+}

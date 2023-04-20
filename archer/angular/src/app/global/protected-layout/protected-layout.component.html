@@ -1,0 +1,26 @@
+<div class="global_layout" *ngIf="tickersObs | async as tickers">
+  <nav class="navigation_bar">
+    <mat-icon class="logo" svgIcon="archer_logo" routerLink="/"></mat-icon>
+    <form class="search_input_container">
+      <mat-icon class="search_icon" svgIcon="search_icon" (click)="searchInput.focus()"></mat-icon>
+      <input class="search_input" placeholder="Search stock market" type="text" [formControl]="searchControl"
+             #searchInput [matAutocomplete]="auto" />
+      <div class="clear_button" *ngIf="searchControl.value" (click)="searchControl.setValue(null)">Clear</div>
+
+      <mat-autocomplete #auto="matAutocomplete" class="filtered_tickers_container">
+        <div class="filtered_tickers">
+          <mat-option class="ticker" *ngFor="let ticker of filterTickers(tickers, searchControl?.value || '')"
+                      [routerLink]="'stock/'+ticker.id"
+                      (click)="searchControl.setValue(null)"
+                      [value]="ticker.id">
+            <div class="ticker_id">{{ticker.id}}</div>
+            <div class="ticker_name">{{ticker.name}}</div>
+          </mat-option>
+        </div>
+      </mat-autocomplete>
+    </form>
+  </nav>
+  <div class="main_content">
+    <router-outlet></router-outlet>
+  </div>
+</div>

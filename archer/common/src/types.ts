@@ -5,6 +5,8 @@ export interface Ticker {
   homepageUrl: string;
   listDate: string;
   marketCap: number;
+  exchange: string;
+  phoneNumber: string;
   closePrice: number;
   openPrice: number;
   todaysChange: number;
@@ -15,7 +17,7 @@ export interface Ticker {
     city: string;
     postal_code: string;
     state: string;
-  },
+  };
 }
 
 export interface UserAsset {
@@ -39,8 +41,6 @@ export interface ArcherUser {
   picture: string | undefined;
   balance: number;
 }
-
-
 
 /** Polygon */
 export interface GeneralPolygonResponse {
@@ -123,8 +123,11 @@ export interface MarketStatusResponse {
   exchanges: {
     nasdaq: MarketExchangeStatus;
     nyse: MarketExchangeStatus;
-    otc: MarketExchangeStatus
+    otc: MarketExchangeStatus;
   };
   market: MarketExchangeStatus;
 }
 
+export interface DenyList {
+  tickerId: string;
+}
