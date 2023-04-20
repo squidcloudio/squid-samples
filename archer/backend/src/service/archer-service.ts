@@ -9,10 +9,13 @@ import {
   SnapshotTicker,
   Ticker,
   TickerDetailsResponse,
+  TickerResults,
+  TickersResponse,
   UserAsset,
 } from 'archer-common';
 import { CollectionReference } from '@squidcloud/client';
 import { PromisePool } from '@supercharge/promise-pool';
+import _ from 'lodash';
 
 // noinspection JSUnusedGlobalSymbols
 export class ArcherService extends SquidService {
@@ -22,7 +25,7 @@ export class ArcherService extends SquidService {
     return true;
   }
 
-  @scheduler('cacheTickerDetails', CronExpression.EVERY_2_HOURS)
+  @scheduler('cacheTickerDetails', CronExpression.EVERY_MINUTE)
   async cacheTickerDetails(): Promise<void> {
     /*if (!(await this.isMarketOpen())) {
       return;
@@ -30,10 +33,21 @@ export class ArcherService extends SquidService {
 
     const tickerCollection = this.getTickerCollection();
 
+    // Get all NASDAQ tickers from polygon
+    const nasdaqTickers = await this.getNasdaqTickers();
+
+    const nasdaqTickersMap = nasdaqTickers.reduce((acc, ticker) => {
+      acc[ticker.ticker] = ticker;
+      return acc;
+    }, {} as Record<string, TickerResults>);
+
     // Get all tickers from polygon
-    const snapshotsResponse = await this.squid.callApi<SnapshotsResponse>('polygon', 'tickersSnapshot');
+    const snapshotsResponse = (
+      await this.squid.callApi<SnapshotsResponse>('polygon', 'tickersSnapshot')
+    ).tickers.filter((ticker) => !!nasdaqTickersMap[ticker.ticker]);
+
     // convert snapshotResponse to a record from ticker to entire object, use a for loop instead of reduce
-    const tickerToSnapshot = snapshotsResponse.tickers.reduce((acc, ticker) => {
+    const tickerToSnapshot = snapshotsResponse.reduce((acc, ticker) => {
       acc[ticker.ticker] = ticker;
       return acc;
     }, {} as Record<string, SnapshotTicker>);
@@ -45,7 +59,7 @@ export class ArcherService extends SquidService {
     const denyList = await this.getDenyList();
     let c = 0;
 
-    await PromisePool.for(snapshotsResponse.tickers)
+    await PromisePool.for(snapshotsResponse)
       .handleError((error, ticker) => {
         console.error('Unable to process ticker', error);
         const denyListCollection = this.getDenyListCollection();
@@ -58,17 +72,15 @@ export class ArcherService extends SquidService {
       })
       .withConcurrency(10)
       .process(async (ticker) => {
-        console.log(`(${++c}/${snapshotsResponse.tickers.length}): ${ticker.ticker}`);
+        console.log(`(${++c}/${snapshotsResponse.length}): ${ticker.ticker}`);
         if (denyList.has(ticker.ticker)) {
           console.log(`${ticker.ticker} is in the deny list, skipping...`);
           return;
         }
-        let insert = false;
         const tickerSnapshot = tickerToSnapshot[ticker.ticker];
         if (!tickerSnapshot) return;
         if (!allTickers[ticker.ticker]) {
           console.log("Can't find ticker information for: ", ticker.ticker);
-          insert = true;
           // If ticker does not exist in DB, call tickerDetails API, fill in information
           const { results: tickerDetailsResponse } = await this.squid.callApi<TickerDetailsResponse>(
             'polygon',
@@ -93,21 +105,37 @@ export class ArcherService extends SquidService {
             todaysChange: tickerSnapshot.todaysChange,
             todaysChangePerc: tickerSnapshot.todaysChangePerc,
           };
-        }
-
-        const docRef = tickerCollection.doc(ticker.ticker);
-        if (insert) {
+          const docRef = tickerCollection.doc(ticker.ticker);
           await docRef.insert(allTickers[ticker.ticker]);
-        } else {
-          await docRef.update({
-            ...allTickers[ticker.ticker],
-            closePrice: tickerSnapshot.day.c,
-            openPrice: tickerSnapshot.day.o,
-            todaysChange: tickerSnapshot.todaysChange,
-            todaysChangePerc: tickerSnapshot.todaysChangePerc,
-          });
         }
       });
+
+    const snapshotPartitions = _.chunk(snapshotsResponse, 1000);
+    const startTime = Date.now();
+    await PromisePool.for(snapshotPartitions)
+      .handleError((error) => {
+        console.log('Unable to handle snapshot partition', error);
+      })
+      .withConcurrency(15)
+      .process(async (snapshotPartition, i) => {
+        console.log(`Handling snapshot partition ${i + 1}/${snapshotPartitions.length}`);
+        await this.squid.runInTransaction(async (transactionId) => {
+          for (const ticker of snapshotPartition) {
+            const docRef = tickerCollection.doc(ticker.ticker);
+            await docRef.update(
+              {
+                closePrice: ticker.day.c,
+                openPrice: ticker.day.o,
+                todaysChange: ticker.todaysChange,
+                todaysChangePerc: ticker.todaysChangePerc,
+              },
+              transactionId,
+            );
+          }
+        });
+      });
+
+    console.log('All done! Snapshots took: ', Date.now() - startTime, 'ms');
   }
 
   private async getAllTickersMap(): Promise<Record<string, Ticker>> {
@@ -250,5 +278,29 @@ export class ArcherService extends SquidService {
   private async isMarketOpen(): Promise<boolean> {
     const response = await this.squid.callApi<MarketStatusResponse>('polygon', 'marketStatus');
     return response.exchanges.nyse === 'open';
+  }
+
+  private async getNasdaqTickers(): Promise<TickerResults[]> {
+    const allResults: TickerResults[] = [];
+    let c = 0;
+    while (true) {
+      const request = {
+        market: 'stocks',
+        type: 'CS',
+        exchange: 'XNAS',
+        sort: 'ticker',
+        limit: 1000,
+      };
+      const lastResult = allResults[allResults.length - 1];
+      if (lastResult) {
+        request['ticker.gt'] = lastResult.ticker;
+      }
+      const results = (await this.squid.callApi<TickersResponse>('polygon', 'tickers', request)).results;
+      console.log(`Fetched results ${++c}: `, results.length, lastResult?.ticker || '');
+      allResults.push(...results);
+      if (results.length < 1000) {
+        return allResults;
+      }
+    }
   }
 }
