@@ -12,7 +12,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 
 import { OptionsMenu } from './MenuDetail';
 import ItemModal from '../modals/ItemModal';
-import { ThemeContext } from '../context';
+import { ThemeContext } from '../context/ThemeContext';
 
 const Calendar = ({ currentDate, setCurrentDate }: any) => {
   const { id } = useParams();
@@ -23,7 +23,7 @@ const Calendar = ({ currentDate, setCurrentDate }: any) => {
   const { theme } = useContext(ThemeContext);
 
   const [open, setOpen] = useState<boolean>(false);
-  const todosCollection = useCollection<Todo>('todos');
+  const todosCollection = useCollection<Todo>('List');
   const [todos] = useQuery(todosCollection.query().where('id', '==', `${id}`), true);
 
   const initialDayRef = useRef(moment(currentDate));

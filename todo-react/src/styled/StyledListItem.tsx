@@ -6,7 +6,7 @@ import { Checkbox, Typography, Divider, Box, IconButton } from '@mui/material';
 
 import EditIcon from '@mui/icons-material/Edit';
 import EditItem from '../modals/EditItem';
-import { ThemeContext } from '../context';
+import { ThemeContext } from '../context/ThemeContext';
 
 const StyledListItem = ({ todos, item, index, onClick, isChecked }: any) => {
   const [hoveredItem, setHoveredItem] = useState<any>(null);

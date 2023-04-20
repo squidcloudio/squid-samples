@@ -7,22 +7,20 @@ import Login from './pages/Login';
 import MainContainer from './pages/MainContainer';
 
 function App() {
-  const [avatar, setAvatar] = useState<string | undefined>('');
-  const { isAuthenticated, getIdTokenClaims } = useAuth0();
+  const { isAuthenticated, isLoading, getIdTokenClaims } = useAuth0();
   const { setAuthIdToken } = useSquid();
 
   useEffect(() => {
     const updateAuth = async () => {
+      if (isLoading) return;
       if (!isAuthenticated) {
         setAuthIdToken(undefined);
       } else {
-        const claims = await getIdTokenClaims();
-        setAuthIdToken(claims?.__raw);
-        setAvatar(claims?.picture);
+        setAuthIdToken(await getIdTokenClaims().then((claims) => claims?.__raw));
       }
     };
-    updateAuth();
-  }, [isAuthenticated, getIdTokenClaims, setAuthIdToken]);
+    updateAuth().then();
+  }, [isAuthenticated, isLoading, getIdTokenClaims, setAuthIdToken]);
 
   const router = createBrowserRouter([
     {

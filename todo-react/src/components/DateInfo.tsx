@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 import moment from 'moment';
 import { useContext, useState } from 'react';
-import { ThemeContext } from '../context';
+import { ThemeContext } from '../context/ThemeContext';
 
 import Calendar from './Calendar';
 
