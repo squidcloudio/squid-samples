@@ -13,6 +13,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { OptionsMenu } from './MenuDetail';
 import ItemModal from '../modals/ItemModal';
 import { ThemeContext } from '../context';
+import addList from '../images/Component 1.png';
 
 const Calendar = ({ currentDate, setCurrentDate }: any) => {
   const { id } = useParams();
@@ -162,9 +163,14 @@ const Calendar = ({ currentDate, setCurrentDate }: any) => {
           })}
 
           <div className={`sidebar_item-add sidebar_item-add_${theme}`} onClick={() => setOpen(true)}>
-            <button className={`sidebar_item-add-btn sidebar_item-${theme}`}>
+            {/* <button className={`sidebar_item-add-btn sidebar_item-${theme}`}>
               <span>+</span>
-              <span>New Item</span>
+              <span>New task</span>
+            </button> */}
+
+            <button className="list_button-calendar">
+              <img src={addList} alt="list" />
+              <span>New task</span>
             </button>
           </div>
         </>

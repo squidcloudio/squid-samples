@@ -235,9 +235,9 @@ header {
     }
 
     &-item {
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
+      width: 16px;
+      height: 16px;
+      border-radius: 4px;
     }
 
     &-color {
@@ -319,6 +319,28 @@ header {
   cursor: pointer;
 
   background-color: transparent;
+
+  &-calendar {
+    display: flex;
+    align-items: center;
+    border: none;
+    outline: none;
+    color: #9e9e9e;
+    cursor: pointer;
+    padding: 0 !important;
+
+    background-color: transparent;
+    font-size: 14px;
+
+    & > img {
+      width: 20px;
+      height: 20px;
+    }
+
+    & > span {
+      margin-left: 7px;
+    }
+  }
 
   & > span:last-child {
     margin-left: 15px;
@@ -559,7 +581,7 @@ th {
     align-items: center;
     justify-content: space-between;
     border-radius: 8px;
-    padding: 12px;
+    padding: 12px 5px;
     margin: 5px 0;
     cursor: pointer;
 
@@ -571,12 +593,10 @@ th {
       &_dark {
         background-color: transparent;
       }
-      background-color: #f7f7f7;
       font-size: 14px;
       font-weight: 500;
       line-height: 15px;
       border-radius: 8px;
-      padding: 12px;
       cursor: pointer;
 
       margin-top: 15px;
@@ -606,8 +626,8 @@ th {
 
     &-color {
       & > div {
-        width: 10px;
-        height: 10px;
+        width: 12px;
+        height: 12px;
         margin-right: 10px;
         border-radius: 3px;
       }
