@@ -1,6 +1,6 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { useSquid } from '@squidcloud/react';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import Login from './pages/Login';
@@ -21,6 +21,16 @@ function App() {
     };
     updateAuth().then();
   }, [isAuthenticated, isLoading, getIdTokenClaims, setAuthIdToken]);
+
+  useEffect(() => {
+    const fetchIdToken = async () => {
+      const claims = await getIdTokenClaims();
+      if (claims) {
+        setAuthIdToken(claims.__raw);
+      }
+    };
+    fetchIdToken();
+  }, [getIdTokenClaims, setAuthIdToken]);
 
   const router = createBrowserRouter([
     {

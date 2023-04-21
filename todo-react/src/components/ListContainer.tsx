@@ -1,34 +1,21 @@
 import { Box, Divider } from '@mui/material';
-import { useCollection, useQuery } from '@squidcloud/react';
-import { useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useState } from 'react';
 
 import addList from '../images/Component 1.png';
 
 import { NavLink, useParams } from 'react-router-dom';
 import ListModal from '../modals/ListModal';
-import { Task } from '../interfaces/index';
 import { ThemeContext } from '../context';
 
-const ListContainer = ({ todosList, collection }: any) => {
+const ListContainer = ({ todosList, collection, datesList }: any) => {
   const { id } = useParams();
-  const itemsCollection = useCollection<Task>('tasks');
   const { theme } = useContext(ThemeContext);
-
-  const items2 = useQuery(itemsCollection.query().where('todoId', '==', `${id}`), true);
-
-  const [itemLength, setItemLength] = useState(0);
-
-  useEffect(() => {
-    setItemLength(items2.length);
-  }, [itemLength, items2.length]);
 
   const [open, setOpen] = useState<boolean>(false);
 
-  const datesList = useQuery(collection.query().where('title', 'in', ['Today', 'Tomorrow', 'Someday']), true);
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
+  const handleOpen = useCallback((value: any) => {
+    setOpen(value);
+  }, []);
 
   return (
     <>

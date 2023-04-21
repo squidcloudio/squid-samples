@@ -557,6 +557,10 @@ th {
     margin: 5px 0;
     cursor: pointer;
 
+    & > div:first-child {
+      flex: 1;
+    }
+
     &-add {
       &_dark {
         background-color: transparent;

@@ -10,12 +10,20 @@ import { ThemeContext } from '../context';
 import LogoutIcon from '@mui/icons-material/Logout';
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
+import { useCollection, useQuery } from '@squidcloud/react';
+import { List, Task } from '../interfaces/index';
+import { useParams } from 'react-router-dom';
 
-const Header = ({ setDrawerOpen, todos }: any) => {
+const Header = ({ setDrawerOpen }: any) => {
+  const { id } = useParams();
+
   const { user, logout } = useAuth0();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const { theme, setTheme } = useContext(ThemeContext);
+
+  const todosCollection = useCollection<List>('lists');
+  const [todos] = useQuery(todosCollection.query().where('id', '==', `${id}`), true);
 
   const handleClick = useCallback(() => {
     setTheme(theme === 'light' ? 'dark' : 'light');

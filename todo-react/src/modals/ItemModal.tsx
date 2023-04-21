@@ -5,16 +5,22 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import dayjs from 'dayjs';
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import TagsInput from '../components/TagsInput';
 
 import { StyledDatePicker } from '../styled/StyledDatePicker';
 import { CssTextField } from '../styled/CssTextField';
 import uuid from 'react-uuid';
+import { useCollection, useQuery } from '@squidcloud/react';
+import { Task } from '../interfaces';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const ItemModal = ({ collection, todos, open, setOpen, fromCalendar }: any) => {
   const titleRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLInputElement>(null);
+  const datePickerRef = useRef<HTMLDivElement>(null);
+
+  const { user } = useAuth0();
 
   const [value, setValue] = useState<any>(null);
   const [tags, setTags] = useState<any>([]);
@@ -22,6 +28,17 @@ const ItemModal = ({ collection, todos, open, setOpen, fromCalendar }: any) => {
   const removeTag = (idx: number) => {
     setTags(tags.filter((_: any, i: any) => i !== idx));
   };
+  const todosCollection = useCollection<Task>('tasks');
+
+  const items = useQuery(todosCollection.query().where('userId', '==', `${user?.sub}`), true);
+
+  // const [currentItem] = items.filter((el, i) => el.data.id === index);
+
+  // useEffect(() => {
+  //   if (fromCalendar) {
+  //     setValue(currentItem?.data.dueDate);
+  //   }
+  // }, []);
 
   const handleTags = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key !== 'Enter') return;
@@ -72,8 +89,9 @@ const ItemModal = ({ collection, todos, open, setOpen, fromCalendar }: any) => {
             <StyledDatePicker
               className="datepicker"
               value={value}
-              defaultValue={dayjs(value)}
+              // defaultValue={dayjs(value)}
               onChange={(newValue: any) => setValue(newValue)}
+              ref={datePickerRef}
             />
           </DemoContainer>
         </LocalizationProvider>

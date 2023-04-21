@@ -2,7 +2,7 @@ import { List } from '@mui/material';
 
 import addList from '../images/Component 1.png';
 
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useContext, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@squidcloud/react';
 
@@ -10,8 +10,9 @@ import ItemModal from '../modals/ItemModal';
 import StyledListItem from '../styled/StyledListItem';
 import moment from 'moment';
 import { useAuth0 } from '@auth0/auth0-react';
+import { ThemeContext } from '../context';
 
-const TodoList = ({ itemsCollection, todos, theme }: any) => {
+const TodoList = ({ itemsCollection, todos }: any) => {
   const { id } = useParams();
   const { user } = useAuth0();
   const [currentDate] = useState(moment());
@@ -20,6 +21,8 @@ const TodoList = ({ itemsCollection, todos, theme }: any) => {
   const tomorrow = moment().add(1, 'day').startOf('day').format('M/D/YYYY'); // create a Moment object for tomorrow's date
 
   const [open, setOpen] = useState<boolean>(false);
+
+  const { theme } = useContext(ThemeContext);
 
   const allItems = useQuery(
     itemsCollection.query().where('userId', '==', `${user?.sub}`).where('todoId', '==', `${id}`),
@@ -73,10 +76,10 @@ const TodoList = ({ itemsCollection, todos, theme }: any) => {
           .map((item: any, i: any) => (
             <StyledListItem
               isChecked={false}
-              key={i}
+              key={item.data.id}
               todos={todos}
               item={item}
-              index={i}
+              index={item.data.id}
               onClick={() => changeStatusToCompleted(item.data.id)}
             />
           ))}

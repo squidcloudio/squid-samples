@@ -7,15 +7,21 @@ import ThreeDotsIcon from '../images/Union.svg';
 import EditModal from '../modals/EditListModal';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@squidcloud/react';
+import EditItem from '../modals/EditItem';
+import { useAuth0 } from '@auth0/auth0-react';
 
-export const OptionsMenu = ({ todosCollection, itemsCollection }: any) => {
+export const OptionsMenu = ({ todosCollection, itemsCollection, isEditable, index }: any) => {
   const { id } = useParams();
+  const { user } = useAuth0();
   const navigate = useNavigate();
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [open, setOpen] = useState<boolean>(false);
 
-  const items = useQuery(itemsCollection.query().where('todoId', '==', `${id}`), true);
+  const items = useQuery(itemsCollection.query().where('userId', '==', `${user?.sub}`), true);
+  const [todos] = useQuery(todosCollection.query().where('id', '==', `${id}`), true);
+
+  const [currentItem] = items.filter((el) => el.data.id === index);
 
   const deleteItems = () => {
     items.forEach((el) => {
@@ -35,6 +41,10 @@ export const OptionsMenu = ({ todosCollection, itemsCollection }: any) => {
     deleteItems();
     todosCollection.doc(id).delete();
     navigate('/');
+  };
+
+  const deleteCurrentItem = () => {
+    itemsCollection.doc(currentItem.data.id).delete();
   };
 
   return (
@@ -58,14 +68,15 @@ export const OptionsMenu = ({ todosCollection, itemsCollection }: any) => {
           </ListItemIcon>
           Edit
         </MenuItem>
-        <MenuItem onClick={deleteTodo}>
+        <MenuItem onClick={index ? deleteCurrentItem : deleteTodo}>
           <ListItemIcon>
             <DeleteIcon fontSize="small" />
           </ListItemIcon>
           Delete
         </MenuItem>
       </Menu>
-      <EditModal collection={todosCollection} id={id} open={open} setOpen={setOpen} />
+      {!isEditable && <EditModal collection={todosCollection} id={id} open={open} setOpen={setOpen} />}
+      {isEditable && <EditItem open={open} setOpen={setOpen} index={index} todos={todos} />}
     </>
   );
 };

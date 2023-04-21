@@ -11,19 +11,20 @@ import { CssTextField } from '../styled/CssTextField';
 import uuid from 'react-uuid';
 import { useCollection, useQuery } from '@squidcloud/react';
 import { Task } from '../interfaces/index';
-import { useParams } from 'react-router-dom';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const EditItem = React.memo(({ open, setOpen, index, todos }: any) => {
-  const { id } = useParams();
   const titleRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLInputElement>(null);
   const datePickerRef = useRef<HTMLDivElement>(null);
+  const { user } = useAuth0();
 
   const todosCollection = useCollection<Task>('tasks');
 
-  const items = useQuery(todosCollection.query().where('todoId', '==', `${id}`), true);
+  const items = useQuery(todosCollection.query().where('userId', '==', `${user?.sub}`), true);
 
-  const currentItem = items[index];
+  // const currentItem = items[index];
+  const [currentItem] = items.filter((el) => el.data.id === index);
 
   const [value, setValue] = useState<any>('');
   const [tags, setTags] = useState<any>([]);

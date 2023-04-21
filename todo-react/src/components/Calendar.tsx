@@ -142,13 +142,19 @@ const Calendar = ({ currentDate, setCurrentDate }: any) => {
 
             if (dueDate.isSame(currentDate) && el.data.completed === false) {
               return (
-                <div className="sidebar_item" key={i} onClick={() => navigate(`/${el.data.todoId}`)}>
-                  <div className="sidebar_item-color">
-                    <div style={{ backgroundColor: el.data.todoColor }}></div>
-                    <span>{el.data.title}</span>
+                <div key={i} className="sidebar_item">
+                  <div onClick={() => navigate(`/${el.data.todoId}`)}>
+                    <div className="sidebar_item-color">
+                      <div style={{ backgroundColor: el.data.todoColor }}></div>
+                      <span>{el.data.title}</span>
+                    </div>
                   </div>
-
-                  {/* <OptionsMenu itemsCollection={itemsCollection} /> */}
+                  <OptionsMenu
+                    itemsCollection={itemsCollection}
+                    todosCollection={todosCollection}
+                    isEditable={true}
+                    index={el.data.id}
+                  />
                 </div>
               );
             }
@@ -172,7 +178,7 @@ const Calendar = ({ currentDate, setCurrentDate }: any) => {
         {overdueDates}
       </div>
 
-      <ItemModal collection={itemsCollection} todos={todos} open={open} setOpen={setOpen} items={items} />
+      <ItemModal collection={itemsCollection} todos={todos} open={open} setOpen={setOpen} fromCalendar={true} />
     </div>
   );
 };

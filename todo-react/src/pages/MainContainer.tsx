@@ -38,17 +38,18 @@ const MainContainer = React.memo(() => {
   const itemsCollection = useCollection<Task>('tasks');
 
   const [todos] = useQuery(todosCollection.query().where('id', '==', `${id}`), true);
+  const datesList = useQuery(todosCollection.query().where('title', 'in', ['Today', 'Tomorrow', 'Someday']), true);
 
   const todosList = useQuery(todosCollection.query().where('userId', '==', `${user?.sub}`), true);
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
       <Stack className={`theme-${theme}`}>
-        <Header setDrawerOpen={setDrawerOpen} todosCollection={todosCollection} todos={todos} />
+        <Header setDrawerOpen={setDrawerOpen} />
         <Box px={10} py={7}>
           <Drawer anchor="left" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
             <Box className="sidebar_menu" sx={{ backgroundColor: theme === 'light' ? '#fff' : '#1b1f27' }}>
-              <ListContainer todosList={todosList} collection={todosCollection} />
+              <ListContainer todosList={todosList} collection={todosCollection} datesList={datesList} />
               <div className="sidebar_profile">
                 <IconButton style={{ color: theme === 'dark' ? '#fff' : '#000' }}>
                   {theme === 'dark' ? (
@@ -72,7 +73,7 @@ const MainContainer = React.memo(() => {
           <Grid container spacing={5}>
             <Grid item xs={12} md={3} lg={2} className="list">
               <Box className="list_container" sx={{ display: { xs: 'none', md: 'block' } }}>
-                <ListContainer todosList={todosList} collection={todosCollection} />
+                <ListContainer todosList={todosList} collection={todosCollection} datesList={datesList} />
               </Box>
             </Grid>
 
