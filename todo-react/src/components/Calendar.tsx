@@ -163,11 +163,6 @@ const Calendar = ({ currentDate, setCurrentDate }: any) => {
           })}
 
           <div className={`sidebar_item-add sidebar_item-add_${theme}`} onClick={() => setOpen(true)}>
-            {/* <button className={`sidebar_item-add-btn sidebar_item-${theme}`}>
-              <span>+</span>
-              <span>New task</span>
-            </button> */}
-
             <button className="list_button-calendar">
               <img src={addList} alt="list" />
               <span>New task</span>

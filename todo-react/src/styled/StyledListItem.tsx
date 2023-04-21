@@ -35,6 +35,7 @@ const StyledListItem = ({ todos, item, index, onClick, isChecked }: any) => {
           onClick={onClick}
           size="small"
           sx={{
+            color: theme === 'dark' ? '#fff' : '#23272F',
             '&.Mui-checked': {
               color: todos ? todos.data.color : '',
             },
@@ -51,7 +52,9 @@ const StyledListItem = ({ todos, item, index, onClick, isChecked }: any) => {
           <Typography pb={1} className={isChecked ? 'completed' : ''}>
             {item.data.title}
           </Typography>
-          <Typography mb={1}>{item.data.description}</Typography>
+          <Typography mb={1} className={`span-${theme}`}>
+            {item.data.description}
+          </Typography>
           <Divider color="#E1E6EF" />
           <Box pt={1} display="flex" justifyContent="space-between" flexWrap="wrap">
             <Typography>
