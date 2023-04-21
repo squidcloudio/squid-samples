@@ -4,31 +4,26 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { IconButton, ListItemIcon, Menu, MenuItem } from '@mui/material';
 
 import MenuIcon from '@mui/icons-material/Menu';
-import { useCallback, useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import { ThemeContext } from '../context';
 
 import LogoutIcon from '@mui/icons-material/Logout';
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
 import { useCollection, useQuery } from '@squidcloud/react';
-import { List, Task } from '../interfaces/index';
+import { List } from '../interfaces/index';
 import { useParams } from 'react-router-dom';
 
-const Header = ({ setDrawerOpen }: any) => {
+const Header = ({ setDrawerOpen, onThemeToggle }: any) => {
   const { id } = useParams();
 
   const { user, logout } = useAuth0();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
-  const { theme, setTheme } = useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext);
 
   const todosCollection = useCollection<List>('lists');
   const [todos] = useQuery(todosCollection.query().where('id', '==', `${id}`), true);
-
-  const handleClick = useCallback(() => {
-    setTheme(theme === 'light' ? 'dark' : 'light');
-    console.log('theme', theme);
-  }, [setTheme, theme]);
 
   const handleCloseMenu = () => {
     setAnchorEl(null);
@@ -42,7 +37,7 @@ const Header = ({ setDrawerOpen }: any) => {
         </IconButton>
         <div className="logo">
           <img src={vector} alt="" />
-          <img src={td} alt="" onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')} />
+          <img src={td} alt="" />
         </div>
         <div>
           <img
@@ -62,7 +57,7 @@ const Header = ({ setDrawerOpen }: any) => {
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       >
-        <MenuItem onClick={handleClick}>
+        <MenuItem onClick={onThemeToggle}>
           <ListItemIcon>
             {theme === 'dark' ? <LightModeOutlinedIcon fontSize="small" /> : <DarkModeOutlinedIcon fontSize="small" />}
           </ListItemIcon>

@@ -48,7 +48,7 @@ const StyledListItem = ({ todos, item, index, onClick, isChecked }: any) => {
         )}
 
         <Box width={1} mt={1}>
-          <Typography pb={1} className={isChecked && 'completed'}>
+          <Typography pb={1} className={isChecked ? 'completed' : ''}>
             {item.data.title}
           </Typography>
           <Typography mb={1}>{item.data.description}</Typography>

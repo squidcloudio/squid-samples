@@ -20,6 +20,7 @@ const Calendar = ({ currentDate, setCurrentDate }: any) => {
   const [hoveredDay, setHoveredDay] = useState<any>(null);
   const [selectedDay, setSelectedDay] = useState<any>(currentDate);
   const navigate = useNavigate();
+
   const { theme } = useContext(ThemeContext);
 
   const [open, setOpen] = useState<boolean>(false);

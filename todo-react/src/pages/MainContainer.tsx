@@ -1,9 +1,9 @@
-import { useState, useContext, useEffect } from 'react';
+import { useState, useCallback } from 'react';
 
 import { useAuth0 } from '@auth0/auth0-react';
 import { Drawer, Grid, IconButton, Stack, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import { useCollection, useQuery, useSquid } from '@squidcloud/react';
+import { useCollection, useQuery } from '@squidcloud/react';
 import CompletedList from '../components/CompletedList';
 import ListContainer from '../components/ListContainer';
 import { OptionsMenu } from '../components/MenuDetail';
@@ -23,10 +23,16 @@ import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
 import LogoutIcon from '@mui/icons-material/Logout';
 import React from 'react';
+import { useTheme } from '../context/ThemeContext';
 
 const MainContainer = React.memo(() => {
   const isSmallScreen = useMediaQuery('(min-width:1200px)');
-  const { theme, setTheme } = useContext(ThemeContext);
+
+  const { theme, setTheme } = useTheme();
+
+  const handleThemeToggle = useCallback(() => {
+    setTheme(theme === 'light' ? 'dark' : 'light');
+  }, [setTheme, theme]);
 
   const { id } = useParams();
 
@@ -45,7 +51,7 @@ const MainContainer = React.memo(() => {
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
       <Stack className={`theme-${theme}`}>
-        <Header setDrawerOpen={setDrawerOpen} />
+        <Header setDrawerOpen={setDrawerOpen} onThemeToggle={handleThemeToggle} />
         <Box px={10} py={7}>
           <Drawer anchor="left" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
             <Box className="sidebar_menu" sx={{ backgroundColor: theme === 'light' ? '#fff' : '#1b1f27' }}>
@@ -95,7 +101,7 @@ const MainContainer = React.memo(() => {
                 <Box className="calendar_icon">
                   <IconButton
                     onClick={() => setOpen(true)}
-                    style={{ backgroundColor: todos ? todos.data.color : '#dad' }}
+                    style={{ backgroundColor: todos ? todos.data.color : '#14BE6e' }}
                   >
                     <CalendarTodayIcon fontSize="small" />
                   </IconButton>
