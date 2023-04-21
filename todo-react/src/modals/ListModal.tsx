@@ -1,5 +1,5 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import { MenuItem, Modal, Select, SelectChangeEvent } from '@mui/material';
+import { MenuItem, Modal, Select, SelectChangeEvent, Box } from '@mui/material';
 import { useQuery } from '@squidcloud/react';
 import { useState, useRef } from 'react';
 import uuid from 'react-uuid';
@@ -36,16 +36,31 @@ const ListModal = ({ id, collection, open, setOpen }: any) => {
           className="modal_container-select"
           value={color}
           onChange={(e: SelectChangeEvent) => setColor(e.target.value)}
+          sx={{ '& .MuiMenuItem-root': { display: 'flex', alignItems: 'center' } }}
         >
           {colors.map((item) => {
             return (
               <MenuItem className="modal_container-menu" value={item.color} key={item.title}>
-                <span className="modal_container-item" style={{ backgroundColor: `${item.color}` }}></span>
-                <span className="modal_container-color">{item.title}</span>
+                <div className="modal_container-in">
+                  <div className="modal_container-item" style={{ backgroundColor: `${item.color}` }}></div>
+                  <div className="modal_container-color">{item.title}</div>
+                </div>
               </MenuItem>
             );
           })}
         </Select>
+        {/* <Select
+          value={color}
+          onChange={(e) => setColor(e.target.value)}
+          sx={{ '& .MuiMenuItem-root': { display: 'flex', alignItems: 'center' } }}
+        >
+          {colors.map((item) => (
+            <MenuItem value={item.color} key={item.title}>
+              <Box sx={{ width: '10px', height: '10px', backgroundColor: item.color, marginRight: '10px' }} />
+              <span>{item.title}</span>
+            </MenuItem>
+          ))}
+        </Select> */}
         <div>
           <button onClick={() => setOpen(false)}>Cancel</button>
           <button onClick={createNewList} style={{ backgroundColor: todos ? todos.data.color : '#14BE6E' }}>

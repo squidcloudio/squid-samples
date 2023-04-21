@@ -20,8 +20,9 @@ const ListContainer = ({ todosList, collection, datesList }: any) => {
   return (
     <>
       <ul>
-        {datesList.map((todo: any) => {
+        {datesList.map((todo: any, i: any) => {
           const { id, title, color } = todo.data;
+          // let currentTodoLength = datesList[i]; // Get the length for this item
 
           return (
             <div className="navlink" key={id}>
@@ -37,7 +38,7 @@ const ListContainer = ({ todosList, collection, datesList }: any) => {
               >
                 <div className="navlink_content-color" style={{ backgroundColor: `${color}` }}></div>
                 <div className="navlink_content-title">{title}</div>
-                <div className="navlink_content-amount">{0}</div>
+                <div className="navlink_content-amount">{3}</div>
               </NavLink>
             </div>
           );

@@ -193,6 +193,11 @@ header {
   justify-content: center;
 
   &_container {
+    &-in {
+      display: flex;
+      align-items: center;
+    }
+
     background-color: #fff;
     border-radius: 12px;
     padding: 48px;
