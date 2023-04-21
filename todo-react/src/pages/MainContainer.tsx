@@ -57,21 +57,21 @@ const MainContainer = React.memo(() => {
             <Box className="sidebar_menu" sx={{ backgroundColor: theme === 'light' ? '#fff' : '#1b1f27' }}>
               <ListContainer todosList={todosList} collection={todosCollection} datesList={datesList} />
               <div className="sidebar_profile">
-                <IconButton style={{ color: theme === 'dark' ? '#fff' : '#000' }}>
+                <button style={{ color: theme === 'dark' ? '#fff' : '#000' }} onClick={handleThemeToggle}>
                   {theme === 'dark' ? (
                     <LightModeOutlinedIcon fontSize="small" />
                   ) : (
                     <DarkModeOutlinedIcon fontSize="small" />
                   )}
                   <span>{theme === 'dark' ? 'Light' : 'Dark'} mode</span>
-                </IconButton>
-                <IconButton
+                </button>
+                <button
                   onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
-                  style={{ color: theme === 'dark' ? '#fff' : '000' }}
+                  style={{ color: theme === 'dark' ? '#fff' : '#000' }}
                 >
                   <LogoutIcon fontSize="small" />
                   <span>Logout</span>
-                </IconButton>
+                </button>
               </div>
             </Box>
           </Drawer>
