@@ -556,6 +556,7 @@ th {
 .sidebar {
   &_item {
     display: flex;
+    align-items: center;
     justify-content: space-between;
     border-radius: 8px;
     padding: 12px;
