@@ -64,7 +64,7 @@ const ItemModal = ({ collection, todos, open, setOpen, fromCalendar }: any) => {
   return (
     <Modal className="modal" open={open} onClose={() => setOpen(false)}>
       <div className="modal_container">
-        <p>Add New Item</p>
+        <p>Add new item</p>
         <CssTextField label="Title" inputRef={titleRef} className="modal_container-input" />
         <CssTextField label="Description" inputRef={descriptionRef} />
 

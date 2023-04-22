@@ -19,7 +19,7 @@ const EditModal = ({ collection, id, open, setOpen }: any) => {
   return (
     <Modal className="modal" open={open} onClose={() => setOpen(false)}>
       <div className="modal_container">
-        <p>Edit Label</p>
+        <p>Edit label</p>
         <input type="text" placeholder="Title" ref={titleRef} defaultValue={todos?.data.title} />
 
         <div>

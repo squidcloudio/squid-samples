@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Menu, MenuItem, IconButton, ListItemIcon } from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
 import ThreeDotsIcon from '../images/Union.svg';
 import EditModal from '../modals/EditListModal';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@squidcloud/react';
 import EditItem from '../modals/EditItem';
 import { useAuth0 } from '@auth0/auth0-react';
+import EditButton from '../images/EditButton';
+import DeleteButton from './DeleteButton';
 
 export const OptionsMenu = ({ todosCollection, itemsCollection, isEditable, index }: any) => {
   const { id } = useParams();
@@ -64,13 +64,13 @@ export const OptionsMenu = ({ todosCollection, itemsCollection, isEditable, inde
       >
         <MenuItem onClick={() => setOpen(true)}>
           <ListItemIcon>
-            <EditIcon fontSize="small" />
+            <EditButton />
           </ListItemIcon>
           Edit
         </MenuItem>
         <MenuItem onClick={index ? deleteCurrentItem : deleteTodo}>
           <ListItemIcon>
-            <DeleteIcon fontSize="small" />
+            <DeleteButton />
           </ListItemIcon>
           Delete
         </MenuItem>

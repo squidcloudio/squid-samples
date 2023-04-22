@@ -2,7 +2,7 @@ import { useContext, useState } from 'react';
 
 import { Checkbox, Typography, Divider, Box, IconButton } from '@mui/material';
 
-import EditIcon from '@mui/icons-material/Edit';
+import EditButton from '../images/EditButton';
 import EditItem from '../modals/EditItem';
 import { ThemeContext } from '../context';
 import StyledListWrapper from './StyledList';
@@ -44,7 +44,7 @@ const StyledListItem = ({ todos, item, index, onClick, isChecked }: any) => {
 
         {hoveredItem === index && !isChecked && (
           <IconButton onClick={() => setOpen(true)} style={{ position: 'absolute', top: '10px', right: '10px' }}>
-            <EditIcon fontSize="small" style={{ color: theme === 'dark' ? '#fff' : '#000' }} />
+            <EditButton />
           </IconButton>
         )}
 

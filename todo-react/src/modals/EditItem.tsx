@@ -75,7 +75,7 @@ const EditItem = React.memo(({ open, setOpen, index, todos }: any) => {
   return (
     <Modal className="modal" open={open} onClose={() => setOpen(false)}>
       <div className="modal_container">
-        <p>Edit Item</p>
+        <p>Edit item</p>
         <CssTextField
           label="Title"
           inputRef={titleRef}
