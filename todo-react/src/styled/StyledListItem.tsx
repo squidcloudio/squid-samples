@@ -42,10 +42,17 @@ const StyledListItem = ({ todos, item, index, onClick, isChecked }: any) => {
           }}
         />
 
-        {hoveredItem === index && !isChecked && (
-          <IconButton onClick={() => setOpen(true)} style={{ position: 'absolute', top: '10px', right: '10px' }}>
-            <EditButton />
-          </IconButton>
+        {hoveredItem === index && !isChecked && !open && (
+          <Box>
+            <IconButton
+              onClick={() => {
+                setOpen(true);
+              }}
+              style={{ position: 'absolute', top: '10px', right: '10px' }}
+            >
+              <EditButton />
+            </IconButton>
+          </Box>
         )}
 
         <Box width={1} mt={1}>

@@ -35,17 +35,19 @@ const Header = ({ setDrawerOpen, onThemeToggle }: any) => {
         <IconButton onClick={() => setDrawerOpen(true)} className="burger">
           <MenuIcon sx={{ display: { xs: 'block', md: 'none' } }} />
         </IconButton>
-        <div className="logo">
-          <img src={vector} alt="" />
-          <img src={td} alt="" />
-        </div>
-        <div>
-          <img
-            src={user?.picture}
-            alt="avatar"
-            className="header_avatar"
-            onClick={(e) => setAnchorEl(e.currentTarget)}
-          />
+        <div className="header_container">
+          <div className="logo">
+            <img src={vector} alt="" />
+            <img src={td} alt="" />
+          </div>
+          <div>
+            <img
+              src={user?.picture}
+              alt="avatar"
+              className="header_avatar"
+              onClick={(e) => setAnchorEl(e.currentTarget)}
+            />
+          </div>
         </div>
       </header>
 

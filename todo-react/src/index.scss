@@ -104,6 +104,14 @@ header {
   align-items: center;
   padding: 0 70px;
 
+  &_container {
+    width: 100%;
+    max-width: 1470px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+  }
+
   &_left {
     display: flex;
     align-items: center;
@@ -129,7 +137,7 @@ header {
 
   div:last-child img {
     &:first-child {
-      margin-right: 50px;
+      margin-right: 10px;
       cursor: pointer;
     }
   }
@@ -547,8 +555,13 @@ th {
 
   &_due-item {
     display: flex;
+    align-items: center;
     justify-content: space-between;
     cursor: pointer;
+
+    & > p {
+      max-width: 150px;
+    }
   }
 
   &_dot {
@@ -713,10 +726,40 @@ th {
   }
 }
 
+@media screen and (min-width: 1584px) {
+  .css-sv19ot {
+    display: flex;
+    justify-content: center;
+  }
+  .css-1ld3b9g-MuiGrid-root {
+    max-width: 1500px;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .css-1ld3b9g-MuiGrid-root > .MuiGrid-item {
+    padding-top: 0 !important;
+  }
+}
+@media screen and (min-width: 378px) and (max-width: 767px) {
+  .calendar_box {
+    padding: 24px;
+    min-width: 280px;
+    border-radius: 12px 12px 0 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+}
 @media screen and (max-width: 500px) {
   .calendar_icon {
     display: none;
     background-color: transparent;
+  }
+
+  .css-1ld3b9g-MuiGrid-root > .MuiGrid-item {
+    padding-top: 0 !important;
   }
 
   .css-1ld3b9g-MuiGrid-root > .MuiGrid-item {
