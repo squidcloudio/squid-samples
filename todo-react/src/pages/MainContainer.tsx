@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 
 import { useAuth0 } from '@auth0/auth0-react';
-import { Drawer, Grid, IconButton, Stack, Typography } from '@mui/material';
+import { Divider, Drawer, Grid, IconButton, Stack, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { useCollection, useQuery } from '@squidcloud/react';
 import CompletedList from '../components/CompletedList';
@@ -82,6 +82,15 @@ const MainContainer = React.memo(() => {
                 <ListContainer todosList={todosList} collection={todosCollection} datesList={datesList} />
               </Box>
             </Grid>
+
+            <div className="active_navlink active_navlink-tab">
+              <div className="sidebar_item-color">
+                <div style={{ backgroundColor: todos?.data.color }}></div>
+                <span>{todos?.data.title}</span>
+              </div>
+
+              <Divider className={`divider-${theme}`} />
+            </div>
 
             <Grid item xs={12} md={9} lg={7}>
               <Box display="flex" justifyContent="space-between">
