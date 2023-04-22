@@ -78,7 +78,12 @@ const Calendar = ({ currentDate, setCurrentDate }: any) => {
       if (momentDate.isBefore(todayDate)) {
         const daysAgo = momentDate.from(todayDate, true);
         return (
-          <div className="overdue_due-item" key={i} style={{ color: theme === 'dark' ? '#fff' : '#000' }}>
+          <div
+            className="overdue_due-item"
+            key={i}
+            style={{ color: theme === 'dark' ? '#fff' : '#000' }}
+            onClick={() => navigate(`/${el.data.todoId}`)}
+          >
             <p>{el.data.title}</p>
             <p>{daysAgo} ago</p>
           </div>

@@ -548,6 +548,7 @@ th {
   &_due-item {
     display: flex;
     justify-content: space-between;
+    cursor: pointer;
   }
 
   &_dot {
