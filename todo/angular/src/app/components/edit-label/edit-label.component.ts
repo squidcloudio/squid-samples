@@ -7,14 +7,15 @@ import { TaskService } from '../../services/task.service';
 import { ThemeService } from '../../services/theme.service';
 
 @Component({
-  selector: 'app-edit-list',
-  templateUrl: './edit-list.component.html',
-  styleUrls: ['./edit-list.component.scss'],
+  selector: 'app-edit-label',
+  templateUrl: './edit-label.component.html',
+  styleUrls: ['./edit-label.component.scss'],
 })
-export class EditListComponent {
+export class EditLabelComponent {
   @Input('listTitle') listTitle?: string;
   @Input('id') id?: string;
   @Input('type') type?: string;
+  @Input('labelType') labelType?: string;
   readonly modalListNames = ModalListNames;
   constructor(
     private listService: ListService,
@@ -33,7 +34,9 @@ export class EditListComponent {
   openModalWindow(): void {
     const dialogRef =
       this.type === 'list'
-        ? this.dialog.open(ModalWindowComponent, { data: { name: this.modalListNames.editList, id: this.id } })
+        ? this.dialog.open(ModalWindowComponent, {
+            data: { name: this.modalListNames.editLabel, id: this.id, labelType: this.labelType },
+          })
         : this.dialog.open(ModalWindowComponent, { data: { name: this.modalListNames.editTask, id: this.id } });
 
     dialogRef.closed.subscribe();

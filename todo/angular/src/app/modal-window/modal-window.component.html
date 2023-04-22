@@ -16,11 +16,11 @@
           title="Add New Item"
           submitName="Add item"></app-task-form>
       </ng-container>
-      <ng-container *ngIf="data.name === 'editItem'">
+      <ng-container *ngIf="data.name === 'editTask'">
         <app-task-form [dialog]="dialogRef" [taskId]="data.id" title="Edit Task" submitName="Save"></app-task-form>
       </ng-container>
-      <ng-container *ngIf="data.name === 'editTodo'">
-        <app-edit-list-form [dialog]="dialogRef" [listId]="" [listId]="data.id"></app-edit-list-form>
+      <ng-container *ngIf="data.name === 'editLabel'">
+        <app-edit-label-form [dialog]="dialogRef"  [listId]="data.id" [labelType]="data.labelType"></app-edit-label-form>
       </ng-container>
     </div>
   </div>

@@ -25,7 +25,7 @@ export class TaskService {
     await this.taskCollection.doc(id).update({ completed: !currentItem?.data.completed });
   }
 
-  observeTaskList(todoId: string): Observable<Task[]> {
+  observeTaskList(listId: string): Observable<Task[]> {
     const today = dayjs().format('M/D/YYYY');
     const tomorrow = dayjs().add(1, 'day').format('M/D/YYYY');
     return this.accountService.observeUser().pipe(
@@ -33,7 +33,7 @@ export class TaskService {
         if (!user) return NEVER;
         const query = this.taskCollection.query().eq('userId', user.id);
 
-        switch (todoId) {
+        switch (listId) {
           case 'today':
             query.eq('dueDate', today);
             break;
@@ -46,10 +46,10 @@ export class TaskService {
           default:
             return this.taskCollection
               .query()
-              .eq('todoId', todoId)
+              .eq('todoId', listId)
               .eq('userId', user.id)
               .snapshots()
-              .pipe(map(items => items.map(item => item.data)));
+              .pipe(map(tasks => tasks.map(task => task.data)));
         }
         return query.snapshots().pipe(map(items => items.map(item => item.data)));
       }),

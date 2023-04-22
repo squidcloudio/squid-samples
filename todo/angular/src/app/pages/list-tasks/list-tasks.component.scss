@@ -8,7 +8,6 @@
 .list-section {
   @include app.flex-column();
   align-items: flex-start;
-  margin-left: -150px;
 
   &-title {
     width: s.size(full);
@@ -21,6 +20,7 @@
   }
 
   &-content {
+    min-width: 700px;
     margin-top: 16px;
     background-color: c.colors(bg-c);
     padding: 37px 28px;
@@ -71,21 +71,18 @@
       color: c.colors(font, true);
     }
   }
-  & .no-tasks-title {
-    color: c.colors(font, true);
-  }
 }
-@media screen and (max-width: 1350px) {
-  .no-tasks-title {
-    min-width: s.size(45);
-  }
-  .list-section {
-    margin-left: 0;
-  }
+@media screen and (min-width: 1248px) and (max-width: 1352px) {
   .list-section-content {
-    padding: 37px 10px;
+    min-width: 590px;
   }
 }
+@media screen and (max-width: 1247px) {
+  .list-section-content {
+    min-width: 552px;
+  }
+}
+
 @media screen and (min-width: 378px) and (max-width: 768px) {
   .list-section-content {
     min-width: s.size(full);

@@ -1,0 +1,23 @@
+<ng-container *ngIf="listCollection && selectedList">
+  <div class="select-container" [ngClass]="{ 'select-container-dark': themeService.isDark }">
+    <input matInput [matAutocomplete]="auto" class="newList-select" [value]="selectedList.title" />
+    <div [style.background-color]="selectedList.color" class="option-color selected-color"></div>
+    <mat-icon class="newList-select-icon">unfold_more</mat-icon>
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option
+        *ngFor="let list of listCollection"
+        [value]="list.title"
+        [ngClass]="{ options: themeService.isDark }"
+        (click)="selectList(list)">
+        <div class="option">
+          <div [style.background-color]="list.color" class="option-color"></div>
+          <p class="option-name">{{ list.title }}</p>
+        </div>
+      </mat-option>
+
+      <div class="option">
+        <app-add-list-button> </app-add-list-button>
+      </div>
+    </mat-autocomplete>
+  </div>
+</ng-container>

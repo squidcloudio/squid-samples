@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ListService } from '../../services/list.service';
 import { filter, map, Observable, Subscription } from 'rxjs';
-import { Task, List } from '../../interfaces';
+import { Task, List, LabelTypes } from '../../interfaces';
 import { ActivatedRoute, Params } from '@angular/router';
 import { TaskService } from '../../services/task.service';
 import { ThemeService } from '../../services/theme.service';
@@ -19,6 +19,7 @@ export class ListTasksComponent implements OnInit, OnDestroy {
   queryParamsSub: Subscription | undefined;
   taskId = '';
   readonly paramsObs: Observable<Params> = this.activatedRoute.params;
+  readonly labelTypes = LabelTypes;
 
   constructor(
     private listService: ListService,
@@ -49,7 +50,7 @@ export class ListTasksComponent implements OnInit, OnDestroy {
     this.queryParamsSub?.unsubscribe();
   }
 
-  settaskId(id: string): void {
+  setTaskId(id: string): void {
     this.taskId = id;
   }
 }

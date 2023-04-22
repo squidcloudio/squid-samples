@@ -34,9 +34,9 @@ import { TaskFormComponent } from './forms/task-form/task-form.component';
 import { DatePickerComponent } from './inputs/date-picker/date-picker.component';
 import { MultiSelectComponent } from './inputs/multi-select/multi-select.component';
 import { ListTaskComponent } from './components/list-task/list-task.component';
-import { EditListComponent } from './components/edit-list/edit-list.component';
+import { EditLabelComponent } from './components/edit-label/edit-label.component';
 import { TasksAmountComponent } from './components/tasks-amount/tasks-amount.component';
-import { EditListFormComponent } from './forms/edit-list-form/edit-list-form.component';
+import { EditLabelFormComponent } from './forms/edit-label-form/edit-label-form.component';
 import { AddTaskButtonComponent } from './buttons/add-task-button/add-task-button.component';
 import { SidebarNavigationComponent } from './sidebar-navigation/sidebar-navigation.component';
 import { AddListButtonComponent } from './buttons/add-list-button/add-list-button.component';
@@ -47,6 +47,7 @@ import { ExpiredTasksComponent } from './components/expired-tasks/expired-tasks.
 import { CalendarModalWindowComponent } from './calendar-modal-window/calendar-modal-window.component';
 import { ThemeButtonComponent } from './buttons/theme-button/theme-button.component';
 import { LogoutButtonComponent } from './buttons/logout-button/logout-button.component';
+import { ListSelectComponent } from './inputs/list-select/list-select.component';
 
 const routes: Routes = [
   {
@@ -83,9 +84,9 @@ const routes: Routes = [
     DatePickerComponent,
     MultiSelectComponent,
     ListTaskComponent,
-    EditListComponent,
+    EditLabelComponent,
     TasksAmountComponent,
-    EditListFormComponent,
+    EditLabelFormComponent,
     AddTaskButtonComponent,
     SidebarNavigationComponent,
     AddListButtonComponent,
@@ -96,6 +97,7 @@ const routes: Routes = [
     CalendarModalWindowComponent,
     ThemeButtonComponent,
     LogoutButtonComponent,
+    ListSelectComponent,
   ],
   imports: [
     BrowserModule,

@@ -14,18 +14,22 @@ export enum FormatTypes {
   DEFAULT_FORMAT = 'M/D/YYYY',
   ISO_FORMAT = 'MM-DD-YYYY',
 }
-
+export enum LabelTypes {
+  activeLabel = 'activeLabel',
+  completeLabel = 'completeLabel',
+}
 export enum ModalListNames {
   newList = 'newList',
   newTask = 'newItem',
-  editList = 'editTodo',
-  editTask = 'editItem',
+  editLabel = 'editLabel',
+  editTask = 'editTask',
 }
 
 export interface ModalWindowData {
-  name: ModalListNames.newList | ModalListNames.newTask | ModalListNames.editList | ModalListNames.editTask;
+  name: ModalListNames.newList | ModalListNames.newTask | ModalListNames.editLabel | ModalListNames.editTask;
   id?: string;
   date?: string;
+  labelType?: string;
 }
 
 export interface Tag {
@@ -37,6 +41,8 @@ export type List = {
   title: string;
   color: string;
   userId?: string;
+  activeLabel: string;
+  completeLabel: string;
 };
 
 export type Task = {
