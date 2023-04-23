@@ -77,7 +77,7 @@ const MainContainer = React.memo(() => {
           </Drawer>
 
           <Grid container spacing={5}>
-            <Grid item xs={12} md={3} lg={2} className="list">
+            <Grid item xs={12} md={3} lg={2.5} className="list">
               <Box className="list_container" sx={{ display: { xs: 'none', md: 'block' } }}>
                 <ListContainer todosList={todosList} collection={todosCollection} datesList={datesList} />
               </Box>
@@ -92,7 +92,7 @@ const MainContainer = React.memo(() => {
               <Divider className={`divider-${theme}`} />
             </div>
 
-            <Grid item xs={12} md={9} lg={7}>
+            <Grid item xs={12} md={9} lg={6.5}>
               <Box display="flex" justifyContent="space-between">
                 <Typography variant="h4">In Progress</Typography>
                 <OptionsMenu todosCollection={todosCollection} itemsCollection={itemsCollection} />

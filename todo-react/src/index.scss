@@ -672,6 +672,43 @@ th {
   border-radius: 12px;
 }
 
+.css-1yq5fb3-MuiButtonBase-root-MuiIconButton-root {
+  border-radius: 10px !important;
+}
+
+.css-1yq5fb3-MuiButtonBase-root-MuiIconButton-root:hover {
+  background-color: rgba(0, 0, 0, 0.15) !important;
+}
+
+.css-7oawqu-MuiButtonBase-root-MuiPickersDay-root:not(.Mui-selected) {
+  color: #000 !important;
+}
+
+.css-7oawqu-MuiButtonBase-root-MuiPickersDay-root.Mui-selected {
+  color: #000 !important;
+}
+
+.css-7oawqu-MuiButtonBase-root-MuiPickersDay-root.Mui-selected {
+  background-color: #f1f3f9 !important;
+  border: 1px solid #c4ccd9 !important;
+}
+
+.css-1qs309j-MuiButtonBase-root-MuiPickersDay-root.Mui-selected {
+  background-color: #f1f3f9 !important;
+  border: 1px solid #c4ccd9 !important;
+  color: #000 !important;
+}
+
+// .css-sv19ot {
+//   padding-left: 40px !important;
+//   padding-right: 40px !important;
+// }
+
+// .css-13tqxrv {
+//   max-width: 280px !important;
+//   min-width: 200px !important;
+// }
+
 @media screen and (min-width: 900px) and (max-width: 1200px) {
   .css-1ozs4dl-MuiGrid-root {
     display: flex;
