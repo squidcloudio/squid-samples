@@ -7,22 +7,18 @@ import { Observable, ReplaySubject } from 'rxjs';
 export type SquidTheme = 'light' | 'dark';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ThemeService {
   private readonly themeSubject = new ReplaySubject<SquidTheme>(1);
 
-  private iconList: string[] = [
-    'archer_logo',
-    'search_icon'
-  ];
+  private iconList: string[] = ['archer_logo', 'search_icon', 'up_arrow'];
 
   constructor(
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer,
-    @Inject(DOCUMENT) private document: Document
-  ) {
-  }
+    @Inject(DOCUMENT) private document: Document,
+  ) {}
 
   initialize(): void {
     this.initializeIcons();
@@ -43,7 +39,7 @@ export class ThemeService {
     for (const iconName of this.iconList) {
       this.matIconRegistry.addSvgIcon(
         iconName,
-        this.domSanitizer.bypassSecurityTrustResourceUrl(`/assets/icons/${iconName}.svg`)
+        this.domSanitizer.bypassSecurityTrustResourceUrl(`/assets/icons/${iconName}.svg`),
       );
     }
   }

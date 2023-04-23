@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ArcherService } from '../services/archer.service';
 import { Ticker } from 'archer-common';
 import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-protected-layout',
@@ -14,9 +15,7 @@ export class ProtectedLayoutComponent {
 
   readonly tickersObs = this.archerService.observeTickers();
 
-  constructor(private readonly archerService: ArcherService) {}
-
-  searchText: string = '';
+  constructor(private readonly archerService: ArcherService, private readonly router: Router) {}
 
   filterTickers(tickers: Ticker[], searchText: string) {
     return tickers.filter((ticker) => {
@@ -25,5 +24,11 @@ export class ProtectedLayoutComponent {
         ticker.name.toLowerCase().includes(searchText.toLowerCase())
       );
     });
+  }
+
+  async searchStockSelected(): Promise<void> {
+    if (!this.searchControl.value) return;
+    await this.router.navigateByUrl(`/stock/${this.searchControl.value}`);
+    this.searchControl.setValue(null);
   }
 }

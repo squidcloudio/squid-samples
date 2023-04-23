@@ -58,3 +58,19 @@ p {
 a {
   text-decoration: none;
 }
+
+.gain {
+  color: $gain;
+}
+
+.gain_bg {
+  background: $gainHover;
+}
+
+.lose {
+  color: $lose;
+}
+
+.lose_bg {
+  background: $loseHover;
+}

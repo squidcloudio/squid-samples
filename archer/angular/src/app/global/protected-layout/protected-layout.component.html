@@ -7,10 +7,9 @@
              #searchInput [matAutocomplete]="auto" />
       <div class="clear_button" *ngIf="searchControl.value" (click)="searchControl.setValue(null)">Clear</div>
 
-      <mat-autocomplete #auto="matAutocomplete" class="filtered_tickers_container">
-        <div class="filtered_tickers">
+      <mat-autocomplete #auto="matAutocomplete" class="filtered_tickers_container" (optionSelected)="searchStockSelected()">
+        <div class="filtered_tickers" *ngIf="searchControl.value && searchControl.value.length > 1">
           <mat-option class="ticker" *ngFor="let ticker of filterTickers(tickers, searchControl?.value || '')"
-                      [routerLink]="'stock/'+ticker.id"
                       (click)="searchControl.setValue(null)"
                       [value]="ticker.id">
             <div class="ticker_id">{{ticker.id}}</div>

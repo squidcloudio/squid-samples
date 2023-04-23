@@ -33,6 +33,14 @@ $breakpoints: (
   --text2: #666666;
   --text3: #212121;
 
+  --type2: #606164;
+
+  --gain: #018638;
+  --gainHover: #E6FAE6;
+
+  --lose: #EB0F29;
+  --loseHover: #FDEBEB;
+
   --text1-inverse: rgba(255, 255, 255, 0.87);
   --text2-inverse: rgba(255, 255, 255, 0.6);
   --text3-inverse: rgba(255, 255, 255, 0.38);
@@ -148,6 +156,11 @@ $line1-inverse: var(--line1-inverse);
 $text1: var(--text1);
 $text2: var(--text2);
 $text3: var(--text3);
+$type2: var(--type2);
+$gain: var(--gain);
+$gainHover: var(--gainHover);
+$lose: var(--lose);
+$loseHover: var(--loseHover);
 $text1-inverse: var(--text1-inverse);
 $text2-inverse: var(--text2-inverse);
 $text3-inverse: var(--text3-inverse);

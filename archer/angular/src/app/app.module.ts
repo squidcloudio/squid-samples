@@ -16,6 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { StockComponent } from './stock/stock.component';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [AppComponent, ProtectedLayoutComponent, PortfolioComponent, StockComponent],
@@ -39,6 +40,7 @@ import { StockComponent } from './stock/stock.component';
     FormsModule,
     MatAutocompleteModule,
     ReactiveFormsModule,
+    MatButtonModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

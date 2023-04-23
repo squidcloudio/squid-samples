@@ -27,9 +27,9 @@ export class ArcherService extends SquidService {
 
   @scheduler('cacheTickerDetails', CronExpression.EVERY_MINUTE)
   async cacheTickerDetails(): Promise<void> {
-    /*if (!(await this.isMarketOpen())) {
+    if (!(await this.isMarketOpen())) {
       return;
-    }*/
+    }
 
     const tickerCollection = this.getTickerCollection();
 
