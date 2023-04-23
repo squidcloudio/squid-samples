@@ -94,13 +94,22 @@ const MainContainer = React.memo(() => {
 
             <Grid item xs={12} md={9} lg={6.5}>
               <Box display="flex" justifyContent="space-between">
-                <Typography variant="h4">In Progress</Typography>
-                <OptionsMenu todosCollection={todosCollection} itemsCollection={itemsCollection} />
+                <OptionsMenu
+                  todosCollection={todosCollection}
+                  itemsCollection={itemsCollection}
+                  forTitle={true}
+                  todos={todos}
+                />
               </Box>
 
               <TodoList itemsCollection={itemsCollection} todos={todos} />
 
-              <CompletedList todosCollection={todosCollection} itemsCollection={itemsCollection} theme={theme} />
+              <CompletedList
+                todosCollection={todosCollection}
+                itemsCollection={itemsCollection}
+                theme={theme}
+                todos={todos}
+              />
             </Grid>
             <Grid item xs={12} lg={3}>
               <Box sx={{ display: { xs: 'none', md: 'none', lg: 'block' } }}>

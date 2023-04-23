@@ -1,9 +1,10 @@
 import { useQuery } from '@squidcloud/react';
 import { useParams } from 'react-router-dom';
 import StyledListItem from '../styled/StyledListItem';
-import { Box, List, Typography } from '@mui/material';
+import { Box, List } from '@mui/material';
 import React, { useContext } from 'react';
 import { ThemeContext } from '../context';
+import { OptionsMenu } from './MenuDetail';
 
 const CompletedList = React.memo(({ todosCollection, itemsCollection }: any) => {
   const { id } = useParams();
@@ -19,7 +20,13 @@ const CompletedList = React.memo(({ todosCollection, itemsCollection }: any) => 
 
   return completedItems.length > 0 ? (
     <Box sx={{ marginTop: '50px' }}>
-      <Typography variant="h4">Completed</Typography>
+      <OptionsMenu
+        todosCollection={todosCollection}
+        itemsCollection={itemsCollection}
+        forTitle={true}
+        todos={todos}
+        isCompleted={true}
+      />
 
       <div className={`todo todo-${theme}`}>
         <List>

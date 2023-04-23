@@ -21,6 +21,8 @@ const ListModal = ({ id, collection, open, setOpen }: any) => {
         title: titleRef.current?.value || '',
         color: color,
         userId: user?.sub,
+        activeLabel: 'In progress',
+        completeLabel: 'Completed',
       });
     }
 

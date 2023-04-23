@@ -9,8 +9,17 @@ import EditItem from '../modals/EditItem';
 import { useAuth0 } from '@auth0/auth0-react';
 import EditButton from '../images/EditButton';
 import DeleteButton from './DeleteButton';
+import { Typography } from '@mui/material';
 
-export const OptionsMenu = ({ todosCollection, itemsCollection, isEditable, index }: any) => {
+export const OptionsMenu = ({
+  todosCollection,
+  itemsCollection,
+  isEditable,
+  index,
+  forTitle,
+  todos,
+  isCompleted,
+}: any) => {
   const { id } = useParams();
   const { user } = useAuth0();
   const navigate = useNavigate();
@@ -19,7 +28,6 @@ export const OptionsMenu = ({ todosCollection, itemsCollection, isEditable, inde
   const [open, setOpen] = useState<boolean>(false);
 
   const items = useQuery(itemsCollection.query().where('userId', '==', `${user?.sub}`), true);
-  const [todos] = useQuery(todosCollection.query().where('id', '==', `${id}`), true);
 
   const [currentItem] = items.filter((el) => el.data.id === index);
 
@@ -40,7 +48,7 @@ export const OptionsMenu = ({ todosCollection, itemsCollection, isEditable, inde
   const deleteTodo = () => {
     deleteItems();
     todosCollection.doc(id).delete();
-    navigate('/');
+    navigate('/today');
   };
 
   const deleteCurrentItem = () => {
@@ -49,11 +57,17 @@ export const OptionsMenu = ({ todosCollection, itemsCollection, isEditable, inde
 
   return (
     <>
-      {!['today', 'tomorrow', 'someday'].includes(id as string) && (
-        <IconButton onClick={handleOpenMenu}>
-          <img src={ThreeDotsIcon} alt="" />
-        </IconButton>
-      )}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
+        {forTitle && (
+          <Typography variant="h4">{!isCompleted ? todos?.data.activeLabel : todos?.data.completeLabel}</Typography>
+        )}
+
+        {!['today', 'tomorrow', 'someday'].includes(id as string) && (
+          <IconButton onClick={handleOpenMenu}>
+            <img src={ThreeDotsIcon} alt="" />
+          </IconButton>
+        )}
+      </div>
       <Menu
         onClick={handleCloseMenu}
         anchorEl={anchorEl}
@@ -75,7 +89,9 @@ export const OptionsMenu = ({ todosCollection, itemsCollection, isEditable, inde
           Delete
         </MenuItem>
       </Menu>
-      {!isEditable && <EditModal collection={todosCollection} id={id} open={open} setOpen={setOpen} />}
+      {!isEditable && (
+        <EditModal collection={todosCollection} id={id} open={open} setOpen={setOpen} isCompleted={isCompleted} />
+      )}
       {isEditable && <EditItem open={open} setOpen={setOpen} index={index} todos={todos} />}
     </>
   );

@@ -8,6 +8,8 @@ export type List = {
   title?: string;
   color: string;
   userId: string;
+  activeLabel: string;
+  completeLabel: string;
 };
 
 export type Task = {
