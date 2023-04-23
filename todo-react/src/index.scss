@@ -609,6 +609,10 @@ th {
     margin: 5px 0;
     cursor: pointer;
 
+    & > .sidebar_menu-container > .css-78trlr-MuiButtonBase-root-MuiIconButton-root:hover {
+      background-color: transparent !important;
+    }
+
     &-dots {
       text-overflow: ellipsis;
       white-space: nowrap;
