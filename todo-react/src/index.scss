@@ -604,6 +604,11 @@ th {
       flex: 1;
     }
 
+    & > div:last-child {
+      display: flex;
+      justify-content: end !important;
+    }
+
     &-add {
       &_dark {
         background-color: transparent;
