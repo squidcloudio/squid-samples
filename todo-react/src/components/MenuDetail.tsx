@@ -31,8 +31,13 @@ export const OptionsMenu = ({
 
   const [currentItem] = items.filter((el) => el.data.id === index);
 
+  const itemsInCurrentList = useQuery(
+    itemsCollection.query().where('userId', '==', `${user?.sub}`).where('todoId', '==', `${id}`),
+    true,
+  );
+
   const deleteItems = () => {
-    items.forEach((el) => {
+    itemsInCurrentList.forEach((el) => {
       itemsCollection.doc(el.data.id).delete();
     });
   };
@@ -57,7 +62,7 @@ export const OptionsMenu = ({
 
   return (
     <>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
+      <div className="sidebar_menu-container">
         {forTitle && (
           <Typography variant="h4">{!isCompleted ? todos?.data.activeLabel : todos?.data.completeLabel}</Typography>
         )}

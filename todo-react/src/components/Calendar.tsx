@@ -3,7 +3,7 @@ import { useEffect, useState, useRef, useContext } from 'react';
 
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import { Divider } from '@mui/material';
+import { Divider, Tooltip } from '@mui/material';
 import { useCollection, useQuery } from '@squidcloud/react';
 import { List, Task } from '../interfaces/index';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -150,10 +150,12 @@ const Calendar = ({ currentDate, setCurrentDate }: any) => {
             if (dueDate.isSame(currentDate) && el.data.completed === false) {
               return (
                 <div key={i} className="sidebar_item">
-                  <div onClick={() => navigate(`/${el.data.todoId}`)}>
+                  <div onClick={() => navigate(`/${el.data.todoId}`)} style={{ flex: '2' }}>
                     <div className="sidebar_item-color">
                       <div style={{ backgroundColor: el.data.todoColor }}></div>
-                      <span>{el.data.title}</span>
+                      <Tooltip title={el.data.title}>
+                        <span className="sidebar_item-dots">{el.data.title}</span>
+                      </Tooltip>
                     </div>
                   </div>
                   <OptionsMenu
