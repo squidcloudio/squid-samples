@@ -593,6 +593,10 @@ th {
 .sidebar_menu-container {
   display: flex;
   flex: 1;
+
+  & > .css-78trlr-MuiButtonBase-root-MuiIconButton-root {
+    margin-left: auto !important;
+  }
 }
 
 .sidebar {
@@ -800,10 +804,6 @@ th {
 
 .active_navlink {
   display: none;
-}
-
-.css-78trlr-MuiButtonBase-root-MuiIconButton-root {
-  margin-left: auto !important;
 }
 
 @media screen and (max-width: 900px) {
