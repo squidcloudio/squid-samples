@@ -87,7 +87,7 @@ const TodoList = ({ itemsCollection, todos }: any) => {
         {!(id === 'today' || id === 'tomorrow' || id === 'someday') && (
           <button className="item_button" onClick={handleSetOpen}>
             <img src={addList} alt="list" />
-            <span>New Item</span>
+            <span>New item</span>
           </button>
         )}
 

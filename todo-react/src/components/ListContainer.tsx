@@ -78,7 +78,7 @@ const ListContainer = ({ todosList, collection, datesList }: any) => {
       )}
       <button onClick={handleOpen} className="list_button">
         <img src={addList} alt="list" />
-        <span>New List</span>
+        <span>New list</span>
       </button>
 
       <ListModal collection={collection} id={id} open={open} setOpen={setOpen} />

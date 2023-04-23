@@ -32,7 +32,7 @@ const ListModal = ({ id, collection, open, setOpen }: any) => {
   return (
     <Modal className="modal" open={open} onClose={() => setOpen(false)}>
       <div className="modal_container">
-        <p>Create New List</p>
+        <p>Create new list</p>
         <input type="text" placeholder="Title" ref={titleRef} />
         <Select
           className="modal_container-select"
