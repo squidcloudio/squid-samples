@@ -1,25 +1,32 @@
 <div class="global_layout" *ngIf="searchResultsObs | async as searchResults">
   <nav class="navigation_bar">
     <mat-icon class="logo" svgIcon="archer_logo" routerLink="/"></mat-icon>
-    <form class="search_input_container">
-      <mat-icon class="search_icon" svgIcon="search_icon" (click)="searchInput.focus()"></mat-icon>
-      <input class="search_input" placeholder="Search stock market" type="text" [formControl]="searchControl"
-             (keyup)="searchQueryChanged()"
-             #searchInput [matAutocomplete]="auto" />
-      <div class="clear_button" *ngIf="searchControl.value" (click)="searchControl.setValue(null)">Clear</div>
+    <div class="search_bar_overlay" *ngIf="searchBarVisible" (click)="searchControl.setValue(null) ; hideSearchBar()"></div>
+    <div class="right">
+      <mat-icon class="outer_search_icon" svgIcon="search_icon" (click)="showSearchBar(); searchInput.focus()"
+                *ngIf="!searchBarVisible"></mat-icon>
+      <form class="search_input_container" [ngClass]="{ visible: searchBarVisible}">
+        <mat-icon class="search_icon" svgIcon="search_icon" (click)="searchInput.focus()"></mat-icon>
+        <input class="search_input" placeholder="Search stock market" type="text" [formControl]="searchControl"
+               (keyup)="searchQueryChanged()"
+               #searchInput [matAutocomplete]="auto" />
+        <div class="clear_button" *ngIf="searchControl.value" (click)="searchControl.setValue(null)">Clear</div>
 
-      <mat-autocomplete #auto="matAutocomplete" class="filtered_tickers_container"
-                        (optionSelected)="searchStockSelected()">
-        <div class="filtered_tickers" *ngIf="searchControl.value && searchControl.value.length > 1">
-          <mat-option class="ticker" *ngFor="let ticker of searchResults"
-                      (click)="searchControl.setValue(null)"
-                      [value]="ticker.id">
-            <div class="ticker_id">{{ticker.id}}</div>
-            <div class="ticker_name">{{ticker.name}}</div>
-          </mat-option>
-        </div>
-      </mat-autocomplete>
-    </form>
+        <mat-autocomplete #auto="matAutocomplete" class="filtered_tickers_container"
+                          (optionSelected)="searchStockSelected()">
+          <div class="filtered_tickers" *ngIf="searchControl.value && searchControl.value.length > 1">
+            <mat-option class="ticker" *ngFor="let ticker of searchResults"
+                        (click)="searchControl.setValue(null); hideSearchBar()"
+                        [value]="ticker.id">
+              <div class="ticker_id">{{ticker.id}}</div>
+              <div class="ticker_name">{{ticker.name}}</div>
+            </mat-option>
+          </div>
+        </mat-autocomplete>
+      </form>
+      <avatar class="avatar" name="Nir Peled"></avatar>
+    </div>
+
   </nav>
   <div class="main_content">
     <router-outlet></router-outlet>

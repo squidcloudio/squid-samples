@@ -17,9 +17,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { StockComponent } from './stock/stock.component';
 import { MatButtonModule } from '@angular/material/button';
+import { AvatarComponent } from './global/avatar/avatar.component';
 
 @NgModule({
-  declarations: [AppComponent, ProtectedLayoutComponent, PortfolioComponent, StockComponent],
+  declarations: [AppComponent, ProtectedLayoutComponent, PortfolioComponent, StockComponent, AvatarComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

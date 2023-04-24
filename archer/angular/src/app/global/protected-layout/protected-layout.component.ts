@@ -17,6 +17,7 @@ export class ProtectedLayoutComponent {
     debounce(() => interval(50)),
     switchMap((searchText) => this.archerService.searchTickers(searchText)),
   );
+  searchBarVisible = false;
 
   constructor(private readonly archerService: ArcherService, private readonly router: Router) {}
 
@@ -29,5 +30,13 @@ export class ProtectedLayoutComponent {
   async searchQueryChanged() {
     const searchText = this.searchControl.value;
     this.searchTextSubject.next(searchText || '');
+  }
+
+  showSearchBar() {
+    this.searchBarVisible = true;
+  }
+
+  hideSearchBar() {
+    this.searchBarVisible = false;
   }
 }
