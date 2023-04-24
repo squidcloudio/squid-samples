@@ -1,6 +1,6 @@
 <ng-container *ngIf="listCollection ">
   <div class="select-container" [ngClass]="{ 'select-container-dark': themeService.isDark }">
-    <input matInput [matAutocomplete]="auto" class="newList-select" [value]="selectedList?.title" />
+    <input matInput [matAutocomplete]="auto" class="newList-select" [ngClass]="{'newList-select-no-content':!listCollection.length}" [value]="selectedList?.title" [placeholder]="!listCollection.length?'Select list':''"/>
     <div [style.background-color]="selectedList?.color" class="option-color selected-color"></div>
     <mat-icon class="newList-select-icon" [ngClass]="{ 'newList-select-icon-dark': themeService.isDark }"
       >unfold_more</mat-icon

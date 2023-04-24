@@ -10,6 +10,10 @@
   background: none;
   padding: 14px 16px;
   padding-left: 46px;
+  &::placeholder {
+    font-size: 16px;
+    color: c.colors(font-accent);
+  }
 
   &-icon {
     position: absolute;
@@ -17,7 +21,11 @@
     right: 0;
     z-index: -1;
   }
+  &-no-content{
+    padding-left: 16px;
+  }
 }
+
 .select-container {
   width: 400px;
   height: 45px;
