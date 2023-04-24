@@ -23,13 +23,12 @@ export interface Ticker {
 }
 
 export interface UserAsset {
-  id: string;
   userId: string;
   tickerId: string;
   quantity: number;
 }
 
-export type UserAssetWithTicker = UserAsset & { ticker?: Ticker };
+export type UserAssetWithTicker = UserAsset & { ticker: Ticker };
 
 export interface PortfolioValueHistory {
   userId: string;

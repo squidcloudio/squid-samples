@@ -220,7 +220,6 @@ export class ArcherService extends SquidService {
         const id = `${userId}-${tickerId}`;
         await this.getUserAssetCollection().doc(id).insert(
           {
-            id,
             userId,
             tickerId,
             quantity,

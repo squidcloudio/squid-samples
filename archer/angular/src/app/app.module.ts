@@ -18,6 +18,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { StockComponent } from './stock/stock.component';
 import { MatButtonModule } from '@angular/material/button';
 import { AvatarComponent } from './global/avatar/avatar.component';
+import { UserAsset } from 'archer-common';
 
 @NgModule({
   declarations: [AppComponent, ProtectedLayoutComponent, PortfolioComponent, StockComponent, AvatarComponent],
@@ -50,5 +51,23 @@ export class AppModule {
   constructor(squid: Squid, authService: AuthService, themeService: ThemeService) {
     squid.setAuthIdToken(authService.idTokenClaims$.pipe(map((idToken) => idToken?.__raw)));
     themeService.initialize();
+
+    /*squid.collection<UserAsset>('userAsset').doc().insert({
+      tickerId: 'AAPL',
+      quantity: 10,
+      userId: 'google-oauth2|108858500695615523056',
+    });
+
+    squid.collection<UserAsset>('userAsset').doc().insert({
+      tickerId: 'GOOG',
+      quantity: 20,
+      userId: 'google-oauth2|108858500695615523056',
+    });
+
+    squid.collection<UserAsset>('userAsset').doc().insert({
+      tickerId: 'NVDA',
+      quantity: 30,
+      userId: 'google-oauth2|108858500695615523056',
+    });*/
   }
 }

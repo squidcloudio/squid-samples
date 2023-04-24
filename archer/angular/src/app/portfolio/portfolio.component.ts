@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ArcherService } from '../global/services/archer.service';
+import { UserAsset, UserAssetWithTicker } from 'archer-common';
 
 @Component({
   selector: 'app-portfolio',
@@ -8,7 +9,14 @@ import { ArcherService } from '../global/services/archer.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PortfolioComponent {
-  assetsObs = this.archerService.observeUserAssets();
+  userAssetsObs = this.archerService.observeUserAssets();
+  userObs = this.archerService.observeUser();
 
   constructor(private readonly archerService: ArcherService) {}
+
+  getPortfolioValue(userAssets: UserAssetWithTicker[]) {
+    return userAssets.reduce((acc, userAsset) => {
+      return acc + userAsset.quantity * userAsset.ticker.closePrice;
+    }, 0);
+  }
 }

@@ -38,7 +38,6 @@ export class ArcherService {
           }),
         );
     }),
-    share(),
   );
 
   private readonly userAssetsObs: Observable<Array<UserAssetWithTicker>> = this.getUserAssetCollection()
@@ -52,7 +51,7 @@ export class ArcherService {
         for (const row of snapshots) {
           const ticker = row['ticker'];
           const userAsset = row['userAsset'];
-          assets.push({ ...userAsset.data, ticker: ticker?.data });
+          assets.push({ ...userAsset.data, ticker: ticker!.data });
         }
         return assets;
       }),
@@ -61,7 +60,7 @@ export class ArcherService {
 
   constructor(private readonly squid: Squid, private readonly authService: AuthService) {}
 
-  observeUserAssets(): Observable<UserAsset[]> {
+  observeUserAssets(): Observable<Array<UserAssetWithTicker>> {
     return this.userAssetsObs;
   }
 
