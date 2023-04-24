@@ -11,6 +11,8 @@ export interface Ticker {
   openPrice: number;
   todaysChange: number;
   todaysChangePerc: number;
+  sicCode: number;
+  sicDescription: string;
   address?: {
     address1: string;
     address2?: string;
@@ -26,6 +28,8 @@ export interface UserAsset {
   tickerId: string;
   quantity: number;
 }
+
+export type UserAssetWithTicker = UserAsset & { ticker?: Ticker };
 
 export interface PortfolioValueHistory {
   userId: string;
@@ -102,7 +106,7 @@ export interface TickerDetailsResults {
   round_lot: number;
   share_class_figi: string;
   share_class_shares_outstanding: number;
-  sic_code: string;
+  sic_code: number;
   sic_description: string;
   ticker: string;
   ticker_root: string;

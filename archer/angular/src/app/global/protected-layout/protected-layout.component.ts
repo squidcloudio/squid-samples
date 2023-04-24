@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ArcherService } from '../services/archer.service';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { BehaviorSubject, debounce, interval, switchMap } from 'rxjs';
+import { BehaviorSubject, debounce, filter, interval, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-protected-layout',
@@ -14,10 +14,13 @@ export class ProtectedLayoutComponent {
   searchControl = new FormControl('');
   searchTextSubject = new BehaviorSubject<string>('');
   searchResultsObs = this.searchTextSubject.pipe(
+    filter((searchText) => searchText.length > 0),
     debounce(() => interval(50)),
     switchMap((searchText) => this.archerService.searchTickers(searchText)),
   );
   searchBarVisible = false;
+  userObs = this.archerService.observeUser();
+  userAssetsObs = this.archerService.observeUserAssets();
 
   constructor(private readonly archerService: ArcherService, private readonly router: Router) {}
 

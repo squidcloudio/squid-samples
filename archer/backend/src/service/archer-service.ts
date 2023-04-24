@@ -25,7 +25,7 @@ export class ArcherService extends SquidService {
     return true;
   }
 
-  @scheduler('cacheTickerDetails', CronExpression.EVERY_MINUTE)
+  @scheduler('cacheTickerDetails', CronExpression.EVERY_2_HOURS)
   async cacheTickerDetails(): Promise<void> {
     console.log('Caching ticker details...');
     /*if (!(await this.isMarketOpen())) {
@@ -105,6 +105,8 @@ export class ArcherService extends SquidService {
               openPrice: tickerSnapshot.day.o,
               todaysChange: tickerSnapshot.todaysChange,
               todaysChangePerc: tickerSnapshot.todaysChangePerc,
+              sicCode: tickerDetailsResponse.sic_code,
+              sicDescription: tickerDetailsResponse.sic_description,
             };
             const docRef = tickerCollection.doc(ticker.ticker);
             await docRef.insert(allTickers[ticker.ticker], transactionId);

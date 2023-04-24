@@ -8,7 +8,7 @@ import { ArcherService } from '../global/services/archer.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PortfolioComponent {
-  assetsObs = this.archerService.observeAssets();
+  assetsObs = this.archerService.observeUserAssets();
 
   constructor(private readonly archerService: ArcherService) {}
 }
