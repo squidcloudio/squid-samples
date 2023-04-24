@@ -82,7 +82,9 @@ body {
     background-color: color.colors(bg-c, true) !important;
   }
 }
-
+.cdk-global-scrollblock{
+  overflow: hidden;
+}
 .mdc-menu-surface.mat-mdc-autocomplete-panel {
   padding: 0 !important;
 }

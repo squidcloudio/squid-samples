@@ -22,7 +22,12 @@
     color: #000000;
   }
 }
-
+.header-align{
+  min-width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 .profile {
   display: flex;
   align-items: center;

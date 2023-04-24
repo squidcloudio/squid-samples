@@ -15,9 +15,7 @@
       </ng-container>
     </ul>
   </ng-container>
-  <ng-container *ngIf="!(activeTasksObs | async)?.length">
-    <div class="add-task-button">
-      <app-add-task-button [date]="calendarService.currentDate"></app-add-task-button>
-    </div>
-  </ng-container>
+  <div class="add-task-button">
+    <app-add-task-button [date]="calendarService.currentDate"></app-add-task-button>
+  </div>
 </div>

@@ -104,5 +104,9 @@
       background: none;
       color: c.colors(font, true);
     }
+    &::placeholder {
+      font-size: 16px;
+      color: c.colors(font,true);
+    }
   }
 }

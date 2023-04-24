@@ -13,8 +13,8 @@
         <app-task-form
           [dialog]="dialogRef"
           [date]="data.date"
-          title="Add New Item"
-          submitName="Add item"></app-task-form>
+          title="New Task"
+          submitName="Add task"></app-task-form>
       </ng-container>
       <ng-container *ngIf="data.name === 'editTask'">
         <app-task-form [dialog]="dialogRef" [taskId]="data.id" title="Edit Task" submitName="Save"></app-task-form>

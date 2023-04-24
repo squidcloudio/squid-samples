@@ -68,7 +68,7 @@
 
 .list-section-dark {
   & .list-section {
-    &-title {
+    &-title h2 {
       color: c.colors(font, true);
     }
     &-content {
