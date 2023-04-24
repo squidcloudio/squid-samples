@@ -13,9 +13,10 @@ import { MenuItem, Modal, Select, SelectChangeEvent } from '@mui/material';
 import { useCollection, useQuery } from '@squidcloud/react';
 import { useAuth0 } from '@auth0/auth0-react';
 import { List } from '../interfaces';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const ItemModal = ({ collection, todos, open, setOpen, fromCalendar, currentDate }: any) => {
+  const { id } = useParams();
   const titleRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLInputElement>(null);
   const datePickerRef = useRef<HTMLDivElement>(null);
@@ -78,6 +79,8 @@ const ItemModal = ({ collection, todos, open, setOpen, fromCalendar, currentDate
     navigate(`/${value}`);
   };
 
+  let defaultTodoList = todosList.filter((el) => el.data.id === `${id}`);
+
   return (
     <Modal className="modal" open={open} onClose={() => setOpen(false)}>
       <div className="modal_container">
@@ -86,7 +89,7 @@ const ItemModal = ({ collection, todos, open, setOpen, fromCalendar, currentDate
         {fromCalendar && (
           <Select
             value={selectedValue}
-            defaultValue={todosList[0]?.data.id}
+            defaultValue={defaultTodoList[0]?.data.id}
             className="modal_container-select"
             onChange={handleSelectChange}
             sx={{ '& .MuiMenuItem-root': { display: 'flex', alignItems: 'center' } }}
