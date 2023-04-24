@@ -11,12 +11,15 @@
 
   &-title {
     width: s.size(full);
-    font-size: t.text(xl);
-    color: c.colors(font-accent);
-    font-weight: t.text-weight(bold);
     display: flex;
     justify-content: space-between;
     align-items: center;
+   &  h2 {
+
+      font-size: t.text(xl);
+      color: c.colors(font-accent);
+      font-weight: t.text-weight(bold);
+    }
   }
 
   &-content {
@@ -78,12 +81,12 @@
   }
 }
 @media screen and (max-width: 1247px) {
-.list-section{
-  min-width: 50vw;
-  &-content{
-    min-width: s.size(full);
+  .list-section {
+    min-width: 40vw;
+    &-content {
+      min-width: s.size(full);
+    }
   }
-}
 }
 
 @media screen and (min-width: 378px) and (max-width: 768px) {
