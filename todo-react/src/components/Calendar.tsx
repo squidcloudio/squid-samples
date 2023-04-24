@@ -41,6 +41,8 @@ const Calendar = ({ currentDate, setCurrentDate }: any) => {
   const weekdays = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
   const itemsCollection = useCollection<Task>('tasks');
 
+  const todosList = useQuery(todosCollection.query().where('userId', '==', `${user?.sub}`), true);
+
   const items = useQuery(itemsCollection.query().where('userId', '==', `${user?.sub}`), true);
 
   const handleDayHover = (day: any) => {
@@ -161,10 +163,10 @@ const Calendar = ({ currentDate, setCurrentDate }: any) => {
                   </div>
                   <OptionsMenu
                     itemsCollection={itemsCollection}
-                    todosCollection={todosCollection}
                     isEditable={true}
                     index={el.data.id}
                     todos={todos}
+                    todoCollection={todosCollection}
                   />
                 </div>
               );
@@ -196,6 +198,7 @@ const Calendar = ({ currentDate, setCurrentDate }: any) => {
         setOpen={setOpen}
         fromCalendar={true}
         currentDate={currentDate}
+        todosList={todosList}
       />
     </div>
   );

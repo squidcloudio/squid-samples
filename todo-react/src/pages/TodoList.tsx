@@ -91,7 +91,14 @@ const TodoList = ({ itemsCollection, todos }: any) => {
           </button>
         )}
 
-        <ItemModal collection={itemsCollection} todos={todos} open={open} setOpen={setOpen} items={allItems} />
+        <ItemModal
+          collection={itemsCollection}
+          todos={todos}
+          open={open}
+          setOpen={setOpen}
+          items={allItems}
+          currentDate={currentDate}
+        />
       </List>
     </div>
   );
