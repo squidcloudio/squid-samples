@@ -19,14 +19,24 @@
 }
 
 .wrapper {
-  min-width: s.size(90);
+  min-width: 1400px;
 
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (min-width: 1353px) and (max-width: 1420px){
+  .wrapper{
+    min-width: 1170px;
+  }
+}
+@media screen and (min-width: 1248px) and (max-width: 1352px){
+  .wrapper{
+    min-width: 1110px;
+  }
+}
+@media screen and (max-width: 1247px) {
   .wrapper {
     min-width: s.size(80);
     max-width: s.size(80);

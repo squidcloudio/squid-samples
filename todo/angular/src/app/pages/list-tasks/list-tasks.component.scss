@@ -72,15 +72,18 @@
     }
   }
 }
-@media screen and (min-width: 1248px) and (max-width: 1352px) {
+@media screen and (min-width: 1248px) and (max-width: 1420px) {
   .list-section-content {
     min-width: 590px;
   }
 }
 @media screen and (max-width: 1247px) {
-  .list-section-content {
-    min-width: 552px;
+.list-section{
+  min-width: 50vw;
+  &-content{
+    min-width: s.size(full);
   }
+}
 }
 
 @media screen and (min-width: 378px) and (max-width: 768px) {

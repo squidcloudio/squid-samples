@@ -129,9 +129,14 @@
     background-color: c.colors(component-active, true) !important;
   }
 }
-@media screen and (max-width: 1199px) {
+@media screen and (max-width: 1247px) {
   .task-content {
     min-width: s.size(45);
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 1000px){
+  .task-content {
+    min-width: s.size(full);
   }
 }
 @media screen and (min-width: 378px) and (max-width: 767px) {
