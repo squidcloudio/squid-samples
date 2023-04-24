@@ -32,7 +32,7 @@ export const OptionsMenu = ({
   const [currentItem] = items.filter((el) => el.data.id === index);
 
   const itemsInCurrentList = useQuery(
-    itemsCollection.query().where('userId', '==', `${user?.sub}`).where('todoId', '==', `${id}`),
+    itemsCollection.query().where('userId', '==', `${user?.sub}`).where('listId', '==', `${id}`),
     true,
   );
 

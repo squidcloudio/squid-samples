@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 
 import { useAuth0 } from '@auth0/auth0-react';
-import { Divider, Drawer, Grid, IconButton, Stack, Typography } from '@mui/material';
+import { Divider, Drawer, Grid, IconButton, Stack } from '@mui/material';
 import { Box } from '@mui/system';
 import { useCollection, useQuery } from '@squidcloud/react';
 import CompletedList from '../components/CompletedList';

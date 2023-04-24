@@ -15,11 +15,11 @@ export type List = {
 export type Task = {
   id: string;
   listId: string;
-  listColor: string;
   title: string;
   userId?: string;
   description: string;
-  dueDate?: string;
+  dueDate: string;
   tags: Tag[];
   completed: boolean;
+  listColor: string;
 };
