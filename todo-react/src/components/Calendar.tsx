@@ -189,7 +189,14 @@ const Calendar = ({ currentDate, setCurrentDate }: any) => {
         {overdueDates}
       </div>
 
-      <ItemModal collection={itemsCollection} todos={todos} open={open} setOpen={setOpen} fromCalendar={true} />
+      <ItemModal
+        collection={itemsCollection}
+        todos={todos}
+        open={open}
+        setOpen={setOpen}
+        fromCalendar={true}
+        currentDate={currentDate}
+      />
     </div>
   );
 };

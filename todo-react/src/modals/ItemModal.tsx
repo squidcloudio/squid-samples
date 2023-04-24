@@ -1,5 +1,3 @@
-import { Modal } from '@mui/material';
-
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
@@ -11,8 +9,9 @@ import TagsInput from '../components/TagsInput';
 import { StyledDatePicker } from '../styled/StyledDatePicker';
 import { CssTextField } from '../styled/CssTextField';
 import uuid from 'react-uuid';
+import { Modal } from '@mui/material';
 
-const ItemModal = ({ collection, todos, open, setOpen, fromCalendar }: any) => {
+const ItemModal = ({ collection, todos, open, setOpen, fromCalendar, currentDate }: any) => {
   const titleRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLInputElement>(null);
   const datePickerRef = useRef<HTMLDivElement>(null);
@@ -65,6 +64,7 @@ const ItemModal = ({ collection, todos, open, setOpen, fromCalendar }: any) => {
     <Modal className="modal" open={open} onClose={() => setOpen(false)}>
       <div className="modal_container">
         <p>Add new item</p>
+
         <CssTextField label="Title" inputRef={titleRef} className="modal_container-input" />
         <CssTextField label="Description" inputRef={descriptionRef} />
 
@@ -72,10 +72,11 @@ const ItemModal = ({ collection, todos, open, setOpen, fromCalendar }: any) => {
           <DemoContainer components={['DatePicker']}>
             <StyledDatePicker
               className="datepicker"
-              value={value}
-              defaultValue={dayjs(value)}
+              value={fromCalendar ? currentDate : value}
+              defaultValue={fromCalendar ? dayjs(currentDate) : dayjs(value)}
               onChange={(newValue: any) => setValue(newValue)}
               ref={datePickerRef}
+              disabled={fromCalendar}
             />
           </DemoContainer>
         </LocalizationProvider>
