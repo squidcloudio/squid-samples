@@ -73,6 +73,7 @@ const Calendar = ({ currentDate, setCurrentDate }: any) => {
 
   const overdueDates = items
     .filter((item) => item.data.completed === false)
+    // eslint-disable-next-line array-callback-return
     .map((el, i) => {
       const momentDate = moment.utc(el.data.dueDate).locale('en');
       if (momentDate.isBefore(todayDate)) {
@@ -163,6 +164,7 @@ const Calendar = ({ currentDate, setCurrentDate }: any) => {
                     todosCollection={todosCollection}
                     isEditable={true}
                     index={el.data.id}
+                    todos={todos}
                   />
                 </div>
               );
