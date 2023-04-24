@@ -27,6 +27,7 @@
   "devDependencies": {
     "@squidcloud/core": "latest",
     "@squidcloud/local-backend": "latest",
+    "@nestjs/cli": "^9.0.0",
     "@types/lodash": "^4.14.194",
     "copy-webpack-plugin": "^11.0.0",
     "terser-webpack-plugin": "^5.3.6",

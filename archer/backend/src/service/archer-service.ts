@@ -27,9 +27,10 @@ export class ArcherService extends SquidService {
 
   @scheduler('cacheTickerDetails', CronExpression.EVERY_MINUTE)
   async cacheTickerDetails(): Promise<void> {
-    if (!(await this.isMarketOpen())) {
+    console.log('Caching ticker details...');
+    /*if (!(await this.isMarketOpen())) {
       return;
-    }
+    }*/
 
     const tickerCollection = this.getTickerCollection();
 
@@ -59,57 +60,57 @@ export class ArcherService extends SquidService {
     const denyList = await this.getDenyList();
     let c = 0;
 
-    await PromisePool.for(snapshotsResponse)
-      .handleError((error, ticker) => {
-        console.error('Unable to process ticker', error);
-        const denyListCollection = this.getDenyListCollection();
-        denyListCollection
-          .doc(ticker.ticker)
-          .insert({
-            tickerId: ticker.ticker,
-          })
-          .then();
-      })
-      .withConcurrency(10)
-      .process(async (ticker) => {
-        console.log(`(${++c}/${snapshotsResponse.length}): ${ticker.ticker}`);
-        if (denyList.has(ticker.ticker)) {
-          console.log(`${ticker.ticker} is in the deny list, skipping...`);
-          return;
-        }
-        const tickerSnapshot = tickerToSnapshot[ticker.ticker];
-        if (!tickerSnapshot) return;
-        if (!allTickers[ticker.ticker]) {
-          console.log("Can't find ticker information for: ", ticker.ticker);
-          // If ticker does not exist in DB, call tickerDetails API, fill in information
-          const { results: tickerDetailsResponse } = await this.squid.callApi<TickerDetailsResponse>(
-            'polygon',
-            'tickerDetails',
+    await this.squid.runInTransaction(async (transactionId) => {
+      await PromisePool.for(snapshotsResponse)
+        .handleError(async (error, ticker) => {
+          console.error('Unable to process ticker', error);
+          const denyListCollection = this.getDenyListCollection();
+          await denyListCollection.doc(ticker.ticker).insert(
             {
               tickerId: ticker.ticker,
             },
+            transactionId,
           );
-
-          allTickers[ticker.ticker] = {
-            id: ticker.ticker,
-            name: tickerDetailsResponse.name,
-            address: tickerDetailsResponse.address,
-            description: tickerDetailsResponse.description,
-            homepageUrl: tickerDetailsResponse.homepage_url,
-            phoneNumber: tickerDetailsResponse.phone_number,
-            listDate: tickerDetailsResponse.list_date,
-            marketCap: tickerDetailsResponse.market_cap,
-            exchange: tickerDetailsResponse.primary_exchange,
-            closePrice: tickerSnapshot.day.c,
-            openPrice: tickerSnapshot.day.o,
-            todaysChange: tickerSnapshot.todaysChange,
-            todaysChangePerc: tickerSnapshot.todaysChangePerc,
-          };
-          const docRef = tickerCollection.doc(ticker.ticker);
-          await docRef.insert(allTickers[ticker.ticker]);
-        }
-      });
-
+        })
+        .withConcurrency(10)
+        .process(async (ticker) => {
+          console.log(`(${++c}/${snapshotsResponse.length}): ${ticker.ticker}`);
+          if (denyList.has(ticker.ticker)) {
+            console.log(`${ticker.ticker} is in the deny list, skipping...`);
+            return;
+          }
+          const tickerSnapshot = tickerToSnapshot[ticker.ticker];
+          if (!tickerSnapshot) return;
+          if (!allTickers[ticker.ticker]) {
+            console.log("Can't find ticker information for: ", ticker.ticker);
+            // If ticker does not exist in DB, call tickerDetails API, fill in information
+            const { results: tickerDetailsResponse } = await this.squid.callApi<TickerDetailsResponse>(
+              'polygon',
+              'tickerDetails',
+              {
+                tickerId: ticker.ticker,
+              },
+            );
+            allTickers[ticker.ticker] = {
+              id: ticker.ticker,
+              name: tickerDetailsResponse.name,
+              address: tickerDetailsResponse.address,
+              description: tickerDetailsResponse.description,
+              homepageUrl: tickerDetailsResponse.homepage_url,
+              phoneNumber: tickerDetailsResponse.phone_number,
+              listDate: tickerDetailsResponse.list_date,
+              marketCap: tickerDetailsResponse.market_cap,
+              exchange: tickerDetailsResponse.primary_exchange,
+              closePrice: tickerSnapshot.day.c,
+              openPrice: tickerSnapshot.day.o,
+              todaysChange: tickerSnapshot.todaysChange,
+              todaysChangePerc: tickerSnapshot.todaysChangePerc,
+            };
+            const docRef = tickerCollection.doc(ticker.ticker);
+            await docRef.insert(allTickers[ticker.ticker], transactionId);
+          }
+        });
+    });
     const snapshotPartitions = _.chunk(snapshotsResponse, 1000);
     const startTime = Date.now();
     await PromisePool.for(snapshotPartitions)

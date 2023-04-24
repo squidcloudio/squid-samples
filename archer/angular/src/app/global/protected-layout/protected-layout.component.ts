@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ArcherService } from '../services/archer.service';
-import { Ticker } from 'archer-common';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { BehaviorSubject, debounce, interval, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-protected-layout',
@@ -12,23 +12,22 @@ import { Router } from '@angular/router';
 })
 export class ProtectedLayoutComponent {
   searchControl = new FormControl('');
-
-  readonly tickersObs = this.archerService.observeTickers();
+  searchTextSubject = new BehaviorSubject<string>('');
+  searchResultsObs = this.searchTextSubject.pipe(
+    debounce(() => interval(50)),
+    switchMap((searchText) => this.archerService.searchTickers(searchText)),
+  );
 
   constructor(private readonly archerService: ArcherService, private readonly router: Router) {}
-
-  filterTickers(tickers: Ticker[], searchText: string) {
-    return tickers.filter((ticker) => {
-      return (
-        ticker.id.toLowerCase().includes(searchText.toLowerCase()) ||
-        ticker.name.toLowerCase().includes(searchText.toLowerCase())
-      );
-    });
-  }
 
   async searchStockSelected(): Promise<void> {
     if (!this.searchControl.value) return;
     await this.router.navigateByUrl(`/stock/${this.searchControl.value}`);
     this.searchControl.setValue(null);
+  }
+
+  async searchQueryChanged() {
+    const searchText = this.searchControl.value;
+    this.searchTextSubject.next(searchText || '');
   }
 }

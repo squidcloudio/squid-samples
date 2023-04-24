@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { CollectionReference, Squid } from '@squidcloud/client';
 import { ArcherUser, PortfolioValueHistory, Ticker, UserAsset } from 'archer-common';
-import { map, Observable, share } from 'rxjs';
+import { combineLatest, firstValueFrom, map, Observable, share } from 'rxjs';
+import { DocumentReference } from '@squidcloud/client/dist/typescript-client/src/document-reference';
+import { DocumentData } from '@squidcloud/common';
 
 @Injectable({
   providedIn: 'root',
@@ -37,6 +39,21 @@ export class ArcherService {
     return this.assetsObs;
   }
 
+  searchTickers(query: string): Promise<Ticker[]> {
+    return firstValueFrom(
+      or<Ticker>(
+        [
+          {
+            fieldName: 'id',
+            asc: true,
+          },
+        ],
+        this.getTickerCollection().query().like('id', `%${query}%`, false).limit(100).sortBy('id').snapshots(false),
+        this.getTickerCollection().query().like('name', `%${query}%`, false).limit(100).sortBy('id').snapshots(false),
+      ).pipe(map((snapshots) => snapshots.map((snapshot) => snapshot.data))),
+    );
+  }
+
   private getTickerCollection(): CollectionReference<Ticker> {
     return this.squid.collection<Ticker>('ticker');
   }
@@ -52,4 +69,42 @@ export class ArcherService {
   private getPortfolioValueHistoryCollection(): CollectionReference<PortfolioValueHistory> {
     return this.squid.collection<PortfolioValueHistory>('portfolioValueHistory');
   }
+}
+
+type SortOrder = {
+  fieldName: string;
+  asc: boolean;
+};
+
+function or<T extends DocumentData>(
+  sort: Array<SortOrder>,
+  ...observables: Observable<Array<DocumentReference<T>>>[]
+): Observable<Array<DocumentReference<T>>> {
+  return combineLatest([...observables]).pipe(
+    map((results) => {
+      const seenData = new Set<T>();
+      const flatResult = results.flat();
+      const result: Array<DocumentReference<T>> = [];
+      for (const docRef of flatResult) {
+        if (seenData.has(docRef.data)) {
+          continue;
+        }
+        seenData.add(docRef.data);
+        result.push(docRef);
+      }
+      return result.sort((a, b) => {
+        for (const { fieldName, asc } of sort) {
+          const aVal = a.data[fieldName];
+          const bVal = b.data[fieldName];
+          if (aVal < bVal) {
+            return asc ? -1 : 1;
+          }
+          if (aVal > bVal) {
+            return asc ? 1 : -1;
+          }
+        }
+        return 0;
+      });
+    }),
+  );
 }
