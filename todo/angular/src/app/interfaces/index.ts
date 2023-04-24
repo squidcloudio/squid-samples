@@ -47,14 +47,14 @@ export type List = {
 
 export type Task = {
   id: string;
-  todoId: string;
+  listId: string;
   title: string;
   userId?: string;
   description: string;
   dueDate: string;
   tags: Tag[];
   completed: boolean;
-  todoColor: string;
+  listColor: string;
 };
 
 export interface EnvironmentDetails {

@@ -6,8 +6,8 @@
         <li class="calendar-tasks-list__component">
           <div
             class="calendar-tasks-list__component-container"
-            (click)="goToTodoPage(task.todoId, task.id, task.dueDate)">
-            <div class="calendar-tasks-list__component-color" [ngStyle]="{ 'background-color': task.todoColor }"></div>
+            (click)="goToTodoPage(task.listId, task.id, task.dueDate)">
+            <div class="calendar-tasks-list__component-color" [ngStyle]="{ 'background-color': task.listColor }"></div>
             <p class="calendar-tasks-list__component-title">{{ task.title }}</p>
           </div>
           <app-edit-label [id]="task.id" type="task"></app-edit-label>

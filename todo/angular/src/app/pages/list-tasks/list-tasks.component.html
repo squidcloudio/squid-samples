@@ -11,9 +11,11 @@
   <div class="list-section" [ngClass]="{ 'list-section-dark': themeService.isDark }">
     <div class="list-section-title">
       <h2>{{ list.activeLabel }}</h2>
-      <ng-container *ngIf="!(list.id === 'today' || list.id === 'tomorrow' || list.id === 'someday')">
-        <app-edit-label [listTitle]="list.title" [id]="list.id" type="list" [labelType]="labelTypes.activeLabel"></app-edit-label>
-      </ng-container>
+      <app-edit-label
+        [listTitle]="list.title"
+        [id]="list.id"
+        type="list"
+        [labelType]="labelTypes.activeLabel"></app-edit-label>
     </div>
     <div class="list-section-content">
       <ul class="list-section-content-list">
@@ -36,9 +38,11 @@
       [ngClass]="{ 'list-section-dark': themeService.isDark }">
       <div class="list-section-title">
         <h2>{{ list.completeLabel }}</h2>
-        <ng-container *ngIf="!(list.id === 'today' || list.id === 'tomorrow' || list.id === 'someday')">
-          <app-edit-label [listTitle]="list.title" [id]="list.id" type="list" [labelType]="labelTypes.completeLabel"></app-edit-label>
-        </ng-container>
+        <app-edit-label
+          [listTitle]="list.title"
+          [id]="list.id"
+          type="list"
+          [labelType]="labelTypes.completeLabel"></app-edit-label>
       </div>
       <div class="list-section-content">
         <ul class="list-section-content-list">

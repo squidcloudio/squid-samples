@@ -17,8 +17,15 @@
     &__component {
       min-height: 47px;
       &:not(:first-child) {
+        margin-top: 60px;
+      }
+      &:nth-child(2){
+        margin-top: 60px;
+      }
+      &:not(:nth-child(2)) {
         margin-top: 24px;
       }
+
     }
   }
 }

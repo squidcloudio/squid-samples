@@ -49,7 +49,7 @@ export class ListService {
     this.currentList = list;
   }
 
-  async createNewList(title: string, color: string): Promise<void> {
+  async createNewList(title: string, color: string): Promise<List> {
     const userId = await this.accountService.getUser();
     const listId = self.crypto.randomUUID();
     const newList: List = {
@@ -60,7 +60,10 @@ export class ListService {
       activeLabel: 'In Progress',
       completeLabel: 'Completed',
     };
-    await this.listCollection.doc(newList.id).insert(newList);
+    return this.listCollection
+      .doc(newList.id)
+      .insert(newList)
+      .then(() => newList);
   }
 
   deleteList(id: string): void {

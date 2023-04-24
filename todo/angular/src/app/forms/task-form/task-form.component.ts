@@ -41,6 +41,18 @@ export class TaskFormComponent implements OnInit, OnDestroy {
         description: new FormControl(null, Validators.required),
         dueDate: new FormControl(this.date ? new Date(this.date) : null, Validators.required),
         tags: new FormControl([], Validators.required),
+        listId: new FormControl(
+          this.currentList?.id === 'today' || this.currentList?.id === 'tomorrow' || this.currentList?.id === 'someday'
+            ? null
+            : this.currentList?.id,
+          Validators.required,
+        ),
+        listColor: new FormControl(
+          this.currentList?.id === 'today' || this.currentList?.id === 'tomorrow' || this.currentList?.id === 'someday'
+            ? null
+            : this.currentList?.color,
+          Validators.required,
+        ),
       });
 
     if (this.taskId)
@@ -51,6 +63,8 @@ export class TaskFormComponent implements OnInit, OnDestroy {
           description: new FormControl(task.description, Validators.required),
           dueDate: new FormControl(new Date(task.dueDate), Validators.required),
           tags: new FormControl(task.tags, Validators.required),
+          listId: new FormControl(task.listId, Validators.required),
+          listColor: new FormControl(task.listColor, Validators.required),
         });
       });
   }
@@ -59,16 +73,14 @@ export class TaskFormComponent implements OnInit, OnDestroy {
     const currentUser = await this.accountService.getUser();
     if (!this.currentList) return;
     if (!currentUser) return;
-    const isCurrentTodoDefault =
-      this.currentList.id === 'today' || this.currentList.id === 'tomorrow' || this.currentList.id === 'someday';
     const newId = self.crypto.randomUUID();
     const newItem: Task = {
       title: this.newTaskForm?.get('title')?.value,
       description: this.newTaskForm?.get('description')?.value,
       dueDate: dayjs(this.newTaskForm?.get('dueDate')?.value).format('M/D/YYYY'),
       tags: this.newTaskForm?.get('tags')?.value,
-      todoId: this.currentTask ? this.currentTask.todoId : this.currentList.id,
-      todoColor: this.currentTask ? this.currentTask.todoColor : this.currentList.color,
+      listId: this.newTaskForm?.get('listId')?.value,
+      listColor: this.newTaskForm?.get('listColor')?.value,
       userId: currentUser.id,
       completed: false,
       id: newId,
@@ -76,7 +88,7 @@ export class TaskFormComponent implements OnInit, OnDestroy {
     if (this.taskId) {
       await this.taskService.changeTask(this.taskId, newItem);
     } else {
-      this.taskService.addNewTask(isCurrentTodoDefault ? { ...newItem, todoId: '', todoColor: '' } : newItem);
+      this.taskService.addNewTask(newItem);
       this.newTaskForm?.reset();
     }
 

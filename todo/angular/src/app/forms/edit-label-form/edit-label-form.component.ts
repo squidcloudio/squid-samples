@@ -25,13 +25,19 @@ export class EditLabelFormComponent implements OnInit, OnDestroy {
             this.labelType === 'activeLabel' ? list.activeLabel : list.completeLabel,
             Validators.required,
           ),
-          listId: new FormControl(list.id),
+          listId: new FormControl(list.id, Validators.required),
         });
       });
     }
   }
   onSubmit(): void {
-    if (this.listId && this.editLabelForm && this.labelType) {
+    if (
+      this.editLabelForm?.get('listId')?.value === 'today' ||
+      this.editLabelForm?.get('listId')?.value === 'tomorrow' ||
+      this.editLabelForm?.get('listId')?.value === 'someday'
+    )
+      this.editLabelForm?.get('listId')?.setValue(null);
+    if (this.listId && this.editLabelForm?.valid && this.labelType) {
       this.listService.changeListLabel(
         this.editLabelForm.get('listId')?.value,
         this.editLabelForm.get('label')?.value,

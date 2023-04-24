@@ -7,6 +7,8 @@
     [ngClass]="{ 'form-dark': themeService.isDark }">
     <h2 class="form-title">{{ title }}</h2>
     <div class="form-container">
+      <app-list-select [control]="newTaskForm"></app-list-select>
+
       <div class="form-container__component">
         <app-text-input
           controlName="title"

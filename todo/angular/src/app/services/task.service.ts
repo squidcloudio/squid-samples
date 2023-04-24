@@ -46,7 +46,7 @@ export class TaskService {
           default:
             return this.taskCollection
               .query()
-              .eq('todoId', listId)
+              .eq('listId', listId)
               .eq('userId', user.id)
               .snapshots()
               .pipe(map(tasks => tasks.map(task => task.data)));
@@ -69,9 +69,14 @@ export class TaskService {
   }
 
   async changeTask(id: string, task: Task): Promise<void> {
-    await this.taskCollection
-      .doc(id)
-      .update({ title: task.title, description: task.description, dueDate: task.dueDate, tags: task.tags });
+    await this.taskCollection.doc(id).update({
+      title: task.title,
+      description: task.description,
+      dueDate: task.dueDate,
+      tags: task.tags,
+      listId: task.listId,
+      listColor: task.listColor,
+    });
   }
 
   observeTasksSortedByDate(date: string): Observable<Task[] | []> {
@@ -106,7 +111,7 @@ export class TaskService {
   }
 
   async deleteTasksFromList(id: string): Promise<void> {
-    const itemList = await this.taskCollection.query().eq('todoId', id).snapshot();
+    const itemList = await this.taskCollection.query().eq('listId', id).snapshot();
     for (const item of itemList) {
       await this.taskCollection.doc(item.data.id).delete();
     }

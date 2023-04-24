@@ -20,7 +20,7 @@
         <app-task-form [dialog]="dialogRef" [taskId]="data.id" title="Edit Task" submitName="Save"></app-task-form>
       </ng-container>
       <ng-container *ngIf="data.name === 'editLabel'">
-        <app-edit-label-form [dialog]="dialogRef"  [listId]="data.id" [labelType]="data.labelType"></app-edit-label-form>
+        <app-edit-label-form [dialog]="dialogRef" [listId]="data.id" [labelType]="data.labelType"></app-edit-label-form>
       </ng-container>
     </div>
   </div>
