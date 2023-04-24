@@ -82,7 +82,7 @@ const Calendar = ({ currentDate, setCurrentDate }: any) => {
             className="overdue_due-item"
             key={i}
             style={{ color: theme === 'dark' ? '#fff' : '#000' }}
-            onClick={() => navigate(`/${el.data.todoId}`)}
+            onClick={() => navigate(`/${el.data.listId}`)}
           >
             <p>{el.data.title}</p>
             <p>{daysAgo} ago</p>
@@ -150,9 +150,9 @@ const Calendar = ({ currentDate, setCurrentDate }: any) => {
             if (dueDate.isSame(currentDate) && el.data.completed === false) {
               return (
                 <div key={i} className="sidebar_item">
-                  <div onClick={() => navigate(`/${el.data.todoId}`)} style={{ flex: '2' }}>
+                  <div onClick={() => navigate(`/${el.data.listId}`)} style={{ flex: '2' }}>
                     <div className="sidebar_item-color">
-                      <div style={{ backgroundColor: el.data.todoColor }}></div>
+                      <div style={{ backgroundColor: el.data.listColor }}></div>
                       <Tooltip title={el.data.title}>
                         <span className="sidebar_item-dots">{el.data.title}</span>
                       </Tooltip>

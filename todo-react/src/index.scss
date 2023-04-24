@@ -613,6 +613,12 @@ th {
       background-color: transparent !important;
     }
 
+    &-dots-container {
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
     &-dots {
       text-overflow: ellipsis;
       white-space: nowrap;

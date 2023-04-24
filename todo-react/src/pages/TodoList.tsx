@@ -25,7 +25,7 @@ const TodoList = ({ itemsCollection, todos }: any) => {
   const { theme } = useContext(ThemeContext);
 
   const allItems = useQuery(
-    itemsCollection.query().where('userId', '==', `${user?.sub}`).where('todoId', '==', `${id}`),
+    itemsCollection.query().where('userId', '==', `${user?.sub}`).where('listId', '==', `${id}`),
     true,
   );
   const todaysItems = useQuery(

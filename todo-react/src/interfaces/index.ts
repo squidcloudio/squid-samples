@@ -14,8 +14,8 @@ export type List = {
 
 export type Task = {
   id: string;
-  todoId: string;
-  todoColor: string;
+  listId: string;
+  listColor: string;
   title: string;
   userId?: string;
   description: string;

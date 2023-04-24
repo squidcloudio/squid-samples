@@ -49,9 +49,9 @@ const ItemModal = ({ collection, todos, open, setOpen, fromCalendar }: any) => {
         year: 'numeric',
       } as Intl.DateTimeFormatOptions),
       tags,
-      todoId: todos.data.id,
+      listId: todos.data.id,
       userId: todos.data.userId,
-      todoColor: todos.data.color,
+      listColor: todos.data.color,
       completed: false,
       id: itemNewId,
     });
