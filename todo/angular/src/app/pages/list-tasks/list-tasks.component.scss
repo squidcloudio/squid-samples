@@ -14,8 +14,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-   &  h2 {
-
+    & h2 {
       font-size: t.text(xl);
       color: c.colors(font-accent);
       font-weight: t.text-weight(bold);
@@ -49,6 +48,9 @@
   margin-top: 36px;
 
   padding-left: 16px;
+  &-empty {
+    margin-top: 0;
+  }
 }
 
 .completed-tasks {

@@ -18,15 +18,18 @@
         [labelType]="labelTypes.activeLabel"></app-edit-label>
     </div>
     <div class="list-section-content">
-      <ul class="list-section-content-list">
-        <li
-          *ngFor="let task of activeTasksObs | async"
-          class="list-section-content-list__component"
-          (click)="setTaskId(task.id)">
-          <app-list-task [task]="task" [taskId]="taskId"></app-list-task>
-        </li>
-      </ul>
-      <div class="new-tasks-section">
+      <ng-container *ngIf="(activeTasksObs|async)?.length">
+        <ul class="list-section-content-list">
+          <li
+            *ngFor="let task of activeTasksObs | async"
+            class="list-section-content-list__component"
+            (click)="setTaskId(task.id)">
+            <app-list-task [task]="task" [taskId]="taskId"></app-list-task>
+          </li>
+        </ul>
+      </ng-container>
+
+      <div class="new-tasks-section" [ngClass]="{'new-tasks-section-empty': !(activeTasksObs|async)?.length}">
         <app-add-task-button></app-add-task-button>
       </div>
     </div>

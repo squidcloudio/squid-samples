@@ -8,6 +8,9 @@
   cursor: pointer;
   &:hover {
     background-color: c.colors(component-active);
+    & .task-content-header-edit {
+      display: block;
+    }
   }
   &-selected {
     background-color: c.colors(component-active);
