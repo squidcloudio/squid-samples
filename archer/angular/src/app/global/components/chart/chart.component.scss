@@ -1,0 +1,48 @@
+@import 'colors';
+
+.chart_container_with_padding {
+  height: 100%;
+
+  .chart_container {
+    height: 100%;
+  }
+}
+
+::ng-deep {
+  .ngx-charts {
+    width: 100% !important;
+    height: 100% !important;
+
+    text {
+      fill: $text2;
+      font-size: 8px !important;
+      font-weight: 500;
+      line-height: 16px;
+    }
+
+    .tooltip-anchor {
+      fill: $text2 !important;
+    }
+  }
+
+  .ngx-charts-outer {
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  .tooltip_content {
+    padding: 12px;
+
+    .tooltip_row {
+      display: flex;
+      align-items: center;
+
+      .bullet {
+        width: 10px;
+        height: 10px;
+        border-radius: 10px;
+        margin-right: 8px;
+      }
+    }
+  }
+}

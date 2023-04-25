@@ -10,7 +10,7 @@
             <div class="change_since_yesterday"
                  [ngClass]="changePercent > 0 ? 'gain gain_bg' : 'lose lose_bg' "
                  *ngVar="getPortfolioChange(userAssets) as changePercent">
-              <span class="value">{{changePercent >= 0 ? '+' : '' }}{{getPortfolioChange(userAssets)}}</span>
+              <span class="value">{{changePercent >= 0 ? '+' : '' }}{{getPortfolioChange(userAssets)}}%</span>
               <mat-icon svgIcon="up_arrow" class="arrow"></mat-icon>
             </div>
             <!--<div class="updated_at">At close: March 10 04:00 PM EST</div>-->
@@ -18,13 +18,17 @@
         </div>
 
         <div class="chart_and_controls_container">
-          <div class="chart_container"></div>
+          <div class="chart_container">
+            <chart [chart]="getPortfolioChart(sampleData)"></chart>
+          </div>
           <div class="controls">
-            <button class="control_button" mat-flat-button>1D</button>
-            <button class="control_button selected" mat-flat-button>1W</button>
-            <button class="control_button" mat-flat-button>1M</button>
-            <button class="control_button" mat-flat-button>3M</button>
-            <button class="control_button" mat-flat-button>1Y</button>
+            <button class="control_button" mat-flat-button
+                    *ngFor="let timeRange of allTimeRanges"
+                    (click)="selectedTimeRange = timeRange"
+                    [ngClass]="{selected: selectedTimeRange === timeRange}">
+
+              {{timeRange | uppercase}}
+            </button>
           </div>
         </div>
 
@@ -57,7 +61,8 @@
             <div class="progress_bar_tags">
               <div class="tag" *ngFor="let alloc of allocArray; let index = index">
                 <div class="bullet" [ngClass]="'color'+(index + 1)"></div>
-                <div class="tag_text"><span class="description">{{alloc.sicDescription | titlecase}}</span> <span class="bold">{{alloc.percentage.toFixed(2)}}
+                <div class="tag_text"><span class="description">{{alloc.sicDescription | titlecase}}</span> <span
+                  class="bold">{{alloc.percentage.toFixed(2)}}
                   %</span></div>
               </div>
             </div>
@@ -77,8 +82,12 @@
             <div class="cell">{{userAsset.tickerId}}</div>
             <div class="cell">{{userAsset.ticker.closePrice}}</div>
             <ng-container *ngVar="userAsset.ticker.todaysChange as change">
-              <div class="cell bold" [ngClass]="change >= 0 ? 'gain' : 'lose'">{{change >= 0 ? '+' : ''}}{{change.toFixed(2)}}</div>
-              <div class="cell bold" [ngClass]="change >= 0 ? 'gain' : 'lose'">{{change >= 0 ? '+' : ''}}{{userAsset.ticker.todaysChangePerc.toFixed(2)}}%</div>
+              <div class="cell bold"
+                   [ngClass]="change >= 0 ? 'gain' : 'lose'">{{change >= 0 ? '+' : ''}}{{change.toFixed(2)}}</div>
+              <div class="cell bold"
+                   [ngClass]="change >= 0 ? 'gain' : 'lose'">{{change >= 0 ? '+' : ''}}{{userAsset.ticker.todaysChangePerc.toFixed(2)}}
+                %
+              </div>
             </ng-container>
             <div class="cell">{{userAsset.quantity}}</div>
             <div class="cell">{{userAsset.quantity * userAsset.ticker.closePrice | currency: 'USD'}}</div>

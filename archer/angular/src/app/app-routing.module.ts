@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '@auth0/auth0-angular';
-import { ProtectedLayoutComponent } from './global/protected-layout/protected-layout.component';
+import { ProtectedLayoutComponent } from './global/components/protected-layout/protected-layout.component';
 import { PortfolioComponent } from './portfolio/portfolio.component';
 import { StockComponent } from './stock/stock.component';
 

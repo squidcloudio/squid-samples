@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthModule, AuthService } from '@auth0/auth0-angular';
 import { SquidModule } from '@squidcloud/angular';
 import { Squid } from '@squidcloud/client';
-import { ProtectedLayoutComponent } from './global/protected-layout/protected-layout.component';
+import { ProtectedLayoutComponent } from './global/components/protected-layout/protected-layout.component';
 import { PortfolioComponent } from './portfolio/portfolio.component';
 import { map } from 'rxjs';
 import { ThemeService } from './global/services/theme.service';
@@ -17,10 +17,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { StockComponent } from './stock/stock.component';
 import { MatButtonModule } from '@angular/material/button';
-import { AvatarComponent } from './global/avatar/avatar.component';
+import { AvatarComponent } from './global/components/avatar/avatar.component';
 import { UserAsset } from 'archer-common';
 import { NgVarDirective } from './global/directives/ng-var.directive';
 import { ArcherService } from './global/services/archer.service';
+import { ChartComponent } from './global/components/chart/chart.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,7 @@ import { ArcherService } from './global/services/archer.service';
     StockComponent,
     AvatarComponent,
     NgVarDirective,
+    ChartComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,6 +55,7 @@ import { ArcherService } from './global/services/archer.service';
     MatAutocompleteModule,
     ReactiveFormsModule,
     MatButtonModule,
+    NgxChartsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

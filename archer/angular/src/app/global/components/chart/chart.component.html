@@ -1,0 +1,29 @@
+<div class="chart_container_with_padding">
+  <div class="chart_container" [ngSwitch]="chart.type">
+    <ngx-charts-line-chart
+      *ngSwitchCase="'line'"
+      [scheme]="getColorScheme(chart)"
+      [legend]="false"
+      [showXAxisLabel]="false"
+      [showYAxisLabel]="false"
+      [xAxis]="chart.options.showXAndYAxis"
+      [yAxis]="chart.options.showXAndYAxis"
+      [showGridLines]="false"
+      [timeline]="false"
+      [autoScale]="true"
+      [xAxisTicks]="chart.options.xAxisTicks || undefAsAny"
+      [yAxisTicks]="chart.options.yAxisTicks || undefAsAny"
+      [trimXAxisTicks]="true"
+      [results]="chart.data">
+      <ng-template #seriesTooltipTemplate let-model="model">
+        <div class="tooltip_content">
+          <div class="tooltip_row" *ngFor="let item of model">
+            <div class="bullet" [style.background-color]="item.color"></div>
+            <div class="text">{{item.name}}: {{item.value}}{{item.suffix ? item.suffix : ''}}</div>
+          </div>
+        </div>
+      </ng-template>
+    </ngx-charts-line-chart>
+    <div class="clear"></div>
+  </div>
+</div>

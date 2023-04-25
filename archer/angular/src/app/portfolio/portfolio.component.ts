@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ArcherService } from '../global/services/archer.service';
-import { UserAssetWithTicker } from 'archer-common';
+import { allTimeRanges, TimeRange, UserAssetWithTicker } from 'archer-common';
+import { Chart, LineChartData } from '../global/components/chart/chart.component';
 
 @Component({
   selector: 'app-portfolio',
@@ -11,6 +12,22 @@ import { UserAssetWithTicker } from 'archer-common';
 export class PortfolioComponent {
   userAssetsObs = this.archerService.observeUserAssets();
   userObs = this.archerService.observeUser();
+  allTimeRanges = allTimeRanges;
+  selectedTimeRange: TimeRange = '1d';
+
+  sampleData: Array<{ date: Date; value: number }> = [
+    { date: new Date('2020-12-31'), value: 0 },
+    { date: new Date('2021-01-01'), value: 100 },
+    { date: new Date('2021-01-02'), value: 200 },
+    { date: new Date('2021-01-03'), value: 300 },
+    { date: new Date('2021-01-04'), value: 400 },
+    { date: new Date('2021-01-05'), value: 500 },
+    { date: new Date('2021-01-06'), value: 600 },
+    { date: new Date('2021-01-07'), value: 500 },
+    { date: new Date('2021-01-08'), value: 400 },
+    { date: new Date('2021-01-09'), value: 500 },
+    { date: new Date('2021-01-10'), value: 600 },
+  ];
 
   constructor(private readonly archerService: ArcherService) {}
 
@@ -62,5 +79,23 @@ export class PortfolioComponent {
       }
       return acc;
     }, [] as { percentage: number; sicDescription: string }[]);
+  }
+
+  getPortfolioChart(chartData: Array<{ date: Date; value: number }>): Chart {
+    const data: Array<LineChartData> = [
+      {
+        name: 'Portfolio value',
+        series: chartData.map((data) => ({ name: data.date.toISOString(), value: data.value })),
+      },
+    ];
+    return {
+      data,
+      options: {
+        legend: false,
+        showXAndYAxis: false,
+      },
+      summaryData: [{ label: 'Portfolio value', value: 'Portfolio value', color: 'var(--gain)' }],
+      type: 'line',
+    };
   }
 }
