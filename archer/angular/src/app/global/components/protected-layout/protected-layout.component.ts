@@ -11,29 +11,11 @@ import { BehaviorSubject, debounce, filter, interval, switchMap } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProtectedLayoutComponent {
-  searchControl = new FormControl('');
-  searchTextSubject = new BehaviorSubject<string>('');
-  searchResultsObs = this.searchTextSubject.pipe(
-    filter((searchText) => searchText.length > 0),
-    debounce(() => interval(50)),
-    switchMap((searchText) => this.archerService.searchTickers(searchText)),
-  );
   searchBarVisible = false;
   userObs = this.archerService.observeUser();
   userAssetsObs = this.archerService.observeUserAssets();
 
-  constructor(private readonly archerService: ArcherService, private readonly router: Router) {}
-
-  async searchStockSelected(): Promise<void> {
-    if (!this.searchControl.value) return;
-    await this.router.navigateByUrl(`/stock/${this.searchControl.value}`);
-    this.searchControl.setValue(null);
-  }
-
-  async searchQueryChanged() {
-    const searchText = this.searchControl.value;
-    this.searchTextSubject.next(searchText || '');
-  }
+  constructor(private readonly archerService: ArcherService) {}
 
   showSearchBar() {
     this.searchBarVisible = true;

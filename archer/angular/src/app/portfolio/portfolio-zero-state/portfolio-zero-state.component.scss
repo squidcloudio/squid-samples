@@ -58,6 +58,14 @@
           line-height: 24px;
           margin-bottom: 24px;
         }
+
+        .search_bar_wrapper {
+          margin: 0 auto;
+          max-width: 488px;
+          width: 100%;
+          border: 1px solid $line2;
+          border-radius: 8px;
+        }
       }
     }
   }

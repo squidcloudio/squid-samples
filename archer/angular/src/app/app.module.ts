@@ -18,12 +18,13 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { StockComponent } from './stock/stock.component';
 import { MatButtonModule } from '@angular/material/button';
 import { AvatarComponent } from './global/components/avatar/avatar.component';
-import { UserAsset } from 'archer-common';
 import { NgVarDirective } from './global/directives/ng-var.directive';
 import { ArcherService } from './global/services/archer.service';
 import { ChartComponent } from './global/components/chart/chart.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { PortfolioZeroStateComponent } from './portfolio/portfolio-zero-state/portfolio-zero-state.component';
+import { SearchBarComponent } from './global/components/search-bar/search-bar.component';
+import { AutofocusDirective } from './global/directives/autofocus.directive';
 
 @NgModule({
   declarations: [
@@ -33,8 +34,10 @@ import { PortfolioZeroStateComponent } from './portfolio/portfolio-zero-state/po
     StockComponent,
     AvatarComponent,
     NgVarDirective,
+    AutofocusDirective,
     ChartComponent,
     PortfolioZeroStateComponent,
+    SearchBarComponent,
   ],
   imports: [
     BrowserModule,
