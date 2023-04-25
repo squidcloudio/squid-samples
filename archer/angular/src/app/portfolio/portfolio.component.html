@@ -1,7 +1,7 @@
 <ng-container *ngIf="userObs | async as user">
   <div class="portfolio_container" *ngIf="userAssetsObs | async as userAssets">
-    <div class="zero_state"></div>
-    <div class="portfolio">
+    <portfolio-zero-state *ngIf="userAssets.length === 0"></portfolio-zero-state>
+    <div class="portfolio" *ngIf="userAssets.length > 0">
       <div class="container">
         <div class="global_portfolio_section">
           <div class="title">Global Portfolio</div>

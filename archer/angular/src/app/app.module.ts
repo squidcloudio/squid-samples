@@ -23,6 +23,7 @@ import { NgVarDirective } from './global/directives/ng-var.directive';
 import { ArcherService } from './global/services/archer.service';
 import { ChartComponent } from './global/components/chart/chart.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { PortfolioZeroStateComponent } from './portfolio/portfolio-zero-state/portfolio-zero-state.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     AvatarComponent,
     NgVarDirective,
     ChartComponent,
+    PortfolioZeroStateComponent,
   ],
   imports: [
     BrowserModule,
