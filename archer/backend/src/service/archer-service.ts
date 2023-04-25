@@ -206,9 +206,7 @@ export class ArcherService extends SquidService {
       .eq('userId', userId)
       .snapshot();
     await this.squid.runInTransaction(async (txId) => {
-      await this.getUserCollection()
-        .doc(userId)
-        .update({ balance: user.balance - totalPrice }, txId);
+      await this.getUserCollection().doc(userId).decrementInPath('balance', totalPrice, txId);
       if (currentAssetRef) {
         const currentQuantity = currentAssetRef.data.quantity;
         const newQuantity = currentQuantity + quantity;

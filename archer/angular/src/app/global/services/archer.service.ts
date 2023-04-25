@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CollectionReference, Squid } from '@squidcloud/client';
-import { ArcherUser, PortfolioValueHistory, Ticker, UserAsset, UserAssetWithTicker } from 'archer-common';
-import { map, NEVER, Observable, of, share, switchMap } from 'rxjs';
+import { ArcherUser, PortfolioValueHistory, Ticker, TimeFrame, UserAsset, UserAssetWithTicker } from 'archer-common';
+import { filter, map, NEVER, Observable, of, share, switchMap } from 'rxjs';
 import { AuthService } from '@auth0/auth0-angular';
 
 @Injectable({
@@ -38,6 +38,13 @@ export class ArcherService {
             return of(archerUser);
           }),
         );
+    }),
+  );
+
+  private readonly portfolioHistory = this.userObs.pipe(
+    switchMap((user) => {
+      if (!user) return NEVER;
+      return this.getPortfolioValueHistoryCollection().query().where('userId', '==', user.id).sortBy('date').snapshot();
     }),
   );
 
@@ -89,26 +96,109 @@ export class ArcherService {
 
   getPortfolioValueHistory(
     timeFrame: '1d' | '1w' | '1m' | '3m' | '1y',
+    numDataPoints: number,
   ): Observable<Array<{ date: Date; value: number }>> {
-    return this.userObs.pipe(
-      switchMap((user) => {
-        if (!user) return NEVER;
-        return this.getPortfolioValueHistoryCollection()
-          .query()
-          .where('userId', '==', user.id)
-          .where('date', '>=', Date.now() - this.getTimeFrameMs(timeFrame))
-          .sortBy('date')
-          .snapshot();
-      }),
+    return this.portfolioHistory.pipe(
+      filter(Boolean),
+      // Convert the DocumentReference to the actual data and filter based on time frame.
       map((results) => {
-        return results.map((result) => {
-          return {
-            date: result.data.date,
-            value: result.data.value,
-          };
-        });
+        return results
+          .map((result) => {
+            return {
+              date: result.data.date,
+              value: result.data.value,
+            };
+          })
+          .filter((result) => result.date.getTime() > Date.now() - this.getTimeFrameMs(timeFrame));
+      }),
+      map((history) => {
+        const timeIntervals = this.getTimeIntervals(timeFrame, numDataPoints);
+        const aggregatedHistory: Array<{ date: Date; value: number }> = [];
+
+        let currentIntervalIndex = 0;
+        let currentValue = 0;
+
+        for (const record of history) {
+          while (
+            currentIntervalIndex < numDataPoints - 1 &&
+            record.date.getTime() > timeIntervals[currentIntervalIndex + 1]
+          ) {
+            aggregatedHistory.push({ date: new Date(timeIntervals[currentIntervalIndex]), value: currentValue });
+            currentIntervalIndex++;
+            currentValue = 0; // Reset the value for the next interval
+          }
+          currentValue += record.value;
+        }
+
+        // Add the remaining data points
+        while (currentIntervalIndex < numDataPoints) {
+          aggregatedHistory.push({ date: new Date(timeIntervals[currentIntervalIndex]), value: currentValue });
+          currentIntervalIndex++;
+          currentValue = 0; // Reset the value for the next interval
+        }
+
+        return aggregatedHistory;
       }),
     );
+  }
+
+  private roundTime(date: Date, intervalMs: number): Date {
+    const intervalSec = intervalMs / 1000;
+    const intervalMin = intervalSec / 60;
+    const intervalHour = intervalMin / 60;
+    const intervalDay = intervalHour / 24;
+
+    const roundedDate = new Date(date);
+
+    if (intervalDay >= 1) {
+      roundedDate.setUTCHours(0, 0, 0, 0); // Beginning of the day
+    } else if (intervalHour >= 1) {
+      roundedDate.setUTCMinutes(0, 0, 0); // Beginning of the hour
+    } else if (intervalMin >= 5) {
+      const roundedMinutes = 5 * Math.floor(roundedDate.getUTCMinutes() / 5);
+      roundedDate.setUTCMinutes(roundedMinutes, 0, 0); // 5-minute rounding
+    } else if (intervalMin >= 1) {
+      roundedDate.setUTCSeconds(0, 0); // Beginning of the minute
+    }
+
+    return roundedDate;
+  }
+
+  private getTimeIntervals(timeFrame: TimeFrame, numDataPoints: number): number[] {
+    const now = Date.now();
+    const timeFrameMs = this.getTimeFrameMs(timeFrame);
+
+    const intervalsPerPeriod: Record<TimeFrame, number> = {
+      '1d': numDataPoints,
+      '1w': 7,
+      '1m': 30,
+      '3m': 13, // 12 weeks + 1 extra point
+      '1y': 12,
+    };
+
+    const intervals = new Array(numDataPoints);
+
+    const numIntervals = intervalsPerPeriod[timeFrame];
+    const baseIntervalMs = timeFrameMs / numIntervals;
+    const extraPoints = numDataPoints - numIntervals;
+
+    for (let i = 0; i < numIntervals; i++) {
+      const unroundedIntervalStart = now - (i + 1) * baseIntervalMs;
+      const intervalStart = this.roundTime(new Date(unroundedIntervalStart), baseIntervalMs);
+      intervals[i] = intervalStart.getTime();
+    }
+
+    // Spread extra points evenly on the last day
+    if (extraPoints > 0) {
+      const lastDayMs = baseIntervalMs / (extraPoints + 1);
+      for (let i = 0; i < extraPoints; i++) {
+        const unroundedIntervalStart = intervals[numIntervals - 1] - (i + 1) * lastDayMs;
+        const intervalStart = this.roundTime(new Date(unroundedIntervalStart), lastDayMs);
+        intervals[numIntervals + i] = intervalStart.getTime();
+      }
+    }
+
+    return intervals.reverse();
   }
 
   private getTickerCollection(): CollectionReference<Ticker> {
@@ -127,7 +217,7 @@ export class ArcherService {
     return this.squid.collection<PortfolioValueHistory>('portfolioValueHistory');
   }
 
-  private getTimeFrameMs(timeFrame: '1d' | '1w' | '1m' | '3m' | '1y') {
+  private getTimeFrameMs(timeFrame: TimeFrame) {
     return {
       '1d': 1000 * 60 * 60 * 24,
       '1w': 1000 * 60 * 60 * 24 * 7,

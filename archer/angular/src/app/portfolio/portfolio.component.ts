@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ArcherService } from '../global/services/archer.service';
-import { allTimeRanges, TimeRange, UserAssetWithTicker } from 'archer-common';
+import { allTimeFrames, TimeFrame, UserAssetWithTicker } from 'archer-common';
 import { Chart, LineChartData } from '../global/components/chart/chart.component';
+import { BehaviorSubject, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-portfolio',
@@ -12,22 +13,13 @@ import { Chart, LineChartData } from '../global/components/chart/chart.component
 export class PortfolioComponent {
   userAssetsObs = this.archerService.observeUserAssets();
   userObs = this.archerService.observeUser();
-  allTimeRanges = allTimeRanges;
-  selectedTimeRange: TimeRange = '1d';
-
-  sampleData: Array<{ date: Date; value: number }> = [
-    { date: new Date('2020-12-31'), value: 0 },
-    { date: new Date('2021-01-01'), value: 100 },
-    { date: new Date('2021-01-02'), value: 200 },
-    { date: new Date('2021-01-03'), value: 300 },
-    { date: new Date('2021-01-04'), value: 400 },
-    { date: new Date('2021-01-05'), value: 500 },
-    { date: new Date('2021-01-06'), value: 600 },
-    { date: new Date('2021-01-07'), value: 500 },
-    { date: new Date('2021-01-08'), value: 400 },
-    { date: new Date('2021-01-09'), value: 500 },
-    { date: new Date('2021-01-10'), value: 600 },
-  ];
+  allTimeFrames = allTimeFrames;
+  selectedTimeFrame = new BehaviorSubject<TimeFrame>('1d');
+  portfolioValueHistoryObs = this.selectedTimeFrame.pipe(
+    switchMap((timeFrame) => {
+      return this.archerService.getPortfolioValueHistory(timeFrame, 24);
+    }),
+  );
 
   constructor(private readonly archerService: ArcherService) {}
 

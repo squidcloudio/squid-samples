@@ -1,5 +1,5 @@
-export type TimeRange = '1d' | '1w' | '1m' | '3m' | '1y';
-export const allTimeRanges: Array<TimeRange> = ['1d', '1w', '1m', '3m', '1y'];
+export type TimeFrame = '1d' | '1w' | '1m' | '3m' | '1y';
+export const allTimeFrames: Array<TimeFrame> = ['1d', '1w', '1m', '3m', '1y'];
 
 export interface Ticker {
   id: string;

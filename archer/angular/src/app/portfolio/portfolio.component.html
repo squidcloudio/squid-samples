@@ -17,17 +17,17 @@
           </div>
         </div>
 
-        <div class="chart_and_controls_container">
+        <div class="chart_and_controls_container" *ngIf="portfolioValueHistoryObs | async as portfolioValueHistory">
           <div class="chart_container">
-            <chart [chart]="getPortfolioChart(sampleData)"></chart>
+            <chart [chart]="getPortfolioChart(portfolioValueHistory)"></chart>
           </div>
           <div class="controls">
             <button class="control_button" mat-flat-button
-                    *ngFor="let timeRange of allTimeRanges"
-                    (click)="selectedTimeRange = timeRange"
-                    [ngClass]="{selected: selectedTimeRange === timeRange}">
+                    *ngFor="let timeFrame of allTimeFrames"
+                    (click)="selectedTimeFrame.next(timeFrame)"
+                    [ngClass]="{selected: selectedTimeFrame.value === timeFrame}">
 
-              {{timeRange | uppercase}}
+              {{timeFrame | uppercase}}
             </button>
           </div>
         </div>
