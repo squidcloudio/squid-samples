@@ -16,6 +16,4 @@ export class ModalWindowComponent {
     @Inject(DIALOG_DATA) readonly data: ModalWindowData,
     readonly themeService: ThemeService,
   ) {}
-
-  closeModal() {}
 }

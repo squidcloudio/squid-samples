@@ -81,7 +81,7 @@
         &__component {
           &:not(:first-child) {
           }
-
+          text-transform: uppercase;
           font-weight: t.text-weight(bold);
           font-size: t.text(xxs);
           color: c.colors(font-accent);

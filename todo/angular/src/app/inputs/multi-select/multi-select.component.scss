@@ -14,6 +14,7 @@
   transition: all 160ms ease-in;
 
   &-label {
+
     font-size: t.text(3xs);
     display: none;
   }
@@ -77,8 +78,9 @@
       justify-content: space-between;
       align-items: center;
       border: 1px solid c.colors(font-accent);
+      text-transform: uppercase;
       border-radius: 4px;
-      padding: 5px;
+      padding: 3px 6px 3px 8px;
       color: c.colors(font-accent);
       font-weight: t.text-weight(bold);
       font-size: t.text(xxs);
@@ -87,7 +89,9 @@
 }
 
 .tag-component-button {
-  margin-left: 10px;
+  margin-left: 6px;
+  font-size: 12px;
+  font-weight: t.text-weight(bold);
 }
 
 .active {
@@ -129,6 +133,7 @@
   .tag-container-list__component {
     border: 1px solid c.colors(font, true);
     color: c.colors(font, true);
+
   }
 }
 .options {

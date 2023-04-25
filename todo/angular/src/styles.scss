@@ -48,6 +48,15 @@ body {
 .cdk-overlay-dark-backdrop {
   background: none !important;
 }
+.mat-calendar-body-selected {
+  background-color: #f1f3f9;
+  border-color: #c4ccd9;
+  color: #212121 !important;
+}
+.mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover
+  > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical) {
+  background-color: #f1f3f9;
+}
 .body-dark {
   background-color: color.colors(bg, true);
   .mat-datepicker-content .mat-calendar {
@@ -82,13 +91,23 @@ body {
     background-color: color.colors(bg-c, true) !important;
   }
 }
-.cdk-global-scrollblock{
+.cdk-global-scrollblock {
   overflow: hidden;
 }
 .mdc-menu-surface.mat-mdc-autocomplete-panel {
   padding: 0 !important;
 }
-
+.mat-datepicker-content {
+  margin-top: 4px;
+  .mat-calendar {
+    position: relative;
+    width: fit-content !important;
+    height: fit-content !important;
+  }
+}
+.mat-calendar-header {
+  width: 420px;
+}
 @mixin formTitle {
   font-family: inherit;
   color: color.colors(font-accent);
@@ -99,4 +118,24 @@ body {
 html,
 body {
   height: s.size(full);
+}
+.mat-calendar-body-cell {
+  width: 40px !important;
+  height: 40px !important;
+}
+.mat-calendar-body-cell-content {
+  width: 40px !important;
+  height: 40px !important;
+}
+td.mat-calendar-body-cell-container.ng-star-inserted {
+  padding: 20px !important;
+}
+td.mat-calendar-body-label.ng-star-inserted {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+@media screen and (min-width: 378px) and (max-width: 767px) {
+  .mat-calendar-header {
+    width: 79vw;
+  }
 }

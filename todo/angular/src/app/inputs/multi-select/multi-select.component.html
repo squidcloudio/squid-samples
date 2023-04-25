@@ -13,7 +13,7 @@
         <li class="tag-container-list__component" *ngFor="let selectedTag of selectedTags">
           {{ selectedTag.name }}
           <button class="tag-component-button" (click)="deleteTage(selectedTag.id)">
-            <img [src]="themeService.isDark ? './assets/close-dark.svg' : './assets/close.svg'" width="6" height="6" />
+            X
           </button>
         </li>
       </ul>
