@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ListService } from './list.service';
 import { Squid } from '@squidcloud/client';
-import { Task } from '../interfaces';
+import { FormatTypes, Task } from '../interfaces';
 import { map, NEVER, Observable, switchMap } from 'rxjs';
 import { AccountService } from './account.service';
 import * as dayjs from 'dayjs';
@@ -115,5 +115,15 @@ export class TaskService {
     for (const item of itemList) {
       await this.taskCollection.doc(item.data.id).delete();
     }
+  }
+  observeExpiredTasks(): Observable<Task[]> {
+    return this.observeTasks().pipe(
+      map(tasks =>
+        tasks.filter(item => {
+          const isItemIsExpired = dayjs(item.dueDate, FormatTypes.ISO_FORMAT).startOf('day') < dayjs().startOf('day');
+          return isItemIsExpired && !item.completed;
+        }),
+      ),
+    );
   }
 }

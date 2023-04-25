@@ -1,9 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { map, Observable } from 'rxjs';
-import { FormatTypes, Task } from '../../interfaces';
+import { Observable } from 'rxjs';
+import { Task } from '../../interfaces';
 import { TaskService } from '../../services/task.service';
 import { ThemeService } from '../../services/theme.service';
-import * as dayjs from 'dayjs';
 import { Router } from '@angular/router';
 import { DialogRef } from '@angular/cdk/dialog';
 
@@ -18,18 +17,11 @@ export class ExpiredTasksComponent implements OnInit {
   constructor(private taskService: TaskService, readonly themeService: ThemeService, private router: Router) {}
 
   ngOnInit(): void {
-    this.expiredTasksObs = this.taskService.observeTasks().pipe(
-      map(tasks =>
-        tasks.filter(item => {
-          const isItemIsExpired = dayjs(item.dueDate, FormatTypes.ISO_FORMAT).startOf('day') < dayjs().startOf('day');
-          return isItemIsExpired && !item.completed;
-        }),
-      ),
-    );
+    this.expiredTasksObs = this.taskService.observeExpiredTasks();
   }
 
-  gotToPage(id: string): void {
-    this.router.navigate(['', 'someday'], { queryParams: { itemId: id } });
+  gotToPage(task: Task): void {
+    this.router.navigate(['', task.listId], { queryParams: { taskId: task.id } });
     this.dialog?.close();
   }
 }

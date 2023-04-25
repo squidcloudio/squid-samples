@@ -1,13 +1,14 @@
 <ng-container *ngIf="expiredTasksObs | async as tasks">
-  <div class="calendar-expired-title">
-    <div></div>
-    <p>Overdue</p>
-  </div>
+  <p class="calendar-expired-title">Overdue</p>
   <ul class="calendar-expired-list" [ngClass]="{ 'calendar-expired-dark': themeService.isDark }">
-    <ng-container *ngFor="let item of tasks">
-      <li class="calendar-expired-list__component" (click)="gotToPage(item.id)">
-        <p>{{ item.title }}</p>
-        <span>{{ item.dueDate | timeSince }}</span>
+    <ng-container *ngFor="let task of tasks">
+      <li class="calendar-expired-list__component" (click)="gotToPage(task)">
+        <div class="calendar-expired-list__component-info">
+          <div class="calendar-expired-list__component-alert"></div>
+          <p>{{ task.title }}</p>
+        </div>
+
+        <span>{{ task.dueDate | timeSince }}</span>
       </li>
     </ng-container>
   </ul>

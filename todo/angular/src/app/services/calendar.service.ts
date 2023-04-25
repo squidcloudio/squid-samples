@@ -6,6 +6,7 @@ import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class CalendarService {
+  today = dayjs().format(FormatTypes.DEFAULT_FORMAT);
   currentDate = dayjs().format(FormatTypes.DEFAULT_FORMAT);
   dateSubj: BehaviorSubject<string> = new BehaviorSubject(this.currentDate);
 

@@ -6,6 +6,7 @@ import { CalendarService } from '../../services/calendar.service';
 import { Observable } from 'rxjs';
 import { ThemeService } from '../../services/theme.service';
 import { DialogRef } from '@angular/cdk/dialog';
+import { TaskService } from '../../services/task.service';
 
 @Component({
   selector: 'app-calendar-tasks',
@@ -14,19 +15,24 @@ import { DialogRef } from '@angular/cdk/dialog';
 })
 export class CalendarTasksComponent implements OnInit {
   @Input('dialog') dialog?: DialogRef<string>;
+  @Input('duringType') duringType?: string;
   activeTasksObs?: Observable<Task[]>;
   readonly formatTypes = FormatTypes;
-  constructor(private router: Router, readonly calendarService: CalendarService, readonly themeService: ThemeService) {}
+  constructor(
+    private router: Router,
+    readonly calendarService: CalendarService,
+    readonly themeService: ThemeService,
+    private taskService: TaskService,
+  ) {}
 
   ngOnInit(): void {
-    this.activeTasksObs = this.calendarService.observeTasksOnDate();
+    this.activeTasksObs = this.duringType
+      ? this.taskService.observeTasksSortedByDate(dayjs().add(1, 'day').format(FormatTypes.DEFAULT_FORMAT))
+      : this.calendarService.observeTasksOnDate();
   }
 
-  async goToTodoPage(todoId: string, taskId: string, dueDate?: string): Promise<void> {
-    const today = dayjs().format(FormatTypes.DEFAULT_FORMAT);
-    const tomorrow = dayjs().add(1, 'day').format(FormatTypes.DEFAULT_FORMAT);
-    const navigationId = dueDate === today ? 'today' : dueDate === tomorrow ? 'tomorrow' : 'someday';
-    await this.router.navigate(['', todoId ? todoId : navigationId], { queryParams: { taskId: taskId } });
+  async goToTodoPage(listId: string, taskId: string, dueDate?: string): Promise<void> {
+    await this.router.navigate(['', listId], { queryParams: { taskId: taskId } });
     this.dialog?.close();
   }
 }
