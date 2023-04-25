@@ -56,14 +56,14 @@
           <ng-container *ngIf="getAllocationsPerIndustry(userAssets) as allocArray">
             <div class="progress_bar_container">
               <div class="single_progress_bar" [ngClass]="'color'+(index + 1)"
+                   [title]="alloc.sicDescription | titlecase"
                    *ngFor="let alloc of allocArray; let index = index" [style.width]="alloc.percentage + '%'"></div>
             </div>
             <div class="progress_bar_tags">
               <div class="tag" *ngFor="let alloc of allocArray; let index = index">
                 <div class="bullet" [ngClass]="'color'+(index + 1)"></div>
                 <div class="tag_text"><span class="description">{{alloc.sicDescription | titlecase}}</span> <span
-                  class="bold">{{alloc.percentage.toFixed(2)}}
-                  %</span></div>
+                  class="bold">{{alloc.percentage.toFixed(2)}}%</span></div>
               </div>
             </div>
           </ng-container>
@@ -80,13 +80,13 @@
           </div>
           <div class="row" *ngFor="let userAsset of userAssets">
             <div class="cell">{{userAsset.tickerId}}</div>
-            <div class="cell">{{userAsset.ticker.closePrice}}</div>
+            <div class="cell">{{userAsset.ticker.closePrice | currency: 'USD'}}</div>
             <ng-container *ngVar="userAsset.ticker.todaysChange as change">
               <div class="cell bold"
-                   [ngClass]="change >= 0 ? 'gain' : 'lose'">{{change >= 0 ? '+' : ''}}{{change.toFixed(2)}}</div>
+                   [ngClass]="change >= 0 ? 'gain' : 'lose'">{{change >= 0 ? '+' : ''}}{{change.toFixed(2) | currency: 'USD'}}</div>
               <div class="cell bold"
-                   [ngClass]="change >= 0 ? 'gain' : 'lose'">{{change >= 0 ? '+' : ''}}{{userAsset.ticker.todaysChangePerc.toFixed(2)}}
-                %
+                   [ngClass]="change >= 0 ? 'gain' : 'lose'">
+                <span>{{change >= 0 ? '+' : ''}}{{userAsset.ticker.todaysChangePerc.toFixed(2)}}%</span>
               </div>
             </ng-container>
             <div class="cell">{{userAsset.quantity}}</div>
