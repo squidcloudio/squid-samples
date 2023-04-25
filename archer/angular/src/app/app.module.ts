@@ -19,9 +19,18 @@ import { StockComponent } from './stock/stock.component';
 import { MatButtonModule } from '@angular/material/button';
 import { AvatarComponent } from './global/avatar/avatar.component';
 import { UserAsset } from 'archer-common';
+import { NgVarDirective } from './global/directives/ng-var.directive';
+import { ArcherService } from './global/services/archer.service';
 
 @NgModule({
-  declarations: [AppComponent, ProtectedLayoutComponent, PortfolioComponent, StockComponent, AvatarComponent],
+  declarations: [
+    AppComponent,
+    ProtectedLayoutComponent,
+    PortfolioComponent,
+    StockComponent,
+    AvatarComponent,
+    NgVarDirective,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -48,26 +57,14 @@ import { UserAsset } from 'archer-common';
   bootstrap: [AppComponent],
 })
 export class AppModule {
-  constructor(squid: Squid, authService: AuthService, themeService: ThemeService) {
+  constructor(squid: Squid, authService: AuthService, themeService: ThemeService, archerService: ArcherService) {
     squid.setAuthIdToken(authService.idTokenClaims$.pipe(map((idToken) => idToken?.__raw)));
     themeService.initialize();
-
-    /*squid.collection<UserAsset>('userAsset').doc().insert({
-      tickerId: 'AAPL',
-      quantity: 10,
-      userId: 'google-oauth2|108858500695615523056',
-    });
-
-    squid.collection<UserAsset>('userAsset').doc().insert({
-      tickerId: 'GOOG',
-      quantity: 20,
-      userId: 'google-oauth2|108858500695615523056',
-    });
-
-    squid.collection<UserAsset>('userAsset').doc().insert({
-      tickerId: 'NVDA',
-      quantity: 30,
-      userId: 'google-oauth2|108858500695615523056',
-    });*/
+    /*archerService.buyAsset('VNOM', 10).then();
+    archerService.buyAsset('LMND', 32).then();
+    archerService.buyAsset('INMD', 60).then();*/
+    /*archerService.buyAsset('AAPL', 10).then();
+    archerService.buyAsset('GOOG', 20).then();
+    archerService.buyAsset('NVDA', 30).then();*/
   }
 }

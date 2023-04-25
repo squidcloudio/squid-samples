@@ -21,6 +21,7 @@ export class ArcherService {
           }),
           switchMap((archerUser) => {
             if (!archerUser) {
+              // TODO: Move this to executable
               this.getUserCollection()
                 .doc(auth0User.sub)
                 .insert({
@@ -68,6 +69,14 @@ export class ArcherService {
     return this.userObs;
   }
 
+  async buyAsset(tickerId: string, quantity: number): Promise<void> {
+    return this.squid.executeFunction('buyAsset', tickerId, quantity);
+  }
+
+  async sellAsset(tickerId: string, quantity: number): Promise<void> {
+    return this.squid.executeFunction('sellAsset', tickerId, quantity);
+  }
+
   async searchTickers(query: string): Promise<Ticker[]> {
     const results = await this.getTickerCollection()
       .or(
@@ -76,6 +85,30 @@ export class ArcherService {
       )
       .snapshot();
     return results.map((result) => result.data);
+  }
+
+  getPortfolioValueHistory(
+    timeFrame: '1d' | '1w' | '1m' | '3m' | '1y',
+  ): Observable<Array<{ date: Date; value: number }>> {
+    return this.userObs.pipe(
+      switchMap((user) => {
+        if (!user) return NEVER;
+        return this.getPortfolioValueHistoryCollection()
+          .query()
+          .where('userId', '==', user.id)
+          .where('date', '>=', Date.now() - this.getTimeFrameMs(timeFrame))
+          .sortBy('date')
+          .snapshot();
+      }),
+      map((results) => {
+        return results.map((result) => {
+          return {
+            date: result.data.date,
+            value: result.data.value,
+          };
+        });
+      }),
+    );
   }
 
   private getTickerCollection(): CollectionReference<Ticker> {
@@ -92,5 +125,15 @@ export class ArcherService {
 
   private getPortfolioValueHistoryCollection(): CollectionReference<PortfolioValueHistory> {
     return this.squid.collection<PortfolioValueHistory>('portfolioValueHistory');
+  }
+
+  private getTimeFrameMs(timeFrame: '1d' | '1w' | '1m' | '3m' | '1y') {
+    return {
+      '1d': 1000 * 60 * 60 * 24,
+      '1w': 1000 * 60 * 60 * 24 * 7,
+      '1m': 1000 * 60 * 60 * 24 * 30,
+      '3m': 1000 * 60 * 60 * 24 * 30 * 3,
+      '1y': 1000 * 60 * 60 * 24 * 365,
+    }[timeFrame];
   }
 }

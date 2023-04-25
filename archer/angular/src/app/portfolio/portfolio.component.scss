@@ -155,8 +155,11 @@
 
       .progress_bar_tags {
         display: flex;
+        flex-wrap: wrap;
         align-items: center;
-        justify-content: space-between;
+        justify-content: flex-start;
+        row-gap: 12px;
+        column-gap: 40px;
 
         .tag {
           display: flex;
@@ -174,6 +177,12 @@
             font-size: 12px;
             line-height: 16px;
             color: $type1;
+
+            .description {
+              overflow: hidden;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+            }
 
             .bold {
               font-weight: 800;

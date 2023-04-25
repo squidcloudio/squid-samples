@@ -7,11 +7,13 @@
           <div class="title">Global Portfolio</div>
           <div class="totals">
             <div class="portfolio_value gain">{{getPortfolioValue(userAssets) | currency: 'USD'}}</div>
-            <div class="change_since_yesterday gain gain_bg">
-              <span class="value">+12.32%</span>
+            <div class="change_since_yesterday"
+                 [ngClass]="changePercent > 0 ? 'gain gain_bg' : 'lose lose_bg' "
+                 *ngVar="getPortfolioChange(userAssets) as changePercent">
+              <span class="value">{{changePercent >= 0 ? '+' : '' }}{{getPortfolioChange(userAssets)}}</span>
               <mat-icon svgIcon="up_arrow" class="arrow"></mat-icon>
             </div>
-            <div class="updated_at">At close: March 10 04:00 PM EST</div>
+            <!--<div class="updated_at">At close: March 10 04:00 PM EST</div>-->
           </div>
         </div>
 
@@ -31,41 +33,35 @@
           <div class="stats">
             <div class="stat">
               <div class="stat_name">Total gain</div>
-              <div class="stat_value gain">$17,565.32 (+29.23%)</div>
+              <div class="stat_value" [ngClass]="totalGainPercent >= 0 ? 'gain' : 'lose'"
+                   *ngVar="getTotalGainPercent(userAssets) as totalGainPercent">
+                {{getTotalGain(userAssets) | currency: 'USD'}}
+                ({{totalGainPercent > 0 ? '+' : ''}}{{totalGainPercent}}%)
+              </div>
             </div>
             <div class="stat">
               <div class="stat_name">Cash holding</div>
-              <div class="stat_value lose">$5.328.12</div>
+              <div class="stat_value gain">{{user.balance | currency: 'USD'}}</div>
             </div>
             <div class="stat">
               <div class="stat_name">Total shares</div>
-              <div class="stat_value gain">102 / 5 holdings</div>
+              <div class="stat_value gain"> {{ getTotalStockQuantity(userAssets) }} / {{userAssets.length}} holdings
+              </div>
             </div>
           </div>
-          <div class="progress_bar_container">
-            <div class="single_progress_bar color1" style="width: 35%"></div>
-            <div class="single_progress_bar color2" style="width: 20%"></div>
-            <div class="single_progress_bar color3" style="width: 20%"></div>
-            <div class="single_progress_bar color4" style="width: 25%"></div>
-          </div>
-          <div class="progress_bar_tags">
-            <div class="tag">
-              <div class="bullet color1"></div>
-              <div class="tag_text">Technology <span class="bold">35%</span></div>
+          <ng-container *ngIf="getAllocationsPerIndustry(userAssets) as allocArray">
+            <div class="progress_bar_container">
+              <div class="single_progress_bar" [ngClass]="'color'+(index + 1)"
+                   *ngFor="let alloc of allocArray; let index = index" [style.width]="alloc.percentage + '%'"></div>
             </div>
-            <div class="tag">
-              <div class="bullet color2"></div>
-              <div class="tag_text">Finance <span class="bold">20%</span></div>
+            <div class="progress_bar_tags">
+              <div class="tag" *ngFor="let alloc of allocArray; let index = index">
+                <div class="bullet" [ngClass]="'color'+(index + 1)"></div>
+                <div class="tag_text"><span class="description">{{alloc.sicDescription | titlecase}}</span> <span class="bold">{{alloc.percentage.toFixed(2)}}
+                  %</span></div>
+              </div>
             </div>
-            <div class="tag">
-              <div class="bullet color3"></div>
-              <div class="tag_text">Real estate <span class="bold">20%</span></div>
-            </div>
-            <div class="tag">
-              <div class="bullet color4"></div>
-              <div class="tag_text">Others <span class="bold">25%</span></div>
-            </div>
-          </div>
+          </ng-container>
         </div>
 
         <div class="assets_table">
@@ -77,29 +73,15 @@
             <div class="cell">Shares</div>
             <div class="cell">Total value</div>
           </div>
-          <div class="row">
-            <div class="cell">AAPL</div>
-            <div class="cell">$1,000.00</div>
-            <div class="cell gain bold">+$45.23</div>
-            <div class="cell gain bold">+12.32%</div>
-            <div class="cell">10</div>
-            <div class="cell">$10,000.00</div>
-          </div>
-          <div class="row">
-            <div class="cell">GOOG</div>
-            <div class="cell">$1,000.00</div>
-            <div class="cell gain bold">+$45.23</div>
-            <div class="cell gain bold">+12.32%</div>
-            <div class="cell">10</div>
-            <div class="cell">$10,000.00</div>
-          </div>
-          <div class="row">
-            <div class="cell">BOA</div>
-            <div class="cell">$1,000.00</div>
-            <div class="cell gain bold">+$45.23</div>
-            <div class="cell gain bold">+12.32%</div>
-            <div class="cell">10</div>
-            <div class="cell">$10,000.00</div>
+          <div class="row" *ngFor="let userAsset of userAssets">
+            <div class="cell">{{userAsset.tickerId}}</div>
+            <div class="cell">{{userAsset.ticker.closePrice}}</div>
+            <ng-container *ngVar="userAsset.ticker.todaysChange as change">
+              <div class="cell bold" [ngClass]="change >= 0 ? 'gain' : 'lose'">{{change >= 0 ? '+' : ''}}{{change.toFixed(2)}}</div>
+              <div class="cell bold" [ngClass]="change >= 0 ? 'gain' : 'lose'">{{change >= 0 ? '+' : ''}}{{userAsset.ticker.todaysChangePerc.toFixed(2)}}%</div>
+            </ng-container>
+            <div class="cell">{{userAsset.quantity}}</div>
+            <div class="cell">{{userAsset.quantity * userAsset.ticker.closePrice | currency: 'USD'}}</div>
           </div>
         </div>
       </div>

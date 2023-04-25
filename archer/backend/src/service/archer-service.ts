@@ -190,7 +190,7 @@ export class ArcherService extends SquidService {
   private async incrementAssetQuantity(tickerId: string, quantity: number): Promise<void> {
     const user = await this.getArcherUser();
     const userId = user.id;
-    const tickerRef = await this.getTickerCollection().doc(tickerId);
+    const tickerRef = await this.getTickerCollection().doc(tickerId).snapshot();
     if (!tickerRef) {
       throw new Error('Ticker not found');
     }
@@ -210,12 +210,16 @@ export class ArcherService extends SquidService {
         .doc(userId)
         .update({ balance: user.balance - totalPrice }, txId);
       if (currentAssetRef) {
-        const newQuantity = currentAssetRef.data.quantity + quantity;
+        const currentQuantity = currentAssetRef.data.quantity;
+        const newQuantity = currentQuantity + quantity;
         if (newQuantity <= 0) {
           await currentAssetRef.delete(txId);
           return;
         }
-        await currentAssetRef.update({ quantity: newQuantity }, txId);
+        const currentAvgBuyPrice = currentAssetRef.data.avgBuyPrice;
+        const newAvgBuyPrice = (currentAvgBuyPrice * currentQuantity + totalPrice) / newQuantity;
+
+        await currentAssetRef.update({ quantity: newQuantity, avgBuyPrice: newAvgBuyPrice }, txId);
       } else {
         const id = `${userId}-${tickerId}`;
         await this.getUserAssetCollection().doc(id).insert(
@@ -223,6 +227,7 @@ export class ArcherService extends SquidService {
             userId,
             tickerId,
             quantity,
+            avgBuyPrice: price,
           },
           txId,
         );

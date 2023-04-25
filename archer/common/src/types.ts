@@ -26,6 +26,7 @@ export interface UserAsset {
   userId: string;
   tickerId: string;
   quantity: number;
+  avgBuyPrice: number;
 }
 
 export type UserAssetWithTicker = UserAsset & { ticker: Ticker };
