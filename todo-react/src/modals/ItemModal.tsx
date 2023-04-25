@@ -13,7 +13,10 @@ import { MenuItem, Modal, Select, SelectChangeEvent } from '@mui/material';
 import { useCollection, useQuery } from '@squidcloud/react';
 import { useAuth0 } from '@auth0/auth0-react';
 import { List } from '../interfaces';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+
+import addList from '../images/Component 1.png';
+import ListModal from './ListModal';
 
 const ItemModal = ({ collection, todos, open, setOpen, fromCalendar, currentDate }: any) => {
   const { id } = useParams();
@@ -21,11 +24,15 @@ const ItemModal = ({ collection, todos, open, setOpen, fromCalendar, currentDate
   const descriptionRef = useRef<HTMLInputElement>(null);
   const datePickerRef = useRef<HTMLDivElement>(null);
   const { user } = useAuth0();
-  const navigate = useNavigate();
   const todosCollection = useCollection<List>('lists');
   const todosList = useQuery(todosCollection.query().where('userId', '==', `${user?.sub}`), true);
 
-  const [selectedValue, setSelectedValue] = useState<any>();
+  let [defaultTodoList] = todosList.filter((el) => el.data.id === `${id}`);
+
+  const [selectedValue, setSelectedValue] = useState<any>({
+    id: defaultTodoList?.data.id,
+    color: defaultTodoList?.data.color,
+  });
 
   const [value, setValue] = useState<any>(null);
   const [tags, setTags] = useState<any>([]);
@@ -59,9 +66,9 @@ const ItemModal = ({ collection, todos, open, setOpen, fromCalendar, currentDate
         year: 'numeric',
       } as Intl.DateTimeFormatOptions),
       tags,
-      listId: todos.data.id,
+      listId: fromCalendar ? selectedValue.id : todos.data.id,
       userId: todos.data.userId,
-      listColor: todos.data.color,
+      listColor: fromCalendar ? selectedValue.color : todos.data.color,
       completed: false,
       id: itemNewId,
     });
@@ -74,12 +81,10 @@ const ItemModal = ({ collection, todos, open, setOpen, fromCalendar, currentDate
   const handleSelectChange = (event: SelectChangeEvent) => {
     const value = event.target.value;
     const selectedItem = todosList.find((item: any) => item?.data.id === value);
-    setSelectedValue(selectedItem?.data.id);
+    console.log(value);
 
-    navigate(`/${value}`);
+    setSelectedValue({ id: selectedItem?.data.id, color: selectedItem?.data.color });
   };
-
-  let defaultTodoList = todosList.filter((el) => el.data.id === `${id}`);
 
   return (
     <Modal className="modal" open={open} onClose={() => setOpen(false)}>
@@ -88,8 +93,8 @@ const ItemModal = ({ collection, todos, open, setOpen, fromCalendar, currentDate
 
         {fromCalendar && (
           <Select
-            value={selectedValue}
-            defaultValue={defaultTodoList[0]?.data.id}
+            value={selectedValue.id || todosList[0]?.data.id}
+            defaultValue={selectedValue.id || defaultTodoList?.data.id}
             className="modal_container-select"
             onChange={handleSelectChange}
             sx={{ '& .MuiMenuItem-root': { display: 'flex', alignItems: 'center' } }}
@@ -104,6 +109,14 @@ const ItemModal = ({ collection, todos, open, setOpen, fromCalendar, currentDate
                 </MenuItem>
               );
             })}
+            {/* <MenuItem onClick={(e) => e.preventDefault()}>
+              <button className="list_button">
+                <img src={addList} alt="list" />
+                <span>New list</span>
+              </button>
+            </MenuItem> */}
+
+            {/* <ListModal collection={todosCollection} id={id} open={listModalOpen} setOpen={setListModalOpen} /> */}
           </Select>
         )}
 
