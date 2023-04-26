@@ -114,8 +114,8 @@ const ItemModal = ({ collection, todos, open, setOpen, fromCalendar, currentDate
                   </MenuItem>
                 );
               })}
-              <MenuItem>
-                <button className="list_button" onClick={handleOpen}>
+              <MenuItem className="modal_container-menu">
+                <button className="list_button list_button-selector" onClick={handleOpen}>
                   <img src={addList} alt="list" />
                   <span>New list</span>
                 </button>

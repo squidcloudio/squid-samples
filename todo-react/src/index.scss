@@ -327,6 +327,10 @@ header {
   font-size: 20px;
   cursor: pointer;
 
+  &-selector {
+    margin-left: -4px;
+  }
+
   background-color: transparent;
 
   &-calendar {
