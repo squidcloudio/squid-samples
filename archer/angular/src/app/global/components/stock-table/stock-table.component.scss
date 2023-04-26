@@ -3,14 +3,14 @@
 .stocks_table {
   .row {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: 0.5fr repeat(3, 1fr);
     grid-column-gap: 12px;
     align-items: center;
     padding: 14px 0;
     border-bottom: 1px solid #E1E6EF;
 
     &.userAssets {
-      grid-template-columns: repeat(6, 1fr);
+      grid-template-columns: 0.5fr repeat(5, 1fr);
     }
 
     .cell {
@@ -18,6 +18,12 @@
       font-size: 16px;
       line-height: 100%;
       color: $text1;
+      display: flex;
+      justify-content: flex-end;
+
+      &:first-child {
+        justify-content: flex-start;
+      }
 
       a {
         color: $text1;
