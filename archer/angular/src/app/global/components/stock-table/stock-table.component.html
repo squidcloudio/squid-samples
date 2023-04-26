@@ -11,7 +11,7 @@
   </div>
 
   <div class="row" *ngFor="let ticker of tableData.data" [ngClass]="tableData.type">
-    <div class="cell">{{ticker.tickerId}}</div>
+    <div class="cell"><a [routerLink]="'/stock/'+ticker.tickerId">{{ticker.tickerId}}</a></div>
     <div class="cell">{{ticker.closePrice | currency: 'USD'}}</div>
     <ng-container *ngVar="ticker.todaysChange as change">
       <div class="cell bold"

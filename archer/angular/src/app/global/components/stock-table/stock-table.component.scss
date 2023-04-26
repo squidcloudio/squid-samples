@@ -19,6 +19,14 @@
       line-height: 100%;
       color: $type1;
 
+      a {
+        color: $type1;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
       &.bold {
         font-weight: 800;
       }
