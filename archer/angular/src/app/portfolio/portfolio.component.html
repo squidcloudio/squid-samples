@@ -20,6 +20,7 @@
 
         <div class="chart_and_controls_container" *ngIf="portfolioValueHistoryObs | async as portfolioValueHistory">
           <div class="chart_container">
+            <div class="chart_dotted_line"></div>
             <chart [chart]="getPortfolioChart(portfolioValueHistory, changePercent >= 0)"></chart>
           </div>
           <div class="controls">

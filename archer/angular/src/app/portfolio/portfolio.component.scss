@@ -53,6 +53,15 @@
         height: 261px;
         margin-bottom: 27px;
         position: relative;
+
+        .chart_dotted_line {
+          position: absolute;
+          border-top: 1px dashed $type3;
+          top: 50%;
+          width: 100%;
+          transform: translateY(-50%);
+          z-index: -1;
+        }
       }
 
       .controls {
