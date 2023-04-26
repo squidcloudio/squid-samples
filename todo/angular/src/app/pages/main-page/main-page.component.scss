@@ -122,7 +122,7 @@
 }
 @media screen and (min-width: 378px) and (max-width: 768px) {
   .content-wrapper {
-    min-width: 90vw;
+    min-width: 100%;
     grid-template-columns: 1fr;
   }
 }
