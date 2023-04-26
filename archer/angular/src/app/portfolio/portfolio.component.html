@@ -45,13 +45,13 @@
             </div>
             <ng-container *ngIf="getAllocationsPerIndustry(userAssets) as allocArray">
               <div class="progress_bar_container">
-                <div class="single_progress_bar" [ngClass]="'color'+(index + 1)"
+                <div class="single_progress_bar" [ngClass]="'data'+(index + 1)"
                      [title]="alloc.sicDescription | titlecase"
                      *ngFor="let alloc of allocArray; let index = index" [style.width]="alloc.percentage + '%'"></div>
               </div>
               <div class="progress_bar_tags">
                 <div class="tag" *ngFor="let alloc of allocArray; let index = index">
-                  <div class="bullet" [ngClass]="'color'+(index + 1)"></div>
+                  <div class="bullet" [ngClass]="'data'+(index + 1)"></div>
                   <div class="tag_text"><span class="description">{{alloc.sicDescription | titlecase}}</span> <span
                     class="bold">{{alloc.percentage / 100 | percent: '1.2'}}</span></div>
                 </div>
