@@ -8,10 +8,9 @@
           <div class="totals">
             <div class="portfolio_value gain">{{getPortfolioValue(userAssets) | currency: 'USD'}}</div>
             <div class="change_since_yesterday"
-                 [ngClass]="changePercent > 0 ? 'gain gain_bg' : 'lose lose_bg' "
+                 [ngClass]="changePercent > 0 ? 'gain_bg' : 'lose_bg' "
                  *ngVar="getPortfolioChange(userAssets) as changePercent">
-              <span class="value">{{changePercent >= 0 ? '+' : '' }}{{getPortfolioChange(userAssets)}}%</span>
-              <mat-icon svgIcon="up_arrow" class="arrow"></mat-icon>
+              <percent-change [value]="changePercent"></percent-change>
             </div>
             <!--<div class="updated_at">At close: March 10 04:00 PM EST</div>-->
           </div>
@@ -39,8 +38,10 @@
               <div class="stat_name">Total gain</div>
               <div class="stat_value" [ngClass]="totalGainPercent >= 0 ? 'gain' : 'lose'"
                    *ngVar="getTotalGainPercent(userAssets) as totalGainPercent">
-                {{getTotalGain(userAssets) | currency: 'USD'}}
-                ({{totalGainPercent > 0 ? '+' : ''}}{{totalGainPercent}}%)
+                <span class="total_gain">{{getTotalGain(userAssets) | currency: 'USD'}}</span>
+                (
+                <percent-change [value]="totalGainPercent"></percent-change>
+                )
               </div>
             </div>
             <div class="stat">
@@ -63,7 +64,7 @@
               <div class="tag" *ngFor="let alloc of allocArray; let index = index">
                 <div class="bullet" [ngClass]="'color'+(index + 1)"></div>
                 <div class="tag_text"><span class="description">{{alloc.sicDescription | titlecase}}</span> <span
-                  class="bold">{{alloc.percentage.toFixed(2)}}%</span></div>
+                  class="bold">{{alloc.percentage / 100 | percent: '1.2'}}</span></div>
               </div>
             </div>
           </ng-container>
