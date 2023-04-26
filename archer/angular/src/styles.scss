@@ -46,12 +46,11 @@ p {
 }
 
 .container {
-  max-width: 1433px;
+  max-width: 800px;
   width: 100%;
   margin: 0 auto;
-  padding: 0 70px;
 
-  @include customBreakpointCss('max-width: 900px') {
+  @include customBreakpointCss('max-width: 800px') {
     max-width: 800px;
     padding: 0 24px;
   }

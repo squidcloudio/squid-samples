@@ -21,10 +21,10 @@ export class ThemeService {
     'META_icon',
     'TSLA_icon',
     'DIS_icon',
-    'JPM_icon',
     'AAPL_icon',
     'AMZN_icon',
     'NFLX_icon',
+    'GOOG_icon',
   ];
 
   constructor(

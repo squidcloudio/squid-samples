@@ -10,7 +10,7 @@ import { StockTableData } from '../../global/components/stock-table/stock-table.
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PortfolioZeroStateComponent {
-  private readonly promotedTickerIds = ['AAPL', 'MSFT', 'NFLX', 'JPM', 'AMZN', 'DIS', 'META', 'TSLA'];
+  private readonly promotedTickerIds = ['AAPL', 'MSFT', 'NFLX', 'GOOG', 'AMZN', 'DIS', 'META', 'TSLA'];
   promotedTickersObs = this.archerService.observeTickers(this.promotedTickerIds);
   gainersAndLosersObs = this.archerService.observeGainersAndLosers();
 

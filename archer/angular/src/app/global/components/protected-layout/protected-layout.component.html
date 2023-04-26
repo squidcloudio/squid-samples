@@ -1,17 +1,15 @@
 <ng-container *ngIf="userObs | async as user">
   <div class="global_layout">
     <nav class="navigation_bar">
-      <div class="container">
-        <mat-icon class="logo" svgIcon="archer_logo" routerLink="/"></mat-icon>
-        <div class="right">
-          <mat-icon class="outer_search_icon" svgIcon="search_icon" (click)="showSearchBar(); $event.stopPropagation()"
-                    *ngIf="!searchBarVisible"></mat-icon>
-          <div class="search_bar_wrapper" *ngIf="searchBarVisible">
-            <search-bar (cleared)="hideSearchBar()"></search-bar>
-          </div>
-
-          <avatar class="avatar" [name]="user.name" [imageUrl]="user.picture"></avatar>
+      <mat-icon class="logo" svgIcon="archer_logo" routerLink="/"></mat-icon>
+      <div class="right">
+        <mat-icon class="outer_search_icon" svgIcon="search_icon" (click)="showSearchBar(); $event.stopPropagation()"
+                  *ngIf="!searchBarVisible"></mat-icon>
+        <div class="search_bar_wrapper" *ngIf="searchBarVisible">
+          <search-bar (cleared)="hideSearchBar()"></search-bar>
         </div>
+
+        <avatar class="avatar" [name]="user.name" [imageUrl]="user.picture"></avatar>
       </div>
     </nav>
     <div class="main_content">

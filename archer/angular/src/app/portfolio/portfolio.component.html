@@ -53,8 +53,12 @@
             </div>
             <div class="stat">
               <div class="stat_name">Total shares</div>
-              <div class="stat_value gain"> {{ getTotalStockQuantity(userAssets) }} / {{userAssets.length}} holdings
+              <div class="stat_value gain">{{getTotalStockQuantity(userAssets)}}
               </div>
+            </div>
+            <div class="stat">
+              <div class="stat_name">Total holdings</div>
+              <div class="stat_value gain">{{ userAssets.length}}</div>
             </div>
           </div>
           <ng-container *ngIf="getAllocationsPerIndustry(userAssets) as allocArray">

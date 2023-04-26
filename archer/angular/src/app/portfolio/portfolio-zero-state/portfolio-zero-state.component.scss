@@ -6,19 +6,15 @@
     width: 100%;
     background: url('/assets/images/hero_background.png') center center no-repeat;
     background-size: cover;
+    position: relative;
+    overflow: hidden;
 
-    .container {
-      position: relative;
-      overflow: hidden;
-      height: 100%;
-
-      .hero_logo {
-        position: absolute;
-        bottom: -90px;
-        right: 0;
-        width: 330px;
-        height: 330px;
-      }
+    .hero_logo {
+      position: absolute;
+      bottom: -90px;
+      right: 70px;
+      width: 330px;
+      height: 330px;
     }
   }
 
@@ -71,35 +67,37 @@
         }
       }
 
+      $company_side_padding: 16px;
+
       .companies_section {
         margin-bottom: 60px;
         width: 100%;
         display: grid;
         grid-template-columns: repeat(4, 1fr);
-        grid-column-gap: 32px;
-        grid-row-gap: 24px;
+        grid-gap: 32px;
 
         .company {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          padding-left: 16px;
-          padding-right: 16px;
-          height: 88px;
+          padding-top: 20px;
           box-shadow: $elevation2;
           border-radius: 16px;
           background: #F1F3F9;
           transition: box-shadow 300ms;
+          overflow: hidden;
 
           &:hover {
             box-shadow: $elevation3;
           }
 
-          .left {
+          .logo_and_ticker {
             display: flex;
             align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            width: 100%;
+            padding: 0 $company_side_padding;
 
             .ticker_logo {
+              border: 1px solid $line1;
               width: 40px;
               height: 40px;
               line-height: 0;
@@ -115,7 +113,7 @@
             }
           }
 
-          .right {
+          .ticker_value {
             text-align: right;
             display: flex;
             flex-direction: column;
@@ -125,16 +123,24 @@
               font-weight: 800;
               font-size: 24px;
               line-height: 16px;
-              margin-bottom: 8px;
+              margin-bottom: 10px;
               color: $type2;
+              padding: 0 $company_side_padding;
             }
 
-            .change_percent {
-              font-weight: 800;
-              font-size: 16px;
-              line-height: 100%;
-              margin-left: auto;
+            .percent_change_wrapper {
+              width: 100%;
+              display: flex;
+              justify-content: flex-end;
+              padding: 10px $company_side_padding;
+
+              .change_percent {
+                font-weight: 800;
+                font-size: 16px;
+                line-height: 100%;
+              }
             }
+
           }
         }
       }

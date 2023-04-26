@@ -74,11 +74,11 @@ export class AppModule {
     squid.setAuthIdToken(authService.idTokenClaims$.pipe(map((idToken) => idToken?.__raw)));
     themeService.initialize();
     (window as any).squid = squid;
-    /*archerService.buyAsset('VNOM', 10).then();
+    archerService.buyAsset('VNOM', 10).then();
     archerService.buyAsset('LMND', 32).then();
     archerService.buyAsset('INMD', 60).then();
     archerService.buyAsset('AAPL', 10).then();
     archerService.buyAsset('GOOG', 20).then();
-    archerService.buyAsset('NVDA', 30).then();*/
+    archerService.buyAsset('NVDA', 30).then();
   }
 }

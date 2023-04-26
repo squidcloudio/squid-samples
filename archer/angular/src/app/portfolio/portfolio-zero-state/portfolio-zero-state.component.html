@@ -1,8 +1,6 @@
 <div class="zero_state_container">
   <div class="hero">
-    <div class="container">
       <mat-icon class="hero_logo" svgIcon="hero_logo"></mat-icon>
-    </div>
   </div>
   <div class="body">
     <div class="container">
@@ -17,13 +15,15 @@
 
       <div class="companies_section" *ngIf="promotedTickersObs | async as promotedTickers">
         <a class="company" *ngFor="let ticker of promotedTickers" [routerLink]="'/stock/'+ticker.id">
-          <div class="left">
+          <div class="logo_and_ticker">
             <mat-icon class="ticker_logo" [svgIcon]="ticker.id+'_icon'"></mat-icon>
             <div class="ticker_id">{{ticker.id}}</div>
           </div>
-          <div class="right">
+          <div class="ticker_value">
             <div class="current_price">{{ticker.closePrice | currency: 'USD'}}</div>
-            <percent-change class="change_percent" [value]="ticker.todaysChangePerc"></percent-change>
+            <div class="percent_change_wrapper" [ngClass]="ticker.todaysChangePerc >= 0 ? 'gain_bg' : 'lose_bg'">
+              <percent-change class="change_percent" [value]="ticker.todaysChangePerc"></percent-change>
+            </div>
           </div>
         </a>
       </div>

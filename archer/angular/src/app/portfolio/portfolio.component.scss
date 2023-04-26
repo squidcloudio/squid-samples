@@ -100,7 +100,7 @@
 
     .health_and_diversity {
       box-shadow: $elevation2;
-      border-radius: 8px;
+      border-radius: 16px;
       background: $bg2;
       padding: 20px;
       margin-bottom: 40px;
@@ -116,8 +116,9 @@
       .stats {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        grid-gap: 22px;
-        margin-bottom: 10px;
+        grid-column-gap: 24px;
+        grid-row-gap: 12px;
+        margin-bottom: 12px;
 
         .stat {
           display: flex;
