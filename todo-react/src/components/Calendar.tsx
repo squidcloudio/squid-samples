@@ -81,19 +81,10 @@ const Calendar = ({ currentDate, setCurrentDate }: any) => {
       if (momentDate.isBefore(todayDate)) {
         const daysAgo = momentDate.from(todayDate, true);
         return (
-          // <div
-          //   className="overdue_due-item"
-          //   key={i}
-          //   style={{ color: theme === 'dark' ? '#fff' : '#000' }}
-          //   onClick={() => navigate(`/${el.data.listId}`)}
-          // >
-          //   <p>{el.data.title}</p>
-          //   <p>{daysAgo} ago</p>
-          // </div>
           <div key={i} className="sidebar_item">
             <div onClick={() => navigate(`/${el.data.listId}`)} style={{ flex: '2' }}>
               <div className="sidebar_item-color" style={{ maxWidth: '150px' }}>
-                <div style={{ backgroundColor: el.data.listColor, minWidth: '12px' }}></div>
+                <div style={{ backgroundColor: '#ff0000', minWidth: '12px' }}></div>
                 <Tooltip title={el.data.title}>
                   <span className="sidebar_item-dots">{el.data.title}</span>
                 </Tooltip>
