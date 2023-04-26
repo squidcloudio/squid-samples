@@ -12,7 +12,20 @@ export type SquidTheme = 'light' | 'dark';
 export class ThemeService {
   private readonly themeSubject = new ReplaySubject<SquidTheme>(1);
 
-  private iconList: string[] = ['archer_logo', 'search_icon', 'up_arrow', 'hero_logo'];
+  private iconList: string[] = [
+    'archer_logo',
+    'search_icon',
+    'up_arrow',
+    'hero_logo',
+    'MSFT_icon',
+    'META_icon',
+    'TSLA_icon',
+    'DIS_icon',
+    'JPM_icon',
+    'AAPL_icon',
+    'AMZN_icon',
+    'NFLX_icon',
+  ];
 
   constructor(
     private matIconRegistry: MatIconRegistry,

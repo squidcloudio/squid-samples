@@ -70,28 +70,7 @@
         </div>
 
         <div class="assets_table">
-          <div class="row header">
-            <div class="cell">Symbol</div>
-            <div class="cell">Last price</div>
-            <div class="cell">Change</div>
-            <div class="cell">Change %</div>
-            <div class="cell">Shares</div>
-            <div class="cell">Total value</div>
-          </div>
-          <div class="row" *ngFor="let userAsset of userAssets">
-            <div class="cell">{{userAsset.tickerId}}</div>
-            <div class="cell">{{userAsset.ticker.closePrice | currency: 'USD'}}</div>
-            <ng-container *ngVar="userAsset.ticker.todaysChange as change">
-              <div class="cell bold"
-                   [ngClass]="change >= 0 ? 'gain' : 'lose'">{{change >= 0 ? '+' : ''}}{{change.toFixed(2) | currency: 'USD'}}</div>
-              <div class="cell bold"
-                   [ngClass]="change >= 0 ? 'gain' : 'lose'">
-                <span>{{change >= 0 ? '+' : ''}}{{userAsset.ticker.todaysChangePerc.toFixed(2)}}%</span>
-              </div>
-            </ng-container>
-            <div class="cell">{{userAsset.quantity}}</div>
-            <div class="cell">{{userAsset.quantity * userAsset.ticker.closePrice | currency: 'USD'}}</div>
-          </div>
+          <stock-table [tableData]="{data: convertToTableData(userAssets), type: 'userAssets'}"></stock-table>
         </div>
       </div>
     </div>

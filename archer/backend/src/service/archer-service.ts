@@ -1,4 +1,4 @@
-import { executable, scheduler, secureDatabase, SquidService } from '@squidcloud/backend';
+import { executable, scheduler, secureApi, secureDatabase, SquidService } from '@squidcloud/backend';
 import { CronExpression } from '@squidcloud/common';
 import {
   ArcherUser,
@@ -21,6 +21,8 @@ import _ from 'lodash';
 export class ArcherService extends SquidService {
   // TODO: update this
   @secureDatabase('all', 'built_in_db')
+  @secureApi('polygon', 'gainers')
+  @secureApi('polygon', 'losers')
   allowAllAccessToBuiltInDb(): boolean {
     return true;
   }

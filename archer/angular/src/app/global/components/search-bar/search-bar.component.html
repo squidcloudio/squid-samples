@@ -1,12 +1,13 @@
 <div class="search_bar_container">
-  <div class="search_bar_overlay" *ngIf="searchControl.value !== null" (click)="clearAndCloseSearch()"></div>
+  <!--<div class="search_bar_overlay" *ngIf="searchControl.value !== null" (click)="clearAndCloseSearch()"></div>-->
   <form class="search_input_container">
-    <mat-icon class="search_icon" svgIcon="search_icon" (click)="searchInput.focus()"></mat-icon>
+    <mat-icon class="search_icon" svgIcon="search_icon" (click)="searchInput.focus(); $event.stopPropagation();"></mat-icon>
     <input [autofocus]="true" class="search_input" placeholder="Search stock market" type="text"
+           (click)="$event.stopPropagation();"
            [formControl]="searchControl"
            (keyup)="searchQueryChanged()"
            #searchInput [matAutocomplete]="auto" [matAutocompletePosition]="'below'"/>
-    <div class="clear_button" *ngIf="searchControl.value" (click)="searchControl.setValue(null); searchInput.focus()">
+    <div class="clear_button" *ngIf="searchControl.value" (click)="searchControl.setValue(null); searchInput.focus(); $event.stopPropagation();">
       Clear
     </div>
 

@@ -1,7 +1,15 @@
 import { Injectable } from '@angular/core';
 import { CollectionReference, Squid } from '@squidcloud/client';
-import { ArcherUser, PortfolioValueHistory, Ticker, TimeFrame, UserAsset, UserAssetWithTicker } from 'archer-common';
-import { filter, map, NEVER, Observable, of, share, switchMap } from 'rxjs';
+import {
+  ArcherUser,
+  PortfolioValueHistory,
+  SnapshotsResponse,
+  Ticker,
+  TimeFrame,
+  UserAsset,
+  UserAssetWithTicker,
+} from 'archer-common';
+import { filter, from, map, NEVER, Observable, of, share, switchMap } from 'rxjs';
 import { AuthService } from '@auth0/auth0-angular';
 
 @Injectable({
@@ -76,12 +84,41 @@ export class ArcherService {
     return this.userObs;
   }
 
+  observeTickers(tickerIds: Array<string>): Observable<Array<Ticker>> {
+    return this.getTickerCollection()
+      .query()
+      .in('id', Array.from(tickerIds))
+      .snapshots()
+      .pipe(map((tickers) => tickers.map((ticker) => ticker.data)));
+  }
+
+  observeTicker(tickerId: string): Observable<Ticker | undefined> {
+    return this.observeTickers([tickerId]).pipe(map((tickers) => tickers[0]));
+  }
+
   async buyAsset(tickerId: string, quantity: number): Promise<void> {
     return this.squid.executeFunction('buyAsset', tickerId, quantity);
   }
 
   async sellAsset(tickerId: string, quantity: number): Promise<void> {
     return this.squid.executeFunction('sellAsset', tickerId, quantity);
+  }
+
+  observeGainersAndLosers(): Observable<Ticker[]> {
+    const gainersAndLosersPromise = Promise.all([
+      this.squid.callApi<SnapshotsResponse>('polygon', 'gainers'),
+      this.squid.callApi<SnapshotsResponse>('polygon', 'losers'),
+    ]);
+
+    return from(gainersAndLosersPromise).pipe(
+      switchMap(([gainers, losers]) => {
+        const tickerIds = new Set<string>();
+        gainers.tickers.forEach((ticker) => tickerIds.add(ticker.ticker));
+        losers.tickers.forEach((ticker) => tickerIds.add(ticker.ticker));
+
+        return this.observeTickers(Array.from(tickerIds));
+      }),
+    );
   }
 
   async searchTickers(query: string): Promise<Ticker[]> {

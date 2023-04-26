@@ -3,6 +3,7 @@ import { ArcherService } from '../global/services/archer.service';
 import { allTimeFrames, TimeFrame, UserAssetWithTicker } from 'archer-common';
 import { Chart, LineChartData } from '../global/components/chart/chart.component';
 import { BehaviorSubject, switchMap } from 'rxjs';
+import { StockTableData } from '../global/components/stock-table/stock-table.component';
 
 @Component({
   selector: 'app-portfolio',
@@ -89,5 +90,18 @@ export class PortfolioComponent {
       summaryData: [{ label: 'Portfolio value', value: 'Portfolio value', color: 'var(--gain)' }],
       type: 'line',
     };
+  }
+
+  convertToTableData(userAssets: Array<UserAssetWithTicker>): StockTableData[] {
+    return userAssets.map((userAsset) => {
+      const ticker = userAsset.ticker;
+      return {
+        tickerId: ticker.id,
+        closePrice: ticker.closePrice,
+        todaysChange: ticker.todaysChange,
+        todaysChangePerc: ticker.todaysChangePerc,
+        quantity: userAsset.quantity,
+      };
+    });
   }
 }

@@ -25,6 +25,8 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { PortfolioZeroStateComponent } from './portfolio/portfolio-zero-state/portfolio-zero-state.component';
 import { SearchBarComponent } from './global/components/search-bar/search-bar.component';
 import { AutofocusDirective } from './global/directives/autofocus.directive';
+import { PercentChangeComponent } from './global/components/percent-change/percent-change.component';
+import { StockTableComponent } from './global/components/stock-table/stock-table.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,8 @@ import { AutofocusDirective } from './global/directives/autofocus.directive';
     ChartComponent,
     PortfolioZeroStateComponent,
     SearchBarComponent,
+    PercentChangeComponent,
+    StockTableComponent,
   ],
   imports: [
     BrowserModule,

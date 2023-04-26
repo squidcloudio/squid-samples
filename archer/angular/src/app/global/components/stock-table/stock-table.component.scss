@@ -1,0 +1,40 @@
+@import 'colors';
+
+.stocks_table {
+  .row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-column-gap: 12px;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid #E1E6EF;
+
+    &.userAssets {
+      grid-template-columns: repeat(6, 1fr);
+    }
+
+    .cell {
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 100%;
+      color: $type1;
+
+      &.bold {
+        font-weight: 800;
+      }
+    }
+
+    &.header {
+      padding: 17px 0;
+      border-top: 1px solid #C4CCD9;
+      border-bottom: 1px solid #C4CCD9;
+
+      .cell {
+        color: $type2;
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 100%;
+      }
+    }
+  }
+}

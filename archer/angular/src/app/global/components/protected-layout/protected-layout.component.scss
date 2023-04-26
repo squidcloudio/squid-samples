@@ -2,13 +2,16 @@
 
 .global_layout {
   .navigation_bar {
-    padding: 0 70px;
     height: 80px;
     width: 100%;
     background: #23272F;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+
+    > .container {
+      height: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
     .logo {
       cursor: pointer;

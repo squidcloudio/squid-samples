@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, Output } from '@angular/core';
 import { ArcherService } from '../../services/archer.service';
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
@@ -38,5 +38,10 @@ export class SearchBarComponent {
   async searchQueryChanged() {
     const searchText = this.searchControl.value;
     this.searchTextSubject.next(searchText || '');
+  }
+
+  @HostListener('body:click', ['$event'])
+  clickedOut() {
+    this.clearAndCloseSearch();
   }
 }

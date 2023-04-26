@@ -14,6 +14,24 @@
           <search-bar></search-bar>
         </div>
       </div>
+
+      <div class="companies_section" *ngIf="promotedTickersObs | async as promotedTickers">
+        <a class="company" *ngFor="let ticker of promotedTickers" [routerLink]="'/stock/'+ticker.id">
+          <div class="left">
+            <mat-icon class="ticker_logo" [svgIcon]="ticker.id+'_icon'"></mat-icon>
+            <div class="ticker_id">{{ticker.id}}</div>
+          </div>
+          <div class="right">
+            <div class="current_price">{{ticker.closePrice | currency: 'USD'}}</div>
+            <percent-change class="change_percent" [value]="ticker.todaysChangePerc"></percent-change>
+          </div>
+        </a>
+      </div>
+
+      <div class="gainers_and_losers_section" *ngIf="gainersAndLosersObs | async as gainersAndLosers">
+        <div class="title">Today's top gainers and losers</div>
+        <stock-table [tableData]="{data: convertToTableData(gainersAndLosers), type: 'tickers'}"></stock-table>
+      </div>
     </div>
   </div>
 </div>
