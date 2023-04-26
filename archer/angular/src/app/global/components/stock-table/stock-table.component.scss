@@ -17,10 +17,10 @@
       font-weight: 600;
       font-size: 16px;
       line-height: 100%;
-      color: $type1;
+      color: $text1;
 
       a {
-        color: $type1;
+        color: $text1;
       }
 
       &.bold {
@@ -34,7 +34,7 @@
       border-bottom: 1px solid #C4CCD9;
 
       .cell {
-        color: $type2;
+        color: $text1;
         font-weight: 700;
         font-size: 14px;
         line-height: 100%;

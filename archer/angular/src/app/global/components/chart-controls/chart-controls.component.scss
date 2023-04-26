@@ -20,12 +20,12 @@
 
     &.selected {
       &.gain {
-        background: $gain;
+        background: $gain1;
         color: #FFFFFF !important;
       }
 
       &.lose {
-        background: $lose;
+        background: $lose1;
         color: #FFFFFF !important;
       }
     }

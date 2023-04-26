@@ -39,7 +39,7 @@
       .search_section {
         margin-top: 40px;
         margin-bottom: 40px;
-        color: $type1;
+        color: $text1;
         width: 100%;
         text-align: center;
         position: relative;
@@ -81,7 +81,7 @@
           padding-top: 20px;
           box-shadow: $elevation2;
           border-radius: 16px;
-          background: #F1F3F9;
+          background: $bg4;
           transition: box-shadow 300ms;
           overflow: hidden;
 
@@ -110,7 +110,7 @@
               font-weight: 800;
               font-size: 24px;
               line-height: 16px;
-              color: $type1;
+              color: $text1;
             }
           }
 
@@ -125,7 +125,7 @@
               font-size: 24px;
               line-height: 16px;
               margin-bottom: 10px;
-              color: $type2;
+              color: $text2;
               padding: 0 $company_side_padding;
             }
 
@@ -157,7 +157,7 @@
           font-weight: 800;
           font-size: 20px;
           line-height: 100%;
-          color: $type1;
+          color: $text1;
           margin-bottom: 24px;
         }
 

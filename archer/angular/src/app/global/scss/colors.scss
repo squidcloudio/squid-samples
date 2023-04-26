@@ -21,186 +21,103 @@ $breakpoints: (
 
 .light {
   color: var(--text1);
-  --bg1: #ffffff;
-  --bg2: #f8f9fc;
-  --bg3: #f1f3f9;
-
-  --disabled1: rgba(0, 0, 0, 0.15);
-  --line1: #e1e6ef;
-  --line2: #C4CCD9;
-  --line1-inverse: #3f444d;
-
-  --text1: #212121;
-  --text2: #666666;
-  --text3: #949494;
-
-  --type1: #1F2020;
-  --type2: #606164;
-  --type3: #949494;
-
-  --gain: #018638;
-  --gainHover: #E6FAE6;
-
-  --lose: #EB0F29;
-  --loseHover: #FDEBEB;
-
-  --text1-inverse: rgba(255, 255, 255, 0.87);
-  --text2-inverse: rgba(255, 255, 255, 0.6);
-  --text3-inverse: rgba(255, 255, 255, 0.38);
-
   --primary1: #72FFA2;
-  --primary2: rgba(15, 105, 255, 0.1);
-  --primary3: #0d59d9;
-  --primary4: #c4ccd9;
-  --primary5: #15212f;
-
-  --primary1-inverse: #188fff;
-
-  --hover1: rgba(0, 0, 0, 0.15);
-  --pressed1: rgba(0, 0, 0, 0.3);
-  --selected1: rgba(0, 0, 0, 0.05);
-  --fail1: #eb0f29;
-  --fail2: rgba(235, 15, 41, 0.1);
-  --success1: #018638;
-  --success2: rgba(1, 134, 56, 0.1);
-
+  --primary2: rgba(114, 255, 162, 0.1);
+  --primary3: #23272F;
+  --scrim1: rgba(0, 0, 0, 0.4);
+  --line1: #E1E6EF;
+  --line2: #C4CCD9;
+  --line3: #3F444D;
+  --bg1: #F1F3F9;
+  --bg2: #F8F9FC;
+  --bg3: #D9DBE0;
+  --bg4: #FFFFFF;
+  --bg5: #242424;
+  --bg6: #373737;
+  --bg7: #000000;
+  --bg8: #D9DBE0;
+  --bg9: #1B1F27;
+  --text1: #1F2020;
+  --text2: #606164;
+  --text3: #949494;
+  --text4: rgba(255, 255, 255, 0.9);
+  --gain1: #018638;
+  --gain2: #E6FAE6;
+  --gain3: #BCE5C6;
+  --lose1: #EB0F29;
+  --lose2: #FFDDE1;
+  --lose3: #FFC5CB;
+  --data1: #F80E5D;
+  --data2: #12A9FF;
+  --data3: #0F69FF;
+  --data4: #00AB5E;
+  --data5: #FF520D;
+  --data6: #FFD333;
+  --data7: #003ABC;
+  --data8: #CC008C;
+  --data9: #39007D;
+  --data10: #21D87D;
+  --data11: #FF8B12;
+  --data12: #FFA700;
+  --data13: #FF333A;
+  --data14: #11D3CD;
+  --data15: #7E1FFF;
+  --data16: #907CFF;
+  --data17: #1AC567;
+  --data18: #009C94;
   --elevation1: 0px 0px 2px rgba(0, 0, 0, 0.08), 0px 2px 4px rgba(0, 0, 0, 0.08);
-  --elevation2: 0px -1px 2px rgba(0, 0, 0, 0.08),
-  0px 4px 8px rgba(0, 0, 0, 0.12);
-  --elevation3: 0px 0px 16px rgba(0, 0, 0, 0.05),
-  0px 28px 24px -16px rgba(0, 0, 0, 0.32);
-  --elevation-navigation: 12px 0px 72px -8px rgba(0, 0, 0, 0.16),
-  1px 0px 0px #e1e6ef;
-
-  --doc1: #4f60ff;
-  --doc1bg: rgba(79, 96, 255, 0.1);
-  --doc2: #dd1d87;
-  --doc2bg: rgba(221, 29, 135, 0.1);
-  --doc3: #1d9eba;
-  --doc3bg: rgba(29, 158, 186, 0.1);
-  --doc4: #08a84a;
-  --doc4bg: rgba(8, 168, 74, 0.1);
-  --doc5: #a98e2f;
-  --doc5bg: rgba(169, 142, 47, 0.1);
-  --doc6: #d65746;
-  --doc6bg: rgba(214, 87, 70, 0.1);
-  --doc7: #35a388;
-  --doc7bg: rgba(53, 163, 136, 0.1);
-  --doc8: #66769e;
-  --doc8bg: rgba(102, 118, 158, 0.1);
+  --elevation2: 0px -1px 2px rgba(0, 0, 0, 0.08), 0px 4px 8px rgba(0, 0, 0, 0.12);
+  --elevation3: 0px 0px 16px rgba(0, 0, 0, 0.12), 0px 8px 16px -16px rgba(0, 0, 0, 0.2);
+  --elevation4: 0px 0px 16px rgba(0, 0, 0, 0.05), 0px 28px 24px -16px rgba(0, 0, 0, 0.32);
+  --elevation-navigation: 12px 0px 72px -8px rgba(0, 0, 0, 0.16), 1px 0px 0px #E1E6EF;
 }
 
-.dark {
-  color: var(--text1);
-  --bg1: #1b1f27;
-  --bg2: #0a0d14;
-  --bg3: #23272f;
-
-  --disabled1: rgba(255, 255, 255, 0.15);
-  --line1: #3f444d;
-  --line1-inverse: #e1e6ef;
-
-  --text1: rgba(255, 255, 255, 0.87);
-  --text2: rgba(255, 255, 255, 0.6);
-  --text3: rgba(255, 255, 255, 0.38);
-
-  --text1-inverse: rgba(0, 0, 0, 0.87);
-  --text2-inverse: rgba(0, 0, 0, 0.6);
-  --text3-inverse: rgba(0, 0, 0, 0.38);
-
-  --primary1: #188fff;
-  --primary2: rgba(24, 143, 255, 0.1);
-  --primary3: #3ba0ff;
-  --primary4: #3d4a5a;
-  --primary5: #15212f;
-
-  --primary1-inverse: #0f69ff;
-
-  --hover1: rgba(255, 255, 255, 0.15);
-  --pressed1: rgba(255, 255, 255, 0.3);
-  --selected1: rgba(255, 255, 255, 0.05);
-  --fail1: #ff333a;
-  --fail2: rgba(255, 0, 0, 0.1);
-  --success1: #00b44b;
-  --success2: rgba(0, 180, 75, 0.1);
-
-  --elevation1: 0px 0px 2px rgba(0, 0, 0, 0.68), 0px 2px 4px rgba(0, 0, 0, 0.68);
-  --elevation2: 0px -1px 2px rgba(0, 0, 0, 0.36),
-  0px 4px 8px rgba(0, 0, 0, 0.56);
-  --elevation3: 0px 0px 16px rgba(0, 0, 0, 0.56),
-  0px 28px 24px -16px rgba(0, 0, 0, 0.48);
-  --elevation-navigation: 12px 0px 56px -13px rgba(10, 13, 20, 0.85),
-  1px 0px 0px 0px rgba(10, 13, 20, 0.36);
-
-  --doc1: #9483ff;
-  --doc1bg: rgba(148, 131, 255, 0.1);
-  --doc2: #f4349e;
-  --doc2bg: rgba(244, 52, 158, 0.1);
-  --doc3: #25cff4;
-  --doc3bg: rgba(37, 207, 244, 0.1);
-  --doc4: #44e871;
-  --doc4bg: rgba(68, 232, 113, 0.1);
-  --doc5: #f1ce52;
-  --doc5bg: rgba(241, 206, 82, 0.1);
-  --doc6: #f96855;
-  --doc6bg: rgba(249, 104, 85, 0.1);
-  --doc7: #65dec1;
-  --doc7bg: rgba(101, 222, 193, 0.1);
-  --doc8: #7a8fc2;
-  --doc8bg: rgba(122, 143, 194, 0.1);
-}
-
-$bg1: var(--bg1);
-$bg2: var(--bg2);
-$bg3: var(--bg3);
-$disabled1: var(--disabled1);
-$line1: var(--line1);
-$line2: var(--line2);
-$line1-inverse: var(--line1-inverse);
-$text1: var(--text1);
-$text2: var(--text2);
-$text3: var(--text3);
-$type1: var(--type1);
-$type2: var(--type2);
-$type3: var(--type3);
-$gain: var(--gain);
-$gainHover: var(--gainHover);
-$lose: var(--lose);
-$loseHover: var(--loseHover);
-$text1-inverse: var(--text1-inverse);
-$text2-inverse: var(--text2-inverse);
-$text3-inverse: var(--text3-inverse);
 $primary1: var(--primary1);
 $primary2: var(--primary2);
 $primary3: var(--primary3);
-$primary4: var(--primary4);
-$primary5: var(--primary5);
-$primary1-inverse: var(--primary1-inverse);
-$hover1: var(--hover1);
-$pressed1: var(--pressed1);
-$selected1: var(--selected1);
-$fail1: var(--fail1);
-$fail2: var(--fail2);
-$success1: var(--success1);
-$success2: var(--success2);
-$doc1: var(--doc1);
-$doc1bg: var(--doc1bg);
-$doc2: var(--doc2);
-$doc2bg: var(--doc2bg);
-$doc3: var(--doc3);
-$doc3bg: var(--doc3bg);
-$doc4: var(--doc4);
-$doc4bg: var(--doc4bg);
-$doc5: var(--doc5);
-$doc5bg: var(--doc5bg);
-$doc6: var(--doc6);
-$doc6bg: var(--doc6bg);
-$doc7: var(--doc7);
-$doc7bg: var(--doc7bg);
-$doc8: var(--doc8);
-$doc8bg: var(--doc8bg);
-
+$scrim1: var(--scrim1);
+$line1: var(--line1);
+$line2: var(--line2);
+$line3: var(--line3);
+$bg1: var(--bg1);
+$bg2: var(--bg2);
+$bg3: var(--bg3);
+$bg4: var(--bg4);
+$bg5: var(--bg5);
+$bg6: var(--bg6);
+$bg7: var(--bg7);
+$bg8: var(--bg8);
+$bg9: var(--bg9);
+$text1: var(--text1);
+$text2: var(--text2);
+$text3: var(--text3);
+$text4: var(--text4);
+$gain1: var(--gain1);
+$gain2: var(--gain2);
+$gain3: var(--gain3);
+$lose1: var(--lose1);
+$lose2: var(--lose2);
+$lose3: var(--lose3);
+$data1: var(--data1);
+$data2: var(--data2);
+$data3: var(--data3);
+$data4: var(--data4);
+$data5: var(--data5);
+$data6: var(--data6);
+$data7: var(--data7);
+$data8: var(--data8);
+$data9: var(--data9);
+$data10: var(--data10);
+$data11: var(--data11);
+$data12: var(--data12);
+$data13: var(--data13);
+$data14: var(--data14);
+$data15: var(--data15);
+$data16: var(--data16);
+$data17: var(--data17);
+$data18: var(--data18);
 $elevation1: var(--elevation1);
 $elevation2: var(--elevation2);
 $elevation3: var(--elevation3);
+$elevation4: var(--elevation3);
 $elevation-navigation: var(--elevation-navigation);
