@@ -1,11 +1,17 @@
-<ng-container *ngIf="listCollection ">
+<ng-container *ngIf="listCollection">
   <div class="select-container" [ngClass]="{ 'select-container-dark': themeService.isDark }">
-    <input matInput [matAutocomplete]="auto" class="newList-select" [ngClass]="{'newList-select-no-content':!listCollection.length}" [value]="selectedList?.title" [placeholder]="!listCollection.length?'Select list':''"/>
+    <input
+      matInput
+      [matAutocomplete]="auto"
+      class="newList-select"
+      [ngClass]="{ 'newList-select-no-content': !listCollection.length }"
+      [value]="selectedList?.title"
+      [placeholder]="!listCollection.length ? 'Select list' : ''" />
     <div [style.background-color]="selectedList?.color" class="option-color selected-color"></div>
     <mat-icon class="newList-select-icon" [ngClass]="{ 'newList-select-icon-dark': themeService.isDark }"
       >unfold_more</mat-icon
     >
-    <mat-autocomplete #auto="matAutocomplete" >
+    <mat-autocomplete #auto="matAutocomplete">
       <mat-option
         *ngFor="let list of listCollection"
         [value]="list.title"
@@ -20,11 +26,10 @@
         [ngClass]="{ options: themeService.isDark }"
         (click)="openNewListWindow()"
         [value]="selectedList?.title">
-        <div class="option ">
-              <div class="list-option">
-                <img src="assets/plus.svg" class="list-option-add" alt="">
-              </div>
-<!--          <img  src="../../../assets/add.svg"  />-->
+        <div class="option">
+          <div class="list-option">
+            <img src="assets/plus.svg" class="list-option-add" alt="" />
+          </div>
           <p class="option-name">New List</p>
         </div>
       </mat-option>

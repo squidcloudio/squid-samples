@@ -27,7 +27,6 @@
         </ng-container>
       </div>
     </div>
-
   </div>
 </header>
 
@@ -40,11 +39,17 @@
     (click)="openCalendar()">
     <img src="../../../assets/calendar.svg" alt="calendar-button" />
   </button>
-  <section class="wrapper">
-    <app-list-navigation></app-list-navigation>
-    <router-outlet></router-outlet>
-    <ng-container *ngIf="!(a | async)?.matches">
-      <app-calendar-sidebar></app-calendar-sidebar>
-    </ng-container>
+  <section class="content-wrapper">
+    <div>
+      <app-list-navigation></app-list-navigation>
+    </div>
+    <div>
+      <router-outlet></router-outlet>
+    </div>
+    <div>
+      <ng-container *ngIf="!(a | async)?.matches">
+        <app-calendar-sidebar></app-calendar-sidebar>
+      </ng-container>
+    </div>
   </section>
 </main>
