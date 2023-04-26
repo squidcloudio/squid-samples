@@ -2,14 +2,16 @@
   <div class="portfolio_container" *ngIf="userAssetsObs | async as userAssets">
     <portfolio-zero-state *ngIf="userAssets.length === 0"></portfolio-zero-state>
     <div class="portfolio" *ngIf="userAssets.length > 0">
-      <div class="container">
+      <div class="container" *ngVar="getPortfolioChange(userAssets) as changePercent">
         <div class="global_portfolio_section">
           <div class="title">Global Portfolio</div>
           <div class="totals">
-            <div class="portfolio_value gain">{{getPortfolioValue(userAssets) | currency: 'USD'}}</div>
+            <div class="portfolio_value"
+                 [ngClass]="changePercent >= 0 ? 'gain' : 'lose'">
+              {{getPortfolioValue(userAssets) | currency: 'USD'}}
+            </div>
             <div class="change_since_yesterday"
-                 [ngClass]="changePercent > 0 ? 'gain_bg' : 'lose_bg' "
-                 *ngVar="getPortfolioChange(userAssets) as changePercent">
+                 [ngClass]="changePercent >= 0 ? 'gain_bg' : 'lose_bg'">
               <percent-change [value]="changePercent"></percent-change>
             </div>
             <!--<div class="updated_at">At close: March 10 04:00 PM EST</div>-->
@@ -18,13 +20,13 @@
 
         <div class="chart_and_controls_container" *ngIf="portfolioValueHistoryObs | async as portfolioValueHistory">
           <div class="chart_container">
-            <chart [chart]="getPortfolioChart(portfolioValueHistory)"></chart>
+            <chart [chart]="getPortfolioChart(portfolioValueHistory, changePercent >= 0)"></chart>
           </div>
           <div class="controls">
             <button class="control_button" mat-flat-button
                     *ngFor="let timeFrame of allTimeFrames"
                     (click)="selectedTimeFrame.next(timeFrame)"
-                    [ngClass]="{selected: selectedTimeFrame.value === timeFrame}">
+                    [ngClass]="{selected: selectedTimeFrame.value === timeFrame, gain: changePercent >= 0, lose: changePercent < 0}">
 
               {{timeFrame | uppercase}}
             </button>

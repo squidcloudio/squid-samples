@@ -74,7 +74,7 @@ export class PortfolioComponent {
     }, [] as { percentage: number; sicDescription: string }[]);
   }
 
-  getPortfolioChart(chartData: Array<{ date: Date; value: number }>): Chart {
+  getPortfolioChart(chartData: Array<{ date: Date; value: number }>, gain: boolean): Chart {
     const data: Array<LineChartData> = [
       {
         name: 'Portfolio value',
@@ -87,7 +87,9 @@ export class PortfolioComponent {
         legend: false,
         showXAndYAxis: false,
       },
-      summaryData: [{ label: 'Portfolio value', value: 'Portfolio value', color: 'var(--gain)' }],
+      summaryData: [
+        { label: 'Portfolio value', value: 'Portfolio value', color: `var(${gain ? '--gain' : '--lose'})` },
+      ],
       type: 'line',
     };
   }

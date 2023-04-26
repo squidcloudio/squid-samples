@@ -68,15 +68,22 @@
           font-weight: 800;
           font-size: 14px;
           line-height: 100%;
-          color: $gain;
           height: 30px;
           padding: 0 12px;
           min-width: auto;
           border-radius: 6px;
 
           &.selected {
-            background: $gain;
-            color: #FFFFFF;
+            &.gain {
+              background: $gain;
+              color: #FFFFFF !important;
+            }
+
+            &.lose {
+              background: $lose;
+              color: #FFFFFF !important;
+            }
+
           }
         }
       }
