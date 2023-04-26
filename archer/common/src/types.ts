@@ -1,5 +1,37 @@
 export type TimeFrame = '1d' | '1w' | '1m' | '3m' | '1y';
+export type TimeSpan = 'minute' | 'hour' | 'day' | 'week' | 'month' | 'quarter' | 'year';
 export const allTimeFrames: Array<TimeFrame> = ['1d', '1w', '1m', '3m', '1y'];
+
+export function convertTimeFrameToMilliseconds(timeFrame: TimeFrame) {
+  switch (timeFrame) {
+    case '1d':
+      // noinspection PointlessArithmeticExpressionJS
+      return 1 * 24 * 60 * 60 * 1000;
+    case '1w':
+      return 7 * 24 * 60 * 60 * 1000;
+    case '1m':
+      return 30 * 24 * 60 * 60 * 1000;
+    case '3m':
+      return 90 * 24 * 60 * 60 * 1000;
+    case '1y':
+      return 365 * 24 * 60 * 60 * 1000;
+  }
+}
+
+export function convertTimeFrameToTimeSpan(timeFrame: TimeFrame): TimeSpan {
+  switch (timeFrame) {
+    case '1d':
+      return 'hour';
+    case '1w':
+      return 'hour';
+    case '1m':
+      return 'day';
+    case '3m':
+      return 'day';
+    case '1y':
+      return 'week';
+  }
+}
 
 export interface Ticker {
   id: string;
@@ -125,6 +157,21 @@ export interface TickerDetailsResults {
 
 export interface TickerDetailsResponse extends GeneralPolygonResponse {
   results: TickerDetailsResults;
+}
+
+export interface AggregationsBarResponse extends GeneralPolygonResponse {
+  results: Array<AggregationBarResult>;
+}
+
+export interface AggregationBarResult {
+  c: number;
+  h: number;
+  l: number;
+  n: number;
+  o: number;
+  t: number;
+  v: number;
+  vw: number;
 }
 
 export type MarketExchangeStatus = 'extended-hours' | 'closed' | 'open';

@@ -23,6 +23,7 @@ export class ArcherService extends SquidService {
   @secureDatabase('all', 'built_in_db')
   @secureApi('polygon', 'gainers')
   @secureApi('polygon', 'losers')
+  @secureApi('polygon', 'aggregatesBar')
   allowAllAccessToBuiltInDb(): boolean {
     return true;
   }

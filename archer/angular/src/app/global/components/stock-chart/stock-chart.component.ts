@@ -3,7 +3,7 @@ import { Chart } from '../chart/chart.component';
 import { TimeFrame } from 'archer-common';
 
 @Component({
-  selector: 'app-stock-chart',
+  selector: 'stock-chart',
   templateUrl: './stock-chart.component.html',
   styleUrls: ['./stock-chart.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

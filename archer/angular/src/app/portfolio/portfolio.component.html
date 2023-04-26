@@ -10,10 +10,10 @@
           </div>
 
           <div class="chart_and_controls_container">
-            <app-stock-chart *ngVar="selectedTimeFrameSubject | async as selectedTimeFrame"
+            <stock-chart *ngVar="selectedTimeFrameSubject | async as selectedTimeFrame"
                              [chart]="getPortfolioChart(portfolioValueHistory, changePercent >= 0)"
                              (timeFrameSelected)="selectedTimeFrameSubject.next($event)" [gain]="changePercent >= 0"
-                             [selectedTimeFrame]="selectedTimeFrame"></app-stock-chart>
+                             [selectedTimeFrame]="selectedTimeFrame"></stock-chart>
           </div>
 
           <div class="health_and_diversity">

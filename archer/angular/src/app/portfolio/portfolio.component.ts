@@ -87,7 +87,7 @@ export class PortfolioComponent {
         showXAndYAxis: false,
       },
       summaryData: [
-        { label: 'Portfolio value', value: 'Portfolio value', color: `var(${gain ? '--gain' : '--lose'})` },
+        { label: 'Portfolio value', value: 'Portfolio value', color: `var(${gain ? '--gain1' : '--lose1'})` },
       ],
       type: 'line',
     };
