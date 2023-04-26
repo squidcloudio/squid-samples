@@ -58,6 +58,11 @@ p {
 
 a {
   text-decoration: none;
+  color: $text1;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .gain {

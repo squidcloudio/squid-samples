@@ -14,88 +14,12 @@
       }
 
       .totals {
-        display: flex;
-        align-items: center;
-
-        .portfolio_value {
-          font-weight: 800;
-          font-size: 32px;
-          margin-right: 12px;
-        }
-
-        .change_since_yesterday {
-          font-weight: 800;
-          font-size: 12px;
-          line-height: 16px;
-          border-radius: 100px;
-          display: flex;
-          align-items: center;
-          height: 24px;
-          padding-left: 12px;
-          padding-right: 12px;
-          margin-right: 12px;
-        }
-
-        .updated_at {
-          font-weight: 400;
-          font-size: 12px;
-          line-height: 16px;
-          color: $type2;
-        }
       }
     }
 
     .chart_and_controls_container {
       margin-bottom: 40px;
 
-      .chart_container {
-        width: 100%;
-        height: 261px;
-        margin-bottom: 27px;
-        position: relative;
-
-        .chart_dotted_line {
-          position: absolute;
-          border-top: 1px dashed $type3;
-          top: 50%;
-          width: 100%;
-          transform: translateY(-50%);
-          z-index: -1;
-        }
-      }
-
-      .controls {
-        background: $bg2;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 48px;
-        column-gap: 16px;
-
-        .control_button {
-          background: transparent;
-          font-weight: 800;
-          font-size: 14px;
-          line-height: 100%;
-          height: 30px;
-          padding: 0 12px;
-          min-width: auto;
-          border-radius: 6px;
-
-          &.selected {
-            &.gain {
-              background: $gain;
-              color: #FFFFFF !important;
-            }
-
-            &.lose {
-              background: $lose;
-              color: #FFFFFF !important;
-            }
-
-          }
-        }
-      }
     }
 
     .health_and_diversity {

@@ -1,5 +1,6 @@
 <div class="chart_container_with_padding">
   <div class="chart_container" [ngSwitch]="chart.type">
+    <div class="chart_dotted_line"></div>
     <ngx-charts-line-chart
       *ngSwitchCase="'line'"
       [scheme]="getColorScheme(chart)"

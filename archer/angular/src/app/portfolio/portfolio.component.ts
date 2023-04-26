@@ -14,9 +14,8 @@ import { StockTableData } from '../global/components/stock-table/stock-table.com
 export class PortfolioComponent {
   userAssetsObs = this.archerService.observeUserAssets();
   userObs = this.archerService.observeUser();
-  allTimeFrames = allTimeFrames;
-  selectedTimeFrame = new BehaviorSubject<TimeFrame>('1d');
-  portfolioValueHistoryObs = this.selectedTimeFrame.pipe(
+  selectedTimeFrameSubject = new BehaviorSubject<TimeFrame>('1d');
+  portfolioValueHistoryObs = this.selectedTimeFrameSubject.pipe(
     switchMap((timeFrame) => {
       return this.archerService.getPortfolioValueHistory(timeFrame, 24);
     }),

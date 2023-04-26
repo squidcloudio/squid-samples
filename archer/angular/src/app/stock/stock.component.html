@@ -1,1 +1,94 @@
-<p>stock works!</p>
+<div class="stock_page" *ngIf="tickerObs | async as ticker">
+  <div class="container">
+    <div class="back_to_global_portfolio_section">
+      <a routerLink="/" class="back_to_global_portfolio_link">
+        <mat-icon class="back_arrow" svgIcon="back_arrow_icon"></mat-icon>
+        <div>Back to global portfolio</div>
+      </a>
+    </div>
+
+    <div class="stock_name_and_price_section">
+      <div class="stock_name_and_buttons">
+        <div class="name">{{ticker.name}} ({{ticker.id}})</div>
+        <div class="buttons">
+          <button class="buy_button" mat-flat-button>Buy</button>
+        </div>
+      </div>
+      <totals class="totals" [value]="ticker.closePrice" [changePercent]="ticker.todaysChangePerc"></totals>
+    </div>
+
+    <div class="chart_and_controls_section">
+      <app-stock-chart *ngVar="selectedTimeFrameSubject | async as selectedTimeFrame"
+                       [chart]="getStockChart([], ticker.todaysChangePerc >= 0)"
+                       (timeFrameSelected)="selectedTimeFrameSubject.next($event)" [gain]="ticker.todaysChangePerc >= 0"
+                       [selectedTimeFrame]="selectedTimeFrame">
+      </app-stock-chart>
+    </div>
+
+    <div class="summary_section">
+      <div class="section_title">Summary</div>
+      <div class="summary_details">
+        <div class="summary_detail">
+          <div class="name">Previous close</div>
+          <div class="value">{{ticker.closePrice | currency: 'USD'}}</div>
+        </div>
+        <div class="summary_detail">
+          <div class="name">Today's open</div>
+          <div class="value">{{ticker.openPrice | currency: 'USD'}}</div>
+        </div>
+        <div class="summary_detail">
+          <div class="name">Day's range</div>
+          <div class="value">{{ticker.openPrice | currency: 'USD'}}-{{ticker.closePrice | currency: 'USD'}}</div>
+        </div>
+        <div class="summary_detail">
+          <div class="name">Volume</div>
+          <div class="value">{{ticker.volume | number: '1.0'}}</div>
+        </div>
+        <div class="summary_detail">
+          <div class="name">Weighted volume</div>
+          <div class="value">{{ticker.volumeWeighted | number: '1.2'}}</div>
+        </div>
+        <div class="summary_detail">
+          <div class="name">Market cap</div>
+          <div class="value">{{ticker.marketCap | number: '1.0'}}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="company_details_section">
+      <div class="section_title">{{ticker.name}}</div>
+      <div class="details">
+        <div class="left" *ngIf="ticker.address || ticker.phoneNumber">
+          <div class="full_address" *ngIf="ticker.address as address">
+            <div class="text">{{address.address1 | titlecase}}</div>
+            <div class="text" *ngIf="address.address2">{{address.address2 | titlecase}}</div>
+            <div class="address_line">
+              <div class="text" *ngIf="address.city">{{address.city | titlecase}},</div>
+              <div class="text" *ngIf="address.state">{{address.state}}</div>
+              <div class="text" *ngIf="address.postal_code">{{address.postal_code}}</div>
+            </div>
+            <div class="text">United States</div>
+          </div>
+          <div class="detail_with_icon" *ngIf="ticker.phoneNumber">
+            <mat-icon class="icon" svgIcon="phone_icon"></mat-icon>
+            {{ticker.phoneNumber}}
+          </div>
+        </div>
+
+        <div class="right">
+          <div class="text" *ngIf="ticker.sicDescription">Industry: {{ticker.sicDescription | titlecase}}</div>
+          <div class="text">Full-Time employees: {{ticker.totalEmployees | number: '1.0'}}</div>
+          <div class="detail_with_icon" *ngIf="ticker.homepageUrl">
+            <mat-icon class="icon" svgIcon="website_icon"></mat-icon>
+            <a [href]="ticker.homepageUrl" target="_blank">{{ticker.homepageUrl}}</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="company_description">
+        <div class="title">Description</div>
+        <div class="description">{{ticker.description}}</div>
+      </div>
+    </div>
+  </div>
+</div>

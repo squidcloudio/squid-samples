@@ -1,0 +1,174 @@
+@import 'colors';
+
+.stock_page {
+  .back_to_global_portfolio_section {
+    padding-bottom: 8px;
+    margin-top: 40px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid $line1;
+
+    .back_to_global_portfolio_link {
+      display: flex;
+      align-items: center;
+      color: $text2;
+      font-weight: 800;
+      font-size: 12px;
+      line-height: 16px;
+
+      .back_arrow {
+        width: 16px;
+        height: 16px;
+        line-height: 0;
+        margin-right: 4px;
+      }
+    }
+  }
+
+  .stock_name_and_price_section {
+    .stock_name_and_buttons {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+
+      .name {
+        font-weight: 800;
+        font-size: 16px;
+        line-height: 100%;
+        color: $text1;
+      }
+
+      .buttons {
+        .buy_button {
+          background: #242424;
+          color: #FFFFFF;
+          height: 38px;
+          width: 102px;
+          border-radius: 8px;
+          font-weight: 700;
+          font-size: 14px;
+          line-height: 14px;
+        }
+      }
+    }
+  }
+
+  .chart_and_controls_section {
+    margin-bottom: 40px;
+  }
+
+  .section_title {
+    border-top: 1px solid $line2;
+    border-bottom: 1px solid $line2;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    font-weight: 800;
+    font-size: 16px;
+    line-height: 100%;
+    color: $text1;
+  }
+
+  .summary_section {
+    margin-bottom: 40px;
+
+    .summary_details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-column-gap: 40px;
+
+      .summary_detail {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: $text2;
+        padding: 12px 0;
+        border-bottom: 1px solid $line1;
+
+        .name {
+          font-weight: 600;
+          font-size: 16px;
+        }
+
+        .value {
+          font-weight: 700;
+          font-size: 16px;
+        }
+      }
+    }
+  }
+
+  .company_details_section {
+    margin-bottom: 40px;
+
+    .section_title {
+      margin-bottom: 12px;
+    }
+
+    .details {
+      display: flex;
+      column-gap: 64px;
+      margin-bottom: 40px;
+
+      > div {
+        min-width: 246px;
+      }
+
+      .text {
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 140%;
+        color: $text2;
+      }
+
+      .full_address {
+        .address_line {
+          display: flex;
+
+          .text:not(:last-child) {
+            margin-right: 4px;
+          }
+        }
+      }
+
+      .detail_with_icon {
+        display: flex;
+        align-items: center;
+        font-weight: 800;
+        font-size: 16px;
+        line-height: 100%;
+        color: $text3;
+        margin-top: 12px;
+
+        .icon {
+          width: 16px;
+          height: 16px;
+          margin-right: 6px;
+        }
+
+        a {
+          color: $text3;
+        }
+      }
+    }
+
+    .company_description {
+      padding-bottom: 40px;
+
+      .title {
+        font-weight: 800;
+        font-size: 16px;
+        line-height: 100%;
+        color: $text2;
+        margin-bottom: 8px;
+      }
+
+      .description {
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 140%;
+        color: $text2;
+      }
+    }
+  }
+
+}

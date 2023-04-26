@@ -10,12 +10,17 @@ export interface Ticker {
   marketCap: number;
   exchange: string;
   phoneNumber: string;
+  volume: number;
+  volumeWeighted: number;
   closePrice: number;
   openPrice: number;
+  prevDayClosePrice: number;
+  prevDayOpenPrice: number;
   todaysChange: number;
   todaysChangePerc: number;
   sicCode: number;
   sicDescription: string;
+  totalEmployees: number;
   address?: {
     address1: string;
     address2?: string;

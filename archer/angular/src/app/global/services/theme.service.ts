@@ -25,6 +25,9 @@ export class ThemeService {
     'AMZN_icon',
     'NFLX_icon',
     'GOOG_icon',
+    'back_arrow_icon',
+    'phone_icon',
+    'website_icon',
   ];
 
   constructor(

@@ -27,6 +27,9 @@ import { SearchBarComponent } from './global/components/search-bar/search-bar.co
 import { AutofocusDirective } from './global/directives/autofocus.directive';
 import { PercentChangeComponent } from './global/components/percent-change/percent-change.component';
 import { StockTableComponent } from './global/components/stock-table/stock-table.component';
+import { TotalsComponent } from './global/components/totals/totals.component';
+import { ChartControlsComponent } from './global/components/chart-controls/chart-controls.component';
+import { StockChartComponent } from './global/components/stock-chart/stock-chart.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +45,9 @@ import { StockTableComponent } from './global/components/stock-table/stock-table
     SearchBarComponent,
     PercentChangeComponent,
     StockTableComponent,
+    TotalsComponent,
+    ChartControlsComponent,
+    StockChartComponent,
   ],
   imports: [
     BrowserModule,
@@ -74,11 +80,11 @@ export class AppModule {
     squid.setAuthIdToken(authService.idTokenClaims$.pipe(map((idToken) => idToken?.__raw)));
     themeService.initialize();
     (window as any).squid = squid;
-    archerService.buyAsset('VNOM', 10).then();
+    /*archerService.buyAsset('VNOM', 10).then();
     archerService.buyAsset('LMND', 32).then();
     archerService.buyAsset('INMD', 60).then();
     archerService.buyAsset('AAPL', 10).then();
     archerService.buyAsset('GOOG', 20).then();
-    archerService.buyAsset('NVDA', 30).then();
+    archerService.buyAsset('NVDA', 30).then();*/
   }
 }
