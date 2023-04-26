@@ -3,7 +3,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import dayjs from 'dayjs';
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import TagsInput from '../components/TagsInput';
 
 import { StyledDatePicker } from '../styled/StyledDatePicker';
@@ -34,8 +34,13 @@ const ItemModal = ({ collection, todos, open, setOpen, fromCalendar, currentDate
     color: defaultTodoList?.data.color,
   });
 
+  const handleOpen = useCallback((value: any) => {
+    setListModal(value);
+  }, []);
+
   const [value, setValue] = useState<any>(null);
   const [tags, setTags] = useState<any>([]);
+  const [listModal, setListModal] = useState(false);
 
   const removeTag = (idx: number) => {
     setTags(tags.filter((_: any, i: any) => i !== idx));
@@ -81,7 +86,6 @@ const ItemModal = ({ collection, todos, open, setOpen, fromCalendar, currentDate
   const handleSelectChange = (event: SelectChangeEvent) => {
     const value = event.target.value;
     const selectedItem = todosList.find((item: any) => item?.data.id === value);
-    console.log(value);
 
     setSelectedValue({ id: selectedItem?.data.id, color: selectedItem?.data.color });
   };
@@ -92,32 +96,34 @@ const ItemModal = ({ collection, todos, open, setOpen, fromCalendar, currentDate
         <p>Add new item</p>
 
         {fromCalendar && (
-          <Select
-            value={selectedValue.id || todosList[0]?.data.id}
-            defaultValue={selectedValue.id || defaultTodoList?.data.id}
-            className="modal_container-select"
-            onChange={handleSelectChange}
-            sx={{ '& .MuiMenuItem-root': { display: 'flex', alignItems: 'center' } }}
-          >
-            {todosList.map((item: any) => {
-              return (
-                <MenuItem className="modal_container-menu" value={item.data.id} key={item.data.title}>
-                  <div className="modal_container-in">
-                    <div className="modal_container-item" style={{ backgroundColor: `${item.data.color}` }}></div>
-                    <div className="modal_container-color">{item.data.title}</div>
-                  </div>
-                </MenuItem>
-              );
-            })}
-            {/* <MenuItem onClick={(e) => e.preventDefault()}>
-              <button className="list_button">
-                <img src={addList} alt="list" />
-                <span>New list</span>
-              </button>
-            </MenuItem> */}
+          <>
+            <Select
+              value={selectedValue.id || todosList[0]?.data.id}
+              defaultValue={selectedValue.id || defaultTodoList?.data.id}
+              className="modal_container-select"
+              onChange={handleSelectChange}
+              sx={{ '& .MuiMenuItem-root': { display: 'flex', alignItems: 'center' } }}
+            >
+              {todosList.map((item: any) => {
+                return (
+                  <MenuItem className="modal_container-menu" value={item.data.id} key={item.data.title}>
+                    <div className="modal_container-in">
+                      <div className="modal_container-item" style={{ backgroundColor: `${item.data.color}` }}></div>
+                      <div className="modal_container-color">{item.data.title}</div>
+                    </div>
+                  </MenuItem>
+                );
+              })}
+              <MenuItem>
+                <button className="list_button" onClick={handleOpen}>
+                  <img src={addList} alt="list" />
+                  <span>New list</span>
+                </button>
+              </MenuItem>
+            </Select>
 
-            {/* <ListModal collection={todosCollection} id={id} open={listModalOpen} setOpen={setListModalOpen} /> */}
-          </Select>
+            <ListModal collection={todosCollection} id={id} open={listModal} setOpen={setListModal} />
+          </>
         )}
 
         <CssTextField label="Title" inputRef={titleRef} className="modal_container-input" />
