@@ -92,8 +92,8 @@ const Calendar = ({ currentDate, setCurrentDate }: any) => {
           // </div>
           <div key={i} className="sidebar_item">
             <div onClick={() => navigate(`/${el.data.listId}`)} style={{ flex: '2' }}>
-              <div className="sidebar_item-color">
-                <div style={{ backgroundColor: el.data.listColor }}></div>
+              <div className="sidebar_item-color" style={{ maxWidth: '150px' }}>
+                <div style={{ backgroundColor: el.data.listColor, minWidth: '12px' }}></div>
                 <Tooltip title={el.data.title}>
                   <span className="sidebar_item-dots">{el.data.title}</span>
                 </Tooltip>
