@@ -31,18 +31,20 @@ export class MultiSelectComponent implements OnInit {
     }
   }
 
-  addTagFromInput(): void {
+  addTagFromInput(e: Event): void {
     if (this.control && this.inputRef?.nativeElement.value.trim()) {
       const newId = self.crypto.randomUUID();
       const newTag = { id: newId, name: this.inputRef?.nativeElement.value };
       this.selectedTags.push(newTag);
     }
+
     this.renderer.setProperty(this.inputRef?.nativeElement, 'value', '');
     this.control?.get('tags')?.setValue(this.selectedTags);
   }
 
   addTagFromSelect(item: { id: string; name: string }): void {
     const isItemInArray = this.selectedTags.find(tag => tag.id === item.id);
+    console.log(item);
     if (!isItemInArray) this.selectedTags.push(item);
     this.control?.get('tags')?.setValue(this.selectedTags);
     this.renderer.setProperty(this.inputRef?.nativeElement, 'value', '');

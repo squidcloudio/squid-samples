@@ -12,9 +12,7 @@
       <ul class="tag-container-list">
         <li class="tag-container-list__component" *ngFor="let selectedTag of selectedTags">
           {{ selectedTag.name }}
-          <button class="tag-component-button" (click)="deleteTage(selectedTag.id)">
-            X
-          </button>
+          <button class="tag-component-button" (click)="deleteTage(selectedTag.id)">X</button>
         </li>
       </ul>
     </ng-container>
@@ -26,9 +24,9 @@
       #inputRef
       [matAutocomplete]="auto"
       class="tag-container-input"
-      (keydown.enter)="addTagFromInput()" />
+      (keydown.enter)="addTagFromInput($event)" />
     <label class="tag-container-label" for="tag">Tag</label>
-    <mat-autocomplete autoSelectActiveOption #auto="matAutocomplete">
+    <mat-autocomplete matAutocompleteOrigin #auto="matAutocomplete">
       <mat-option
         *ngFor="let tag of tags"
         [value]="tag"

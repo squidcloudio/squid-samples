@@ -14,7 +14,6 @@
   transition: all 160ms ease-in;
 
   &-label {
-
     font-size: t.text(3xs);
     display: none;
   }
@@ -133,7 +132,9 @@
   .tag-container-list__component {
     border: 1px solid c.colors(font, true);
     color: c.colors(font, true);
-
+  }
+  & .tag-component-button {
+    color: c.colors(font, true);
   }
 }
 .options {

@@ -3,29 +3,29 @@
 @use '../../style/typography' as t;
 .task {
   width: s.size(full);
-  display: flex;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: 40px 1fr;
   border-radius: 8px;
-  padding: 21px 13px;
+  padding: 21px 14px;
   cursor: pointer;
   &:hover {
     background-color: c.colors(component-active);
     & .task-content-header-edit {
-      display: block;
+      display: flex;
     }
   }
   &-selected {
     background-color: c.colors(component-active);
     & .task-content-header-edit {
-      display: block;
+      display: flex;
     }
   }
   &-content {
     min-width: 90%;
     &-header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
+      display: grid;
+      grid-template-columns: 1fr 16px;
+      grid-column-gap: 10%;
       &-text {
         padding-left: 10px;
         padding-top: 7px;
@@ -37,6 +37,7 @@
           font-weight: t.text-weight(bolder);
           font-size: t.text(m);
           color: c.colors(component-title);
+          word-break: break-word;
         }
 
         &-description {
@@ -58,10 +59,11 @@
     }
 
     &-info {
+      width: 100%;
       margin-top: 12px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      display: grid;
+      grid-template-columns: 130px 1fr;
+      grid-column-gap: 2%;
 
       &-date {
         text-transform: uppercase;
@@ -76,11 +78,13 @@
       }
 
       &-tags {
+        min-height: 20px;
         display: flex;
+        flex-wrap: wrap;
         gap: 5px;
+        margin-left: auto;
         &__component {
-          &:not(:first-child) {
-          }
+          width: fit-content;
           text-transform: uppercase;
           font-weight: t.text-weight(bold);
           font-size: t.text(xxs);
@@ -142,29 +146,16 @@
   &.task-selected {
     background-color: c.colors(component-active, true) !important;
   }
-}
-@media screen and (max-width: 1247px) {
-  .task-content {
-    min-width: 90%;
+  .tag-container-list__component {
+    color: c.colors(font-regular, true);
   }
 }
-@media screen and (min-width: 768px) and (max-width: 1000px) {
-  .task-content {
-    min-width: 90%;
-  }
-}
-@media screen and (min-width: 378px) and (max-width: 767px) {
-  .task-content {
-    min-width: 90%;
-  }
 
-}
 @media screen and (min-width: 378px) and (max-width: 500px) {
-  .task{
+  .task {
     padding-right: 30px;
   }
   .task-content-info-tags {
-    max-width: 50px;
     flex-wrap: wrap;
   }
 }

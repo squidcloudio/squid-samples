@@ -21,10 +21,11 @@ export class EditLabelFormComponent implements OnInit, OnDestroy {
     if (this.listId) {
       this.todoSub = this.listService.observeList(this.listId).subscribe(list => {
         this.editLabelForm = new FormGroup({
-          label: new FormControl(
-            this.labelType === 'activeLabel' ? list.activeLabel : list.completeLabel,
+          label: new FormControl(this.labelType === 'activeLabel' ? list.activeLabel : list.completeLabel, [
             Validators.required,
-          ),
+            Validators.minLength(5),
+            Validators.maxLength(20),
+          ]),
           listId: new FormControl(list.id, Validators.required),
         });
       });

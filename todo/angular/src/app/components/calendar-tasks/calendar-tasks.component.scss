@@ -25,6 +25,7 @@
         width: 12px;
         height: 12px;
         border-radius: 3px;
+        flex-shrink: 0;
       }
       &-title {
         margin-left: 7px;
@@ -41,9 +42,22 @@
     color: c.colors(font, true);
   }
 }
+.add-task-button {
+  margin-top: 12px;
+}
 @media screen and (min-width: 378px) and (max-width: 767px) {
+  .calendar-tasks {
+    margin-top: 10px;
+  }
+  .add-task-button {
+    margin-top: 10px;
+  }
   .calendar-tasks-list {
     max-height: 120px;
     overflow: scroll;
+    margin-top: 0;
+    &__component {
+      padding: 4px 5px;
+    }
   }
 }

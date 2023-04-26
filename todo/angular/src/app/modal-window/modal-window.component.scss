@@ -10,7 +10,7 @@
   z-index: 1000;
   display: flex;
   justify-content: center;
-
+  overflow: auto;
   &-body {
     min-width: 496px;
     margin-top: 40px;

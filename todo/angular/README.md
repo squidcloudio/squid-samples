@@ -41,10 +41,11 @@ npm start
       },
     }),
     ...
-    
+
 }
 
 ```
+
 ### Backend.
 
 Getting started with Squid Cloud involves generating a backend template project. The first step is to install the Squid Cloud CLI:
@@ -143,14 +144,14 @@ To achieve this, Squid uses the **secureCollection** decorator, which is explain
 `src/service/example-service.ts:`
 
 ```typescript
-import { SquidService, secureCollection } from "@squidcloud/backend";
+import { SquidService, secureCollection } from '@squidcloud/backend';
 
 export class ExampleService extends SquidService {
-  @secureCollection("lists", "all")
+  @secureCollection('lists', 'all')
   secureListCollection(): boolean {
     return this.isAuthenticated();
   }
-  @secureCollection("tasks", "all")
+  @secureCollection('tasks', 'all')
   secureTaskCollection(): boolean {
     return this.isAuthenticated();
   }
@@ -172,7 +173,7 @@ the user can access various collections and perform actions such as creating, up
 The left sidebar on the main page contains a collection of lists. This collection includes default lists such as 'Today', 'Tomorrow', and 'Someday'.
 The 'ListService' is responsible for providing the method that allows users to access collections:
 
-`src/app/services/todos.service.ts:`
+`src/app/services/list.service.ts:`
 
 ```typescript
   observeDefaultCollection(): Observable<List[]> {
@@ -232,8 +233,8 @@ await this.listCollection.doc(newList.id).insert(newList);
 
 #### Change collection
 
-If the user wants to modify an existing element in the List collection, they can click the 'edit' button next to the corresponding element.
-This will call the `changeList()` method from the ListService, which allows the user to modify the name of the List.
+If the user wants to modify a label name in the List collection, they can click the 'edit' button next to the corresponding element.
+This will call the `changeListLabel()` method from the ListService, which allows the user to modify the name of the List.
 
 **HTML**
 
@@ -245,10 +246,13 @@ This will call the `changeList()` method from the ListService, which allows the 
 
 ```typescript
 
-  changeList(id: string, newTitle: string): void {
-    this.listCollection.doc(id).update({ title: newTitle });
+    changeListLabel(id: string, newTitle: string, labelType: string): void {
+    this.listCollection
+      .doc(id)
+      .update(labelType === LabelTypes.activeLabel ? { activeLabel: newTitle } : { completeLabel: newTitle });
   }
-  
+}
+
 ```
 
 #### Delete List.
@@ -399,7 +403,3 @@ get Tasks by date:
 }
 
 ```
-
-There is a list of expired tasks below the 'active tasks' section. These tasks have already passed their expiration date:
-
-![img.png](src/app/screenshots/img.png)

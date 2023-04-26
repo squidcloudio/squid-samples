@@ -103,3 +103,14 @@
     }
   }
 }
+@media screen and (min-width: 378px) and (max-width: 767px) {
+  .calendar-dates {
+    margin-top: 0;
+  }
+  .calendar-dates__component {
+    padding: 10px 5px;
+    & p {
+      font-size: t.text(xs);
+    }
+  }
+}

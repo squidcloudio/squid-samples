@@ -14,6 +14,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    word-break: break-word;
     & h2 {
       font-size: t.text(xl);
       color: c.colors(font-accent);
