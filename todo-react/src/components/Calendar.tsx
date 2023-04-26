@@ -36,7 +36,8 @@ const Calendar = ({ currentDate, setCurrentDate }: any) => {
     }
   }, [currentDate]);
 
-  const todayDate = moment.utc(initialDayRef.current).startOf('day').locale('en');
+  const todayDate = moment(initialDayRef.current).locale('en');
+  const tomorrowDate = moment().add(1, 'day');
 
   const weekdays = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
   const itemsCollection = useCollection<Task>('tasks');
@@ -184,6 +185,42 @@ const Calendar = ({ currentDate, setCurrentDate }: any) => {
         </>
       </div>
       <Divider color="#E1E6EF" />
+
+      {todayDate.isSame(selectedDay, 'day') && (
+        <div className="due">
+          <div>
+            <p>Due tomorrow</p>
+            {items
+              .filter((item) => item.data.completed === false)
+              // eslint-disable-next-line array-callback-return
+              .map((el, i) => {
+                const momentDate = moment.utc(el.data.dueDate).locale('en');
+                if (momentDate.isSame(tomorrowDate, 'day')) {
+                  return (
+                    <div key={i} className="sidebar_item">
+                      <div onClick={() => navigate(`/${el.data.listId}`)} style={{ flex: '2' }}>
+                        <div className="sidebar_item-color">
+                          <div style={{ backgroundColor: el.data.listColor }}></div>
+                          <Tooltip title={el.data.title}>
+                            <span className="sidebar_item-dots">{el.data.title}</span>
+                          </Tooltip>
+                        </div>
+                      </div>
+                      <OptionsMenu
+                        itemsCollection={itemsCollection}
+                        isEditable={true}
+                        index={el.data.id}
+                        todos={todos}
+                        todoCollection={todosCollection}
+                      />
+                    </div>
+                  );
+                }
+              })}
+          </div>
+        </div>
+      )}
+      {todayDate.isSame(selectedDay, 'day') && <Divider color="#E1E6EF" />}
 
       <div className="overdue">
         <div className="overdue_dot">
