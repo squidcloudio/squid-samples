@@ -30,7 +30,7 @@
 
   &-icon {
     position: absolute;
-    top: 35px;
+    top: 37px;
     right: 0;
     z-index: -1;
   }
@@ -44,6 +44,7 @@
 
 .option {
   display: flex;
+  align-items: center;
 
   &-color {
     border-radius: 4px;
@@ -53,7 +54,7 @@
 
   &-name {
     margin-left: 16px;
-    font-size: 14px;
+    font-size: 16px;
     color: c.colors(font-accent);
   }
 }
@@ -94,6 +95,6 @@
 }
 .selected-color{
   position: absolute;
-  top: 40px;
+  top: 41px;
   left: 16px;
 }

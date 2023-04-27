@@ -103,3 +103,18 @@
     }
   }
 }
+@media screen and (min-width: 378px) and (max-width: 767px) {
+  .calendar-dates {
+    margin-top: 8px;
+  }
+  .calendar-dates__component {
+    padding: 10px 5px;
+    & p {
+      font-size: t.text(xs);
+    }
+  }
+  .date-navigation-icon {
+    height: 16px;
+    font-size: 16px;
+  }
+}

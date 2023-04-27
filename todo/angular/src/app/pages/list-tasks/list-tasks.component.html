@@ -1,0 +1,58 @@
+<ng-container *ngIf="listObs | async as list">
+  <div class="current-list">
+    <div class="current-list-info">
+      <div class="current-list-color" [ngStyle]="{ 'background-color': list.color }"></div>
+      <p class="current-list-title">{{ list.title }}</p>
+      <div class="current-list-amount">(<app-tasks-amount [list]="list"></app-tasks-amount>)</div>
+    </div>
+
+    <mat-divider style="margin-top: 25px"></mat-divider>
+  </div>
+  <div class="list-section" [ngClass]="{ 'list-section-dark': themeService.isDark }">
+    <div class="list-section-title">
+      <h2>{{ list.activeLabel }}</h2>
+      <app-edit-label
+        [listTitle]="list.title"
+        [id]="list.id"
+        type="list"
+        [labelType]="labelTypes.activeLabel"></app-edit-label>
+    </div>
+    <div class="list-section-content">
+      <ng-container *ngIf="(activeTasksObs | async)?.length">
+        <ul class="list-section-content-list">
+          <li
+            *ngFor="let task of activeTasksObs | async"
+            class="list-section-content-list__component"
+            (click)="setTaskId(task.id)">
+            <app-list-task [task]="task" [taskId]="taskId"></app-list-task>
+          </li>
+        </ul>
+      </ng-container>
+      <div class="new-tasks-section">
+        <app-add-task-button></app-add-task-button>
+      </div>
+    </div>
+  </div>
+  <div class="completed-tasks list-section" [ngClass]="{ 'list-section-dark': themeService.isDark }">
+    <div class="list-section-title">
+      <h2>{{ list.completeLabel }}</h2>
+      <app-edit-label
+        [listTitle]="list.title"
+        [id]="list.id"
+        type="list"
+        [labelType]="labelTypes.completeLabel"></app-edit-label>
+    </div>
+    <div class="list-section-content">
+      <ng-container class="list-section-content-list" *ngIf="(completedTasksObs | async)?.length">
+        <ul class="list-section-content-list">
+          <li *ngFor="let task of completedTasksObs | async" class="list-section-content-list__component">
+            <app-list-task [task]="task"></app-list-task>
+          </li>
+        </ul>
+      </ng-container>
+      <div class="new-tasks-section">
+        <app-add-task-button></app-add-task-button>
+      </div>
+    </div>
+  </div>
+</ng-container>

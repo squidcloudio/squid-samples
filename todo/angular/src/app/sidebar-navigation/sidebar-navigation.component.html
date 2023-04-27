@@ -1,12 +1,12 @@
 <div class="sidebar-navigation" (click)="close()" [ngClass]="{ 'sidebar-navigation-dark': themeService.isDark }">
   <section class="sidebar-navigation-content">
-    <app-todo-list listType="defaultCollection"></app-todo-list>
+    <app-list-catalogue listType="defaultCollection"></app-list-catalogue>
 
     <mat-divider style="margin-top: 24px"></mat-divider>
     <div class="sidebar-navigation-content__component">
-      <app-todo-list listType="userCollection"></app-todo-list>
+      <app-list-catalogue listType="userCollection"></app-list-catalogue>
     </div>
-    <app-add-todo-button></app-add-todo-button>
+    <app-add-list-button></app-add-list-button>
     <div class="sidebar-navigation-content-buttons-container">
       <app-theme-button></app-theme-button>
       <app-logout-button></app-logout-button>

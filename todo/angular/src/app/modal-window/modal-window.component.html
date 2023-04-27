@@ -10,17 +10,17 @@
         <app-list-form [dialog]="dialogRef"></app-list-form>
       </ng-container>
       <ng-container *ngIf="data.name === 'newItem'">
-        <app-item-form
+        <app-task-form
           [dialog]="dialogRef"
           [date]="data.date"
-          title="Add New Item"
-          submitName="Add item"></app-item-form>
+          title="New Task"
+          submitName="Add task"></app-task-form>
       </ng-container>
-      <ng-container *ngIf="data.name === 'editItem'">
-        <app-item-form [dialog]="dialogRef" [itemId]="data.id" title="Edit Item" submitName="Save"></app-item-form>
+      <ng-container *ngIf="data.name === 'editTask'">
+        <app-task-form [dialog]="dialogRef" [taskId]="data.id" title="Edit Task" submitName="Save"></app-task-form>
       </ng-container>
-      <ng-container *ngIf="data.name === 'editTodo'">
-        <app-edit-todo-form [dialog]="dialogRef" [todoId]="" [todoId]="data.id"></app-edit-todo-form>
+      <ng-container *ngIf="data.name === 'editLabel'">
+        <app-edit-label-form [dialog]="dialogRef" [listId]="data.id" [labelType]="data.labelType"></app-edit-label-form>
       </ng-container>
     </div>
   </div>

@@ -35,7 +35,7 @@
   &-label {
     position: absolute;
     left: 18px;
-    top: 13px;
+    top: 16px;
     color: c.colors(font);
     cursor: text;
     background: none;
@@ -107,6 +107,17 @@
     color: c.colors(font, true);
     background: c.colors(bg-c, true);
     font-size: 11px;
+  }
+}
+.calendar-button {
+  position: absolute;
+  padding: 10px 12px;
+  border-radius: 10px;
+  right: 5px;
+  top: 4px;
+  cursor: pointer;
+  &:hover{
+    background: rgba(0, 0, 0, 0.15);
   }
 }
 

@@ -29,9 +29,13 @@
 }
 @media screen and (min-width: 378px) and (max-width: 767px) {
   .calendar-modal {
+    padding: 10px 24px;
     position: fixed;
     bottom: 0;
     right: 0;
     min-width: s.size(full);
+  }
+  .calendar-divider {
+    margin-top: 8px !important;
   }
 }

@@ -1,0 +1,75 @@
+@use '../../style/colors' as c;
+@use '../../style/sizes' as s;
+@use '../../style/typography' as t;
+.calendar-tasks {
+  margin-top: t.text(l);
+  width: s.size(full);
+  &-list {
+    margin-top: t.text(s);
+    &__component {
+      display: grid;
+      grid-template-columns: 1fr 34px;
+      grid-column-gap: 0%;
+      padding: t.text(xxs) 5px;
+      border-radius: 8px;
+      cursor: pointer;
+
+      &-container {
+        display: flex;
+        align-items: center;
+      }
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.15);
+      }
+      &-color {
+        width: 12px;
+        height: 12px;
+        border-radius: 3px;
+        flex-shrink: 0;
+      }
+      &-title {
+        margin-left: 7px;
+      }
+    }
+  }
+}
+
+.calendar-tasks-dark {
+  & .calendar-tasks-title {
+    color: c.colors(font, true);
+  }
+  & .calendar-tasks-list__component-title {
+    color: c.colors(font, true);
+  }
+}
+.add-task-button {
+  margin-top: 12px;
+}
+@media screen and (max-width: 1199px) {
+  .calendar-tasks-list {
+    height: 100px;
+    overflow: scroll;
+  }
+  .calendar-tasks {
+    margin-top: 10px;
+  }
+  .add-task-button {
+    margin-top: 10px;
+  }
+  .calendar-tasks-list {
+    height: 60px;
+    margin-top: 10px;
+    &__component {
+      padding: 4px 5px;
+      display: grid;
+      grid-template-columns: 1fr 34px;
+      grid-column-gap: 0%;
+      &:hover {
+        background: none;
+      }
+      &-title {
+        font-size: t.text(xs);
+      }
+    }
+  }
+}

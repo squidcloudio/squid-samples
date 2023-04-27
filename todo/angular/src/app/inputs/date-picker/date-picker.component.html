@@ -4,11 +4,15 @@
       matInput
       [attr.disabled]="control.get('dueDate')?.valid && !itemId"
       [matDatepicker]="picker"
+      (click)="closeCalendar()"
+      (dateChange)="closeCalendar()"
       class="container-input"
       id="date"
       placeholder="(MM/DD/YYYY)"
       formControlName="dueDate" />
-    <mat-datepicker-toggle matIconSuffix [for]="picker" class="container-picker"></mat-datepicker-toggle>
+    <div class="calendar-button" (click)="openCalendar()">
+      <img [src]="!themeService.isDark ? 'assets/calendar.svg' : 'assets/calendar-dark.svg'" alt="" />
+    </div>
     <mat-datepicker #picker class="a"></mat-datepicker>
     <label for="date" class="container-label">Choose a date</label>
   </div>

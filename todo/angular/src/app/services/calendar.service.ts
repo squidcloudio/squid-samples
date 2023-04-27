@@ -1,25 +1,26 @@
 import { Injectable } from '@angular/core';
 import * as dayjs from 'dayjs';
-import { FormatTypes, Item } from '../interfaces';
-import { ItemsService } from './items.service';
+import { FormatTypes, Task } from '../interfaces';
+import { TaskService } from './task.service';
 import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class CalendarService {
+  today = dayjs().format(FormatTypes.DEFAULT_FORMAT);
   currentDate = dayjs().format(FormatTypes.DEFAULT_FORMAT);
   dateSubj: BehaviorSubject<string> = new BehaviorSubject(this.currentDate);
 
-  constructor(private itemService: ItemsService) {}
+  constructor(private taskService: TaskService) {}
 
   selectDate(selectedDate: string): void {
     this.currentDate = selectedDate;
     this.dateSubj.next(selectedDate);
   }
 
-  observeItemsOnDate(): Observable<Item[]> {
+  observeTasksOnDate(): Observable<Task[]> {
     return this.dateSubj.pipe(
       switchMap(date => {
-        return this.itemService.observeItemsSortedByDate(date).pipe(
+        return this.taskService.observeTasksSortedByDate(date).pipe(
           map(items =>
             items.filter(item => {
               const isItemInProgress = dayjs(item.dueDate).diff(dayjs(), 'day');

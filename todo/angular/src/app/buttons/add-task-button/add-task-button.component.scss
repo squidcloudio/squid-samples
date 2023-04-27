@@ -1,0 +1,15 @@
+@use '../../style/colors' as c;
+@use '../../style/typography' as t;
+.new-task-section {
+  &-button {
+    display: flex;
+    align-tasks: center;
+
+    &-title {
+      margin-left: 16px;
+      font-weight: t.text-weight(bolder);
+      font-size: t.text(m);
+      color: c.colors(font);
+    }
+  }
+}

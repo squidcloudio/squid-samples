@@ -1,13 +1,12 @@
 import { SquidService, secureCollection } from "@squidcloud/backend";
-import { log } from "console";
 
 export class ExampleService extends SquidService {
-  @secureCollection("todos", "all")
-  secureTodosCollection(): boolean {
+  @secureCollection("lists", "all")
+  secureListCollection(): boolean {
     return this.isAuthenticated();
   }
-  @secureCollection("items", "all")
-  secureItemsllection(): boolean {
+  @secureCollection("tasks", "all")
+  secureTaskCollection(): boolean {
     return this.isAuthenticated();
   }
 }

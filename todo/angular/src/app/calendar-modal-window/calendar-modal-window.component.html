@@ -1,8 +1,14 @@
 <section class="calendar-modal" [ngClass]="{ 'calendar-modal-dark': themeService.isDark }">
   <app-calendar-picker></app-calendar-picker>
   <mat-divider class="calendar-divider"></mat-divider>
-  <app-calendar-items [dialog]="dialogRef"></app-calendar-items>
-  <mat-divider class="calendar-divider"></mat-divider>
-  <app-expired-items [dialog]="dialogRef"></app-expired-items>
+  <app-calendar-tasks [dialog]="dialogRef"></app-calendar-tasks>
+  <ng-container *ngIf="calendarService.today === calendarService.currentDate && (tomorrowTasksObs | async)?.length">
+    <mat-divider class="calendar-divider"></mat-divider>
+    <app-calendar-tasks duringType="tomorrow" [dialog]="dialogRef"></app-calendar-tasks>
+  </ng-container>
+  <ng-container *ngIf="(expiredTasksObs | async)?.length">
+    <mat-divider class="calendar-divider"></mat-divider>
+    <app-expired-tasks [dialog]="dialogRef"></app-expired-tasks>
+  </ng-container>
 </section>
 <div class="calendar-modal-background" (click)="dialogRef.close()"></div>

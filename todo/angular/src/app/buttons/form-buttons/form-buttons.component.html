@@ -2,8 +2,9 @@
   <button class="buttons-container__component decline-button" (click)="dialog?.close()">Cancel</button>
   <button
     class="buttons-container__component submit-button"
-    [style.background-color]="todoService.currentTodo?.color"
+    [style.background-color]="listService.currentList?.color"
     type="submit"
+    [ngClass]="{'submit-disable': !control.valid}"
     [disabled]="!control.valid">
     {{ submitName }}
   </button>

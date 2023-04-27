@@ -6,10 +6,10 @@ import { SquidModule } from '@squidcloud/angular';
 import { AuthGuard, AuthModule } from '@auth0/auth0-angular';
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { RouterLink, RouterLinkActive, RouterModule, Routes } from '@angular/router';
-import { TodoItemsComponent } from './pages/todo-items/todo-items.component';
-import { TodoNavigationComponent } from './pages/todo-navigation/todo-navigation.component';
+import { ListTasksComponent } from './pages/list-tasks/list-tasks.component';
+import { ListNavigationComponent } from './pages/list-navigation/list-navigation.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ChildrenGuard } from './guards/todo.guard';
+import { ChildrenGuard } from './guards/list.guard';
 import { CalendarSidebarComponent } from './pages/calendar-sidebar/calendar-sidebar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -25,28 +25,29 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatListModule } from '@angular/material/list';
-import { TodoListComponent } from './components/todo-list/todo-list.component';
+import { ListCatalogueComponent } from './components/list-catalogue/list-catalogue.component';
 import { ListFormComponent } from './forms/list-form/list-form.component';
 import { ModalWindowComponent } from './modal-window/modal-window.component';
 import { TextInputComponent } from './inputs/text-input/text-input.component';
 import { FormButtonsComponent } from './buttons/form-buttons/form-buttons.component';
-import { ItemFormComponent } from './forms/item-form/item-form.component';
+import { TaskFormComponent } from './forms/task-form/task-form.component';
 import { DatePickerComponent } from './inputs/date-picker/date-picker.component';
 import { MultiSelectComponent } from './inputs/multi-select/multi-select.component';
-import { TodoItemComponent } from './components/todo-item/todo-item.component';
-import { EditTodoComponent } from './components/edit-todo/edit-todo.component';
-import { ItemsAmountComponent } from './components/items-amount/items-amount.component';
-import { EditTodoFormComponent } from './forms/edit-todo-form/edit-todo-form.component';
-import { AddItemButtonComponent } from './buttons/add-item-button/add-item-button.component';
+import { ListTaskComponent } from './components/list-task/list-task.component';
+import { EditLabelComponent } from './components/edit-label/edit-label.component';
+import { TasksAmountComponent } from './components/tasks-amount/tasks-amount.component';
+import { EditLabelFormComponent } from './forms/edit-label-form/edit-label-form.component';
+import { AddTaskButtonComponent } from './buttons/add-task-button/add-task-button.component';
 import { SidebarNavigationComponent } from './sidebar-navigation/sidebar-navigation.component';
-import { AddTodoButtonComponent } from './buttons/add-todo-button/add-todo-button.component';
+import { AddListButtonComponent } from './buttons/add-list-button/add-list-button.component';
 import { CalendarPickerComponent } from './components/calendar-picker/calendar-picker.component';
 import { TimeSincePipe } from './pipes/timeSince.pipe';
-import { CalendarItemsComponent } from './components/calendar-items/calendar-items.component';
-import { ExpiredItemsComponent } from './components/expired-items/expired-items.component';
+import { CalendarTasksComponent } from './components/calendar-tasks/calendar-tasks.component';
+import { ExpiredTasksComponent } from './components/expired-tasks/expired-tasks.component';
 import { CalendarModalWindowComponent } from './calendar-modal-window/calendar-modal-window.component';
 import { ThemeButtonComponent } from './buttons/theme-button/theme-button.component';
 import { LogoutButtonComponent } from './buttons/logout-button/logout-button.component';
+import { ListSelectComponent } from './inputs/list-select/list-select.component';
 
 const routes: Routes = [
   {
@@ -57,11 +58,11 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: TodoItemsComponent,
+        component: ListTasksComponent,
       },
       {
         path: ':id',
-        component: TodoItemsComponent,
+        component: ListTasksComponent,
       },
     ],
   },
@@ -71,31 +72,32 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     MainPageComponent,
-    TodoItemsComponent,
-    TodoNavigationComponent,
+    ListTasksComponent,
+    ListNavigationComponent,
     CalendarSidebarComponent,
-    TodoListComponent,
+    ListCatalogueComponent,
     ListFormComponent,
     ModalWindowComponent,
     TextInputComponent,
     FormButtonsComponent,
-    ItemFormComponent,
+    TaskFormComponent,
     DatePickerComponent,
     MultiSelectComponent,
-    TodoItemComponent,
-    EditTodoComponent,
-    ItemsAmountComponent,
-    EditTodoFormComponent,
-    AddItemButtonComponent,
+    ListTaskComponent,
+    EditLabelComponent,
+    TasksAmountComponent,
+    EditLabelFormComponent,
+    AddTaskButtonComponent,
     SidebarNavigationComponent,
-    AddTodoButtonComponent,
+    AddListButtonComponent,
     CalendarPickerComponent,
     TimeSincePipe,
-    CalendarItemsComponent,
-    ExpiredItemsComponent,
+    CalendarTasksComponent,
+    ExpiredTasksComponent,
     CalendarModalWindowComponent,
     ThemeButtonComponent,
     LogoutButtonComponent,
+    ListSelectComponent,
   ],
   imports: [
     BrowserModule,

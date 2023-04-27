@@ -18,7 +18,9 @@
   background: c.colors(submit);
   color: c.colors(font-accent);
 }
-
+.submit-disable{
+  opacity: 0.2;
+}
 .decline-button {
   color: c.colors(font);
   border: 1px solid c.colors(font);
