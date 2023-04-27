@@ -318,6 +318,15 @@ header {
   }
 }
 
+.list {
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+// .list.css-57ri8o-MuiGrid-root {
+//   padding-left: 0 !important;
+// }
+
 .list_button {
   display: flex;
   align-items: center;
@@ -693,6 +702,12 @@ th {
       }
     }
   }
+}
+
+.span-box {
+  word-break: break-word;
+  overflow-wrap: break-word;
+  padding-right: 20px;
 }
 
 @media screen and (max-width: 1570px) {
