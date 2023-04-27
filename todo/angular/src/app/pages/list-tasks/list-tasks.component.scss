@@ -31,9 +31,6 @@
 
     &-list {
       &__component {
-        &:not(:first-child) {
-          margin-top: 47px;
-        }
         &:last-child {
           margin-bottom: 36px;
         }
