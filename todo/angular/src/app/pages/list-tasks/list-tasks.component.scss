@@ -34,6 +34,9 @@
         &:not(:first-child) {
           margin-top: 47px;
         }
+        &:last-child {
+          margin-bottom: 36px;
+        }
       }
     }
   }
@@ -48,12 +51,7 @@
 }
 
 .new-tasks-section {
-  // margin-top: 36px;
-
   padding-left: 16px;
-  &-empty {
-    margin-top: 0;
-  }
 }
 
 .completed-tasks {
