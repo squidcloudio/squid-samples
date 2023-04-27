@@ -79,7 +79,12 @@ const MainContainer = React.memo(() => {
           <Grid container spacing={5}>
             <Grid item xs={12} md={3} lg={2} className="list">
               <Box className="list_container" sx={{ display: { xs: 'none', md: 'block' } }}>
-                <ListContainer todosList={todosList} collection={todosCollection} datesList={datesList} />
+                <ListContainer
+                  todosList={todosList}
+                  collection={todosCollection}
+                  datesList={datesList}
+                  itemsCollection={itemsCollection}
+                />
               </Box>
             </Grid>
 

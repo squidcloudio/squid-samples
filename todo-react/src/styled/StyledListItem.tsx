@@ -56,7 +56,15 @@ const StyledListItem = ({ todos, item, index, onClick, isChecked }: any) => {
         )}
 
         <Box width={1} mt={1}>
-          <Typography pb={1} className={isChecked ? 'completed' : ''}>
+          <Typography
+            pb={1}
+            className={isChecked ? 'completed' : ''}
+            sx={{
+              wordBreak: 'break-word',
+              overflowWrap: 'break-word',
+              pr: '20px',
+            }}
+          >
             {item.data.title}
           </Typography>
           <Typography mb={1} className={`span-${theme}`}>
