@@ -704,6 +704,11 @@ th {
   }
 }
 
+.navlink_span {
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
 .span-box {
   word-break: break-word;
   overflow-wrap: break-word;

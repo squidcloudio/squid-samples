@@ -56,7 +56,7 @@ const ListContainer = ({ todosList, collection, datesList }: any) => {
               <NavLink
                 key={id}
                 to={`/${id}`}
-                className={`navlink_content theme-${theme}`}
+                className={`navlink_content theme-${theme} navlink_span`}
                 style={({ isActive }) => {
                   return isActive
                     ? { backgroundColor: theme === 'dark' ? '#32363E' : '#E1E6EF' }
