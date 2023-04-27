@@ -46,16 +46,37 @@
     font-weight: t.text-weight(bolder);
   }
 }
-@media screen and (min-width: 378px) and (max-width: 767px) {
+@media screen and (max-width: 1199px) {
   .calendar-expired-title {
     margin-top: 8px;
   }
   .calendar-expired-list {
     height: 60px;
-    margin-top: 0px;
+    margin-top: 10px;
     overflow: auto;
     &-component {
       font-size: 12px;
+      padding: 5px;
     }
   }
+  calendar-expired-list__component-info {
+    font-size: t.text(xxs);
+  }
 }
+// @media screen and (min-width: 378px) and (max-width: 767px) {
+//   .calendar-expired-title {
+//     margin-top: 8px;
+//   }
+//   .calendar-expired-list {
+//     height: 60px;
+//     margin-top: 10px;
+//     overflow: auto;
+//     &-component {
+//       font-size: 12px;
+//       padding: 5px;
+//     }
+//   }
+//   calendar-expired-list__component-info {
+//     font-size: t.text(xxs);
+//   }
+// }

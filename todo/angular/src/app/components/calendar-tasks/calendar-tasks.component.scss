@@ -7,12 +7,12 @@
   &-list {
     margin-top: t.text(s);
     &__component {
-      display: flex;
-      align-items: center;
-      padding: t.text(xs) 5px;
+      display: grid;
+      grid-template-columns: 1fr 34px;
+      grid-column-gap: 0%;
+      padding: t.text(xxs) 5px;
       border-radius: 8px;
       cursor: pointer;
-      justify-content: space-between;
 
       &-container {
         display: flex;
@@ -45,7 +45,11 @@
 .add-task-button {
   margin-top: 12px;
 }
-@media screen and (min-width: 378px) and (max-width: 767px) {
+@media screen and (max-width: 1199px) {
+  .calendar-tasks-list {
+    height: 100px;
+    overflow: scroll;
+  }
   .calendar-tasks {
     margin-top: 10px;
   }
@@ -53,11 +57,19 @@
     margin-top: 10px;
   }
   .calendar-tasks-list {
-    max-height: 120px;
-    overflow: scroll;
-    margin-top: 0;
+    height: 60px;
+    margin-top: 10px;
     &__component {
       padding: 4px 5px;
+      display: grid;
+      grid-template-columns: 1fr 34px;
+      grid-column-gap: 0%;
+      &:hover {
+        background: none;
+      }
+      &-title {
+        font-size: t.text(xs);
+      }
     }
   }
 }
