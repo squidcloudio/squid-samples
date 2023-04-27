@@ -27,34 +27,35 @@
             <app-list-task [task]="task" [taskId]="taskId"></app-list-task>
           </li>
         </ul>
+        <div class="devider"></div>
       </ng-container>
-
-      <div class="new-tasks-section" [ngClass]="{ 'new-tasks-section-empty': !(activeTasksObs | async)?.length }">
+      <div class="new-tasks-section">
         <app-add-task-button></app-add-task-button>
       </div>
     </div>
   </div>
-  <ng-container *ngIf="completedTasksObs | async as completedTasks">
-    <div class="completed-tasks list-section" [ngClass]="{ 'list-section-dark': themeService.isDark }">
-      <div class="list-section-title">
-        <h2>{{ list.completeLabel }}</h2>
-        <app-edit-label
-          [listTitle]="list.title"
-          [id]="list.id"
-          type="list"
-          [labelType]="labelTypes.completeLabel"></app-edit-label>
-      </div>
-      <div class="list-section-content" >
-        <ul class="list-section-content-list" *ngIf="completedTasks.length">
-          <li *ngFor="let task of completedTasks" class="list-section-content-list__component">
+  <div class="completed-tasks list-section" [ngClass]="{ 'list-section-dark': themeService.isDark }">
+    <div class="list-section-title">
+      <h2>{{ list.completeLabel }}</h2>
+      <app-edit-label
+        [listTitle]="list.title"
+        [id]="list.id"
+        type="list"
+        [labelType]="labelTypes.completeLabel"></app-edit-label>
+    </div>
+    <div class="list-section-content">
+      <ng-container class="list-section-content-list" *ngIf="(completedTasksObs | async)?.length">
+        <ul class="list-section-content-list">
+          <li *ngFor="let task of completedTasksObs | async" class="list-section-content-list__component">
             <app-list-task [task]="task"></app-list-task>
           </li>
         </ul>
-        <div class="new-tasks-section" [ngClass]="{ 'new-tasks-section-empty': !completedTasks.length }">
-          <app-add-task-button></app-add-task-button>
-        </div>
-      </div>
-      </div>
+        <div class="devider"></div>
+      </ng-container>
 
-  </ng-container>
+      <div class="new-tasks-section">
+        <app-add-task-button></app-add-task-button>
+      </div>
+    </div>
+  </div>
 </ng-container>

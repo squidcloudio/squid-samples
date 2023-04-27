@@ -38,7 +38,9 @@
     }
   }
 }
-
+.devider {
+  margin-top: 36px;
+}
 .details-button {
   padding: 10px 8px 14px;
   background: c.colors(bg-c);
@@ -46,7 +48,7 @@
 }
 
 .new-tasks-section {
-  margin-top: 36px;
+  // margin-top: 36px;
 
   padding-left: 16px;
   &-empty {
