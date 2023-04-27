@@ -77,7 +77,7 @@ const MainContainer = React.memo(() => {
           </Drawer>
 
           <Grid container spacing={5}>
-            <Grid item xs={12} md={3} lg={2} className="list">
+            <Grid item xs={12} md={3.8} lg={2.4} className="list">
               <Box className="list_container" sx={{ display: { xs: 'none', md: 'block' } }}>
                 <ListContainer
                   todosList={todosList}
@@ -97,7 +97,7 @@ const MainContainer = React.memo(() => {
               <Divider className={`divider-${theme}`} />
             </div>
 
-            <Grid item xs={12} md={9} lg={7}>
+            <Grid item xs={12} md={8.2} lg={6.6}>
               <Box display="flex" justifyContent="space-between">
                 <OptionsMenu
                   todosCollection={todosCollection}
