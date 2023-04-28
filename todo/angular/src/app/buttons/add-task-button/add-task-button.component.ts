@@ -10,6 +10,7 @@ import { ModalWindowComponent } from '../../modal-window/modal-window.component'
 })
 export class AddTaskButtonComponent {
   @Input('date') date?: string;
+  @Input('type') type?:string;
   readonly modalListName = ModalListNames;
   constructor(private dialog: Dialog) {}
   openModalWindow(): void {
