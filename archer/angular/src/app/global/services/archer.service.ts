@@ -52,7 +52,11 @@ export class ArcherService {
   private readonly portfolioHistory = this.userObs.pipe(
     switchMap((user) => {
       if (!user) return NEVER;
-      return this.getPortfolioValueHistoryCollection().query().where('userId', '==', user.id).sortBy('date').snapshot();
+      return this.getPortfolioValueHistoryCollection()
+        .query()
+        .where('userId', '==', user.id)
+        .sortBy('date')
+        .snapshots();
     }),
   );
 

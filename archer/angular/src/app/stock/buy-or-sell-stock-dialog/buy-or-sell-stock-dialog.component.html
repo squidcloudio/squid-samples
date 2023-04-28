@@ -1,0 +1,47 @@
+<ng-container *ngIf="userSubject | async as user">
+  <mat-dialog-content class="buy_or_sell_dialog" *ngVar="userAssetSubject | async as userAsset">
+    <dialog-close-button></dialog-close-button>
+    <form (ngSubmit)="submitOrder()" [formGroup]="form" class="form">
+      <div class="dialog_title">{{buy ? 'Buy' : 'Sell'}} {{ticker.id}}</div>
+      <div class="form_fields">
+        <div class="field">
+          <div class="label">
+            <div>Shares</div>
+            <div class="your_shares" *ngIf="userAsset && !buy">Your shares: {{userAsset.quantity}}</div>
+          </div>
+          <div class="value">
+            <input class="input shares" type="number" formControlName="shares" name="shares"/>
+          </div>
+        </div>
+        <div class="field">
+          <div class="label">Order type</div>
+          <div class="value">Market</div>
+        </div>
+        <div class="field">
+          <div class="label">Market price</div>
+          <div class="value">{{ticker.closePrice | currency: 'USD'}}</div>
+        </div>
+        <div class="field" *ngIf="buy">
+          <div class="label">Buying power</div>
+          <div class="value">{{user.balance | currency: 'USD'}}</div>
+        </div>
+        <div class="divider"></div>
+        <div class="field">
+          <div class="label">{{buy ? 'Estimated cost' : 'Estimated value'}}</div>
+          <div class="value">{{ticker.closePrice * (form.controls.shares.value || 0) | currency: 'USD'}}</div>
+        </div>
+      </div>
+
+      <div class="dialog_buttons">
+        <button [disabled]="form.invalid" class="submit_button primary_button large_button" mat-flat-button
+                type="submit">
+          Submit order
+        </button>
+        <button [mat-dialog-close]="true" class="cancel_button outline_button large_button" mat-stroked-button
+                type="button">
+          Cancel
+        </button>
+      </div>
+    </form>
+  </mat-dialog-content>
+</ng-container>

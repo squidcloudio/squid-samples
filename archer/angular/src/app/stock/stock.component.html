@@ -13,7 +13,7 @@
         <div class="stock_name_and_buttons">
           <div class="name">{{ticker.name}} ({{ticker.id}})</div>
           <div class="buttons">
-            <button class="buy_button" mat-flat-button>Buy</button>
+            <button class="buy_button primary_button medium_button" mat-flat-button (click)="showBuyOrSellDialog(ticker, true)">Buy</button>
           </div>
         </div>
         <totals class="totals" [value]="ticker.closePrice" [changePercent]="ticker.todaysChangePerc"></totals>

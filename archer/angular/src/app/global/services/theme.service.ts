@@ -28,6 +28,7 @@ export class ThemeService {
     'back_arrow_icon',
     'phone_icon',
     'website_icon',
+    'close_icon',
   ];
 
   constructor(

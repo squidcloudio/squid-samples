@@ -30,6 +30,12 @@ import { StockTableComponent } from './global/components/stock-table/stock-table
 import { TotalsComponent } from './global/components/totals/totals.component';
 import { ChartControlsComponent } from './global/components/chart-controls/chart-controls.component';
 import { StockChartComponent } from './global/components/stock-chart/stock-chart.component';
+import { BuyOrSellStockDialogComponent } from './stock/buy-or-sell-stock-dialog/buy-or-sell-stock-dialog.component';
+import { DialogCloseButtonComponent } from './global/components/dialog-close-button/dialog-close-button.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
+import { OnDestroyComponent } from './global/components/on-destroy/on-destroy.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -48,6 +54,9 @@ import { StockChartComponent } from './global/components/stock-chart/stock-chart
     TotalsComponent,
     ChartControlsComponent,
     StockChartComponent,
+    BuyOrSellStockDialogComponent,
+    DialogCloseButtonComponent,
+    OnDestroyComponent,
   ],
   imports: [
     BrowserModule,
@@ -71,6 +80,9 @@ import { StockChartComponent } from './global/components/stock-chart/stock-chart
     ReactiveFormsModule,
     MatButtonModule,
     NgxChartsModule,
+    MatDialogModule,
+    MatInputModule,
+    MatSnackBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

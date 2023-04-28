@@ -12,6 +12,8 @@ import { BehaviorSubject, filter, from, map, Observable, switchMap, timer } from
 import { Chart, LineChartData } from '../global/components/chart/chart.component';
 import { Squid } from '@squidcloud/client';
 import * as dayjs from 'dayjs';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { BuyOrSellStockDialogComponent } from './buy-or-sell-stock-dialog/buy-or-sell-stock-dialog.component';
 
 @Component({
   selector: 'app-stock',
@@ -86,5 +88,18 @@ export class StockComponent {
     private readonly archerService: ArcherService,
     private readonly activatedRoute: ActivatedRoute,
     private readonly squid: Squid,
+    private readonly dialog: MatDialog,
   ) {}
+
+  showBuyOrSellDialog(ticker: Ticker, buy: boolean): void {
+    const config: MatDialogConfig = {
+      maxWidth: '345px',
+      width: '100%',
+      autoFocus: true,
+      restoreFocus: false,
+      panelClass: 'modal',
+      data: { buy, ticker },
+    };
+    this.dialog.open(BuyOrSellStockDialogComponent, config);
+  }
 }
