@@ -256,6 +256,10 @@ a {
 }
 
 .outline_button {
+  &.mdc-button {
+    background: $bg4;
+  }
+
   &.mat-mdc-outlined-button {
     &.mat-mdc-button-base {
       height: auto;

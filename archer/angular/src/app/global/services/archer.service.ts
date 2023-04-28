@@ -75,13 +75,18 @@ export class ArcherService {
         }
         return assets;
       }),
-      share(),
     );
 
   constructor(private readonly squid: Squid, private readonly authService: AuthService) {}
 
   observeUserAssets(): Observable<Array<UserAssetWithTicker>> {
     return this.userAssetsObs;
+  }
+
+  observeUserAsset(tickerId: string): Observable<UserAssetWithTicker | undefined> {
+    return this.userAssetsObs.pipe(
+      map((userAssets) => userAssets.find((userAsset) => userAsset.tickerId === tickerId)),
+    );
   }
 
   observeUser(): Observable<ArcherUser | undefined> {

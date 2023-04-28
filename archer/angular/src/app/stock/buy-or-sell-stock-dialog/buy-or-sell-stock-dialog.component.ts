@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { ArcherUser, Ticker, UserAsset } from 'archer-common';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { BehaviorSubject, map, takeUntil } from 'rxjs';
+import { BehaviorSubject, takeUntil, tap } from 'rxjs';
 import { ArcherService } from '../../global/services/archer.service';
 import { OnDestroyComponent } from '../../global/components/on-destroy/on-destroy.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -41,11 +41,8 @@ export class BuyOrSellStockDialogComponent extends OnDestroyComponent {
     this.buy = data.buy;
 
     this.archerService
-      .observeUserAssets()
-      .pipe(
-        map((userAssets) => userAssets.find((userAsset) => userAsset.tickerId === this.ticker.id)),
-        takeUntil(this.onDestroy),
-      )
+      .observeUserAsset(this.ticker.id)
+      .pipe(takeUntil(this.onDestroy))
       .subscribe((userAsset) => this.userAssetSubject.next(userAsset));
 
     this.archerService
@@ -70,6 +67,7 @@ export class BuyOrSellStockDialogComponent extends OnDestroyComponent {
         }
       } else {
         const userAsset = this.userAssetSubject.value;
+        console.log('Sell asset', userAsset);
         if (userAsset && inputShares > userAsset.quantity) {
           newValue = userAsset.quantity;
         }

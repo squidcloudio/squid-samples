@@ -14,6 +14,7 @@ import { Squid } from '@squidcloud/client';
 import * as dayjs from 'dayjs';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { BuyOrSellStockDialogComponent } from './buy-or-sell-stock-dialog/buy-or-sell-stock-dialog.component';
+import { tick } from '@angular/core/testing';
 
 @Component({
   selector: 'app-stock',
@@ -33,6 +34,8 @@ export class StockComponent {
     switchMap((tickerId) => this.archerService.observeTicker(tickerId)),
     filter(Boolean),
   );
+
+  readonly userAssetObs = this.tickerIdObs.pipe(switchMap((tickerId) => this.archerService.observeUserAsset(tickerId)));
 
   readonly chartObs: Observable<Chart> = timer(0, 10000).pipe(
     switchMap(() => this.selectedTimeFrameSubject),
@@ -102,4 +105,6 @@ export class StockComponent {
     };
     this.dialog.open(BuyOrSellStockDialogComponent, config);
   }
+
+  protected readonly tick = tick;
 }

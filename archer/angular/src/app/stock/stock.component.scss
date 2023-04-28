@@ -40,7 +40,50 @@
     }
 
     .buttons {
+      display: flex;
+      gap: 16px;
 
+      > button {
+        width: 102px;
+      }
+    }
+  }
+
+  .position_section {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-column-gap: 32px;
+    height: 76px;
+    align-items: center;
+    background: $bg2;
+    border-radius: 8px;
+    box-shadow: $elevation2;
+    padding-left: 24px;
+    padding-right: 24px;
+    margin-top: 16px;
+    margin-bottom: 24px;
+
+    .field.title {
+      font-weight: 800;
+      font-size: 16px;
+      line-height: 100%;
+      color: $text1;
+    }
+
+    .field {
+      .name {
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 100%;
+        color: $text2;
+        margin-bottom: 8px;
+      }
+
+      .value {
+        font-weight: 900;
+        font-size: 16px;
+        line-height: 100%;
+      }
     }
   }
 
