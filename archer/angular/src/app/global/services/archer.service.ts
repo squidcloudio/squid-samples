@@ -19,6 +19,8 @@ export class ArcherService {
   private readonly userSubject = new BehaviorSubject<ArcherUser | undefined | null>(undefined);
   private readonly portfolioHistorySubject = new BehaviorSubject<PortfolioValueHistory[]>([]);
   private readonly userAssetsSubject = new BehaviorSubject<UserAssetWithTicker[] | undefined>(undefined);
+  private readonly tickerIdsToObserve = new BehaviorSubject<Set<string>>(new Set());
+  private readonly tickersSubject = new BehaviorSubject<Ticker[] | undefined>(undefined);
 
   constructor(private readonly squid: Squid, private readonly authService: AuthService) {
     this.authService.user$
@@ -93,6 +95,21 @@ export class ArcherService {
       .subscribe((portfolioValueHistory) => {
         this.portfolioHistorySubject.next(portfolioValueHistory);
       });
+
+    this.tickerIdsToObserve
+      .pipe(
+        switchMap((tickerIdsToObserve) => {
+          if (tickerIdsToObserve.size === 0) return of([]);
+          return this.getTickerCollection()
+            .query()
+            .in('id', Array.from(tickerIdsToObserve))
+            .snapshots()
+            .pipe(map((tickers) => tickers.map((ticker) => ticker.data)));
+        }),
+      )
+      .subscribe((tickers) => {
+        this.tickersSubject.next(tickers);
+      });
   }
 
   observeUserAssets(): Observable<Array<UserAssetWithTicker>> {
@@ -116,11 +133,24 @@ export class ArcherService {
   }
 
   observeTickers(tickerIds: Array<string>): Observable<Array<Ticker>> {
-    return this.getTickerCollection()
-      .query()
-      .in('id', Array.from(tickerIds))
-      .snapshots()
-      .pipe(map((tickers) => tickers.map((ticker) => ticker.data)));
+    const tickerIdsToObserveSet = this.tickerIdsToObserve.value;
+    let hasChanged = false;
+    for (const tickerId of tickerIds) {
+      if (tickerIdsToObserveSet.has(tickerId)) continue;
+      hasChanged = true;
+      tickerIdsToObserveSet.add(tickerId);
+    }
+
+    if (hasChanged) {
+      this.tickerIdsToObserve.next(tickerIdsToObserveSet);
+    }
+
+    return this.tickersSubject.pipe(
+      filter((tickers) => tickers !== undefined),
+      map((tickers) => {
+        return (tickers || []).filter((ticker) => tickerIds.includes(ticker.id));
+      }),
+    );
   }
 
   observeTicker(tickerId: string): Observable<Ticker | undefined> {
