@@ -1,7 +1,13 @@
 @import 'colors';
 
 .global_layout {
+  padding-top: 80px;
+
   .navigation_bar {
+    position: fixed;
+    z-index: 20;
+    top: 0;
+    left: 0;
     height: 80px;
     width: 100%;
     padding: 0 70px;

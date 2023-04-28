@@ -9,88 +9,110 @@ import {
   UserAsset,
   UserAssetWithTicker,
 } from 'archer-common';
-import { filter, from, map, NEVER, Observable, of, share, switchMap } from 'rxjs';
+import { BehaviorSubject, filter, from, map, NEVER, Observable, of, switchMap } from 'rxjs';
 import { AuthService } from '@auth0/auth0-angular';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ArcherService {
-  private readonly userObs: Observable<ArcherUser | undefined> = this.authService.user$.pipe(
-    switchMap((auth0User) => {
-      if (auth0User === undefined) return NEVER;
-      if (!auth0User) return of(undefined);
-      return this.getUserCollection()
-        .doc(auth0User.sub)
-        .snapshots()
-        .pipe(
-          map((snapshot) => {
-            return snapshot?.data;
-          }),
-          switchMap((archerUser) => {
-            if (!archerUser) {
-              // TODO: Move this to executable
-              this.getUserCollection()
-                .doc(auth0User.sub)
-                .insert({
-                  id: auth0User.sub!,
-                  email: auth0User.email!,
-                  emailVerified: auth0User.email_verified!,
-                  name: auth0User.name!,
-                  picture: auth0User.picture,
-                  balance: 1000000,
-                })
-                .then();
-              return NEVER;
-            }
-            return of(archerUser);
-          }),
-        );
-    }),
-  );
+  private readonly userSubject = new BehaviorSubject<ArcherUser | undefined | null>(undefined);
+  private readonly portfolioHistorySubject = new BehaviorSubject<PortfolioValueHistory[]>([]);
+  private readonly userAssetsSubject = new BehaviorSubject<UserAssetWithTicker[] | undefined>(undefined);
 
-  private readonly portfolioHistory = this.userObs.pipe(
-    switchMap((user) => {
-      if (!user) return NEVER;
-      return this.getPortfolioValueHistoryCollection()
-        .query()
-        .where('userId', '==', user.id)
-        .sortBy('date')
-        .snapshots();
-    }),
-  );
+  constructor(private readonly squid: Squid, private readonly authService: AuthService) {
+    this.authService.user$
+      .pipe(
+        switchMap((auth0User) => {
+          if (auth0User === undefined) return NEVER;
+          if (!auth0User) return of(undefined);
+          return this.getUserCollection()
+            .doc(auth0User.sub)
+            .snapshots()
+            .pipe(
+              map((snapshot) => {
+                return snapshot?.data;
+              }),
+              switchMap((archerUser) => {
+                if (!archerUser) {
+                  // TODO: Move this to executable
+                  this.getUserCollection()
+                    .doc(auth0User.sub)
+                    .insert({
+                      id: auth0User.sub!,
+                      email: auth0User.email!,
+                      emailVerified: auth0User.email_verified!,
+                      name: auth0User.name!,
+                      picture: auth0User.picture,
+                      balance: 1000000,
+                    })
+                    .then();
+                  return NEVER;
+                }
+                return of(archerUser);
+              }),
+            );
+        }),
+      )
+      .subscribe((archerUser) => {
+        this.userSubject.next(archerUser);
+      });
 
-  private readonly userAssetsObs: Observable<Array<UserAssetWithTicker>> = this.getUserAssetCollection()
-    .joinQuery('userAsset')
-    .sortBy('tickerId')
-    .join(this.getTickerCollection().joinQuery('ticker'), 'tickerId', 'id')
-    .snapshots()
-    .pipe(
-      map((snapshots) => {
-        const assets: Array<UserAssetWithTicker> = [];
-        for (const row of snapshots) {
-          const ticker = row['ticker'];
-          const userAsset = row['userAsset'];
-          assets.push({ ...userAsset.data, ticker: ticker!.data });
-        }
-        return assets;
-      }),
-    );
+    this.getUserAssetCollection()
+      .joinQuery('userAsset')
+      .sortBy('tickerId')
+      .join(this.getTickerCollection().joinQuery('ticker'), 'tickerId', 'id')
+      .snapshots()
+      .pipe(
+        map((snapshots) => {
+          const assets: Array<UserAssetWithTicker> = [];
+          for (const row of snapshots) {
+            const ticker = row['ticker'];
+            const userAsset = row['userAsset'];
+            assets.push({ ...userAsset.data, ticker: ticker!.data });
+          }
+          return assets;
+        }),
+      )
+      .subscribe((userAssets) => {
+        this.userAssetsSubject.next(userAssets);
+      });
 
-  constructor(private readonly squid: Squid, private readonly authService: AuthService) {}
+    this.userSubject
+      .pipe(
+        switchMap((user) => {
+          if (!user) return NEVER;
+          return this.getPortfolioValueHistoryCollection()
+            .query()
+            .where('userId', '==', user.id)
+            .sortBy('date')
+            .snapshots();
+        }),
+        map((snapshots) => snapshots.map((snapshot) => snapshot.data)),
+      )
+      .subscribe((portfolioValueHistory) => {
+        this.portfolioHistorySubject.next(portfolioValueHistory);
+      });
+  }
 
   observeUserAssets(): Observable<Array<UserAssetWithTicker>> {
-    return this.userAssetsObs;
+    return this.userAssetsSubject.pipe(
+      filter((userAssets) => userAssets !== undefined),
+      map((userAssets) => userAssets || []),
+    );
   }
 
   observeUserAsset(tickerId: string): Observable<UserAssetWithTicker | undefined> {
-    return this.userAssetsObs.pipe(
+    return this.observeUserAssets().pipe(
       map((userAssets) => userAssets.find((userAsset) => userAsset.tickerId === tickerId)),
     );
   }
 
   observeUser(): Observable<ArcherUser | undefined> {
-    return this.userObs;
+    return this.userSubject.asObservable().pipe(
+      filter((userAssets) => userAssets !== undefined),
+      map((user) => user || undefined),
+    );
   }
 
   observeTickers(tickerIds: Array<string>): Observable<Array<Ticker>> {
@@ -144,15 +166,15 @@ export class ArcherService {
     timeFrame: '1d' | '1w' | '1m' | '3m' | '1y',
     numDataPoints: number,
   ): Observable<Array<{ date: Date; value: number }>> {
-    return this.portfolioHistory.pipe(
+    return this.portfolioHistorySubject.pipe(
       filter(Boolean),
       // Convert the DocumentReference to the actual data and filter based on time frame.
       map((results) => {
         return results
           .map((result) => {
             return {
-              date: result.data.date,
-              value: result.data.value,
+              date: result.date,
+              value: result.value,
             };
           })
           .filter((result) => result.date.getTime() > Date.now() - this.getTimeFrameMs(timeFrame));
