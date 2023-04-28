@@ -4,7 +4,7 @@
   <app-calendar-tasks [dialog]="dialogRef"></app-calendar-tasks>
   <ng-container *ngIf="calendarService.today === calendarService.currentDate && (tomorrowTasksObs | async)?.length">
     <mat-divider class="calendar-divider"></mat-divider>
-    <app-calendar-tasks duringType="tomorrow" [dialog]="dialogRef"></app-calendar-tasks>
+    <app-calendar-tasks duringType="tomorrow" [dialog]="dialogRef" ></app-calendar-tasks>
   </ng-container>
   <ng-container *ngIf="(expiredTasksObs | async)?.length">
     <mat-divider class="calendar-divider"></mat-divider>
