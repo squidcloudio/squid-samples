@@ -47,17 +47,6 @@
 }
 @media screen and (max-width: 1199px) {
   .calendar-tasks-list {
-    height: 100px;
-    overflow: scroll;
-  }
-  .calendar-tasks {
-    margin-top: 10px;
-  }
-  .add-task-button {
-    margin-top: 10px;
-  }
-  .calendar-tasks-list {
-    height: 60px;
     margin-top: 10px;
     &__component {
       padding: 4px 5px;

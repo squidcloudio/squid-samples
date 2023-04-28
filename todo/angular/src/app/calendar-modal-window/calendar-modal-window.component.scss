@@ -3,9 +3,11 @@
 @use '../style/typography' as t;
 .calendar-modal {
   padding: 32px;
+  height: 60%;
   min-width: 430px;
   background-color: c.colors(bg-c);
   border-radius: 12px 12px 0 0;
+  overflow: auto;
   &-background {
     width: s.size(full);
     height: s.size(full);
@@ -27,9 +29,14 @@
     }
   }
 }
+@media screen and (min-width: 768px) and (max-width: 1247px) {
+  .calendar-modal {
+    height: 60vh;
+  }
+}
 @media screen and (min-width: 378px) and (max-width: 767px) {
   .calendar-modal {
-    padding: 10px 24px;
+    padding: 24px;
     position: fixed;
     bottom: 0;
     right: 0;
