@@ -19,7 +19,7 @@ const Calendar = ({ currentDate, setCurrentDate }: any) => {
   const { id } = useParams();
   const { user } = useAuth0();
   const [hoveredDay, setHoveredDay] = useState<any>(null);
-  const [selectedDay, setSelectedDay] = useState<any>(currentDate);
+  const [selectedDay, setSelectedDay] = useState<any>(moment());
   const navigate = useNavigate();
 
   const { theme } = useContext(ThemeContext);
@@ -73,6 +73,32 @@ const Calendar = ({ currentDate, setCurrentDate }: any) => {
   const previousWeek = () => {
     setCurrentDate(currentDate.clone().subtract(1, 'week'));
   };
+
+  const selectedDayItems = items.map((el, i) => {
+    const dueDate = moment(el.data.dueDate, 'MM/DD/YYYY');
+
+    if (dueDate.isSame(currentDate, 'day') && el.data.completed === false) {
+      return (
+        <div key={i} className="sidebar_item">
+          <div onClick={() => navigate(`/${el.data.listId}`)} style={{ flex: '2' }}>
+            <div className="sidebar_item-color">
+              <div style={{ backgroundColor: el.data.listColor }}></div>
+              <Tooltip title={el.data.title}>
+                <span className="sidebar_item-dots">{el.data.title}</span>
+              </Tooltip>
+            </div>
+          </div>
+          <OptionsMenu
+            itemsCollection={itemsCollection}
+            isEditable={true}
+            index={el.data.id}
+            todos={todos}
+            todoCollection={todosCollection}
+          />
+        </div>
+      );
+    }
+  });
 
   const overdueDates = items
     .filter((item) => item.data.completed === false)
@@ -150,31 +176,7 @@ const Calendar = ({ currentDate, setCurrentDate }: any) => {
             {currentDate.format('D MMMM')}
           </p>
 
-          {items.map((el, i) => {
-            const dueDate = moment(el.data.dueDate, 'MM/DD/YYYY');
-
-            if (dueDate.isSame(currentDate) && el.data.completed === false) {
-              return (
-                <div key={i} className="sidebar_item">
-                  <div onClick={() => navigate(`/${el.data.listId}`)} style={{ flex: '2' }}>
-                    <div className="sidebar_item-color">
-                      <div style={{ backgroundColor: el.data.listColor }}></div>
-                      <Tooltip title={el.data.title}>
-                        <span className="sidebar_item-dots">{el.data.title}</span>
-                      </Tooltip>
-                    </div>
-                  </div>
-                  <OptionsMenu
-                    itemsCollection={itemsCollection}
-                    isEditable={true}
-                    index={el.data.id}
-                    todos={todos}
-                    todoCollection={todosCollection}
-                  />
-                </div>
-              );
-            }
-          })}
+          {selectedDayItems}
 
           <div className={`sidebar_item-add sidebar_item-add_${theme}`} onClick={() => setOpen(true)}>
             <button className="list_button-calendar">
