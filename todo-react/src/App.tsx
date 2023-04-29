@@ -16,7 +16,7 @@ function App() {
       if (!isAuthenticated) {
         setAuthIdToken(undefined);
       } else {
-        setAuthIdToken(await getIdTokenClaims().then((claims) => claims?.__raw));
+        setAuthIdToken(getIdTokenClaims().then((claims) => claims?.__raw));
       }
     };
     updateAuth().then();

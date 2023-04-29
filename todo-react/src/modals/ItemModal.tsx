@@ -27,6 +27,9 @@ const ItemModal = ({ collection, todos, open, setOpen, fromCalendar, currentDate
   const todosCollection = useCollection<List>('lists');
   const todosList = useQuery(todosCollection.query().where('userId', '==', `${user?.sub}`), true);
 
+  console.log('its todos', todos);
+  console.log(user);
+
   let [defaultTodoList] = todosList.filter((el) => el.data.id === `${id}`);
 
   const [selectedValue, setSelectedValue] = useState<any>({
@@ -72,7 +75,7 @@ const ItemModal = ({ collection, todos, open, setOpen, fromCalendar, currentDate
       } as Intl.DateTimeFormatOptions),
       tags,
       listId: fromCalendar ? selectedValue.id : todos.data.id,
-      userId: todos.data.userId,
+      userId: user?.sub,
       listColor: fromCalendar ? selectedValue.color : todos.data.color,
       completed: false,
       id: itemNewId,
