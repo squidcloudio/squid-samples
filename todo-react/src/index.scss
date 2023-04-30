@@ -834,6 +834,11 @@ th {
   .css-1ld3b9g-MuiGrid-root > .MuiGrid-item {
     padding-top: 0 !important;
   }
+
+  .calendar {
+    max-height: 470px;
+    overflow-y: scroll;
+  }
 }
 
 .active_navlink {
@@ -908,6 +913,13 @@ th {
     flex-grow: 0;
     max-width: 25%;
     min-width: 25%;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .calendar {
+    max-height: 600px;
+    overflow-y: scroll;
   }
 }
 
