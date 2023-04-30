@@ -6,7 +6,7 @@ import { ThemeContext } from '../context';
 import Calendar from './Calendar';
 
 const DateInfo = ({ todosList }: any) => {
-  const [currentDate, setCurrentDate] = useState(moment());
+  const [currentDate, setCurrentDate] = useState(moment().utc().local());
   const { theme } = useContext(ThemeContext);
 
   return (

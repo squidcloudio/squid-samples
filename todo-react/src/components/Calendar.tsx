@@ -19,7 +19,7 @@ const Calendar = ({ currentDate, setCurrentDate }: any) => {
   const { id } = useParams();
   const { user } = useAuth0();
   const [hoveredDay, setHoveredDay] = useState<any>(null);
-  const [selectedDay, setSelectedDay] = useState<any>(moment());
+  const [selectedDay, setSelectedDay] = useState<any>(moment().utc().local());
   const navigate = useNavigate();
 
   const { theme } = useContext(ThemeContext);
@@ -36,8 +36,8 @@ const Calendar = ({ currentDate, setCurrentDate }: any) => {
     }
   }, [currentDate]);
 
-  const todayDate = moment(initialDayRef.current).locale('en');
-  const tomorrowDate = moment().add(1, 'day');
+  const todayDate = moment(initialDayRef.current).locale('en').utc().local();
+  const tomorrowDate = moment().add(1, 'day').utc().local();
 
   const weekdays = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
   const itemsCollection = useCollection<Task>('tasks');
@@ -75,7 +75,7 @@ const Calendar = ({ currentDate, setCurrentDate }: any) => {
   };
 
   const selectedDayItems = items.map((el, i) => {
-    const dueDate = moment(el.data.dueDate, 'MM/DD/YYYY');
+    const dueDate = moment(el.data.dueDate, 'MM/DD/YYYY').utc().local();
 
     if (dueDate.isSame(currentDate, 'day') && el.data.completed === false) {
       return (
@@ -104,7 +104,7 @@ const Calendar = ({ currentDate, setCurrentDate }: any) => {
     .filter((item) => item.data.completed === false)
     // eslint-disable-next-line array-callback-return
     .map((el, i) => {
-      const momentDate = moment.utc(el.data.dueDate).locale('en');
+      const momentDate = moment(el.data.dueDate).locale('en').utc().local();
       if (momentDate.isBefore(todayDate)) {
         const daysAgo = momentDate.from(todayDate, true);
         return (
@@ -196,7 +196,7 @@ const Calendar = ({ currentDate, setCurrentDate }: any) => {
               .filter((item) => item.data.completed === false)
               // eslint-disable-next-line array-callback-return
               .map((el, i) => {
-                const momentDate = moment.utc(el.data.dueDate).locale('en');
+                const momentDate = moment(el.data.dueDate).locale('en').utc().local();
                 if (momentDate.isSame(tomorrowDate, 'day')) {
                   return (
                     <div key={i} className="sidebar_item">
