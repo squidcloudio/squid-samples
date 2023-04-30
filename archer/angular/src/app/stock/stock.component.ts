@@ -58,7 +58,7 @@ export class StockComponent {
               const data: Array<LineChartData> = [
                 {
                   name: 'Stock value',
-                  series: response.results.map((result) => ({
+                  series: (response.results || []).map((result) => ({
                     name: new Date(result.t).toISOString(),
                     value: result.c,
                   })),
