@@ -31,9 +31,9 @@ export class ArcherService extends SquidService {
   @scheduler('cacheTickerDetails', CronExpression.EVERY_30_SECONDS)
   async cacheTickerDetails(): Promise<void> {
     console.log('Caching ticker details...');
-    /*if (!(await this.isMarketOpen())) {
+    if (!(await this.isMarketOpen())) {
       return;
-    }*/
+    }
 
     const tickerCollection = this.getTickerCollection();
 
@@ -293,6 +293,9 @@ export class ArcherService extends SquidService {
   }
 
   private async isMarketOpen(): Promise<boolean> {
+    // TODO: remove this when done testing
+    return true;
+
     const response = await this.squid.callApi<MarketStatusResponse>('polygon', 'marketStatus');
     return response.exchanges.nyse === 'open';
   }
