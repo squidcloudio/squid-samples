@@ -82,7 +82,7 @@ export interface ArcherUser {
   email: string;
   emailVerified: boolean;
   name: string;
-  picture: string | undefined;
+  picture?: string;
   balance: number;
 }
 

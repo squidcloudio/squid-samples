@@ -9,12 +9,21 @@
           <search-bar (cleared)="hideSearchBar()"></search-bar>
         </div>
 
-        <avatar class="avatar" [name]="user.name" [imageUrl]="user.picture"></avatar>
+        <avatar class="avatar" [name]="user.name" [imageUrl]="user.picture" [matMenuTriggerFor]="userDropdown"></avatar>
       </div>
     </nav>
     <div class="main_content">
       <router-outlet></router-outlet>
     </div>
   </div>
+  <mat-menu #userDropdown="matMenu"
+            class="user_dropdown"
+            xPosition="before">
+    <button (click)="signOut()" class="log_out_button" mat-menu-item>
+      <mat-icon class="icon" svgIcon="logout_icon"></mat-icon>
+      Log out
+    </button>
+  </mat-menu>
+
 </ng-container>
 

@@ -357,3 +357,74 @@ input::-webkit-inner-spin-button {
     }
   }
 }
+
+/**
+  Global material menu styles
+ */
+.cdk-overlay-pane {
+  .mdc-tooltip {
+    --mdc-plain-tooltip-container-color: var(--line1);
+    box-shadow: $elevation2;
+    border-radius: 4px;
+
+    .mdc-tooltip__surface {
+      padding: 16px;
+      max-width: 385px;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+      border-radius: 8px;
+    }
+  }
+
+  .mat-mdc-menu-panel {
+    background: $bg1;
+    box-shadow: $elevation2;
+    border-radius: 4px;
+    margin-top: 8px;
+
+    &.mat-mdc-menu-panel {
+      min-width: 108px;
+    }
+
+    .mat-mdc-menu-content {
+      padding: 4px 0;
+
+      .mat-mdc-menu-item {
+        --mdc-typography-body1-font-size: 14px;
+        --mdc-typography-body1-line-height: 20px;
+        --mdc-typography-body1-font-weight: 400;
+
+        height: 36px;
+        min-height: 0;
+        display: flex;
+        align-items: center;
+        color: $text1;
+        box-sizing: border-box;
+        width: 100%;
+        padding: 10px 16px;
+        background: transparent;
+        border: none;
+        margin: 0;
+        font-size: var(--mdc-typography-body1-font-size);
+
+        .mat-icon {
+          margin-right: 8px;
+        }
+
+        // Needed because angular makes icons appear on left
+        &.with_icon_on_right {
+          flex-direction: row-reverse;
+
+          .mat-icon {
+            margin-right: 0;
+          }
+        }
+
+        &:hover {
+          background: $bg3;
+        }
+      }
+    }
+  }
+}

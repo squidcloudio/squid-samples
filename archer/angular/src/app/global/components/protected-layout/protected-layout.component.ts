@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ArcherService } from '../../services/archer.service';
+import { AuthService } from '@auth0/auth0-angular';
 
 @Component({
   selector: 'app-protected-layout',
@@ -11,7 +12,7 @@ export class ProtectedLayoutComponent {
   searchBarVisible = false;
   userObs = this.archerService.observeUser();
 
-  constructor(private readonly archerService: ArcherService) {}
+  constructor(private readonly archerService: ArcherService, private readonly authService: AuthService) {}
 
   showSearchBar() {
     this.searchBarVisible = true;
@@ -19,5 +20,9 @@ export class ProtectedLayoutComponent {
 
   hideSearchBar() {
     this.searchBarVisible = false;
+  }
+
+  signOut() {
+    this.authService.logout();
   }
 }

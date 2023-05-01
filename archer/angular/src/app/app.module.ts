@@ -36,6 +36,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { OnDestroyComponent } from './global/components/on-destroy/on-destroy.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -83,6 +84,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatDialogModule,
     MatInputModule,
     MatSnackBarModule,
+    MatMenuModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

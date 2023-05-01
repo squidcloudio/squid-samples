@@ -29,6 +29,7 @@ export class ThemeService {
     'phone_icon',
     'website_icon',
     'close_icon',
+    'logout_icon',
   ];
 
   constructor(
