@@ -6,10 +6,18 @@ import addList from '../images/Component 1.png';
 import { NavLink, useParams } from 'react-router-dom';
 import ListModal from '../modals/ListModal';
 import { ThemeContext } from '../context';
+import { useQuery } from '@squidcloud/react';
+import { useAuth0 } from '@auth0/auth0-react';
 
-const ListContainer = ({ todosList, collection, datesList }: any) => {
+const ListContainer = ({ todosList, collection, datesList, itemsCollection }: any) => {
   const { id } = useParams();
+  const { user } = useAuth0();
   const { theme } = useContext(ThemeContext);
+
+  const tasksQuery = useQuery(
+    itemsCollection.query().where('userId', '==', `${user?.sub}`).where('completed', '==', false),
+  );
+  const tasks = tasksQuery.map((task) => task.data);
 
   const [open, setOpen] = useState<boolean>(false);
 
@@ -22,7 +30,6 @@ const ListContainer = ({ todosList, collection, datesList }: any) => {
       <ul>
         {datesList.map((todo: any, i: any) => {
           const { id, title, color } = todo.data;
-          // let currentTodoLength = datesList[i]; // Get the length for this item
 
           return (
             <div className="navlink" key={id}>
@@ -38,7 +45,7 @@ const ListContainer = ({ todosList, collection, datesList }: any) => {
               >
                 <div className="navlink_content-color" style={{ backgroundColor: `${color}` }}></div>
                 <div className="navlink_content-title">{title}</div>
-                <div className="navlink_content-amount">{3}</div>
+                <div className="navlink_content-amount">{2}</div>
               </NavLink>
             </div>
           );
@@ -48,7 +55,7 @@ const ListContainer = ({ todosList, collection, datesList }: any) => {
         <Divider className={`divider-${theme}`} />
       </Box>
       <ul>
-        {todosList.map((todo: any) => {
+        {todosList.map((todo: any, i: any) => {
           const { id, title, color } = todo.data;
 
           return (
@@ -65,7 +72,7 @@ const ListContainer = ({ todosList, collection, datesList }: any) => {
               >
                 <div className="navlink_content-color" style={{ backgroundColor: `${color}` }}></div>
                 <div className="navlink_content-title">{title}</div>
-                <div className="navlink_content-amount">{2}</div>
+                <div className="navlink_content-amount">{tasks.filter((task) => task.listId === id).length}</div>
               </NavLink>
             </div>
           );
