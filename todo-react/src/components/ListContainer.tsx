@@ -8,16 +8,18 @@ import ListModal from '../modals/ListModal';
 import { ThemeContext } from '../context';
 import { useQuery } from '@squidcloud/react';
 import { useAuth0 } from '@auth0/auth0-react';
+import moment from 'moment';
+import AmountTasks from './AmountTasks';
 
 const ListContainer = ({ todosList, collection, datesList, itemsCollection }: any) => {
   const { id } = useParams();
   const { user } = useAuth0();
   const { theme } = useContext(ThemeContext);
 
-  const tasksQuery = useQuery(
-    itemsCollection.query().where('userId', '==', `${user?.sub}`).where('completed', '==', false),
-  );
-  const tasks = tasksQuery.map((task) => task.data);
+  const tasksQuery = useQuery(itemsCollection.query().where('userId', '==', `${user?.sub}`));
+
+  const today = moment().format('M/D/YYYY'); // create a Moment object for tomorrow's date
+  const tomorrow = moment().add(1, 'day').startOf('day').format('M/D/YYYY'); // create a Moment object for tomorrow's date
 
   const [open, setOpen] = useState<boolean>(false);
 
@@ -45,7 +47,13 @@ const ListContainer = ({ todosList, collection, datesList, itemsCollection }: an
               >
                 <div className="navlink_content-color" style={{ backgroundColor: `${color}` }}></div>
                 <div className="navlink_content-title">{title}</div>
-                <div className="navlink_content-amount">{2}</div>
+                <div className="navlink_content-amount">
+                  <AmountTasks
+                    date={id === 'today' ? today : id === 'tomorrow' ? tomorrow : ''}
+                    tasks={tasksQuery}
+                    someday={id === 'someday'}
+                  />
+                </div>
               </NavLink>
             </div>
           );
@@ -72,7 +80,12 @@ const ListContainer = ({ todosList, collection, datesList, itemsCollection }: an
               >
                 <div className="navlink_content-color" style={{ backgroundColor: `${color}` }}></div>
                 <div className="navlink_content-title">{title}</div>
-                <div className="navlink_content-amount">{tasks.filter((task) => task.listId === id).length}</div>
+                <div className="navlink_content-amount">
+                  {
+                    tasksQuery.filter((el) => el.data.completed === false).filter((task) => task.data.listId === id)
+                      .length
+                  }
+                </div>
               </NavLink>
             </div>
           );
