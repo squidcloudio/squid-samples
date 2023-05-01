@@ -95,6 +95,7 @@ const Calendar = ({ currentDate, setCurrentDate }: any) => {
             index={el.data.id}
             todos={todos}
             todoCollection={todosCollection}
+            fromCalendar={true}
           />
         </div>
       );

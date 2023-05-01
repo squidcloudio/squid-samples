@@ -19,6 +19,7 @@ export const OptionsMenu = ({
   forTitle,
   todos,
   isCompleted,
+  fromCalendar,
 }: any) => {
   const { id } = useParams();
   const { user } = useAuth0();
@@ -67,7 +68,7 @@ export const OptionsMenu = ({
           <Typography variant="h4">{!isCompleted ? todos?.data.activeLabel : todos?.data.completeLabel}</Typography>
         )}
 
-        {!['today', 'tomorrow', 'someday'].includes(id as string) && (
+        {(!['today', 'tomorrow', 'someday'].includes(id as string) || fromCalendar) && (
           <IconButton onClick={handleOpenMenu}>
             <img src={ThreeDotsIcon} alt="" />
           </IconButton>
