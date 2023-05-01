@@ -29,6 +29,7 @@
       }
       &-title {
         margin-left: 7px;
+        word-break: break-word;
       }
     }
   }
@@ -56,9 +57,11 @@
       &:hover {
         background: none;
       }
-      &-title {
-        font-size: t.text(xs);
-      }
     }
+  }
+}
+@media screen and (min-width: 378px) and (max-width: 767px) {
+  .calendar-tasks-list__component-title {
+    font-size: t.text(xs);
   }
 }

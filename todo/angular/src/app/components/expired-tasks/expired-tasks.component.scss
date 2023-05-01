@@ -8,8 +8,12 @@
     font-size: t.text(s);
     font-weight: t.text-weight(bold);
     display: flex;
+    word-break: break-word;
     align-items: center;
     gap: 10px;
+    &-dark {
+      color: c.colors(font, true);
+    }
   }
   &-list {
     margin-top: 28px;
@@ -17,7 +21,8 @@
     flex-direction: column;
     gap: 10px;
     &__component {
-      display: flex;
+      display: grid;
+      grid-template-columns: 1fr max-content;
       cursor: pointer;
       align-items: center;
       justify-content: space-between;
@@ -29,12 +34,14 @@
         align-items: center;
         p {
           margin-left: 7px;
+          word-break: break-word;
         }
       }
       &-alert {
         width: 12px;
         height: 12px;
         background-color: c.colors(alert);
+        flex-shrink: 0;
         border-radius: 3px;
       }
     }
@@ -47,36 +54,19 @@
   }
 }
 @media screen and (max-width: 1199px) {
-  // .calendar-expired-title {
-  //   margin-top: 24px;
-  // }
   .calendar-expired-list {
-    // height: 60px;
     margin-top: 24px;
-    // overflow: auto;
     &-component {
       font-size: 12px;
       padding: 5px;
     }
   }
-  calendar-expired-list__component-info {
-    font-size: t.text(xxs);
+}
+@media screen and (min-width: 378px) and (max-width: 767px) {
+  .calendar-expired-list__component {
+    p,
+    span {
+      font-size: t.text(xs);
+    }
   }
 }
-// @media screen and (min-width: 378px) and (max-width: 767px) {
-//   .calendar-expired-title {
-//     margin-top: 8px;
-//   }
-//   .calendar-expired-list {
-//     height: 60px;
-//     margin-top: 10px;
-//     overflow: auto;
-//     &-component {
-//       font-size: 12px;
-//       padding: 5px;
-//     }
-//   }
-//   calendar-expired-list__component-info {
-//     font-size: t.text(xxs);
-//   }
-// }
