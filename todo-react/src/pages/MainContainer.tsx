@@ -55,7 +55,12 @@ const MainContainer = React.memo(() => {
         <Box px={10} py={7}>
           <Drawer anchor="left" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
             <Box className="sidebar_menu" sx={{ backgroundColor: theme === 'light' ? '#fff' : '#1b1f27' }}>
-              <ListContainer todosList={todosList} collection={todosCollection} datesList={datesList} />
+              <ListContainer
+                todosList={todosList}
+                collection={todosCollection}
+                datesList={datesList}
+                itemsCollection={itemsCollection}
+              />
               <div className="sidebar_profile">
                 <button style={{ color: theme === 'dark' ? '#fff' : '#000' }} onClick={handleThemeToggle}>
                   {theme === 'dark' ? (
