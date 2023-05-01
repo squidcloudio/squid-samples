@@ -3,7 +3,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import dayjs from 'dayjs';
 
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import TagsInput from '../components/TagsInput';
 
 import { StyledDatePicker } from '../styled/StyledDatePicker';
@@ -27,14 +27,9 @@ const ItemModal = ({ collection, todos, open, setOpen, fromCalendar, currentDate
   const todosCollection = useCollection<List>('lists');
   const todosList = useQuery(todosCollection.query().where('userId', '==', `${user?.sub}`), true);
 
-  console.log('its todos', todos);
-  console.log(user);
-
-  let [defaultTodoList] = todosList.filter((el) => el.data.id === `${id}`);
-
   const [selectedValue, setSelectedValue] = useState<any>({
-    id: defaultTodoList?.data.id,
-    color: defaultTodoList?.data.color,
+    id: todosList[0]?.data.id,
+    color: todosList[0]?.data.color,
   });
 
   const handleOpen = useCallback((value: any) => {
@@ -44,6 +39,7 @@ const ItemModal = ({ collection, todos, open, setOpen, fromCalendar, currentDate
   const [value, setValue] = useState<any>(null);
   const [tags, setTags] = useState<any>([]);
   const [listModal, setListModal] = useState(false);
+  const [isInitialRender, setIsInitialRender] = useState<boolean>(true);
 
   const removeTag = (idx: number) => {
     setTags(tags.filter((_: any, i: any) => i !== idx));
@@ -93,6 +89,15 @@ const ItemModal = ({ collection, todos, open, setOpen, fromCalendar, currentDate
     setSelectedValue({ id: selectedItem?.data.id, color: selectedItem?.data.color });
   };
 
+  useEffect(() => {
+    if (isInitialRender) {
+      setIsInitialRender(false);
+    } else {
+      setSelectedValue({ id: todosList[0]?.data.id, color: todosList[0]?.data.color });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [todosList]);
+
   return (
     <Modal className="modal" open={open} onClose={() => setOpen(false)}>
       <div className="modal_container">
@@ -101,8 +106,7 @@ const ItemModal = ({ collection, todos, open, setOpen, fromCalendar, currentDate
         {fromCalendar && (
           <>
             <Select
-              value={selectedValue.id || todosList[0]?.data.id}
-              defaultValue={selectedValue.id || defaultTodoList?.data.id}
+              value={selectedValue?.id}
               className="modal_container-select"
               onChange={handleSelectChange}
               sx={{ '& .MuiMenuItem-root': { display: 'flex', alignItems: 'center' } }}

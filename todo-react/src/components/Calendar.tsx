@@ -74,6 +74,7 @@ const Calendar = ({ currentDate, setCurrentDate }: any) => {
     setCurrentDate(currentDate.clone().subtract(1, 'week'));
   };
 
+  // eslint-disable-next-line array-callback-return
   const selectedDayItems = items.map((el, i) => {
     const dueDate = moment(el.data.dueDate, 'MM/DD/YYYY').utc().local();
 
