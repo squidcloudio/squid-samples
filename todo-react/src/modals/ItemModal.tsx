@@ -101,7 +101,7 @@ const ItemModal = ({ collection, todos, open, setOpen, fromCalendar, currentDate
   return (
     <Modal className="modal" open={open} onClose={() => setOpen(false)}>
       <div className="modal_container">
-        <p>Add new item</p>
+        <p>Add new task</p>
 
         {fromCalendar && (
           <>
@@ -156,7 +156,7 @@ const ItemModal = ({ collection, todos, open, setOpen, fromCalendar, currentDate
         <div>
           <button onClick={() => setOpen(false)}>Cancel</button>
           <button onClick={addItem} style={{ backgroundColor: todos ? todos?.data.color : '#14BE6E' }}>
-            Add Item
+            Add task
           </button>
         </div>
       </div>
