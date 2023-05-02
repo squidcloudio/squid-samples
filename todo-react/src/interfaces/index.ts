@@ -23,3 +23,8 @@ export type Task = {
   completed: boolean;
   listColor: string;
 };
+
+export type CalendarProps = {
+  open: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+};

@@ -42,7 +42,7 @@ const MainContainer = React.memo(() => {
 
   useEffect(() => {
     if (!user) loginWithRedirect();
-  }, [user]);
+  }, [loginWithRedirect, user]);
 
   const todosCollection = useCollection<List>('lists');
   const itemsCollection = useCollection<Task>('tasks');

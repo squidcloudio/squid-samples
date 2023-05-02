@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Menu, MenuItem, IconButton, ListItemIcon } from '@mui/material';
 import ThreeDotsIcon from '../images/Union.svg';
 import EditModal from '../modals/EditListModal';
@@ -23,7 +22,6 @@ export const OptionsMenu = ({
 }: any) => {
   const { id } = useParams();
   const { user } = useAuth0();
-  const navigate = useNavigate();
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [open, setOpen] = useState<boolean>(false);
@@ -32,15 +30,15 @@ export const OptionsMenu = ({
 
   const [currentItem] = items.filter((el) => el.data.id === index);
 
-  const itemsInCurrentList = useQuery(
+  const tasksInCurrentList = useQuery(
     itemsCollection.query().where('userId', '==', `${user?.sub}`).where('listId', '==', `${id}`),
     true,
   );
 
-  const deleteItems = () => {
-    itemsInCurrentList.forEach((el) => {
-      itemsCollection.doc(el.data.id).delete();
-    });
+  const deleteItems = async () => {
+    for (const task of tasksInCurrentList) {
+      await itemsCollection.doc(task.data.id).delete();
+    }
   };
 
   const handleOpenMenu = (event: any) => {
@@ -54,7 +52,6 @@ export const OptionsMenu = ({
   const deleteTodo = () => {
     deleteItems();
     todosCollection.doc(id).delete();
-    navigate('/today');
   };
 
   const deleteCurrentItem = () => {

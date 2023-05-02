@@ -3,9 +3,9 @@ import { Modal } from '@mui/material';
 import { useCollection, useQuery } from '@squidcloud/react';
 
 import DateInfo from '../components/DateInfo';
-import { List } from '../interfaces/index';
+import { List, CalendarProps } from '../interfaces/index';
 
-const CalendarModal = ({ open, setOpen }: any) => {
+const CalendarModal = ({ open, setOpen }: CalendarProps) => {
   const { user } = useAuth0();
 
   const todosCollection = useCollection<List>('lists');
