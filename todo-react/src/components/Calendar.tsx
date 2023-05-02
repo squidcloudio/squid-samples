@@ -227,10 +227,7 @@ const Calendar = ({ currentDate, setCurrentDate }: any) => {
       {todayDate.isSame(selectedDay, 'day') && <Divider color="#E1E6EF" />}
 
       <div className="overdue">
-        <div className="overdue_dot">
-          <div className="overdue_dot-col"></div>
-          <span>Overdue</span>
-        </div>
+        <p>Overdue</p>
         {overdueDates}
       </div>
 

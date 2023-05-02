@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 
 import { useAuth0 } from '@auth0/auth0-react';
 import { Divider, Drawer, Grid, IconButton, Stack } from '@mui/material';
@@ -36,9 +36,13 @@ const MainContainer = React.memo(() => {
 
   const { id } = useParams();
 
-  const { user, logout } = useAuth0();
+  const { user, logout, loginWithRedirect } = useAuth0();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [open, setOpen] = useState<any>(false);
+
+  useEffect(() => {
+    if (!user) loginWithRedirect();
+  }, [user]);
 
   const todosCollection = useCollection<List>('lists');
   const itemsCollection = useCollection<Task>('tasks');
