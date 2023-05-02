@@ -22,6 +22,7 @@ export class ListFormComponent {
     { color: '#78FF8E', name: 'Green' },
     { color: '#42FEFE', name: 'Aqua' },
     { color: '#4484E5', name: 'Blue' },
+    { color: '#9747FF', name: 'Purple' },
   ];
   selectedColor: Color = this.colors[0];
   constructor(private listService: ListService, readonly themeService: ThemeService) {}
