@@ -1,5 +1,4 @@
 import { executable, scheduler, secureApi, secureDatabase, SquidService } from '@squidcloud/backend';
-import { CronExpression } from '@squidcloud/common';
 import {
   ArcherUser,
   DenyList,
@@ -16,6 +15,7 @@ import {
 import { CollectionReference } from '@squidcloud/client';
 import { PromisePool } from '@supercharge/promise-pool';
 import _ from 'lodash';
+import { CronExpression } from '@squidcloud/common';
 
 // noinspection JSUnusedGlobalSymbols
 export class ArcherService extends SquidService {
