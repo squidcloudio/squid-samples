@@ -19,7 +19,6 @@ import { StockComponent } from './stock/stock.component';
 import { MatButtonModule } from '@angular/material/button';
 import { AvatarComponent } from './global/components/avatar/avatar.component';
 import { NgVarDirective } from './global/directives/ng-var.directive';
-import { ArcherService } from './global/services/archer.service';
 import { ChartComponent } from './global/components/chart/chart.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { PortfolioZeroStateComponent } from './portfolio/portfolio-zero-state/portfolio-zero-state.component';
@@ -37,6 +36,7 @@ import { MatInputModule } from '@angular/material/input';
 import { OnDestroyComponent } from './global/components/on-destroy/on-destroy.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatMenuModule } from '@angular/material/menu';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -65,15 +65,15 @@ import { MatMenuModule } from '@angular/material/menu';
     HttpClientModule,
     BrowserAnimationsModule,
     AuthModule.forRoot({
-      domain: 'squid-archer.us.auth0.com',
-      clientId: 'aF3jhIcL7YnNFl90VZeN9JB5PzLcOSAV',
+      domain: environment.auth0Domain,
+      clientId: environment.auth0ClientId,
       authorizationParams: {
         redirect_uri: window.location.origin,
       },
     }),
     SquidModule.forRoot({
-      appId: 'nype40kqggvbfl5l7b',
-      region: 'local',
+      appId: environment.squidAppId,
+      region: environment.squidRegion,
     }),
     MatIconModule,
     FormsModule,
@@ -90,15 +90,9 @@ import { MatMenuModule } from '@angular/material/menu';
   bootstrap: [AppComponent],
 })
 export class AppModule {
-  constructor(squid: Squid, authService: AuthService, themeService: ThemeService, archerService: ArcherService) {
+  constructor(squid: Squid, authService: AuthService, themeService: ThemeService) {
     squid.setAuthIdToken(authService.idTokenClaims$.pipe(map((idToken) => idToken?.__raw)));
     themeService.initialize();
     (window as any).squid = squid;
-    /*archerService.buyAsset('VNOM', 10).then();
-    archerService.buyAsset('LMND', 32).then();
-    archerService.buyAsset('INMD', 60).then();
-    archerService.buyAsset('AAPL', 10).then();
-    archerService.buyAsset('GOOG', 20).then();
-    archerService.buyAsset('NVDA', 30).then();*/
   }
 }

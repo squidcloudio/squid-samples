@@ -1,0 +1,16 @@
+{
+  "name": "archer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-and-deploy": "npm install && cd angular && npm install && npm run build && cd ../backend && npm install && npm run build && cd .. && squid deploy --appId nype40kqggvbfl5l7b backend/dist/bundle.zip"
+  },
+  "author": "",
+  "license": "ISC",
+
+  "devDependencies": {
+    "@squidcloud/cli": "^1.0.48"
+  }
+}
