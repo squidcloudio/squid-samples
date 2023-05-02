@@ -116,8 +116,9 @@ export class ArcherService extends SquidService {
     const startTime = Date.now();
     console.log('Updating ticker prices...');
     // Get all tickers from polygon
-    const snapshotsResponse = await this.getSnapshotTickers();
-    const snapshotPartitions = _.chunk(snapshotsResponse, 1000);
+    const snapshotTickers = await this.getSnapshotTickers();
+    if (!snapshotTickers.length) return;
+    const snapshotPartitions = _.chunk(snapshotTickers, 1000);
     const tickerCollection = this.getTickerCollection();
     await PromisePool.for(snapshotPartitions)
       .handleError((error) => {
@@ -321,12 +322,12 @@ export class ArcherService extends SquidService {
   private async maybePopulateRelevantTickers(): Promise<string[]> {
     const collection = this.getRelevantTickerCollection();
     const relevantTickersRef = await collection.query().limit(20000).snapshot();
-    if (relevantTickersRef.length > 0) {
+    if (relevantTickersRef.length) {
       return relevantTickersRef.map((item) => item.data.id);
     }
 
     // Right now we only populate NASDAQ tickers
-    const tickerResults = await this.getNasdaqTickers();
+    const tickerResults = await this.getExchangesTickers(['XNAS', 'XNYS']);
     const tickers = tickerResults.map((item) => item.ticker);
     const chunkedTickers = _.chunk(tickers, 1000);
     for (const tickerChunk of chunkedTickers) {
@@ -339,27 +340,34 @@ export class ArcherService extends SquidService {
     return tickers;
   }
 
-  private async getNasdaqTickers(): Promise<TickerResults[]> {
-    const allResults: TickerResults[] = [];
+  private async getExchangesTickers(exchanges: string[]): Promise<TickerResults[]> {
     let c = 0;
-    while (true) {
-      const request = {
-        market: 'stocks',
-        type: 'CS',
-        exchange: 'XNAS',
-        sort: 'ticker',
-        limit: 1000,
-      };
-      const lastResult = allResults[allResults.length - 1];
-      if (lastResult) {
-        request['ticker.gt'] = lastResult.ticker;
-      }
-      const results = (await this.squid.callApi<TickersResponse>('polygon', 'tickers', request)).results;
-      console.log(`Fetched results ${++c}: `, results.length, lastResult?.ticker || '');
-      allResults.push(...results);
-      if (results.length < 1000) {
-        return allResults;
+    const allResults: TickerResults[] = [];
+
+    for (const exchange of exchanges) {
+      const exchangeResults: TickerResults[] = [];
+      while (true) {
+        const request = {
+          market: 'stocks',
+          type: 'CS',
+          exchange,
+          sort: 'ticker',
+          limit: 1000,
+          order: 'asc',
+        };
+        const lastResult = exchangeResults[exchangeResults.length - 1];
+        if (lastResult) {
+          request['ticker.gt'] = lastResult.ticker;
+        }
+        const results = (await this.squid.callApi<TickersResponse>('polygon', 'tickers', request)).results;
+        console.log(`Fetched results ${++c} (${exchange}): `, results.length, lastResult?.ticker || '');
+        exchangeResults.push(...results);
+        if (results.length < 1000) {
+          allResults.push(...exchangeResults);
+          break;
+        }
       }
     }
+    return allResults;
   }
 }
