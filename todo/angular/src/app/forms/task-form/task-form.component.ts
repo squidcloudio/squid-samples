@@ -82,7 +82,7 @@ export class TaskFormComponent implements OnInit, OnDestroy {
       listId: this.newTaskForm?.get('listId')?.value,
       listColor: this.newTaskForm?.get('listColor')?.value,
       userId: currentUser.id,
-      completed: false,
+      completed: this.currentTask ? this.currentTask.completed : false,
       id: newId,
     };
     if (this.taskId) {
