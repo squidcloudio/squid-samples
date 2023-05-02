@@ -32,8 +32,8 @@ export class ListTaskComponent implements OnInit {
     }
   }
 
-  openModalWindow(windowName: string): void {
-    const dialogRef = this.dialog.open(ModalWindowComponent, { data: { name: windowName, id: this.taskId } });
+  openModalWindow(windowName: string, taskId: string): void {
+    const dialogRef = this.dialog.open(ModalWindowComponent, { data: { name: windowName, id: taskId } });
     dialogRef.closed.subscribe();
   }
 }
