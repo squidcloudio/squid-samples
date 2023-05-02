@@ -77,6 +77,10 @@ export interface PortfolioValueHistory {
   date: Date;
 }
 
+export interface RelevantTicker {
+  id: string;
+}
+
 export interface ArcherUser {
   id: string;
   email: string;

@@ -3,8 +3,8 @@ import { CronExpression } from '@squidcloud/common';
 import {
   ArcherUser,
   DenyList,
-  MarketStatusResponse,
   PortfolioValueHistory,
+  RelevantTicker,
   SnapshotsResponse,
   SnapshotTicker,
   Ticker,
@@ -28,64 +28,51 @@ export class ArcherService extends SquidService {
     return true;
   }
 
-  @scheduler('cacheTickerDetails', CronExpression.EVERY_30_SECONDS)
+  @scheduler('cacheTickerDetails', CronExpression.EVERY_2_HOURS, true)
   async cacheTickerDetails(): Promise<void> {
     console.log('Caching ticker details...');
     if (!(await this.isMarketOpen())) {
       return;
     }
 
-    const tickerCollection = this.getTickerCollection();
-
-    // Get all NASDAQ tickers from polygon
-    const nasdaqTickers = await this.getNasdaqTickers();
-
-    const nasdaqTickersMap = nasdaqTickers.reduce((acc, ticker) => {
-      acc[ticker.ticker] = ticker;
-      return acc;
-    }, {} as Record<string, TickerResults>);
-
     // Get all tickers from polygon
-    const snapshotsResponse = (
-      await this.squid.callApi<SnapshotsResponse>('polygon', 'tickersSnapshot')
-    ).tickers.filter((ticker) => !!nasdaqTickersMap[ticker.ticker]);
+    const snapshotTickers = await this.getSnapshotTickers();
 
     // convert snapshotResponse to a record from ticker to entire object, use a for loop instead of reduce
-    const tickerToSnapshot = snapshotsResponse.reduce((acc, ticker) => {
-      acc[ticker.ticker] = ticker;
-      return acc;
-    }, {} as Record<string, SnapshotTicker>);
+    const tickerToSnapshot = this.convertSnapshotTickersToMap(snapshotTickers);
 
     // Get all tickers from DB
-    console.log('Getting all tickers...');
     const allTickers = await this.getAllTickersMap();
-    console.log('Got all tickers');
     const denyList = await this.getDenyList();
     let c = 0;
 
-    await this.squid.runInTransaction(async (transactionId) => {
-      await PromisePool.for(snapshotsResponse)
-        .handleError(async (error, ticker) => {
-          console.error('Unable to process ticker', error);
-          const denyListCollection = this.getDenyListCollection();
-          await denyListCollection.doc(ticker.ticker).insert(
-            {
-              tickerId: ticker.ticker,
-            },
-            transactionId,
-          );
-        })
-        .withConcurrency(10)
-        .process(async (ticker) => {
-          console.log(`(${++c}/${snapshotsResponse.length}): ${ticker.ticker}`);
-          if (denyList.has(ticker.ticker)) {
-            console.log(`${ticker.ticker} is in the deny list, skipping...`);
-            return;
-          }
-          const tickerSnapshot = tickerToSnapshot[ticker.ticker];
-          if (!tickerSnapshot) return;
-          if (!allTickers[ticker.ticker]) {
-            console.log("Can't find ticker information for: ", ticker.ticker);
+    // Chunk snapshots
+    const tickerChunks = _.chunk(snapshotTickers, 1000);
+
+    const tickerCollection = this.getTickerCollection();
+    for (const tickerChunk of tickerChunks) {
+      await this.squid.runInTransaction(async (transactionId) => {
+        await PromisePool.for(tickerChunk)
+          .handleError(async (error, ticker) => {
+            console.error('Unable to process ticker', error);
+            const denyListCollection = this.getDenyListCollection();
+            await denyListCollection.doc(ticker.ticker).insert(
+              {
+                tickerId: ticker.ticker,
+              },
+              transactionId,
+            );
+          })
+          .withConcurrency(10)
+          .process(async (ticker) => {
+            console.log(`(${++c}/${snapshotTickers.length}): ${ticker.ticker}`);
+            if (denyList.has(ticker.ticker)) {
+              console.log(`${ticker.ticker} is in the deny list, skipping...`);
+              return;
+            }
+            const tickerSnapshot = tickerToSnapshot[ticker.ticker];
+            if (!tickerSnapshot || allTickers[ticker.ticker]) return;
+            console.log(`DB does not have details about ticker ${ticker.ticker}, inserting it...`);
             // If ticker does not exist in DB, call tickerDetails API, fill in information
             const { results: tickerDetailsResponse } = await this.squid.callApi<TickerDetailsResponse>(
               'polygon',
@@ -118,11 +105,20 @@ export class ArcherService extends SquidService {
             };
             const docRef = tickerCollection.doc(ticker.ticker);
             await docRef.insert(allTickers[ticker.ticker], transactionId);
-          }
-        });
-    });
-    const snapshotPartitions = _.chunk(snapshotsResponse, 1000);
+          });
+      });
+    }
+    console.log('Done caching ticker details!');
+  }
+
+  @scheduler('updateTickerPrices', CronExpression.EVERY_10_SECONDS, true)
+  async updateTickerPrices(): Promise<void> {
     const startTime = Date.now();
+    console.log('Updating ticker prices...');
+    // Get all tickers from polygon
+    const snapshotsResponse = await this.getSnapshotTickers();
+    const snapshotPartitions = _.chunk(snapshotsResponse, 1000);
+    const tickerCollection = this.getTickerCollection();
     await PromisePool.for(snapshotPartitions)
       .handleError((error) => {
         console.log('Unable to handle snapshot partition', error);
@@ -153,19 +149,7 @@ export class ArcherService extends SquidService {
     console.log('All done! Snapshots took: ', Date.now() - startTime, 'ms');
   }
 
-  private async getAllTickersMap(): Promise<Record<string, Ticker>> {
-    return (await this.getTickerCollection().query().limit(20000).snapshot()).reduce((acc, item) => {
-      const data = item.data;
-      acc[data.id] = data;
-      return acc;
-    }, {} as Record<string, Ticker>);
-  }
-
-  private async getDenyList(): Promise<Set<string>> {
-    return new Set((await this.getDenyListCollection().query().limit(20000).snapshot()).map((dl) => dl.data.tickerId));
-  }
-
-  @scheduler('updatePortfolioValueHistory', CronExpression.EVERY_5_SECONDS)
+  @scheduler('updatePortfolioValueHistory', CronExpression.EVERY_10_SECONDS, true)
   async updatePortfolioValueHistory(): Promise<void> {
     if (!(await this.isMarketOpen())) {
       return;
@@ -187,6 +171,18 @@ export class ArcherService extends SquidService {
         })
         .then();
     }
+  }
+
+  private async getAllTickersMap(): Promise<Record<string, Ticker>> {
+    return (await this.getTickerCollection().query().limit(20000).snapshot()).reduce((acc, item) => {
+      const data = item.data;
+      acc[data.id] = data;
+      return acc;
+    }, {} as Record<string, Ticker>);
+  }
+
+  private async getDenyList(): Promise<Set<string>> {
+    return new Set((await this.getDenyListCollection().query().limit(20000).snapshot()).map((dl) => dl.data.tickerId));
   }
 
   @executable()
@@ -265,6 +261,10 @@ export class ArcherService extends SquidService {
     return this.squid.collection<PortfolioValueHistory>('portfolioValueHistory');
   }
 
+  private getRelevantTickerCollection(): CollectionReference<RelevantTicker> {
+    return this.squid.collection<RelevantTicker>('relevantTicker');
+  }
+
   private async getArcherUser(): Promise<ArcherUser> {
     const userId = this.getUserAuth()?.userId;
     if (!userId) {
@@ -296,8 +296,47 @@ export class ArcherService extends SquidService {
     // TODO: remove this when done testing
     return true;
 
-    const response = await this.squid.callApi<MarketStatusResponse>('polygon', 'marketStatus');
-    return response.exchanges.nyse === 'open';
+    /*const response = await this.squid.callApi<MarketStatusResponse>('polygon', 'marketStatus');
+    return response.exchanges.nyse === 'open';*/
+  }
+
+  private async getSnapshotTickers(): Promise<SnapshotTicker[]> {
+    const relevantTickers: Array<string> = await this.maybePopulateRelevantTickers();
+    const relevantTickersSet = new Set(relevantTickers);
+
+    // Get all tickers from polygon
+    return (await this.squid.callApi<SnapshotsResponse>('polygon', 'tickersSnapshot')).tickers.filter((ticker) =>
+      relevantTickersSet.has(ticker.ticker),
+    );
+  }
+
+  private convertSnapshotTickersToMap(tickers: SnapshotTicker[]): Record<string, SnapshotTicker> {
+    const map: Record<string, SnapshotTicker> = {};
+    for (const ticker of tickers) {
+      map[ticker.ticker] = ticker;
+    }
+    return map;
+  }
+
+  private async maybePopulateRelevantTickers(): Promise<string[]> {
+    const collection = this.getRelevantTickerCollection();
+    const relevantTickersRef = await collection.query().limit(20000).snapshot();
+    if (relevantTickersRef.length > 0) {
+      return relevantTickersRef.map((item) => item.data.id);
+    }
+
+    // Right now we only populate NASDAQ tickers
+    const tickerResults = await this.getNasdaqTickers();
+    const tickers = tickerResults.map((item) => item.ticker);
+    const chunkedTickers = _.chunk(tickers, 1000);
+    for (const tickerChunk of chunkedTickers) {
+      await this.squid.runInTransaction(async (txId) => {
+        for (const tickerId of tickerChunk) {
+          await collection.doc(tickerId).insert({ id: tickerId }, txId);
+        }
+      });
+    }
+    return tickers;
   }
 
   private async getNasdaqTickers(): Promise<TickerResults[]> {

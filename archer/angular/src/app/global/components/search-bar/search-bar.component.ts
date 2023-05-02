@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, Output 
 import { ArcherService } from '../../services/archer.service';
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
-import { BehaviorSubject, debounce, filter, interval, switchMap } from 'rxjs';
+import { BehaviorSubject, debounceTime, filter, switchMap } from 'rxjs';
 
 @Component({
   selector: 'search-bar',
@@ -18,7 +18,7 @@ export class SearchBarComponent {
   searchTextSubject = new BehaviorSubject<string>('');
   searchResultsObs = this.searchTextSubject.pipe(
     filter((searchText) => searchText.length > 0),
-    debounce(() => interval(50)),
+    debounceTime(50),
     switchMap((searchText) => this.archerService.searchTickers(searchText)),
   );
 
