@@ -60,20 +60,27 @@ export class ArcherService {
         this.userSubject.next(archerUser);
       });
 
-    this.getUserAssetCollection()
-      .joinQuery('userAsset')
-      .sortBy('tickerId')
-      .join(this.getTickerCollection().joinQuery('ticker'), 'tickerId', 'id')
-      .snapshots()
+    this.userSubject
       .pipe(
-        map((snapshots) => {
-          const assets: Array<UserAssetWithTicker> = [];
-          for (const row of snapshots) {
-            const ticker = row['ticker'];
-            const userAsset = row['userAsset'];
-            assets.push({ ...userAsset.data, ticker: ticker!.data });
-          }
-          return assets;
+        switchMap((user) => {
+          if (!user) return NEVER;
+          return this.getUserAssetCollection()
+            .joinQuery('userAsset')
+            .where('userId', '==', user.id)
+            .sortBy('tickerId')
+            .join(this.getTickerCollection().joinQuery('ticker'), 'tickerId', 'id')
+            .snapshots()
+            .pipe(
+              map((snapshots) => {
+                const assets: Array<UserAssetWithTicker> = [];
+                for (const row of snapshots) {
+                  const ticker = row['ticker'];
+                  const userAsset = row['userAsset'];
+                  assets.push({ ...userAsset.data, ticker: ticker!.data });
+                }
+                return assets;
+              }),
+            );
         }),
       )
       .subscribe((userAssets) => {
