@@ -1,25 +1,43 @@
-<button
-  mat-icon-button
-  [matMenuTriggerFor]="menu"
-  class="menu-button"
-  [ngStyle]="{ background: type === 'item' ? 'none' : '' }"
-  [ngClass]="{ 'menu-button-dark': themeService.isDark }">
-  <mat-icon class="white-icon">more_horiz</mat-icon>
-</button>
-<mat-menu #menu="matMenu" xPosition="before">
-  <button mat-menu-item (click)="openModalWindow()">
-    <div class="menu-component">
-      <img [src]="themeService.isDark ? '../../../../assets/edit-white.svg' : '../../../../assets/edit.svg'" />
-      <span class="menu-component-text" [ngClass]="{ 'menu-component-text-dark': themeService.isDark }">Edit</span>
-    </div>
+<ng-container *ngIf="listId && labelType">
+  <button [matMenuTriggerFor]="menu" class="menu-button" [ngClass]="{ 'menu-button-dark': themeService.isDark }">
+    <mat-icon class="white-icon">more_horiz</mat-icon>
   </button>
-  <ng-container *ngIf="(id!=='today' && id!=='tomorrow' && id!=='someday')">
-    <button mat-menu-item (click)="deleteList()">
+  <mat-menu #menu="matMenu" xPosition="before">
+    <button mat-menu-item (click)="openModalWindow(listId)">
       <div class="menu-component">
-        <img [src]="themeService.isDark ? '../../../../assets/delete-white.svg' : '../../../../assets/delete.svg'" />
-        <span class="menu-component-text" [ngClass]="{ 'menu-component-text-dark': themeService.isDark }">Delete</span>
+        <img
+          alt="component_logo"
+          [src]="themeService.isDark ? '../../../../assets/edit-white.svg' : '../../../../assets/edit.svg'"/>
+        <span class="menu-component-text" [ngClass]="{ 'menu-component-text-dark': themeService.isDark }"
+        >Edit label</span
+        >
       </div>
     </button>
-  </ng-container>
-
-</mat-menu>
+    <ng-container *ngIf="labelType === 'complete'">
+      <button mat-menu-item>
+        <div class="menu-component">
+          <img
+            alt="component_logo"
+            [src]="themeService.isDark ? '../../../../assets/delete-white.svg' : '../../../../assets/delete.svg'"/>
+          <span class="menu-component-text" [ngClass]="{ 'menu-component-text-dark': themeService.isDark }"
+          >Clear all tasks</span
+          >
+        </div>
+      </button>
+    </ng-container>
+    <ng-container *ngIf="labelType === 'active'">
+      <button mat-menu-item>
+        <div class="menu-component">
+          <img
+            alt="component_logo"
+            [src]="
+              themeService.isDark ? '../../../../assets/selectAll-dark.svg' : '../../../../assets/selectAll.svg'
+            "/>
+          <span class="menu-component-text" [ngClass]="{ 'menu-component-text-dark': themeService.isDark }"
+          >Mark all as complete</span
+          >
+        </div>
+      </button>
+    </ng-container>
+  </mat-menu>
+</ng-container>

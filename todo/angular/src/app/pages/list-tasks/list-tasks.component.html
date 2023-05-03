@@ -1,9 +1,18 @@
 <ng-container *ngIf="listObs | async as list">
   <div class="current-list">
     <div class="current-list-info">
-      <div class="current-list-color" [ngStyle]="{ 'background-color': list.color }"></div>
-      <p class="current-list-title">{{ list.title }}</p>
-      <div class="current-list-amount">(<app-tasks-amount [list]="list"></app-tasks-amount>)</div>
+      <div class="current-list-info-container">
+        <div class="current-list-color" [ngStyle]="{ 'background-color': list.color }"></div>
+        <p class="current-list-title">{{ list.title }}</p>
+        <div class="current-list-amount">(
+          <app-tasks-amount [list]="list"></app-tasks-amount>
+          )
+        </div>
+      </div>
+      <app-edit-item-info
+        [id]="list.id"
+        type="list"></app-edit-item-info>
+
     </div>
 
     <mat-divider style="margin-top: 25px"></mat-divider>
@@ -11,11 +20,7 @@
   <div class="list-section" [ngClass]="{ 'list-section-dark': themeService.isDark }">
     <div class="list-section-title">
       <h2>{{ list.activeLabel }}</h2>
-      <app-edit-label
-        [listTitle]="list.title"
-        [id]="list.id"
-        type="list"
-        [labelType]="labelTypes.activeLabel"></app-edit-label>
+      <app-edit-label [listId]="list.id" labelType="active"></app-edit-label>
     </div>
     <div class="list-section-content">
       <ng-container *ngIf="(activeTasksObs | async)?.length">
@@ -33,14 +38,12 @@
       </div>
     </div>
   </div>
+
+
   <div class="completed-tasks list-section" [ngClass]="{ 'list-section-dark': themeService.isDark }">
     <div class="list-section-title">
       <h2>{{ list.completeLabel }}</h2>
-      <app-edit-label
-        [listTitle]="list.title"
-        [id]="list.id"
-        type="list"
-        [labelType]="labelTypes.completeLabel"></app-edit-label>
+      <app-edit-label [listId]="list.id" labelType="complete"></app-edit-label>
     </div>
     <div class="list-section-content">
       <ng-container class="list-section-content-list" *ngIf="(completedTasksObs | async)?.length">
@@ -50,9 +53,6 @@
           </li>
         </ul>
       </ng-container>
-      <div class="new-tasks-section">
-        <app-add-task-button></app-add-task-button>
-      </div>
     </div>
   </div>
 </ng-container>
