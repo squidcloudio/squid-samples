@@ -111,7 +111,7 @@ export const OptionsMenu = ({
           </MenuItem>
         )}
 
-        {!fromCalendar && !isCompleted && (
+        {!fromCalendar && !isCompleted && inProgressTasksInCurrentList.length > 0 && (
           <MenuItem onClick={changeStatusToCompleted}>
             <ListItemIcon>
               <CompletedIcon />
