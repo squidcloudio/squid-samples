@@ -10,8 +10,8 @@ const EditModal = ({ collection, id, open, setOpen, isCompleted, completedTasksI
 
   const editListLabel = () => {
     collection.doc(id).update({
-      activeLabel: activeLabelRef.current?.value || '',
-      completeLabel: completeLabelRef.current?.value || '',
+      activeLabel: activeLabelRef.current?.value || 'In progress',
+      completeLabel: completeLabelRef.current?.value || 'Complete',
     });
 
     setOpen(false);

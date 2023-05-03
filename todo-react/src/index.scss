@@ -38,6 +38,16 @@ header {
 
 .navlink {
   text-decoration: none;
+
+  &_spec {
+    display: flex;
+    position: relative;
+
+    & > a:first-child {
+      flex: 1;
+    }
+  }
+
   &_content {
     display: flex;
     align-items: center;
@@ -611,6 +621,12 @@ th {
   & > .css-78trlr-MuiButtonBase-root-MuiIconButton-root {
     margin-left: auto !important;
   }
+
+  &-list {
+    position: absolute;
+    right: -45px;
+    top: 23px;
+  }
 }
 
 .sidebar {
@@ -1063,4 +1079,8 @@ th {
 
     padding: 10px;
   }
+}
+
+.css-188bln5-MuiGrid-root {
+  padding-left: 60px !important;
 }

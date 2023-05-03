@@ -20,6 +20,7 @@ export const OptionsMenu = ({
   todos,
   isCompleted,
   fromCalendar,
+  fromList,
 }: any) => {
   const { id } = useParams();
   const { user } = useAuth0();
@@ -76,7 +77,7 @@ export const OptionsMenu = ({
 
   return (
     <>
-      <div className="sidebar_menu-container">
+      <div className={`sidebar_menu-container ${fromList && 'sidebar_menu-container-list'}`}>
         {forTitle && (
           <Typography variant="h4">{!isCompleted ? todos?.data.activeLabel : todos?.data.completeLabel}</Typography>
         )}

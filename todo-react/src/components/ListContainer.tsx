@@ -10,6 +10,7 @@ import { useQuery } from '@squidcloud/react';
 import { useAuth0 } from '@auth0/auth0-react';
 import moment from 'moment';
 import AmountTasks from './AmountTasks';
+import { OptionsMenu } from './MenuDetail';
 
 const ListContainer = ({ todosList, collection, datesList, itemsCollection }: any) => {
   const { id } = useParams();
@@ -22,6 +23,8 @@ const ListContainer = ({ todosList, collection, datesList, itemsCollection }: an
   const tomorrow = moment().add(1, 'day').startOf('day').format('M/D/YYYY'); // create a Moment object for tomorrow's date
 
   const [open, setOpen] = useState<boolean>(false);
+
+  const [todos] = useQuery(collection.query().where('id', '==', `${id}`), true);
 
   const handleOpen = useCallback((value: any) => {
     setOpen(value);
@@ -62,35 +65,46 @@ const ListContainer = ({ todosList, collection, datesList, itemsCollection }: an
       <Box py={3}>
         <Divider className={`divider-${theme}`} />
       </Box>
-      <ul>
-        {todosList.map((todo: any, i: any) => {
-          const { id, title, color } = todo.data;
+      <>
+        <ul>
+          {todosList.map((todo: any, i: any) => {
+            const { id, title, color } = todo.data;
 
-          return (
-            <div className="navlink" key={id}>
-              <NavLink
-                key={id}
-                to={`/${id}`}
-                className={`navlink_content theme-${theme} navlink_span`}
-                style={({ isActive }) => {
-                  return isActive
-                    ? { backgroundColor: theme === 'dark' ? '#32363E' : '#E1E6EF' }
-                    : { backgroundColor: 'transparent' };
-                }}
-              >
-                <div className="navlink_content-color" style={{ backgroundColor: `${color}` }}></div>
-                <div className="navlink_content-title">{title}</div>
-                <div className="navlink_content-amount">
-                  {
-                    tasksQuery.filter((el) => el.data.completed === false).filter((task) => task.data.listId === id)
-                      .length
-                  }
-                </div>
-              </NavLink>
-            </div>
-          );
-        })}
-      </ul>
+            return (
+              <div className="navlink navlink_spec" key={id}>
+                <NavLink
+                  key={id}
+                  to={`/${id}`}
+                  className={`navlink_content theme-${theme} navlink_span`}
+                  style={({ isActive }) => {
+                    return isActive
+                      ? { backgroundColor: theme === 'dark' ? '#32363E' : '#E1E6EF' }
+                      : { backgroundColor: 'transparent' };
+                  }}
+                >
+                  <div className="navlink_content-color" style={{ backgroundColor: `${color}` }}></div>
+                  <div className="navlink_content-title">{title}</div>
+                  <div className="navlink_content-amount">
+                    {
+                      tasksQuery.filter((el) => el.data.completed === false).filter((task) => task.data.listId === id)
+                        .length
+                    }
+                  </div>
+                </NavLink>
+                <OptionsMenu
+                  itemsCollection={itemsCollection}
+                  isEditable={true}
+                  index={todo.data.id}
+                  todos={todos}
+                  todoCollection={collection}
+                  fromList={true}
+                  fromCalendar
+                />
+              </div>
+            );
+          })}
+        </ul>
+      </>
       {todosList.length > 0 && (
         <Box py={3}>
           <Divider className={`divider-${theme}`} />
