@@ -9,6 +9,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import EditButton from '../images/EditButton';
 import DeleteButton from './DeleteButton';
 import { Typography } from '@mui/material';
+import CompletedIcon from '../images/CompletedIcon';
 
 export const OptionsMenu = ({
   todosCollection,
@@ -35,9 +36,18 @@ export const OptionsMenu = ({
     true,
   );
 
-  const deleteItems = async () => {
+  const inProgressTasksInCurrentList = tasksInCurrentList.filter((el) => el.data.completed === false);
+  const completedTasksInCurrentList = tasksInCurrentList.filter((el) => el.data.completed === true);
+
+  const deleteItems = () => {
     for (const task of tasksInCurrentList) {
-      await itemsCollection.doc(task.data.id).delete();
+      itemsCollection.doc(task.data.id).delete();
+    }
+  };
+
+  const deleteCompletedTasks = () => {
+    for (const task of completedTasksInCurrentList) {
+      itemsCollection.doc(task.data.id).delete();
     }
   };
 
@@ -56,6 +66,12 @@ export const OptionsMenu = ({
 
   const deleteCurrentItem = () => {
     itemsCollection.doc(currentItem.data.id).delete();
+  };
+
+  const changeStatusToCompleted = () => {
+    for (const task of inProgressTasksInCurrentList) {
+      itemsCollection.doc(task.data.id).update({ completed: true });
+    }
   };
 
   return (
@@ -83,18 +99,41 @@ export const OptionsMenu = ({
           <ListItemIcon>
             <EditButton />
           </ListItemIcon>
-          Edit
+          {fromCalendar ? 'Edit' : 'Edit label'}
         </MenuItem>
-        <MenuItem onClick={index ? deleteCurrentItem : deleteTodo}>
-          <ListItemIcon>
-            <DeleteButton />
-          </ListItemIcon>
-          Delete
-        </MenuItem>
+
+        {fromCalendar && (
+          <MenuItem onClick={index ? deleteCurrentItem : deleteTodo}>
+            <ListItemIcon>
+              <DeleteButton />
+            </ListItemIcon>
+            Delete
+          </MenuItem>
+        )}
+
+        {!fromCalendar && !isCompleted && (
+          <MenuItem onClick={changeStatusToCompleted}>
+            <ListItemIcon>
+              <CompletedIcon />
+            </ListItemIcon>
+            Mark all complete
+          </MenuItem>
+        )}
+
+        {!fromCalendar && isCompleted && (
+          <MenuItem onClick={deleteCompletedTasks}>
+            <ListItemIcon>
+              <CompletedIcon />
+            </ListItemIcon>
+            Clear all tasks
+          </MenuItem>
+        )}
       </Menu>
+
       {!isEditable && (
         <EditModal collection={todosCollection} id={id} open={open} setOpen={setOpen} isCompleted={isCompleted} />
       )}
+
       {isEditable && <EditItem open={open} setOpen={setOpen} index={index} todos={todos} />}
     </>
   );

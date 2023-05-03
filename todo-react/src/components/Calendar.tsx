@@ -215,6 +215,7 @@ const Calendar = ({ currentDate, setCurrentDate }: any) => {
                         isEditable={true}
                         index={el.data.id}
                         todos={todos}
+                        fromCalendar
                         todoCollection={todosCollection}
                       />
                     </div>
