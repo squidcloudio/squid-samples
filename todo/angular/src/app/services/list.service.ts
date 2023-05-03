@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Squid } from '@squidcloud/client';
-import { LabelTypes, List } from '../interfaces';
+import { List } from '../interfaces';
 import { map, NEVER, Observable, switchMap } from 'rxjs';
 import { AccountService } from './account.service';
 import { Router } from '@angular/router';
@@ -71,9 +71,10 @@ export class ListService {
     this.router.navigate(['', 'today']).then();
   }
 
-  changeListLabel(id: string, newTitle: string, labelType: string): void {
-    this.listCollection
-      .doc(id)
-      .update(labelType === LabelTypes.activeLabel ? { activeLabel: newTitle } : { completeLabel: newTitle });
+  changeListName(id?: string, listName?: string): void {
+    this.listCollection.doc(id).update({ title: listName });
+  }
+  changeLabels(listId?: string, activeLabel?: string, completeLabel?: string): void {
+    this.listCollection.doc(listId).update({ activeLabel: activeLabel, completeLabel: completeLabel });
   }
 }

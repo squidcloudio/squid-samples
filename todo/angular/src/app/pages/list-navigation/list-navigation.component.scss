@@ -1,5 +1,9 @@
 @use '../../app.component';
 
+.default-list {
+  width: 100%;
+}
+
 .sidebar {
   @include app.flex-column;
   align-items: self-start;
@@ -9,8 +13,10 @@
     width: 100%;
     border-bottom: 2px solid #e1e6ef;
   }
+
   &-user-todos {
     margin-top: 32px;
+    width: 100%;
   }
 }
 

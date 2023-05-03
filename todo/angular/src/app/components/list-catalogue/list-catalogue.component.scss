@@ -1,13 +1,26 @@
 @use '../../style/colors' as c;
 @use '../../style/sizes' as s;
 @use '../../style/typography' as t;
+
+.edit-list-button {
+  display: none;
+}
+
 .list {
   &__component {
+    position: relative;
     padding: 8px 12px 8px 16px;
-    display: flex;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 16px;
     cursor: pointer;
     font-weight: t.text-weight(bolder);
+
+    &-container {
+      display: flex;
+      align-items: center;
+      min-width: 100%;
+      width: 100%;
+    }
 
     &:not(:first-child) {
       margin-top: 24px;
@@ -23,7 +36,6 @@
     &-title {
       margin-left: 16px;
       font-size: t.text(m);
-      width: 154px;
     }
 
     &-amount {
@@ -34,22 +46,49 @@
     &:hover {
       background-color: c.colors(element-active);
       border-radius: 8px;
+
+      .edit-list-button {
+        display: block;
+        position: absolute;
+        top: 0;
+        right: -32px;
+      }
     }
-    &-active{
+
+    &-active {
       background-color: c.colors(element-active);
       border-radius: 8px;
       font-weight: t.text-weight(bold);
+
+      .edit-list-button {
+        display: block;
+        position: absolute;
+        top: 0;
+        right: -32px;
+      }
+
     }
   }
 }
+
 .list-dark {
   & .list__component {
     color: c.colors(font, true);
   }
+
   & .list__component-active,
   .list__component:hover {
     color: c.colors(font, true);
     border-radius: 8px;
     background-color: c.colors(element-active, true);
+  }
+}
+
+@media screen and (min-width: 378px) and (max-width: 768px) {
+  .list__component {
+    grid-column-gap: 16px;
+  }
+  .edit-list-button {
+    display: none !important;
   }
 }

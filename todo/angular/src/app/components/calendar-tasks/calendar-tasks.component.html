@@ -15,7 +15,7 @@
             <div class="calendar-tasks-list__component-color" [ngStyle]="{ 'background-color': task.listColor }"></div>
             <p class="calendar-tasks-list__component-title">{{ task.title }}</p>
           </div>
-          <app-edit-label [id]="task.id" type="task"></app-edit-label>
+          <app-edit-item-info [id]="task.id" type="task"></app-edit-item-info>
         </li>
       </ng-container>
     </ul>

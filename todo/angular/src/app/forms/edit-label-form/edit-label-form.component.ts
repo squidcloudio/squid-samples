@@ -1,54 +1,48 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { DialogRef } from '@angular/cdk/dialog';
-import { ListService } from '../../services/list.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ListService } from '../../services/list.service';
 import { Subscription } from 'rxjs';
 import { ThemeService } from '../../services/theme.service';
+import { DialogRef } from '@angular/cdk/dialog';
 
 @Component({
   selector: 'app-edit-label-form',
-  templateUrl: 'edit-label-form.component.html',
-  styleUrls: ['edit-label-form.component.scss'],
+  templateUrl: './edit-label-form.component.html',
+  styleUrls: ['./edit-label-form.component.scss'],
 })
 export class EditLabelFormComponent implements OnInit, OnDestroy {
-  @Input('dialog') dialog?: DialogRef<string>;
   @Input('listId') listId?: string;
-  @Input('labelType') labelType?: string;
-  editLabelForm?: FormGroup;
-  todoSub?: Subscription;
+  @Input('dialog') dialog?: DialogRef<string>;
+  labelForm?: FormGroup;
+  listSub?: Subscription;
   constructor(private listService: ListService, readonly themeService: ThemeService) {}
+
   ngOnInit(): void {
-    if (this.listId) {
-      this.todoSub = this.listService.observeList(this.listId).subscribe(list => {
-        this.editLabelForm = new FormGroup({
-          label: new FormControl(this.labelType === 'activeLabel' ? list.activeLabel : list.completeLabel, [
+    if (this.listId)
+      this.listSub = this.listService.observeList(this.listId).subscribe(list => {
+        this.labelForm = new FormGroup({
+          activeLabel: new FormControl(list.activeLabel, [
             Validators.required,
-            Validators.minLength(5),
+            Validators.minLength(2),
             Validators.maxLength(20),
           ]),
-          listId: new FormControl(list.id, Validators.required),
+          completeLabel: new FormControl(list.completeLabel, [
+            Validators.required,
+            Validators.minLength(2),
+            Validators.maxLength(20),
+          ]),
         });
       });
-    }
   }
-  onSubmit(): void {
-    if (
-      this.editLabelForm?.get('listId')?.value === 'today' ||
-      this.editLabelForm?.get('listId')?.value === 'tomorrow' ||
-      this.editLabelForm?.get('listId')?.value === 'someday'
-    )
-      this.editLabelForm?.get('listId')?.setValue(null);
-    if (this.listId && this.editLabelForm?.valid && this.labelType) {
-      this.listService.changeListLabel(
-        this.editLabelForm.get('listId')?.value,
-        this.editLabelForm.get('label')?.value,
-        this.labelType,
-      );
-      this.editLabelForm.reset();
-      this.dialog?.close();
-    }
+  submit(): void {
+    this.listService.changeLabels(
+      this.listId,
+      this.labelForm?.get('activeLabel')?.value,
+      this.labelForm?.get('completeLabel')?.value,
+    );
+    this.dialog?.close();
   }
   ngOnDestroy(): void {
-    this.todoSub?.unsubscribe();
+    this.listSub?.unsubscribe();
   }
 }
