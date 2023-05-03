@@ -1,0 +1,121 @@
+@use '@angular/material' as mat;
+
+@include mat.core();
+@import 'colors';
+
+$dark-primary-text: #1D2433;
+$light-primary-text: #FFFBFE;
+
+$squid-primary-light-palette: (
+  50: #0F69FF,
+  100: #0F69FF,
+  200: #0F69FF,
+  300: #0F69FF,
+  400: #0F69FF,
+  500: #0F69FF,
+  600: #0F69FF,
+  700: #0F69FF,
+  800: #0F69FF,
+  900: #0F69FF,
+  contrast: (
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $dark-primary-text,
+    400: $dark-primary-text,
+    500: $light-primary-text,
+    600: $dark-primary-text,
+    700: $light-primary-text,
+    800: $light-primary-text,
+    900: $light-primary-text,
+  )
+);
+
+$squid-primary-dark-palette: (
+  50: #188FFF,
+  100: #188FFF,
+  200: #188FFF,
+  300: #188FFF,
+  400: #188FFF,
+  500: #188FFF,
+  600: #188FFF,
+  700: #188FFF,
+  800: #188FFF,
+  900: #188FFF,
+  contrast: (
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $dark-primary-text,
+    400: $dark-primary-text,
+    500: $light-primary-text,
+    600: $dark-primary-text,
+    700: $light-primary-text,
+    800: $light-primary-text,
+    900: $light-primary-text,
+  )
+);
+
+$squid-accent-palette: (
+  50: #fbfbfb,
+  100: #f6f6f6,
+  200: #f1f1f1,
+  300: #e4e4e4,
+  400: #c1c1c1,
+  500: #a2a2a2,
+  600: #797979,
+  700: #656565,
+  800: #464646,
+  900: #242424,
+  contrast: (
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $dark-primary-text,
+    400: $dark-primary-text,
+    500: $light-primary-text,
+    600: $dark-primary-text,
+    700: $light-primary-text,
+    800: $light-primary-text,
+    900: $light-primary-text,
+  )
+);
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$web-light-primary: mat.define-palette($squid-primary-light-palette);
+$web-dark-primary: mat.define-palette($squid-primary-dark-palette);
+$web-accent: mat.define-palette($squid-accent-palette);
+$web-warn: mat.define-palette(mat.$red-palette);
+
+$light-theme: mat.define-light-theme((
+  color: (
+    primary: $web-light-primary,
+    accent: $web-accent,
+    warn: $web-warn,
+  ),
+  typography: mat.define-typography-config('Nunito Sans')
+));
+
+$dark-theme: mat.define-dark-theme((
+  color: (
+    primary: $web-dark-primary,
+    accent: $web-accent,
+    warn: $web-warn,
+  ),
+  typography: mat.define-typography-config('Nunito Sans')
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+
+.light {
+  @include mat.all-component-themes($light-theme);
+}
+
+.dark {
+  @include mat.all-component-colors($dark-theme);
+}
+

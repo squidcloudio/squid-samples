@@ -1,0 +1,68 @@
+@import 'colors';
+
+.buy_or_sell_dialog {
+  color: $text1;
+
+  .dialog_title {
+    text-align: center;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 100%;
+    margin-bottom: 24px;
+  }
+
+  .form_fields {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    margin-bottom: 28px;
+
+    .divider {
+      height: 1px;
+      width: 100%;
+      background: $line2;
+    }
+
+    .input {
+      height: 40px;
+      width: 132px;
+      border: 1px solid $line1;
+      border-radius: 4px;
+      background: $bg2;
+      color: $text1;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 100%;
+      text-align: right;
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+
+    .field {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .label {
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 100%;
+        color: $text2;
+
+        .your_shares {
+          font-weight: 400;
+          font-size: 12px;
+          line-height: 100%;
+          color: $text3;
+          margin-top: 4px;
+        }
+      }
+
+      .value {
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 100%;
+      }
+    }
+  }
+}

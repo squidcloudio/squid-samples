@@ -1,0 +1,69 @@
+<ng-container *ngIf="userObs | async as user">
+  <ng-container *ngIf="portfolioValueHistoryObs | async as portfolioValueHistory">
+    <div class="portfolio_container" *ngIf="userAssetsObs | async as userAssets">
+      <portfolio-zero-state *ngIf="userAssets.length === 0"></portfolio-zero-state>
+      <div class="portfolio" *ngIf="userAssets.length > 0">
+        <div class="container" *ngVar="getPortfolioChange(userAssets) as changePercent">
+          <div class="global_portfolio_section">
+            <div class="title">Global Portfolio</div>
+            <totals [value]="getPortfolioValue(userAssets)" [changePercent]="changePercent"></totals>
+          </div>
+
+          <div class="chart_and_controls_container">
+            <stock-chart *ngVar="selectedTimeFrameSubject | async as selectedTimeFrame"
+                             [chart]="getPortfolioChart(portfolioValueHistory, changePercent >= 0)"
+                             (timeFrameSelected)="selectedTimeFrameSubject.next($event)" [gain]="changePercent >= 0"
+                             [selectedTimeFrame]="selectedTimeFrame"></stock-chart>
+          </div>
+
+          <div class="health_and_diversity">
+            <div class="title">Portfolio Health & Diversity</div>
+            <div class="stats">
+              <div class="stat">
+                <div class="stat_name">Total gain</div>
+                <div class="stat_value" [ngClass]="totalGainPercent >= 0 ? 'gain' : 'lose'"
+                     *ngVar="getTotalGainPercent(userAssets) as totalGainPercent">
+                  <span class="total_gain">{{getTotalGain(userAssets) | currency: 'USD'}}</span>
+                  (
+                  <percent-change [value]="totalGainPercent"></percent-change>
+                  )
+                </div>
+              </div>
+              <div class="stat">
+                <div class="stat_name">Cash holding</div>
+                <div class="stat_value gain">{{user.balance | currency: 'USD'}}</div>
+              </div>
+              <div class="stat">
+                <div class="stat_name">Total shares</div>
+                <div class="stat_value gain">{{getTotalStockQuantity(userAssets)}}
+                </div>
+              </div>
+              <div class="stat">
+                <div class="stat_name">Total holdings</div>
+                <div class="stat_value gain">{{ userAssets.length}}</div>
+              </div>
+            </div>
+            <ng-container *ngIf="getAllocationsPerIndustry(userAssets) as allocArray">
+              <div class="progress_bar_container">
+                <div class="single_progress_bar" [ngClass]="'data'+(index + 1)"
+                     [title]="alloc.sicDescription | titlecase"
+                     *ngFor="let alloc of allocArray; let index = index" [style.width]="alloc.percentage + '%'"></div>
+              </div>
+              <div class="progress_bar_tags">
+                <div class="tag" *ngFor="let alloc of allocArray; let index = index">
+                  <div class="bullet" [ngClass]="'data'+(index + 1)"></div>
+                  <div class="tag_text"><span class="description">{{alloc.sicDescription | titlecase}}</span> <span
+                    class="bold">{{alloc.percentage / 100 | percent: '1.2'}}</span></div>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+
+          <div class="assets_table">
+            <stock-table [tableData]="{data: convertToTableData(userAssets), type: 'userAssets'}"></stock-table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>
