@@ -2,7 +2,7 @@
   <div class="modal-body">
     <div class="modal-body-header">
       <button class="modal-body-header-button" (click)="dialogRef.close()" (keydown.enter)="$event.preventDefault()">
-        <img [src]="themeService.isDark ? './assets/close-dark.svg' : './assets/close.svg'" alt="close-button"/>
+        <img [src]="themeService.isDark ? './assets/close-dark.svg' : './assets/close.svg'" alt="close-button" />
       </button>
     </div>
     <div class="modal-body-content">
@@ -10,21 +10,19 @@
         <app-list-form [dialog]="dialogRef"></app-list-form>
       </ng-container>
       <ng-container *ngIf="data.name === 'newItem'">
-        <app-task-form
-          [dialog]="dialogRef"
-          [date]="data.date"
-          title="New Task"
-          submitName="Add task"></app-task-form>
+        <app-task-form [dialog]="dialogRef" [date]="data.date" title="New Task" submitName="Add task"></app-task-form>
       </ng-container>
       <ng-container *ngIf="data.name === 'editTask'">
         <app-task-form [dialog]="dialogRef" [taskId]="data.id" title="Edit Task" submitName="Save"></app-task-form>
       </ng-container>
       <ng-container *ngIf="data.name === 'editList'">
-        <app-edit-item-info-form [dialog]="dialogRef" [listId]="data.id"
-                                 [labelType]="data.labelType"></app-edit-item-info-form>
+        <app-edit-item-info-form
+          [dialog]="dialogRef"
+          [listId]="data.id"
+          [labelType]="data.labelType"></app-edit-item-info-form>
       </ng-container>
-      <ng-container *ngIf="data.name==='editLabel'">
-
+      <ng-container *ngIf="data.name === 'editLabel'">
+        <app-edit-label-form [listId]="data.id" [dialog]="dialogRef"></app-edit-label-form>
       </ng-container>
     </div>
   </div>

@@ -49,6 +49,7 @@ import { ThemeButtonComponent } from './buttons/theme-button/theme-button.compon
 import { LogoutButtonComponent } from './buttons/logout-button/logout-button.component';
 import { ListSelectComponent } from './inputs/list-select/list-select.component';
 import { EditLabelComponent } from './components/edit-label/edit-label.component';
+import { EditLabelFormComponent } from './forms/edit-label-form/edit-label-form.component';
 
 const routes: Routes = [
   {
@@ -100,6 +101,7 @@ const routes: Routes = [
     LogoutButtonComponent,
     ListSelectComponent,
     EditLabelComponent,
+    EditLabelFormComponent,
   ],
   imports: [
     BrowserModule,

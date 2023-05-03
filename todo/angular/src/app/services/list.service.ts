@@ -74,4 +74,7 @@ export class ListService {
   changeListName(id?: string, listName?: string): void {
     this.listCollection.doc(id).update({ title: listName });
   }
+  changeLabels(listId?: string, activeLabel?: string, completeLabel?: string): void {
+    this.listCollection.doc(listId).update({ activeLabel: activeLabel, completeLabel: completeLabel });
+  }
 }
