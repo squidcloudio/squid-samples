@@ -12,6 +12,7 @@ import { ThemeService } from '../../services/theme.service';
 export class ListCatalogueComponent implements OnInit {
   @Input('listType') listType!: string;
   listCatalogObs?: Observable<List[]>;
+  currentList?: List;
 
   constructor(private listService: ListService, readonly themeService: ThemeService) {}
 

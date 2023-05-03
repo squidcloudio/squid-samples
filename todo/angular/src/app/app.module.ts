@@ -17,7 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { environment } from '../environments/environment';
 import { MatMenuModule } from '@angular/material/menu';
-import { AsyncPipe, DatePipe, NgClass, NgForOf, NgIf, NgStyle } from '@angular/common';
+import { AsyncPipe, DatePipe, NgClass, NgForOf, NgIf, NgOptimizedImage, NgStyle } from '@angular/common';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -34,9 +34,9 @@ import { TaskFormComponent } from './forms/task-form/task-form.component';
 import { DatePickerComponent } from './inputs/date-picker/date-picker.component';
 import { MultiSelectComponent } from './inputs/multi-select/multi-select.component';
 import { ListTaskComponent } from './components/list-task/list-task.component';
-import { EditLabelComponent } from './components/edit-label/edit-label.component';
+import { EditItemInfoComponent } from './components/edit-item-info/edit-item-info.component';
 import { TasksAmountComponent } from './components/tasks-amount/tasks-amount.component';
-import { EditLabelFormComponent } from './forms/edit-label-form/edit-label-form.component';
+import { EditListFormComponent } from './forms/edit-list-form/edit-list-form.component';
 import { AddTaskButtonComponent } from './buttons/add-task-button/add-task-button.component';
 import { SidebarNavigationComponent } from './sidebar-navigation/sidebar-navigation.component';
 import { AddListButtonComponent } from './buttons/add-list-button/add-list-button.component';
@@ -48,6 +48,8 @@ import { CalendarModalWindowComponent } from './calendar-modal-window/calendar-m
 import { ThemeButtonComponent } from './buttons/theme-button/theme-button.component';
 import { LogoutButtonComponent } from './buttons/logout-button/logout-button.component';
 import { ListSelectComponent } from './inputs/list-select/list-select.component';
+import { EditLabelComponent } from './components/edit-label/edit-label.component';
+import { EditLabelFormComponent } from './forms/edit-label-form/edit-label-form.component';
 
 const routes: Routes = [
   {
@@ -84,9 +86,9 @@ const routes: Routes = [
     DatePickerComponent,
     MultiSelectComponent,
     ListTaskComponent,
-    EditLabelComponent,
+    EditItemInfoComponent,
     TasksAmountComponent,
-    EditLabelFormComponent,
+    EditListFormComponent,
     AddTaskButtonComponent,
     SidebarNavigationComponent,
     AddListButtonComponent,
@@ -98,6 +100,8 @@ const routes: Routes = [
     ThemeButtonComponent,
     LogoutButtonComponent,
     ListSelectComponent,
+    EditLabelComponent,
+    EditLabelFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -139,6 +143,7 @@ const routes: Routes = [
     MatMenuModule,
     MatListModule,
     DatePipe,
+    NgOptimizedImage,
   ],
   providers: [],
   bootstrap: [AppComponent],

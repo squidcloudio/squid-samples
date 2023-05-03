@@ -9,7 +9,9 @@ import * as dayjs from 'dayjs';
 @Injectable({ providedIn: 'root' })
 export class TaskService {
   readonly taskCollection = this.squid.collection<Task>('tasks');
-
+  readonly today = dayjs().format('M/D/YYYY');
+  readonly tomorrow = dayjs().add(1, 'day').format('M/D/YYYY');
+  readonly user = this.accountService.getUser();
   constructor(
     private listService: ListService,
     private readonly squid: Squid,
@@ -26,8 +28,6 @@ export class TaskService {
   }
 
   observeTaskList(listId: string): Observable<Task[]> {
-    const today = dayjs().format('M/D/YYYY');
-    const tomorrow = dayjs().add(1, 'day').format('M/D/YYYY');
     return this.accountService.observeUser().pipe(
       switchMap(user => {
         if (!user) return NEVER;
@@ -35,13 +35,13 @@ export class TaskService {
 
         switch (listId) {
           case 'today':
-            query.eq('dueDate', today);
+            query.eq('dueDate', this.today);
             break;
           case 'tomorrow':
-            query.eq('dueDate', tomorrow);
+            query.eq('dueDate', this.tomorrow);
             break;
           case 'someday':
-            query.nin('dueDate', [today, tomorrow]);
+            query.nin('dueDate', [this.today, this.tomorrow]);
             break;
           default:
             return this.taskCollection
@@ -116,6 +116,39 @@ export class TaskService {
       await this.taskCollection.doc(item.data.id).delete();
     }
   }
+  async markAllTasksAsComplete(listId: string): Promise<void> {
+    const userInfo = await this.user;
+    if (userInfo) {
+      const query = this.taskCollection.query().eq('userId', userInfo.id);
+      let tasksCollection: any[] = [];
+      if (listId === 'today') tasksCollection = await query.eq('dueDate', this.today).snapshot();
+      if (listId === 'tomorrow') tasksCollection = await query.eq('dueDate', this.tomorrow).snapshot();
+      if (listId === 'someday') tasksCollection = await query.nin('dueDate', [this.today, this.tomorrow]).snapshot();
+      if (listId !== 'today' && listId !== 'tomorrow' && listId !== 'someday')
+        tasksCollection = tasksCollection = await this.taskCollection.query().eq('listId', listId).snapshot();
+
+      for (const task of tasksCollection) {
+        await this.taskCollection.doc(task.data.id).update({ completed: true });
+      }
+    }
+  }
+  async clearAllCompleteTasks(listId: string): Promise<void> {
+    const user = await this.user;
+    if (user) {
+      const query = this.taskCollection.query().eq('userId', user.id).eq('completed', true);
+      let tasksCollection: any[] = [];
+      if (listId === 'today') tasksCollection = await query.eq('dueDate', this.today).snapshot();
+      if (listId === 'tomorrow') tasksCollection = await query.eq('dueDate', this.tomorrow).snapshot();
+      if (listId === 'someday') tasksCollection = await query.nin('dueDate', [this.today, this.tomorrow]).snapshot();
+      if (listId !== 'today' && listId !== 'tomorrow' && listId !== 'someday')
+        tasksCollection = tasksCollection = await this.taskCollection.query().eq('listId', listId).snapshot();
+
+      for (const task of tasksCollection) {
+        await this.taskCollection.doc(task.data.id).delete();
+      }
+    }
+  }
+
   observeExpiredTasks(): Observable<Task[]> {
     return this.observeTasks().pipe(
       map(tasks =>

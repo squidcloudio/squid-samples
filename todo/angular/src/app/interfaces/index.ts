@@ -1,4 +1,5 @@
 import { SupportedSquidRegion } from '@squidcloud/common';
+
 export interface User {
   username: string;
   email: string;
@@ -14,19 +15,27 @@ export enum FormatTypes {
   DEFAULT_FORMAT = 'M/D/YYYY',
   ISO_FORMAT = 'MM-DD-YYYY',
 }
+
 export enum LabelTypes {
   activeLabel = 'activeLabel',
   completeLabel = 'completeLabel',
 }
+
 export enum ModalListNames {
   newList = 'newList',
   newTask = 'newItem',
+  editList = 'editList',
   editLabel = 'editLabel',
   editTask = 'editTask',
 }
 
 export interface ModalWindowData {
-  name: ModalListNames.newList | ModalListNames.newTask | ModalListNames.editLabel | ModalListNames.editTask;
+  name:
+    | ModalListNames.newList
+    | ModalListNames.newTask
+    | ModalListNames.editLabel
+    | ModalListNames.editTask
+    | ModalListNames.editList;
   id?: string;
   date?: string;
   labelType?: string;
@@ -36,6 +45,7 @@ export interface Tag {
   id: string;
   name: string;
 }
+
 export type List = {
   id: string;
   title: string;

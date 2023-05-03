@@ -1,13 +1,16 @@
 <div class="calendar" [ngClass]="{ 'calendar-dark': themeService.isDark }">
-  <app-calendar-picker></app-calendar-picker>
-  <mat-divider class="calendar-divider"></mat-divider>
-  <app-calendar-tasks></app-calendar-tasks>
-  <ng-container *ngIf="calendarService.today === calendarService.currentDate && (tomorrowTasksObs|async)?.length ">
+  <ng-container *ngIf="{tomorrowTasks: tomorrowTasksObs|async,expiredTasks: expiredTasksObs|async } as tasks">
+    <app-calendar-picker></app-calendar-picker>
     <mat-divider class="calendar-divider"></mat-divider>
-    <app-calendar-tasks duringType="tomorrow"></app-calendar-tasks>
+    <app-calendar-tasks></app-calendar-tasks>
+    <ng-container *ngIf="calendarService.today === calendarService.currentDate && tasks.tomorrowTasks?.length ">
+      <mat-divider class="calendar-divider"></mat-divider>
+      <app-calendar-tasks duringType="tomorrow"></app-calendar-tasks>
+    </ng-container>
+    <ng-container *ngIf="tasks.expiredTasks?.length">
+      <mat-divider class="calendar-divider"></mat-divider>
+      <app-expired-tasks></app-expired-tasks>
+    </ng-container>
   </ng-container>
-  <ng-container *ngIf="(expiredTasksObs | async)?.length">
-    <mat-divider class="calendar-divider"></mat-divider>
-    <app-expired-tasks></app-expired-tasks>
-  </ng-container>
+
 </div>

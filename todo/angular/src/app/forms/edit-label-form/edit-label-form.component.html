@@ -1,23 +1,28 @@
-<ng-container *ngIf="editLabelForm">
+<ng-container *ngIf="labelForm">
   <form
-    [formGroup]="editLabelForm"
-    (ngSubmit)="onSubmit()"
+    [formGroup]="labelForm"
+    (ngSubmit)="submit()"
     class="form"
     [ngClass]="{ 'form-dark': themeService.isDark }">
-    <h2 class="form-title">Edit Label</h2>
+    <h2 class="form-title">Edit Labels</h2>
     <div class="form-container">
       <div class="form-container__component">
-        <app-list-select [control]="editLabelForm"></app-list-select>
+        <app-text-input
+          controlName="activeLabel"
+          [control]="labelForm"
+          inputId="activeLabel"
+          title="Edit label"
+          type="text"></app-text-input>
       </div>
       <div class="form-container__component">
         <app-text-input
-          controlName="label"
-          [control]="editLabelForm"
-          inputId="title"
+          controlName="completeLabel"
+          [control]="labelForm"
+          inputId="completeLabel"
           title="Edit label"
           type="text"></app-text-input>
       </div>
     </div>
-    <app-form-buttons [control]="editLabelForm" [dialog]="dialog" submitName="Save"></app-form-buttons>
+    <app-form-buttons [control]="labelForm" [dialog]="dialog" submitName="Save"></app-form-buttons>
   </form>
 </ng-container>
