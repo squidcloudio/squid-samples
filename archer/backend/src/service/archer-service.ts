@@ -118,13 +118,13 @@ export class ArcherService extends SquidService {
     // Get all tickers from polygon
     const snapshotTickers = await this.getSnapshotTickers();
     if (!snapshotTickers.length) return;
-    const snapshotPartitions = _.chunk(snapshotTickers, 1000);
+    const snapshotPartitions = _.chunk(snapshotTickers, 100);
     const tickerCollection = this.getTickerCollection();
     await PromisePool.for(snapshotPartitions)
       .handleError((error) => {
         console.log('Unable to handle snapshot partition', error);
       })
-      .withConcurrency(15)
+      .withConcurrency(1)
       .process(async (snapshotPartition, i) => {
         console.log(`Handling snapshot partition ${i + 1}/${snapshotPartitions.length}`);
         await this.squid.runInTransaction(async (transactionId) => {
