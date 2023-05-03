@@ -1,0 +1,4 @@
+<div class="percent_change">
+  <span [ngClass]="value >= 0 ? 'gain' : 'lose'">{{value >= 0 ? '+' : ''}}{{value / 100 | percent: '1.2'}}</span>
+  <mat-icon svgIcon="up_arrow" class="arrow" [ngClass]="value >= 0 ? 'gain' : 'lose'"></mat-icon>
+</div>

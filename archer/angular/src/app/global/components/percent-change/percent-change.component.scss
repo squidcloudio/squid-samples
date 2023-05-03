@@ -1,0 +1,21 @@
+@import 'colors';
+
+.percent_change {
+  display: flex;
+  align-items: center;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  text-align: inherit;
+
+  .arrow {
+    width: 10px;
+    height: 10px;
+    line-height: 0;
+    margin-left: 6px;
+
+    &.lose {
+      transform: rotate(180deg);
+    }
+  }
+}

@@ -1,0 +1,47 @@
+@import 'colors';
+
+.search_bar_container {
+  .search_input_container {
+    display: flex;
+    background: $bg3;
+    border-radius: 8px;
+    align-items: center;
+    height: 40px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    z-index: 10;
+
+    .search_icon {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      margin-left: 16px;
+      height: 16px;
+      width: 16px;
+      line-height: 0;
+      cursor: text;
+    }
+
+    .search_input {
+      padding-left: 48px;
+      flex: 1 1 auto;
+      border: none;
+      height: 100%;
+      background: $bg4;
+    }
+
+    .clear_button {
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 16px;
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: $text2;
+      cursor: pointer;
+    }
+  }
+}

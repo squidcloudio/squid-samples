@@ -1,0 +1,10 @@
+<div class="chart_and_controls_container">
+  <div class="chart_container">
+    <chart [chart]="chart"></chart>
+  </div>
+  <chart-controls class="controls"
+                  [gain]="gain"
+                  [selectedTimeFrame]="selectedTimeFrame"
+                  (timeFrameSelected)="timeFrameSelected.next($event)">
+  </chart-controls>
+</div>

@@ -1,0 +1,28 @@
+<div class="search_bar_container">
+  <!--<div class="search_bar_overlay" *ngIf="searchControl.value !== null" (click)="clearAndCloseSearch()"></div>-->
+  <form class="search_input_container">
+    <mat-icon class="search_icon" svgIcon="search_icon" (click)="searchInput.focus(); $event.stopPropagation();"></mat-icon>
+    <input [autofocus]="true" class="search_input" placeholder="Search stock market" type="text"
+           (click)="$event.stopPropagation();"
+           [formControl]="searchControl"
+           (keyup)="searchQueryChanged()"
+           #searchInput [matAutocomplete]="auto" [matAutocompletePosition]="'below'"/>
+    <div class="clear_button" *ngIf="searchControl.value" (click)="searchControl.setValue(null); searchInput.focus(); $event.stopPropagation();">
+      Clear
+    </div>
+
+    <mat-autocomplete #auto="matAutocomplete" class="filtered_tickers_container"
+                      (optionSelected)="searchStockSelected()">
+      <div class="filtered_tickers" *ngIf="searchControl.value && searchControl.value.length > 1">
+        <ng-container *ngIf="searchResultsObs | async as searchResults">
+          <mat-option class="ticker" *ngFor="let ticker of searchResults"
+                      (click)="searchControl.setValue(null);"
+                      [value]="ticker.id">
+            <div class="ticker_id">{{ticker.id}}</div>
+            <div class="ticker_name">{{ticker.name}}</div>
+          </mat-option>
+        </ng-container>
+      </div>
+    </mat-autocomplete>
+  </form>
+</div>
