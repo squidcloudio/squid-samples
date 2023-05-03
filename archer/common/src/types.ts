@@ -103,6 +103,14 @@ export interface SnapshotTickerDay {
   v: number;
   vw: number;
 }
+export interface SnapshotTrade {
+  c: number[];
+  i: string;
+  p: number;
+  s: number;
+  t: number;
+  x: number;
+}
 
 export interface MinuteSnapshotTickerDay extends SnapshotTickerDay {
   av: number;
@@ -112,6 +120,7 @@ export interface SnapshotTicker {
   day: SnapshotTickerDay;
   prevDay: SnapshotTickerDay;
   min: MinuteSnapshotTickerDay;
+  lastTrade: SnapshotTrade;
   ticker: string;
   todaysChange: number;
   todaysChangePerc: number;

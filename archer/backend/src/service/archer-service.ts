@@ -47,7 +47,7 @@ export class ArcherService extends SquidService {
     let c = 0;
 
     // Chunk snapshots
-    const tickerChunks = _.chunk(snapshotTickers, 1000);
+    const tickerChunks = _.chunk(snapshotTickers, 100);
 
     const tickerCollection = this.getTickerCollection();
     for (const tickerChunk of tickerChunks) {
@@ -72,7 +72,6 @@ export class ArcherService extends SquidService {
             }
             const tickerSnapshot = tickerToSnapshot[ticker.ticker];
             if (!tickerSnapshot || allTickers[ticker.ticker]) return;
-            console.log(`DB does not have details about ticker ${ticker.ticker}, inserting it...`);
             // If ticker does not exist in DB, call tickerDetails API, fill in information
             const { results: tickerDetailsResponse } = await this.squid.callApi<TickerDetailsResponse>(
               'polygon',
@@ -132,7 +131,7 @@ export class ArcherService extends SquidService {
             const docRef = tickerCollection.doc(ticker.ticker);
             await docRef.update(
               {
-                closePrice: ticker.day.c,
+                closePrice: ticker.lastTrade?.p || ticker.day.c || ticker.prevDay.c,
                 openPrice: ticker.day.o,
                 volume: ticker.day.v,
                 volumeWeighted: ticker.day.vw,
