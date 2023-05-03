@@ -123,7 +123,7 @@ export const OptionsMenu = ({
         {!fromCalendar && isCompleted && (
           <MenuItem onClick={deleteCompletedTasks}>
             <ListItemIcon>
-              <CompletedIcon />
+              <DeleteButton />
             </ListItemIcon>
             Clear all tasks
           </MenuItem>
@@ -131,7 +131,14 @@ export const OptionsMenu = ({
       </Menu>
 
       {!isEditable && (
-        <EditModal collection={todosCollection} id={id} open={open} setOpen={setOpen} isCompleted={isCompleted} />
+        <EditModal
+          collection={todosCollection}
+          id={id}
+          open={open}
+          setOpen={setOpen}
+          isCompleted={isCompleted}
+          completedTasksInCurrentList={completedTasksInCurrentList}
+        />
       )}
 
       {isEditable && <EditItem open={open} setOpen={setOpen} index={index} todos={todos} />}
