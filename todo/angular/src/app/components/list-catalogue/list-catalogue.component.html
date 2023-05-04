@@ -6,7 +6,10 @@
           <div class="list__component-color" [ngStyle]="{ 'background-color': list.color }"></div>
           <p class="list__component-title">{{ list.title }}</p>
         </div>
-        <app-tasks-amount [list]="list"></app-tasks-amount>
+        <div class="app-tasks-amount">
+          <app-tasks-amount [list]="list"></app-tasks-amount>
+        </div>
+
         <ng-container *ngIf="listType === 'userCollection'">
           <div class="edit-list-button">
             <app-edit-item-info [id]="list.id" type="list"></app-edit-item-info>

@@ -2,7 +2,7 @@
   <app-calendar-picker></app-calendar-picker>
   <mat-divider class="calendar-divider"></mat-divider>
   <app-calendar-tasks [dialog]="dialogRef"></app-calendar-tasks>
-  <ng-container *ngIf="calendarService.today === calendarService.currentDate && (tomorrowTasksObs | async)?.length">
+  <ng-container *ngIf="listService.currentList?.id === 'today' && (tomorrowTasksObs | async)?.length">
     <mat-divider class="calendar-divider"></mat-divider>
     <app-calendar-tasks duringType="tomorrow" [dialog]="dialogRef" ></app-calendar-tasks>
   </ng-container>

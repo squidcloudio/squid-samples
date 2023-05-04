@@ -3,7 +3,7 @@
     <mat-icon class="white-icon">more_horiz</mat-icon>
   </button>
   <mat-menu #menu="matMenu" xPosition="before">
-    <ng-container *ngIf="(listId!=='today' && listId !=='tomorrow' && listId!=='someday')">
+    <ng-container *ngIf="listId !== 'today' && listId !== 'tomorrow' && listId !== 'someday'">
       <button mat-menu-item (click)="openModalWindow(listId)">
         <div class="menu-component">
           <img
