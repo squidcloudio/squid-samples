@@ -618,6 +618,13 @@ th {
   display: flex;
   flex: 1;
 
+  &_fromList {
+    & > button {
+      position: absolute;
+      top: 23px;
+    }
+  }
+
   & > .css-78trlr-MuiButtonBase-root-MuiIconButton-root {
     margin-left: auto !important;
   }

@@ -10,12 +10,14 @@ import { useQuery } from '@squidcloud/react';
 import { useAuth0 } from '@auth0/auth0-react';
 import moment from 'moment';
 import AmountTasks from './AmountTasks';
-import { OptionsMenu } from './MenuDetail';
+import { ListEdit } from './ListEdit';
 
-const ListContainer = ({ todosList, collection, datesList, itemsCollection }: any) => {
+const ListContainer = ({ collection, datesList, itemsCollection }: any) => {
   const { id } = useParams();
   const { user } = useAuth0();
   const { theme } = useContext(ThemeContext);
+
+  const todosList = useQuery(collection.query().where('userId', '==', `${user?.sub}`), true) || [];
 
   const tasksQuery = useQuery(itemsCollection.query().where('userId', '==', `${user?.sub}`));
 
@@ -24,8 +26,6 @@ const ListContainer = ({ todosList, collection, datesList, itemsCollection }: an
 
   const [open, setOpen] = useState<boolean>(false);
 
-  const [todos] = useQuery(collection.query().where('id', '==', `${id}`), true);
-
   const handleOpen = useCallback((value: any) => {
     setOpen(value);
   }, []);
@@ -33,7 +33,7 @@ const ListContainer = ({ todosList, collection, datesList, itemsCollection }: an
   return (
     <>
       <ul>
-        {datesList.map((todo: any, i: any) => {
+        {datesList?.map((todo: any, i: any) => {
           const { id, title, color } = todo.data;
 
           return (
@@ -67,7 +67,7 @@ const ListContainer = ({ todosList, collection, datesList, itemsCollection }: an
       </Box>
       <>
         <ul>
-          {todosList.map((todo: any, i: any) => {
+          {todosList?.map((todo: any, i: any) => {
             const { id, title, color } = todo.data;
 
             return (
@@ -86,26 +86,25 @@ const ListContainer = ({ todosList, collection, datesList, itemsCollection }: an
                   <div className="navlink_content-title">{title}</div>
                   <div className="navlink_content-amount">
                     {
-                      tasksQuery.filter((el) => el.data.completed === false).filter((task) => task.data.listId === id)
+                      tasksQuery?.filter((el) => el.data.completed === false).filter((task) => task.data.listId === id)
                         .length
                     }
                   </div>
                 </NavLink>
-                <OptionsMenu
+
+                <ListEdit
                   itemsCollection={itemsCollection}
-                  isEditable={true}
-                  index={todo.data.id}
-                  todos={todos}
-                  todoCollection={collection}
-                  fromList={true}
-                  fromCalendar
+                  todosCollection={collection}
+                  isCompleted
+                  todosList={todosList}
+                  index={i}
                 />
               </div>
             );
           })}
         </ul>
       </>
-      {todosList.length > 0 && (
+      {todosList?.length > 0 && (
         <Box py={3}>
           <Divider className={`divider-${theme}`} />
         </Box>

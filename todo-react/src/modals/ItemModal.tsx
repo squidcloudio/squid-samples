@@ -84,7 +84,7 @@ const ItemModal = ({ collection, todos, open, setOpen, fromCalendar, currentDate
 
   const handleSelectChange = (event: SelectChangeEvent) => {
     const value = event.target.value;
-    const selectedItem = todosList.find((item: any) => item?.data.id === value);
+    const selectedItem = todosList?.find((item: any) => item?.data.id === value);
 
     setSelectedValue({ id: selectedItem?.data.id, color: selectedItem?.data.color });
   };
@@ -111,7 +111,7 @@ const ItemModal = ({ collection, todos, open, setOpen, fromCalendar, currentDate
               onChange={handleSelectChange}
               sx={{ '& .MuiMenuItem-root': { display: 'flex', alignItems: 'center' } }}
             >
-              {todosList.map((item: any) => {
+              {todosList?.map((item: any) => {
                 return (
                   <MenuItem className="modal_container-menu" value={item.data.id} key={item.data.title}>
                     <div className="modal_container-in">

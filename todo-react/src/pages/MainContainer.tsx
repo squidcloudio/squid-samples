@@ -59,12 +59,7 @@ const MainContainer = React.memo(() => {
         <Box px={10} py={7}>
           <Drawer anchor="left" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
             <Box className="sidebar_menu" sx={{ backgroundColor: theme === 'light' ? '#fff' : '#1b1f27' }}>
-              <ListContainer
-                todosList={todosList}
-                collection={todosCollection}
-                datesList={datesList}
-                itemsCollection={itemsCollection}
-              />
+              <ListContainer collection={todosCollection} datesList={datesList} itemsCollection={itemsCollection} />
               <div className="sidebar_profile">
                 <button style={{ color: theme === 'dark' ? '#fff' : '#000' }} onClick={handleThemeToggle}>
                   {theme === 'dark' ? (
@@ -88,12 +83,7 @@ const MainContainer = React.memo(() => {
           <Grid container spacing={5}>
             <Grid item xs={12} md={3.8} lg={2.4} className="list">
               <Box className="list_container" sx={{ display: { xs: 'none', md: 'block' } }}>
-                <ListContainer
-                  todosList={todosList}
-                  collection={todosCollection}
-                  datesList={datesList}
-                  itemsCollection={itemsCollection}
-                />
+                <ListContainer collection={todosCollection} datesList={datesList} itemsCollection={itemsCollection} />
               </Box>
             </Grid>
 
