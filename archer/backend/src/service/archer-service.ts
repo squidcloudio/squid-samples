@@ -117,7 +117,7 @@ export class ArcherService extends SquidService {
     // Get all tickers from polygon
     const snapshotTickers = await this.getSnapshotTickers();
     if (!snapshotTickers.length) return;
-    const snapshotPartitions = _.chunk(snapshotTickers, 100);
+    const snapshotPartitions = _.chunk(snapshotTickers, 500);
     const tickerCollection = this.getTickerCollection();
     await PromisePool.for(snapshotPartitions)
       .handleError((error) => {
@@ -125,7 +125,7 @@ export class ArcherService extends SquidService {
       })
       .withConcurrency(1)
       .process(async (snapshotPartition, i) => {
-        console.log(`Handling snapshot partition ${i + 1}/${snapshotPartitions.length}`);
+        const start = Date.now();
         await this.squid.runInTransaction(async (transactionId) => {
           for (const ticker of snapshotPartition) {
             const docRef = tickerCollection.doc(ticker.ticker);
@@ -144,6 +144,7 @@ export class ArcherService extends SquidService {
             );
           }
         });
+        console.log(`Handling snapshot partition ${i + 1}/${snapshotPartitions.length}, took: ${Date.now() - start}ms`);
       });
 
     console.log('All done! Snapshots took: ', Date.now() - startTime, 'ms');
