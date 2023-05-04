@@ -189,8 +189,8 @@ const ItemModal = ({ collection, todos, open, setOpen, fromCalendar, currentDate
             {fromDefaultList && (
               <StyledDatePicker
                 className="datepicker"
-                value={fromCalendar ? dayjs(currentDate) : value}
-                defaultValue={fromCalendar ? dayjs(currentDate) : dayjs(value)}
+                value={fromCalendar ? dayjs(currentDate) : value || null}
+                defaultValue={fromCalendar ? dayjs(currentDate) : dayjs(value) || null}
                 onChange={(newValue: any) => {
                   setValue(newValue);
                 }}
