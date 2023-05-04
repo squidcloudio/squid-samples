@@ -105,6 +105,7 @@ const ListContainer = ({ collection, datesList, itemsCollection }: any) => {
                     isCompleted
                     todosList={todosList}
                     index={i}
+                    fromDefaultList
                   />
                 )}
               </div>

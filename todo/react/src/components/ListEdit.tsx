@@ -19,6 +19,7 @@ export const ListEdit = ({
   fromCalendar,
   fromList,
   todosList,
+  fromDefaultList,
 }: any) => {
   const { id } = useParams();
   const { user } = useAuth0();
@@ -62,7 +63,7 @@ export const ListEdit = ({
           <Typography variant="h4">{!isCompleted ? todos?.data.activeLabel : todos?.data.completeLabel}</Typography>
         )}
 
-        {(!['today', 'tomorrow', 'someday'].includes(id as string) || fromCalendar) && (
+        {(!['today', 'tomorrow', 'someday'].includes(id as string) || fromCalendar || fromDefaultList) && (
           <IconButton onClick={handleOpenMenu}>
             <img src={ThreeDotsIcon} alt="" />
           </IconButton>
