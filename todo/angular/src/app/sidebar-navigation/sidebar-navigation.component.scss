@@ -11,7 +11,7 @@
   &-content {
     width: fit-content;
     padding: 24px 24px 90px;
-
+  overflow: auto;
     background-color: white;
     height: s.size(full);
     display: flex;
@@ -38,5 +38,11 @@
     & .sidebar-navigation-content {
       background-color: c.colors(bg-c, true);
     }
+  }
+}
+
+@media screen and (min-width: 378px) and (max-width: 500px) {
+  .sidebar-navigation-content{
+    width: 61%;
   }
 }
