@@ -21,7 +21,7 @@ import { AvatarComponent } from './global/components/avatar/avatar.component';
 import { NgVarDirective } from './global/directives/ng-var.directive';
 import { ChartComponent } from './global/components/chart/chart.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { PortfolioZeroStateComponent } from './portfolio/portfolio-zero-state/portfolio-zero-state.component';
+import { HomeComponent } from './home/home.component';
 import { SearchBarComponent } from './global/components/search-bar/search-bar.component';
 import { AutofocusDirective } from './global/directives/autofocus.directive';
 import { PercentChangeComponent } from './global/components/percent-change/percent-change.component';
@@ -48,7 +48,7 @@ import { environment } from '../environments/environment';
     NgVarDirective,
     AutofocusDirective,
     ChartComponent,
-    PortfolioZeroStateComponent,
+    HomeComponent,
     SearchBarComponent,
     PercentChangeComponent,
     StockTableComponent,

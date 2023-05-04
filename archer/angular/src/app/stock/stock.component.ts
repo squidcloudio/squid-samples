@@ -36,6 +36,7 @@ export class StockComponent {
   );
 
   readonly userAssetObs = this.tickerIdObs.pipe(switchMap((tickerId) => this.archerService.observeUserAsset(tickerId)));
+  readonly userAssetsObs = this.archerService.observeUserAssets();
 
   readonly chartObs: Observable<Chart> = timer(0, 10000).pipe(
     switchMap(() => this.selectedTimeFrameSubject),

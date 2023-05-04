@@ -45,6 +45,28 @@
       .search_bar_wrapper {
         width: 488px;
       }
+
+      .divider {
+        width: 1px;
+        height: 18px;
+        background: $line3;
+        margin-right: 24px;
+        margin-left: 24px;
+      }
+
+      .portfolio_link {
+        display: flex;
+        align-items: center;
+
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 16px;
+        color: $primary1;
+
+        .icon {
+          margin-right: 4px;
+        }
+      }
     }
   }
 }
