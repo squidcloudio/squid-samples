@@ -21,8 +21,8 @@ const ListContainer = ({ collection, datesList, itemsCollection }: any) => {
 
   const tasksQuery = useQuery(itemsCollection.query().where('userId', '==', `${user?.sub}`), true);
 
-  const today = moment().format('M/D/YYYY'); // create a Moment object for tomorrow's date
-  const tomorrow = moment().add(1, 'day').startOf('day').format('M/D/YYYY'); // create a Moment object for tomorrow's date
+  const today = moment().format('M/D/YYYY');
+  const tomorrow = moment().add(1, 'day').startOf('day').format('M/D/YYYY');
 
   const [open, setOpen] = useState<boolean>(false);
   const [hoveredDay, setHoveredDay] = useState<any>(null);

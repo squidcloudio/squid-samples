@@ -24,7 +24,6 @@ const EditItem = React.memo(({ open, setOpen, index, todos }: any) => {
 
   const items = useQuery(todosCollection.query().where('userId', '==', `${user?.sub}`), true);
 
-  // const currentItem = items[index];
   const [currentItem] = items.filter((el) => el.data.id === index);
 
   const [value, setValue] = useState<any>('');

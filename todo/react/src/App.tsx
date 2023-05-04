@@ -26,15 +26,10 @@ function App() {
     {
       path: '/',
       element: <IsAuthContainer />,
-      errorElement: <h1>Error</h1>,
     },
     {
       path: '/:id',
       element: <IsAuthContainer />,
-    },
-    {
-      path: '/login',
-      element: <Login />,
     },
   ]);
 
