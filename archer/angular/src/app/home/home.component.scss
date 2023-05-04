@@ -8,6 +8,9 @@
     background-size: cover;
     position: relative;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     .hero_logo {
       position: absolute;
@@ -16,6 +19,41 @@
       width: 330px;
       height: 330px;
     }
+
+    .search_section {
+      margin-top: 40px;
+      margin-bottom: 40px;
+      color: $text4;
+      width: 100%;
+      text-align: center;
+      position: relative;
+
+      .title {
+        font-weight: 600;
+        font-size: 36px;
+        line-height: 41px;
+        margin-bottom: 8px;
+        letter-spacing: 0.04em;
+      }
+
+      .description {
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 24px;
+        margin-bottom: 24px;
+        letter-spacing: 0.02em;
+      }
+
+      .search_bar_wrapper {
+        margin: 0 auto;
+        max-width: 488px;
+        width: 100%;
+        border: 1px solid $line2;
+        border-radius: 8px;
+        color: $text1;
+      }
+    }
+
   }
 
   .body {
@@ -36,40 +74,10 @@
         z-index: -1;
       }
 
-      .search_section {
-        margin-top: 40px;
-        margin-bottom: 40px;
-        color: $text1;
-        width: 100%;
-        text-align: center;
-        position: relative;
-
-        .title {
-          font-weight: 600;
-          font-size: 36px;
-          line-height: 41px;
-          margin-bottom: 8px;
-        }
-
-        .description {
-          font-weight: 600;
-          font-size: 16px;
-          line-height: 24px;
-          margin-bottom: 24px;
-        }
-
-        .search_bar_wrapper {
-          margin: 0 auto;
-          max-width: 488px;
-          width: 100%;
-          border: 1px solid $line2;
-          border-radius: 8px;
-        }
-      }
-
       $company_side_padding: 16px;
 
       .companies_section {
+        margin-top: 40px;
         margin-bottom: 60px;
         width: 100%;
         display: grid;

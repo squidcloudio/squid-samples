@@ -9,7 +9,19 @@ import {
   UserAsset,
   UserAssetWithTicker,
 } from 'archer-common';
-import { BehaviorSubject, filter, from, map, NEVER, Observable, of, share, switchMap, timer } from 'rxjs';
+import {
+  BehaviorSubject,
+  distinctUntilChanged,
+  filter,
+  from,
+  map,
+  NEVER,
+  Observable,
+  of,
+  shareReplay,
+  switchMap,
+  timer,
+} from 'rxjs';
 import { AuthService } from '@auth0/auth0-angular';
 
 @Injectable({
@@ -37,7 +49,7 @@ export class ArcherService {
         }),
       );
     }),
-    share(),
+    shareReplay(1),
   );
 
   constructor(private readonly squid: Squid, private readonly authService: AuthService) {
@@ -179,7 +191,10 @@ export class ArcherService {
   }
 
   observeTicker(tickerId: string): Observable<Ticker | undefined> {
-    return this.observeTickers([tickerId]).pipe(map((tickers) => tickers[0]));
+    return this.observeTickers([tickerId]).pipe(
+      map((tickers) => tickers[0]),
+      distinctUntilChanged(),
+    );
   }
 
   async buyAsset(tickerId: string, quantity: number): Promise<void> {
