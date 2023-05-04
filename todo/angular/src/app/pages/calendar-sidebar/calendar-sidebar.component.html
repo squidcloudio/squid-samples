@@ -3,7 +3,7 @@
     <app-calendar-picker></app-calendar-picker>
     <mat-divider class="calendar-divider"></mat-divider>
     <app-calendar-tasks></app-calendar-tasks>
-    <ng-container *ngIf="calendarService.today === calendarService.currentDate && tasks.tomorrowTasks?.length ">
+    <ng-container *ngIf="currentListId === 'today' && tasks.tomorrowTasks?.length ">
       <mat-divider class="calendar-divider"></mat-divider>
       <app-calendar-tasks duringType="tomorrow"></app-calendar-tasks>
     </ng-container>
