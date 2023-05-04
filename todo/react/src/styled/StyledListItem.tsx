@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 
-import { Checkbox, Typography, Divider, Box, IconButton } from '@mui/material';
+import { Checkbox, Typography, Divider, Box, IconButton, Tooltip } from '@mui/material';
 
 import EditButton from '../images/EditButton';
 import EditItem from '../modals/EditItem';
@@ -72,7 +72,13 @@ const StyledListItem = ({ todos, item, index, onClick, isChecked }: any) => {
               {item.data.tags?.map((tag: any, i: any) => {
                 return (
                   <div className={!isChecked ? `tag-item tag-${theme}` : 'tag-item_completed'} key={i}>
-                    <span className="text">{tag?.name}</span>
+                    {tag?.name.length > 15 ? (
+                      <Tooltip title={tag?.name}>
+                        <span className="text">{tag?.name}</span>
+                      </Tooltip>
+                    ) : (
+                      <span>{tag?.name}</span>
+                    )}
                   </div>
                 );
               })}

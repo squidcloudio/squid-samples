@@ -445,6 +445,16 @@ header {
   text-transform: uppercase;
   color: #212121;
 
+  & > span.text {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+
+    max-width: 92%;
+  }
+
+  max-width: 180px;
+
   &_completed {
     border: 1px solid #9e9e9e;
     color: #9e9e9e;
