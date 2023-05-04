@@ -11,7 +11,7 @@
   &-content {
     width: fit-content;
     padding: 24px 24px 90px;
-  overflow: auto;
+    overflow: auto;
     background-color: white;
     height: s.size(full);
     display: flex;
@@ -42,7 +42,7 @@
 }
 
 @media screen and (min-width: 378px) and (max-width: 500px) {
-  .sidebar-navigation-content{
+  .sidebar-navigation-content {
     width: 61%;
   }
 }

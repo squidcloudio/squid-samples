@@ -21,7 +21,7 @@
     right: 0;
     z-index: -1;
   }
-  &-no-content{
+  &-no-content {
     padding-left: 16px;
   }
 }
@@ -106,7 +106,7 @@
     }
     &::placeholder {
       font-size: 16px;
-      color: c.colors(font,true);
+      color: c.colors(font, true);
     }
   }
 }
