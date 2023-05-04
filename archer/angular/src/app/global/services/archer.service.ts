@@ -9,7 +9,7 @@ import {
   UserAsset,
   UserAssetWithTicker,
 } from 'archer-common';
-import { BehaviorSubject, filter, from, map, NEVER, Observable, of, switchMap } from 'rxjs';
+import { BehaviorSubject, filter, from, map, NEVER, Observable, of, switchMap, timer } from 'rxjs';
 import { AuthService } from '@auth0/auth0-angular';
 
 @Injectable({
@@ -21,6 +21,23 @@ export class ArcherService {
   private readonly userAssetsSubject = new BehaviorSubject<UserAssetWithTicker[] | undefined>(undefined);
   private readonly tickerIdsToObserve = new BehaviorSubject<Set<string>>(new Set());
   private readonly tickersSubject = new BehaviorSubject<Ticker[] | undefined>(undefined);
+  private gainersAndLosersObs = timer(0, 60_000 /* every minute */).pipe(
+    switchMap(() => {
+      return from(
+        Promise.all([
+          this.squid.callApi<SnapshotsResponse>('polygon', 'gainers'),
+          this.squid.callApi<SnapshotsResponse>('polygon', 'losers'),
+        ]),
+      ).pipe(
+        switchMap(([gainers, losers]) => {
+          const tickerIds = new Set<string>();
+          gainers.tickers.forEach((ticker) => tickerIds.add(ticker.ticker));
+          losers.tickers.forEach((ticker) => tickerIds.add(ticker.ticker));
+          return this.observeTickers(Array.from(tickerIds));
+        }),
+      );
+    }),
+  );
 
   constructor(private readonly squid: Squid, private readonly authService: AuthService) {
     this.authService.user$
@@ -173,20 +190,7 @@ export class ArcherService {
   }
 
   observeGainersAndLosers(): Observable<Ticker[]> {
-    const gainersAndLosersPromise = Promise.all([
-      this.squid.callApi<SnapshotsResponse>('polygon', 'gainers'),
-      this.squid.callApi<SnapshotsResponse>('polygon', 'losers'),
-    ]);
-
-    return from(gainersAndLosersPromise).pipe(
-      switchMap(([gainers, losers]) => {
-        const tickerIds = new Set<string>();
-        gainers.tickers.forEach((ticker) => tickerIds.add(ticker.ticker));
-        losers.tickers.forEach((ticker) => tickerIds.add(ticker.ticker));
-
-        return this.observeTickers(Array.from(tickerIds));
-      }),
-    );
+    return this.gainersAndLosersObs;
   }
 
   async searchTickers(query: string): Promise<Ticker[]> {

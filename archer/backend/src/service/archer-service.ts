@@ -131,7 +131,7 @@ export class ArcherService extends SquidService {
             const docRef = tickerCollection.doc(ticker.ticker);
             await docRef.update(
               {
-                closePrice: ticker.lastTrade?.p || ticker.day.c || ticker.prevDay.c,
+                closePrice: ticker.min?.c || ticker.lastTrade?.p || ticker.day.c || ticker.prevDay.c,
                 openPrice: ticker.day.o,
                 volume: ticker.day.v,
                 volumeWeighted: ticker.day.vw,
