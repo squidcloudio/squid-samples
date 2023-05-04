@@ -4,6 +4,7 @@ import { useQuery } from '@squidcloud/react';
 import { useState, useRef } from 'react';
 import uuid from 'react-uuid';
 import colors from '../constants/colors';
+import CloseButton from '../images/CloseButton';
 
 const ListModal = ({ id, collection, open, setOpen }: any) => {
   const titleRef = useRef<HTMLInputElement>(null);
@@ -31,8 +32,11 @@ const ListModal = ({ id, collection, open, setOpen }: any) => {
 
   return (
     <Modal className="modal" open={open} onClose={() => setOpen(false)}>
-      <div className="modal_container">
-        <p>Create new list</p>
+      <div className="modal_container" style={{ position: 'relative' }}>
+        <p>New list</p>
+        <div className="modal_container-close" onClick={() => setOpen(false)}>
+          <CloseButton />
+        </div>
         <input type="text" placeholder="Title" ref={titleRef} />
         <Select
           className="modal_container-select"

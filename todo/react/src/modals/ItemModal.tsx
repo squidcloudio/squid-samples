@@ -17,6 +17,7 @@ import { useParams } from 'react-router-dom';
 
 import addList from '../images/Component 1.png';
 import ListModal from './ListModal';
+import CloseButton from '../images/CloseButton';
 
 const ItemModal = ({ collection, todos, open, setOpen, fromCalendar, currentDate }: any) => {
   const { id } = useParams();
@@ -101,7 +102,11 @@ const ItemModal = ({ collection, todos, open, setOpen, fromCalendar, currentDate
   return (
     <Modal className="modal" open={open} onClose={() => setOpen(false)}>
       <div className="modal_container">
-        <p>Add new task</p>
+        <p>New task</p>
+
+        <div className="modal_container-close" onClick={() => setOpen(false)}>
+          <CloseButton />
+        </div>
 
         {fromCalendar && (
           <>

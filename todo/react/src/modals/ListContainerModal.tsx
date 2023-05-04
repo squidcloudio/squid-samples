@@ -1,6 +1,7 @@
 import { Modal } from '@mui/material';
 import { useQuery } from '@squidcloud/react';
 import { useRef } from 'react';
+import CloseButton from '../images/CloseButton';
 
 const ListContainerModal = ({ collection, id, open, setOpen, currentItem }: any) => {
   const listName = useRef<HTMLInputElement>(null);
@@ -19,6 +20,7 @@ const ListContainerModal = ({ collection, id, open, setOpen, currentItem }: any)
     <Modal className="modal" open={open} onClose={() => setOpen(false)}>
       <div className="modal_container">
         <p>Edit label</p>
+        <CloseButton />
         <input type="text" placeholder="Title" ref={listName} defaultValue={currentItem?.data.title} />
 
         <div>

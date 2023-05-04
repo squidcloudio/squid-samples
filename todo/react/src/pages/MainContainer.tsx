@@ -106,7 +106,7 @@ const MainContainer = React.memo(() => {
                 />
               </Box>
 
-              <TodoList itemsCollection={itemsCollection} todos={todos} />
+              <TodoList itemsCollection={itemsCollection} todos={todos} todosCollection={todosCollection} />
 
               <CompletedList
                 todosCollection={todosCollection}

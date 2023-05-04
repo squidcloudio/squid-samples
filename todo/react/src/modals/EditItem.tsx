@@ -12,6 +12,7 @@ import uuid from 'react-uuid';
 import { useCollection, useQuery } from '@squidcloud/react';
 import { Task } from '../interfaces/index';
 import { useAuth0 } from '@auth0/auth0-react';
+import CloseButton from '../images/CloseButton';
 
 const EditItem = React.memo(({ open, setOpen, index, todos }: any) => {
   const titleRef = useRef<HTMLInputElement>(null);
@@ -76,6 +77,11 @@ const EditItem = React.memo(({ open, setOpen, index, todos }: any) => {
     <Modal className="modal" open={open} onClose={() => setOpen(false)}>
       <div className="modal_container">
         <p>Edit item</p>
+
+        <div className="modal_container-close" onClick={() => setOpen(false)}>
+          <CloseButton />
+        </div>
+
         <CssTextField
           label="Title"
           inputRef={titleRef}

@@ -1,6 +1,7 @@
 import { Modal } from '@mui/material';
 import { useQuery } from '@squidcloud/react';
 import { useRef } from 'react';
+import CloseButton from '../images/CloseButton';
 
 const EditModal = ({ collection, id, open, setOpen, isCompleted, completedTasksInCurrentList }: any) => {
   const activeLabelRef = useRef<HTMLInputElement>(null);
@@ -21,6 +22,10 @@ const EditModal = ({ collection, id, open, setOpen, isCompleted, completedTasksI
     <Modal className="modal" open={open} onClose={() => setOpen(false)}>
       <div className="modal_container">
         <p>Edit label</p>
+
+        <div className="modal_container-close" onClick={() => setOpen(false)}>
+          <CloseButton />
+        </div>
         <input type="text" placeholder="Title" ref={activeLabelRef} defaultValue={todos?.data.activeLabel} />
 
         {completedTasksInCurrentList.length > 0 && (
