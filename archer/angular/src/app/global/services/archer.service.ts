@@ -9,7 +9,7 @@ import {
   UserAsset,
   UserAssetWithTicker,
 } from 'archer-common';
-import { BehaviorSubject, filter, from, map, NEVER, Observable, of, switchMap, timer } from 'rxjs';
+import { BehaviorSubject, filter, from, map, NEVER, Observable, of, share, switchMap, timer } from 'rxjs';
 import { AuthService } from '@auth0/auth0-angular';
 
 @Injectable({
@@ -37,6 +37,7 @@ export class ArcherService {
         }),
       );
     }),
+    share(),
   );
 
   constructor(private readonly squid: Squid, private readonly authService: AuthService) {

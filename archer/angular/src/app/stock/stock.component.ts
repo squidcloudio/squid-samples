@@ -8,7 +8,7 @@ import {
   Ticker,
   TimeFrame,
 } from 'archer-common';
-import { BehaviorSubject, filter, from, map, Observable, switchMap, timer } from 'rxjs';
+import { BehaviorSubject, filter, from, map, Observable, share, switchMap, timer } from 'rxjs';
 import { Chart, LineChartData } from '../global/components/chart/chart.component';
 import { Squid } from '@squidcloud/client';
 import * as dayjs from 'dayjs';
@@ -86,6 +86,7 @@ export class StockComponent {
         }),
       );
     }),
+    share(),
   );
 
   constructor(
