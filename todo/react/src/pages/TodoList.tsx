@@ -12,13 +12,14 @@ import moment from 'moment';
 import { useAuth0 } from '@auth0/auth0-react';
 import { ThemeContext } from '../context';
 
-const TodoList = ({ itemsCollection, todos }: any) => {
+const TodoList = ({ itemsCollection, todos, todosCollection }: any) => {
   const { id } = useParams();
   const { user } = useAuth0();
   const [currentDate] = useState(moment());
   const momentString = currentDate.format('M/D/YYYY');
 
   const tomorrow = moment().add(1, 'day').startOf('day').format('M/D/YYYY');
+  const todosList = useQuery(todosCollection.query().where('userId', '==', `${user?.sub}`), true);
 
   const [open, setOpen] = useState<boolean>(false);
 
@@ -84,12 +85,10 @@ const TodoList = ({ itemsCollection, todos }: any) => {
             />
           ))}
 
-        {!(id === 'today' || id === 'tomorrow' || id === 'someday') && (
-          <button className="item_button" onClick={handleSetOpen}>
-            <img src={addList} alt="list" />
-            <span>New task</span>
-          </button>
-        )}
+        <button className="item_button" onClick={handleSetOpen}>
+          <img src={addList} alt="list" />
+          <span>New task</span>
+        </button>
 
         <ItemModal
           collection={itemsCollection}
@@ -98,6 +97,8 @@ const TodoList = ({ itemsCollection, todos }: any) => {
           setOpen={setOpen}
           items={allItems}
           currentDate={currentDate}
+          todosList={todosList}
+          fromDefaultList
         />
       </List>
     </div>

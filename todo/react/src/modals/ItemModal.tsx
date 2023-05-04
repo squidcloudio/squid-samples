@@ -19,7 +19,7 @@ import addList from '../images/Component 1.png';
 import ListModal from './ListModal';
 import CloseButton from '../images/CloseButton';
 
-const ItemModal = ({ collection, todos, open, setOpen, fromCalendar, currentDate }: any) => {
+const ItemModal = ({ collection, todos, open, setOpen, fromCalendar, currentDate, fromDefaultList }: any) => {
   const { id } = useParams();
   const titleRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLInputElement>(null);
@@ -71,9 +71,9 @@ const ItemModal = ({ collection, todos, open, setOpen, fromCalendar, currentDate
         year: 'numeric',
       } as Intl.DateTimeFormatOptions),
       tags,
-      listId: fromCalendar ? selectedValue.id : todos.data.id,
+      listId: fromCalendar || fromDefaultList ? selectedValue.id : todos.data.id,
       userId: user?.sub,
-      listColor: fromCalendar ? selectedValue.color : todos.data.color,
+      listColor: fromCalendar || fromDefaultList ? selectedValue.color : todos.data.color,
       completed: false,
       id: itemNewId,
     });
@@ -138,21 +138,66 @@ const ItemModal = ({ collection, todos, open, setOpen, fromCalendar, currentDate
           </>
         )}
 
+        {fromDefaultList && (
+          <>
+            <Select
+              value={selectedValue?.id}
+              className="modal_container-select"
+              onChange={handleSelectChange}
+              sx={{ '& .MuiMenuItem-root': { display: 'flex', alignItems: 'center' } }}
+            >
+              {todosList?.map((item: any) => {
+                return (
+                  <MenuItem className="modal_container-menu" value={item.data.id} key={item.data.title}>
+                    <div className="modal_container-in">
+                      <div className="modal_container-item" style={{ backgroundColor: `${item.data.color}` }}></div>
+                      <div className="modal_container-color">{item.data.title}</div>
+                    </div>
+                  </MenuItem>
+                );
+              })}
+              <MenuItem className="modal_container-menu">
+                <button className="list_button list_button-selector" onClick={handleOpen}>
+                  <img src={addList} alt="list" />
+                  <span>New list</span>
+                </button>
+              </MenuItem>
+            </Select>
+
+            <ListModal collection={todosCollection} id={id} open={listModal} setOpen={setListModal} />
+          </>
+        )}
+
         <CssTextField label="Title" inputRef={titleRef} className="modal_container-input" />
         <CssTextField label="Description" inputRef={descriptionRef} />
 
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DemoContainer components={['DatePicker']}>
-            <StyledDatePicker
-              className="datepicker"
-              value={fromCalendar ? dayjs(currentDate) : value}
-              defaultValue={fromCalendar ? dayjs(currentDate) : dayjs(value)}
-              onChange={(newValue: any) => {
-                setValue(newValue);
-              }}
-              ref={datePickerRef}
-              disabled={fromCalendar}
-            />
+            {fromCalendar && (
+              <StyledDatePicker
+                className="datepicker"
+                value={fromCalendar ? dayjs(currentDate) : value}
+                defaultValue={fromCalendar ? dayjs(currentDate) : dayjs(value)}
+                onChange={(newValue: any) => {
+                  setValue(newValue);
+                }}
+                ref={datePickerRef}
+                disabled={fromCalendar}
+              />
+            )}
+
+            {fromDefaultList && (
+              <StyledDatePicker
+                className="datepicker"
+                value={fromCalendar ? dayjs(currentDate) : value}
+                defaultValue={fromCalendar ? dayjs(currentDate) : dayjs(value)}
+                onChange={(newValue: any) => {
+                  setValue(newValue);
+                }}
+                ref={datePickerRef}
+                disabled={fromCalendar}
+              />
+            )}
           </DemoContainer>
         </LocalizationProvider>
 

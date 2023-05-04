@@ -20,7 +20,9 @@ const ListContainerModal = ({ collection, id, open, setOpen, currentItem }: any)
     <Modal className="modal" open={open} onClose={() => setOpen(false)}>
       <div className="modal_container">
         <p>Edit label</p>
-        <CloseButton />
+        <div className="modal_container-close" onClick={() => setOpen(false)}>
+          <CloseButton />
+        </div>
         <input type="text" placeholder="Title" ref={listName} defaultValue={currentItem?.data.title} />
 
         <div>
