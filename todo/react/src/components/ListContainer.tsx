@@ -25,6 +25,7 @@ const ListContainer = ({ collection, datesList, itemsCollection }: any) => {
   const tomorrow = moment().add(1, 'day').startOf('day').format('M/D/YYYY'); // create a Moment object for tomorrow's date
 
   const [open, setOpen] = useState<boolean>(false);
+  const [hoveredDay, setHoveredDay] = useState<any>(null);
 
   const handleOpen = useCallback((value: any) => {
     setOpen(value);
@@ -71,7 +72,12 @@ const ListContainer = ({ collection, datesList, itemsCollection }: any) => {
             const { id, title, color } = todo.data;
 
             return (
-              <div className="navlink navlink_spec" key={id}>
+              <div
+                className="navlink navlink_spec"
+                key={id}
+                onMouseEnter={() => setHoveredDay(i)}
+                onMouseLeave={() => setHoveredDay(null)}
+              >
                 <NavLink
                   key={id}
                   to={`/${id}`}
@@ -92,13 +98,15 @@ const ListContainer = ({ collection, datesList, itemsCollection }: any) => {
                   </div>
                 </NavLink>
 
-                <ListEdit
-                  itemsCollection={itemsCollection}
-                  todosCollection={collection}
-                  isCompleted
-                  todosList={todosList}
-                  index={i}
-                />
+                {hoveredDay === i && (
+                  <ListEdit
+                    itemsCollection={itemsCollection}
+                    todosCollection={collection}
+                    isCompleted
+                    todosList={todosList}
+                    index={i}
+                  />
+                )}
               </div>
             );
           })}

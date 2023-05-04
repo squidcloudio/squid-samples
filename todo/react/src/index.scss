@@ -621,7 +621,11 @@ th {
   &_fromList {
     & > button {
       position: absolute;
-      top: 23px;
+      height: 65px;
+
+      &:hover {
+        background-color: transparent;
+      }
     }
   }
 
