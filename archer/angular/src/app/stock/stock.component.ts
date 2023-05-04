@@ -8,13 +8,12 @@ import {
   Ticker,
   TimeFrame,
 } from 'archer-common';
-import { BehaviorSubject, filter, from, map, Observable, switchMap, timer } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, filter, from, map, Observable, switchMap, timer } from 'rxjs';
 import { Chart, LineChartData } from '../global/components/chart/chart.component';
 import { Squid } from '@squidcloud/client';
 import * as dayjs from 'dayjs';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { BuyOrSellStockDialogComponent } from './buy-or-sell-stock-dialog/buy-or-sell-stock-dialog.component';
-import { tick } from '@angular/core/testing';
 
 @Component({
   selector: 'app-stock',
@@ -28,6 +27,7 @@ export class StockComponent {
   readonly tickerIdObs: Observable<string> = this.activatedRoute.params.pipe(
     map((params) => params['tickerId']),
     filter(Boolean),
+    distinctUntilChanged(),
   );
 
   readonly tickerObs: Observable<Ticker> = this.tickerIdObs.pipe(
@@ -36,6 +36,7 @@ export class StockComponent {
   );
 
   readonly userAssetObs = this.tickerIdObs.pipe(switchMap((tickerId) => this.archerService.observeUserAsset(tickerId)));
+  readonly userAssetsObs = this.archerService.observeUserAssets();
 
   readonly chartObs: Observable<Chart> = timer(0, 10000).pipe(
     switchMap(() => this.selectedTimeFrameSubject),
@@ -105,6 +106,4 @@ export class StockComponent {
     };
     this.dialog.open(BuyOrSellStockDialogComponent, config);
   }
-
-  protected readonly tick = tick;
 }

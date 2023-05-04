@@ -3,9 +3,10 @@
     <ng-container *ngVar="userAssetObs | async as userAsset">
       <div class="container">
         <div class="back_to_global_portfolio_section">
-          <a routerLink="/" class="back_to_global_portfolio_link">
+          <a [routerLink]="userAssets.length ? '/portfolio' : '/'" class="back_to_global_portfolio_link"
+             *ngVar="userAssetsObs | async as userAssets">
             <mat-icon class="back_arrow" svgIcon="back_arrow_icon"></mat-icon>
-            <div>Back to global portfolio</div>
+            <div>{{userAssets.length ? 'Back to my portfolio' : 'Back to main page'}}</div>
           </a>
         </div>
 

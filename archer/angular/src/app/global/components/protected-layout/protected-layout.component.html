@@ -1,5 +1,5 @@
 <ng-container *ngIf="userObs | async as user">
-  <div class="global_layout">
+  <div class="global_layout" *ngIf="userAssetsObs | async as userAssets">
     <nav class="navigation_bar">
       <mat-icon class="logo" svgIcon="archer_logo" routerLink="/"></mat-icon>
       <div class="right">
@@ -9,6 +9,13 @@
           <search-bar (cleared)="hideSearchBar()"></search-bar>
         </div>
 
+        <ng-container *ngIf="userAssets.length">
+          <div class="divider"></div>
+          <a class="portfolio_link" routerLink="/portfolio">
+            <mat-icon class="icon" svgIcon="portfolio_icon"></mat-icon>
+            My portfolio
+          </a>
+        </ng-container>
         <avatar class="avatar" [name]="user.name" [imageUrl]="user.picture" [matMenuTriggerFor]="userDropdown"></avatar>
       </div>
     </nav>

@@ -1,11 +1,11 @@
 <ng-container *ngIf="userObs | async as user">
   <ng-container *ngIf="portfolioValueHistoryObs | async as portfolioValueHistory">
     <div class="portfolio_container" *ngIf="userAssetsObs | async as userAssets">
-      <portfolio-zero-state *ngIf="userAssets.length === 0"></portfolio-zero-state>
+      <home *ngIf="userAssets.length === 0"></home>
       <div class="portfolio" *ngIf="userAssets.length > 0">
         <div class="container" *ngVar="getPortfolioChange(userAssets) as changePercent">
           <div class="global_portfolio_section">
-            <div class="title">Global Portfolio</div>
+            <div class="title">My Portfolio</div>
             <totals [value]="getPortfolioValue(userAssets)" [changePercent]="changePercent"></totals>
           </div>
 
