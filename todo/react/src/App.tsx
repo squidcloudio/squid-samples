@@ -4,8 +4,6 @@ import { useEffect } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import IsAuthContainer from './components/IsAuthContainer';
 
-import Login from './pages/Login';
-
 function App() {
   const { isAuthenticated, isLoading, getIdTokenClaims } = useAuth0();
   const { setAuthIdToken } = useSquid();
