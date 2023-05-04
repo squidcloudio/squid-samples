@@ -12,8 +12,8 @@ const CompletedList = React.memo(({ todosCollection, itemsCollection }: any) => 
   const items = useQuery(itemsCollection.query().where('listId', '==', `${id}`), true);
   const { theme } = useContext(ThemeContext);
 
-  const changeStatusToCompleted = (itemId: any) => {
-    itemsCollection.doc(itemId).update({ completed: true });
+  const changeStatusToInProgress = (itemId: any) => {
+    itemsCollection.doc(itemId).update({ completed: false });
   };
 
   const completedItems = items.filter((item) => item.data.completed === true);
@@ -37,7 +37,7 @@ const CompletedList = React.memo(({ todosCollection, itemsCollection }: any) => 
               todos={todos}
               item={item}
               index={i}
-              onClick={() => changeStatusToCompleted(item.data.id)}
+              onClick={() => changeStatusToInProgress(item.data.id)}
             />
           ))}
         </List>

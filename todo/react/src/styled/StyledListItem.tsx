@@ -31,7 +31,6 @@ const StyledListItem = ({ todos, item, index, onClick, isChecked }: any) => {
       <Box width={1} display="flex" alignItems="flex-start">
         <Checkbox
           checked={isChecked}
-          disabled={isChecked}
           onClick={onClick}
           size="small"
           sx={{
