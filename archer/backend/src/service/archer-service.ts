@@ -2,6 +2,7 @@ import { executable, scheduler, secureApi, secureDatabase, SquidService } from '
 import {
   ArcherUser,
   DenyList,
+  MarketStatusResponse,
   PortfolioValueHistory,
   RelevantTicker,
   SnapshotsResponse,
@@ -112,6 +113,9 @@ export class ArcherService extends SquidService {
 
   @scheduler('updateTickerPrices', CronExpression.EVERY_10_SECONDS, true)
   async updateTickerPrices(): Promise<void> {
+    if (!(await this.isMarketOpen())) {
+      return;
+    }
     const startTime = Date.now();
     console.log('Updating ticker prices...');
     // Get all tickers from polygon
@@ -294,11 +298,8 @@ export class ArcherService extends SquidService {
   }
 
   private async isMarketOpen(): Promise<boolean> {
-    // TODO: remove this when done testing
-    return true;
-
-    /*const response = await this.squid.callApi<MarketStatusResponse>('polygon', 'marketStatus');
-    return response.exchanges.nyse === 'open';*/
+    const response = await this.squid.callApi<MarketStatusResponse>('polygon', 'marketStatus');
+    return response.exchanges.nyse === 'open';
   }
 
   private async getSnapshotTickers(): Promise<SnapshotTicker[]> {
