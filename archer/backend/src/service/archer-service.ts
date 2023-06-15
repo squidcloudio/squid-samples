@@ -111,7 +111,7 @@ export class ArcherService extends SquidService {
     console.log('Done caching ticker details!');
   }
 
-  @scheduler('updateTickerPrices', '*/20 * * * * *', false)
+  @scheduler('updateTickerPrices', '*/20 * * * * *', true)
   async updateTickerPrices(): Promise<void> {
     if (!(await this.isMarketOpen())) {
       return;
