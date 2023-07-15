@@ -3,3 +3,4 @@ squid-api-key.json
 node_modules
 mongo
 dist
+.env

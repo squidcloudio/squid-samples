@@ -56,13 +56,6 @@ const config = {
   resolve: {
     plugins: [new TsconfigPathsPlugin({})],
     extensions: ['.tsx', '.ts', '.jsx', '.js'],
-    alias: {
-      // We compile for Node, but we actually run on Deno. Deno has a WebSocket implementation similar to the browser,
-      // so we hack Socket.io to pretend it's on the browser for the purpose of importing WebSocket.
-      './websocket-constructor.js': './websocket-constructor.browser.js',
-      './transports/websocket-constructor.js':
-        './transports/websocket-constructor.browser.js',
-    },
   },
 };
 

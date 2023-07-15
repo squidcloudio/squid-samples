@@ -27,16 +27,16 @@
 
         <div class="position_section" *ngIf="userAsset">
           <ng-container
-            *ngVar="(ticker.closePrice * userAsset.quantity) - (userAsset.avgBuyPrice * userAsset.quantity) as totalReturn">
+            *ngVar="(ticker.closePrice * userAsset.holding.quantity) - (userAsset.holding.avgBuyPrice * userAsset.holding.quantity) as totalReturn">
             <div class="field title">Your position</div>
             <div class="field">
               <div class="name">Shares</div>
-              <div class="value" [ngClass]="totalReturn >= 0 ? 'gain' : 'lose'">{{userAsset.quantity}}</div>
+              <div class="value" [ngClass]="totalReturn >= 0 ? 'gain' : 'lose'">{{userAsset.holding.quantity}}</div>
             </div>
             <div class="field">
               <div class="name">Market value</div>
               <div class="value"
-                   [ngClass]="totalReturn >= 0 ? 'gain' : 'lose'">{{userAsset.quantity * ticker.closePrice | currency: 'USD'}}</div>
+                   [ngClass]="totalReturn >= 0 ? 'gain' : 'lose'">{{userAsset.holding.quantity * ticker.closePrice | currency: 'USD'}}</div>
             </div>
             <div class="field">
               <div class="name">Total return</div>
