@@ -1,6 +1,4 @@
 # This file contains the application API key - please do not add to version control
-squid-api-key.json
 node_modules
-mongo
 dist
 .env

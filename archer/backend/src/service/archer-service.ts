@@ -111,7 +111,7 @@ export class ArcherService extends SquidService {
     console.log('Done caching ticker details!');
   }
 
-  @scheduler('updateTickerPrices', CronExpression.EVERY_10_SECONDS, true)
+  @scheduler('updateTickerPrices', '*/20 * * * * *', true)
   async updateTickerPrices(): Promise<void> {
     if (!(await this.isMarketOpen())) {
       return;
@@ -121,7 +121,7 @@ export class ArcherService extends SquidService {
     // Get all tickers from polygon
     const snapshotTickers = await this.getSnapshotTickers();
     if (!snapshotTickers.length) return;
-    const snapshotPartitions = _.chunk(snapshotTickers, 500);
+    const snapshotPartitions = _.chunk(snapshotTickers, 100);
     const tickerCollection = this.getTickerCollection();
     await PromisePool.for(snapshotPartitions)
       .handleError((error) => {
