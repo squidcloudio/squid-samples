@@ -10,7 +10,7 @@ export default function App() {
       <TopNavBar />
       <ConfirmationBar />
 
-      <div className="container basis-full mt-8">
+      <div className="container basis-full mt-8 pb-4">
         <Routes>
           <Route path="/" element={<Home />} />
         </Routes>
