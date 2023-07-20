@@ -1,4 +1,5 @@
 import React from 'react';
+import { omit } from 'lodash';
 
 type ButtonType = 'primary' | 'secondary' | 'tertiary';
 
@@ -68,7 +69,7 @@ const buttonClasses: Record<ButtonType, Array<string>> = {
 export default function Button(props: ButtonProps) {
   return (
     <button
-      {...props}
+      {...omit(props, 'buttonType')}
       className={`${buttonClasses[props.buttonType].join(' ')} ${
         props.className ?? ''
       }`}

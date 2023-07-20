@@ -14,11 +14,7 @@ export default function ConfirmationBar() {
           Explore next steps
         </a>
         or
-        <Button
-          buttonType="tertiary"
-          className="ml-3"
-          onClick={() => console.log('hi')}
-        >
+        <Button buttonType="tertiary" className="ml-3">
           Go to Console
         </Button>
       </div>

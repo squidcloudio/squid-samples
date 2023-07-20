@@ -1,6 +1,6 @@
 export default function Intro() {
   return (
-    <div className="px-5 pt-11 pb-6 bg-primary3 rounded-t-2xl">
+    <div className="px-5 pt-11 pb-6 bg-primary3">
       <div>
         <div className="text-primary1 font-extrabold mb-2 text-[28px] leading-[120%]">
           Revolutionize investing with Ticker Tape!
