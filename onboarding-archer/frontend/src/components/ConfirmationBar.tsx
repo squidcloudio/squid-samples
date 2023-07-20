@@ -1,4 +1,4 @@
-import TertiaryButton from '@/components/buttons/TertiaryButton.tsx';
+import Button from '@/components/Button.tsx';
 
 export default function ConfirmationBar() {
   return (
@@ -14,9 +14,13 @@ export default function ConfirmationBar() {
           Explore next steps
         </a>
         or
-        <TertiaryButton className="ml-3" onClick={() => console.log('hi')}>
+        <Button
+          buttonType="tertiary"
+          className="ml-3"
+          onClick={() => console.log('hi')}
+        >
           Go to Console
-        </TertiaryButton>
+        </Button>
       </div>
     </div>
   );
