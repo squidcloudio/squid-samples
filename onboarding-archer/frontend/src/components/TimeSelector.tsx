@@ -1,3 +1,5 @@
+import React from 'react';
+
 interface TimeSelectorOption {
   label: string;
   value: string;
@@ -21,22 +23,22 @@ export default function TimeSelector() {
     >
       {options.map((option) => {
         return (
-          <>
+          <React.Fragment key={option.value}>
             {option.separator && (
               <div className="w-[1px] h-[18px] bg-line1"></div>
             )}
             <div
               className={`py-[6px] px-[8px] bg-bg4 text-text2 rounded-[6px] text-[12px] leading-[16px] font-extrabold cursor-pointer ${
-                gain ? 'hover:bg-gain2' : 'hover:bg-lose2'
+                gain ? 'hover:bg-gain3' : 'hover:bg-lose3'
               } ${
                 selectedValue === option.value
-                  ? `${gain ? '!bg-gain1' : '!bg-lose1'} text-bg1`
+                  ? `${gain ? '!bg-gain1' : '!bg-lose1'} !text-bg1`
                   : ''
               }`}
             >
               {option.label}
             </div>
-          </>
+          </React.Fragment>
         );
       })}
     </div>

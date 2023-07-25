@@ -1,7 +1,14 @@
+const colors = Array.from({ length: 18 }, (_, i) => `bg-data${i + 1}`);
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   darkMode: 'class',
+  purge: {
+    options: {
+      safelist: colors,
+    },
+  },
   theme: {
     screens: {
       md: '648px',

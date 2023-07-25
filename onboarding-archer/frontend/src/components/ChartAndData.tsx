@@ -4,7 +4,7 @@ import TimeSelector from '@/components/TimeSelector.tsx';
 
 export default function ChartAndData() {
   return (
-    <div className="w-full">
+    <div className="w-full mb-[48px]">
       <div className="flex justify-between items-center border-b border-line1 pb-[12px] mb-[12px]">
         <div className="flex items-center">
           <div className="text-[32px] font-extrabold leading-[100%] mr-[12px]">

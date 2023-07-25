@@ -3,7 +3,7 @@ import plus_button_icon from '@/assets/icons/plus_button_icon.svg';
 import minus_button_icon from '@/assets/icons/minus_button_icon.svg';
 import up_arrow from '@/assets/icons/up_arrow.svg';
 
-export const Icons: Record<string, any> = {
+export const Icons = {
   archer_logo,
   plus_button_icon,
   minus_button_icon,
