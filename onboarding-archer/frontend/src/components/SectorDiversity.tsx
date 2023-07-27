@@ -51,6 +51,7 @@ export function SectorDiversity({
               outerRadius={92}
               fill="#8884d8"
               paddingAngle={0}
+              blendStroke={true}
               dataKey="value"
             >
               {pieDataArray.map((_entry, index) => (
