@@ -7,7 +7,7 @@ export default function Home() {
       <div className="w-[384px] h-full">
         <LeftPanel />
       </div>
-      <div className="flex-grow">
+      <div className="flex-grow max-w-[800px]">
         <MainPanel />
       </div>
     </div>

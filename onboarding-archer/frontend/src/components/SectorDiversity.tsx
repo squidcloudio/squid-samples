@@ -1,0 +1,100 @@
+import React from 'react';
+import { PortfolioItem } from '@/types/PortfolioTypes.ts';
+import DistributionCard from '@/components/DistributionCard.tsx';
+import { DistributionTitle } from '@/components/DistributionTitle.tsx';
+import { Cell, Pie, PieChart, Tooltip } from 'recharts';
+import { calculatePercent } from '@/utils/Portfolio.ts';
+
+interface SectorDiversityProps extends React.HTMLAttributes<HTMLElement> {
+  portfolio: Array<PortfolioItem>;
+}
+
+export function SectorDiversity({
+  portfolio,
+  className,
+  ...otherProps
+}: SectorDiversityProps) {
+  const pieData = portfolio.reduce((acc, item) => {
+    const sector = item.sector;
+    if (acc[sector]) {
+      acc[sector] += calculatePercent(portfolio, item);
+    } else {
+      acc[sector] = calculatePercent(portfolio, item);
+    }
+    return acc;
+  }, {} as Record<string, number>);
+
+  const pieDataArray = Object.entries(pieData).map(([key, value]) => ({
+    name: key,
+    value,
+  }));
+
+  pieDataArray.sort((a, b) => b.value - a.value);
+
+  return (
+    <DistributionCard {...otherProps} className={`flex ${className ?? ''}`}>
+      <div className="flex gap-[32px] items-center">
+        <div>
+          <DistributionTitle className="mb-[16px]">
+            Sector Diversity
+          </DistributionTitle>
+          <PieChart
+            width={184}
+            height={184}
+            margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
+          >
+            <Pie
+              data={pieDataArray}
+              cx={92}
+              cy={92}
+              innerRadius={75}
+              outerRadius={92}
+              fill="#8884d8"
+              paddingAngle={0}
+              dataKey="value"
+            >
+              {pieDataArray.map((_entry, index) => (
+                <Cell
+                  key={`cell-${index}`}
+                  style={{ outline: 'none' }}
+                  fill={`var(--data${index + 1})`}
+                />
+              ))}
+            </Pie>
+            <Tooltip content={<PieTooltip />} />
+          </PieChart>
+        </div>
+        <div className="flex flex-col gap-[12px]">
+          {pieDataArray.map((item, index) => (
+            <div
+              className="flex items-center gap-x-[8px] text-[12px] leading-[16px]"
+              key={item.name}
+            >
+              <div
+                className={`w-[10px] h-[10px] rounded-[10px] bg-data${
+                  index + 1
+                }`}
+              ></div>
+              <div>{item.name}</div>
+              <div className="font-extrabold">{item.value}%</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </DistributionCard>
+  );
+}
+
+const PieTooltip: React.FC<any> = ({ active, payload }) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="bg-bg2 py-2 px-4 border-1 border-text1 drop-shadow-card rounded">
+        <p className="label">{`${
+          payload[0].payload.name
+        }: ${payload[0].value.toLocaleString()}%`}</p>
+      </div>
+    );
+  }
+
+  return null;
+};

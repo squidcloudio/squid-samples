@@ -4,11 +4,7 @@ const colors = Array.from({ length: 18 }, (_, i) => `bg-data${i + 1}`);
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   darkMode: 'class',
-  purge: {
-    options: {
-      safelist: colors,
-    },
-  },
+  safelist: colors,
   theme: {
     screens: {
       md: '648px',
