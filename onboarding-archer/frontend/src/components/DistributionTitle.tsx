@@ -8,7 +8,7 @@ export function DistributionTitle({
   return (
     <div
       {...otherProps}
-      className={`text-[16px] font-extrabold leading-[100%] ${className ?? ''}`}
+      className={`text-[16px] font-extrabold leading-[16px] ${className ?? ''}`}
     >
       {children}
     </div>

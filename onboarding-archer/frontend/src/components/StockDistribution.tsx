@@ -4,6 +4,7 @@ import Holdings from '@/components/Holdings.tsx';
 import { DistributionTitle } from '@/components/DistributionTitle.tsx';
 import { SectorDiversity } from '@/components/SectorDiversity.tsx';
 import { calculatePercent } from '@/utils/Portfolio.ts';
+import Shares from '@/components/Shares.tsx';
 
 interface StockDistributionProps {
   portfolio: Array<PortfolioItem>;
@@ -76,9 +77,7 @@ export default function StockDistribution({
         ></SectorDiversity>
         <div className="basis-[260px]">
           <Holdings portfolio={portfolio}></Holdings>
-          <DistributionCard className="mt-[32px]">
-            right bottom
-          </DistributionCard>
+          <Shares portfolio={portfolio} className="mt-[32px]"></Shares>
         </div>
       </div>
     </>
