@@ -49,7 +49,6 @@ export function SectorDiversity({
               cy={92}
               innerRadius={75}
               outerRadius={92}
-              fill="#8884d8"
               paddingAngle={0}
               blendStroke={true}
               dataKey="value"
