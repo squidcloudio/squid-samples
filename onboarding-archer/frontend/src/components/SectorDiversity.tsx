@@ -1,9 +1,9 @@
 import React from 'react';
-import { PortfolioItem } from '@/types/PortfolioTypes.ts';
 import DistributionCard from '@/components/DistributionCard.tsx';
 import { DistributionTitle } from '@/components/DistributionTitle.tsx';
 import { Cell, Pie, PieChart, Tooltip } from 'recharts';
 import { calculatePercent } from '@/utils/Portfolio.ts';
+import { PortfolioItem } from '@/common/common-types.ts';
 
 interface SectorDiversityProps extends React.HTMLAttributes<HTMLElement> {
   portfolio: Array<PortfolioItem>;

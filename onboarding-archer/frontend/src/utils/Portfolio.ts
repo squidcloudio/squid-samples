@@ -1,4 +1,4 @@
-import { PortfolioItem } from '@/types/PortfolioTypes.ts';
+import { PortfolioItem } from '@/common/common-types.ts';
 
 export function calculatePercent(
   portfolio: Array<PortfolioItem>,

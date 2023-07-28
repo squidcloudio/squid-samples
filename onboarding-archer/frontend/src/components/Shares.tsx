@@ -1,7 +1,7 @@
 import React from 'react';
-import { PortfolioItem } from '@/types/PortfolioTypes.ts';
 import DistributionCard from '@/components/DistributionCard.tsx';
 import { DistributionTitle } from '@/components/DistributionTitle.tsx';
+import { PortfolioItem } from '@/common/common-types.ts';
 
 interface SharesProps extends React.HTMLAttributes<HTMLElement> {
   portfolio: Array<PortfolioItem>;

@@ -1,17 +1,20 @@
 import Select from 'react-select';
 import Icon from '@/components/lib/Icon.tsx';
 
-interface TickerOption {
+export interface TickerOption {
   value: string;
   label: string;
 }
 
-export default function TickerTapeItem() {
-  const items: Array<TickerOption> = [
-    { value: 'AAPL', label: 'AAPL' },
-    { value: 'MSFT', label: 'MSFT' },
-  ];
+interface TickerTapeItemProps {
+  tickerOptions: Array<TickerOption>;
+  selectedTickerOption?: TickerOption;
+}
 
+export default function TickerTapeItem({
+  tickerOptions,
+  selectedTickerOption,
+}: TickerTapeItemProps) {
   // noinspection JSUnusedGlobalSymbols
   return (
     <div className="flex items-center justify-between">
@@ -23,8 +26,8 @@ export default function TickerTapeItem() {
           indicatorSeparator: () => 'hidden',
           dropdownIndicator: () => '!text-text1 w-[14px] !p-[0] mr-[16px]',
         }}
-        defaultValue={items[0]}
-        options={items}
+        defaultValue={selectedTickerOption}
+        options={tickerOptions}
         isSearchable={true}
         name="ticker"
       />

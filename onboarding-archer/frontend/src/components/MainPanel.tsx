@@ -1,6 +1,6 @@
 import ChartAndData from '@/components/ChartAndData.tsx';
 import DistributionAndDiversity from '@/components/DistributionAndDiversity.tsx';
-import { PortfolioItem } from '@/types/PortfolioTypes.ts';
+import { PortfolioItem } from '@/common/common-types.ts';
 
 export default function MainPanel() {
   const portfolioItems: Array<PortfolioItem> = [

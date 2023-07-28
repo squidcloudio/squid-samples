@@ -1,5 +1,5 @@
 import StockDistribution from '@/components/StockDistribution.tsx';
-import { PortfolioItem } from '@/types/PortfolioTypes.ts';
+import { PortfolioItem } from '@/common/common-types.ts';
 
 interface DistributionAndDiversityProps {
   portfolio: Array<PortfolioItem>;

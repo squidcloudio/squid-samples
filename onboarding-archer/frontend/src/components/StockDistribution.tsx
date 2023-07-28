@@ -1,10 +1,10 @@
 import DistributionCard from '@/components/DistributionCard.tsx';
-import { PortfolioItem } from '@/types/PortfolioTypes.ts';
 import Holdings from '@/components/Holdings.tsx';
 import { DistributionTitle } from '@/components/DistributionTitle.tsx';
 import { SectorDiversity } from '@/components/SectorDiversity.tsx';
 import { calculatePercent } from '@/utils/Portfolio.ts';
 import Shares from '@/components/Shares.tsx';
+import { PortfolioItem } from '@/common/common-types.ts';
 
 interface StockDistributionProps {
   portfolio: Array<PortfolioItem>;
