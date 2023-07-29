@@ -4,15 +4,11 @@ import { DistributionTitle } from '@/components/DistributionTitle.tsx';
 import { SectorDiversity } from '@/components/SectorDiversity.tsx';
 import { calculatePercent } from '@/utils/Portfolio.ts';
 import Shares from '@/components/Shares.tsx';
-import { PortfolioItem } from '@/common/common-types.ts';
+import { useArcherContext } from '@/utils/ArcherContextProvider.tsx';
 
-interface StockDistributionProps {
-  portfolio: Array<PortfolioItem>;
-}
+export default function StockDistribution() {
+  const { portfolio } = useArcherContext();
 
-export default function StockDistribution({
-  portfolio,
-}: StockDistributionProps) {
   return (
     <>
       <DistributionCard>
@@ -24,27 +20,27 @@ export default function StockDistribution({
             {portfolio.map((item, index) => (
               <div
                 className="flex items-center gap-x-[8px] text-[12px] leading-[16px]"
-                key={item.tickerId}
+                key={item.id}
               >
                 <div
                   className={`w-[10px] h-[10px] rounded-[10px] bg-data${
                     index + 1
                   }`}
                 ></div>
-                <div>{item.tickerId}</div>
+                <div>{item.id}</div>
                 <div className="font-extrabold">
                   {calculatePercent(portfolio, item)}%
                 </div>
                 <div
                   className={
-                    item.changeFromYesterdayPercent >= 0
+                    item.changeFromPrevClosePercent >= 0
                       ? 'text-gain1'
                       : 'text-lose1'
                   }
                 >
                   (
-                  {(item.changeFromYesterdayPercent >= 0 ? '+' : '') +
-                    item.changeFromYesterdayPrice.toFixed(3)}
+                  {(item.changeFromPrevClosePercent >= 0 ? '+' : '') +
+                    item.changeFromPrevClosePrice}
                   )
                 </div>
               </div>
@@ -59,7 +55,7 @@ export default function StockDistribution({
             const width = calculatePercent(portfolio, item);
             return (
               <div
-                key={item.tickerId}
+                key={item.id}
                 style={{ width: `${width}%` }}
                 className={`h-full w-[${calculatePercent(
                   portfolio,
@@ -71,13 +67,10 @@ export default function StockDistribution({
         </div>
       </DistributionCard>
       <div className="flex justify-between mt-[32px]">
-        <SectorDiversity
-          portfolio={portfolio}
-          className="basis-[468px]"
-        ></SectorDiversity>
+        <SectorDiversity className="basis-[468px]"></SectorDiversity>
         <div className="basis-[260px]">
-          <Holdings portfolio={portfolio}></Holdings>
-          <Shares portfolio={portfolio} className="mt-[32px]"></Shares>
+          <Holdings />
+          <Shares className="mt-[32px]" />
         </div>
       </div>
     </>

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import App from '@/components/App.tsx';
 import { SquidContextProvider } from '@squidcloud/react';
+import { ArcherContextProvider } from '@/utils/ArcherContextProvider.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <SquidContextProvider
@@ -13,10 +14,12 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       squidDeveloperId: 'nir2',
     }}
   >
-    <React.StrictMode>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </React.StrictMode>
+    <ArcherContextProvider>
+      <React.StrictMode>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </React.StrictMode>
+    </ArcherContextProvider>
   </SquidContextProvider>,
 );

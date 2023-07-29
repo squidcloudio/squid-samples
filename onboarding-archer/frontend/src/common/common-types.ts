@@ -176,4 +176,7 @@ export interface Ticker {
 export interface PortfolioItem {
   tickerId: string;
   amount: number;
+  indexInUi: number;
 }
+
+export type PortfolioTicker = Ticker & Omit<PortfolioItem, 'tickerId'>;

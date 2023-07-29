@@ -1,17 +1,13 @@
 import React from 'react';
 import DistributionCard from '@/components/DistributionCard.tsx';
 import { DistributionTitle } from '@/components/DistributionTitle.tsx';
-import { PortfolioItem } from '@/common/common-types.ts';
-
-interface SharesProps extends React.HTMLAttributes<HTMLElement> {
-  portfolio: Array<PortfolioItem>;
-}
+import { useArcherContext } from '@/utils/ArcherContextProvider.tsx';
 
 export default function Shares({
-  portfolio,
   className,
   ...otherProps
-}: SharesProps) {
+}: React.HTMLAttributes<HTMLElement>) {
+  const { portfolio } = useArcherContext();
   return (
     <DistributionCard {...otherProps} className={` ${className ?? ''}`}>
       <DistributionTitle className="mb-[16px]">Shares</DistributionTitle>

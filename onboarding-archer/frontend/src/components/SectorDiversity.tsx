@@ -3,17 +3,13 @@ import DistributionCard from '@/components/DistributionCard.tsx';
 import { DistributionTitle } from '@/components/DistributionTitle.tsx';
 import { Cell, Pie, PieChart, Tooltip } from 'recharts';
 import { calculatePercent } from '@/utils/Portfolio.ts';
-import { PortfolioItem } from '@/common/common-types.ts';
-
-interface SectorDiversityProps extends React.HTMLAttributes<HTMLElement> {
-  portfolio: Array<PortfolioItem>;
-}
+import { useArcherContext } from '@/utils/ArcherContextProvider.tsx';
 
 export function SectorDiversity({
-  portfolio,
   className,
   ...otherProps
-}: SectorDiversityProps) {
+}: React.HTMLAttributes<HTMLElement>) {
+  const { portfolio } = useArcherContext();
   const pieData = portfolio.reduce((acc, item) => {
     const sector = item.sector;
     if (acc[sector]) {
@@ -29,11 +25,9 @@ export function SectorDiversity({
     value,
   }));
 
-  pieDataArray.sort((a, b) => b.value - a.value);
-
   return (
     <DistributionCard {...otherProps} className={`flex ${className ?? ''}`}>
-      <div className="flex gap-[32px] items-center">
+      <div className="flex gap-[32px] items-center flex-grow">
         <div>
           <DistributionTitle className="mb-[16px]">
             Sector Diversity
@@ -64,7 +58,7 @@ export function SectorDiversity({
             <Tooltip content={<PieTooltip />} />
           </PieChart>
         </div>
-        <div className="flex flex-col gap-[12px]">
+        <div className="flex flex-col gap-[12px] flex-grow">
           {pieDataArray.map((item, index) => (
             <div
               className="flex items-center gap-x-[8px] text-[12px] leading-[16px]"
@@ -75,8 +69,12 @@ export function SectorDiversity({
                   index + 1
                 }`}
               ></div>
-              <div>{item.name}</div>
-              <div className="font-extrabold">{item.value}%</div>
+              <div className="truncate max-w-[158px]" title={item.name}>
+                {item.name}
+              </div>
+              <div className="font-extrabold justify-self-end flex-grow text-end">
+                {item.value}%
+              </div>
             </div>
           ))}
         </div>

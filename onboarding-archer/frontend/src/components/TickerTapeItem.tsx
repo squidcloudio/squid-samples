@@ -1,5 +1,6 @@
 import Select from 'react-select';
 import Icon from '@/components/lib/Icon.tsx';
+import { useArcherContext } from '@/utils/ArcherContextProvider.tsx';
 
 export interface TickerOption {
   value: string;
@@ -8,13 +9,16 @@ export interface TickerOption {
 
 interface TickerTapeItemProps {
   tickerOptions: Array<TickerOption>;
-  selectedTickerOption?: TickerOption;
+  defaultOption?: TickerOption;
+  index: number;
 }
 
 export default function TickerTapeItem({
   tickerOptions,
-  selectedTickerOption,
+  defaultOption,
+  index,
 }: TickerTapeItemProps) {
+  const { portfolio } = useArcherContext();
   // noinspection JSUnusedGlobalSymbols
   return (
     <div className="flex items-center justify-between">
@@ -26,7 +30,7 @@ export default function TickerTapeItem({
           indicatorSeparator: () => 'hidden',
           dropdownIndicator: () => '!text-text1 w-[14px] !p-[0] mr-[16px]',
         }}
-        defaultValue={selectedTickerOption}
+        defaultValue={defaultOption}
         options={tickerOptions}
         isSearchable={true}
         name="ticker"
@@ -37,7 +41,7 @@ export default function TickerTapeItem({
           icon="minus_button_icon"
           className="hover:opacity-80 active:opacity-70 cursor-pointer"
         ></Icon>
-        100
+        {portfolio[index].amount}
         <Icon
           icon="plus_button_icon"
           className="hover:opacity-80 active:opacity-70 cursor-pointer"

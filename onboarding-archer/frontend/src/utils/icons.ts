@@ -19,7 +19,7 @@ import IBM from '@/assets/icons/tickers/IBM.svg';
 import INTC from '@/assets/icons/tickers/INTC.svg';
 import JNJ from '@/assets/icons/tickers/JNJ.svg';
 import JPM from '@/assets/icons/tickers/JPM.svg';
-import KA from '@/assets/icons/tickers/KA.svg';
+import KO from '@/assets/icons/tickers/KO.svg';
 import MCD from '@/assets/icons/tickers/MCD.svg';
 import MMM from '@/assets/icons/tickers/MMM.svg';
 import MRK from '@/assets/icons/tickers/MRK.svg';
@@ -55,7 +55,7 @@ export const Icons = {
   INTC,
   JNJ,
   JPM,
-  KA,
+  KO,
   MCD,
   MMM,
   MRK,

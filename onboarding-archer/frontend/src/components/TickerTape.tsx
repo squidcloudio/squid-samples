@@ -1,14 +1,40 @@
 import TickerTapeItem, { TickerOption } from '@/components/TickerTapeItem.tsx';
 import Button from '@/components/Button.tsx';
-import { ALL_TICKERS } from '@/common/common-types.ts';
+import { useArcherContext } from '@/utils/ArcherContextProvider.tsx';
+import { useCollection } from '@squidcloud/react';
+import { PortfolioItem } from '@/common/common-types.ts';
+import { useEffect } from 'react';
 
 export default function TickerTape() {
-  const tickerOptions: Array<TickerOption> = ALL_TICKERS.map((ticker) => ({
-    value: ticker.id,
+  const portfolioCollection = useCollection<PortfolioItem>('portfolio');
+  const { portfolio, allTickers } = useArcherContext();
+  const tickerOptions: Array<TickerOption> = allTickers.map((ticker) => ({
     label: ticker.id,
+    value: ticker.id,
   }));
-  const startIndex = Math.floor(Math.random() * (tickerOptions.length - 5));
-  const preselectedTickers = tickerOptions.slice(startIndex, startIndex + 5);
+
+  useEffect(() => {
+    if (!portfolio.length) {
+      const randomStartIndex = Math.floor(
+        Math.random() * (tickerOptions.length - 5),
+      );
+      const randomPreselectedTickers = tickerOptions.slice(
+        randomStartIndex,
+        randomStartIndex + 5,
+      );
+      for (let i = 0; i < randomPreselectedTickers.length; i++) {
+        const ticker = randomPreselectedTickers[i];
+        portfolioCollection
+          .doc(i.toString())
+          .insert({
+            tickerId: ticker.value,
+            amount: 1,
+            indexInUi: i,
+          })
+          .then();
+      }
+    }
+  }, [portfolio]);
 
   return (
     <div className="h-full flex flex-col">
@@ -16,11 +42,15 @@ export default function TickerTape() {
         Ticker Tape Value
       </div>
       <div className="flex flex-col gap-[16px]">
-        {preselectedTickers.map((item) => (
+        {portfolio.map((item, index) => (
           <TickerTapeItem
-            key={item.label}
+            key={item.id}
             tickerOptions={tickerOptions}
-            selectedTickerOption={item}
+            defaultOption={{
+              label: item.id,
+              value: item.id,
+            }}
+            index={index}
           />
         ))}
       </div>

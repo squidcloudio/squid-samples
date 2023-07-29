@@ -11,7 +11,6 @@ import {
 export class OnboardingArcherService extends SquidService {
   private readonly tickerCollection = this.squid.collection<Ticker>("ticker");
 
-  // TODO: update this
   @secureDatabase("all", "built_in_db")
   allowAllAccessToBuiltInDb(): boolean {
     return true;
