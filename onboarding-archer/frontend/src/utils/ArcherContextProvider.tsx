@@ -3,13 +3,16 @@ import {
   PortfolioItem,
   PortfolioTicker,
   Ticker,
+  UserProfile,
 } from '@/common/common-types.ts';
 import { useCollection, useQuery } from '@squidcloud/react';
 
-interface ArcherContextData {
+export interface ArcherContextData {
   ready: boolean;
   allTickers: Array<Ticker>;
+  allTickersMap: Record<string, Ticker>;
   portfolio: Array<PortfolioTicker>;
+  userProfile: UserProfile | undefined;
 }
 
 interface ArcherContextProviderProps {
@@ -21,20 +24,28 @@ const ArcherContext = createContext<ArcherContextData | null>(null);
 export function ArcherContextProvider({
   children,
 }: ArcherContextProviderProps) {
-  const tickerCollection = useCollection<Ticker>('ticker');
-  const portfolioCollection = useCollection<PortfolioItem>('portfolio');
+  const userProfileCollection = useCollection<UserProfile>('userProfile');
+  const userProfileResponse = useQuery<UserProfile>(
+    userProfileCollection.query().eq('id', 'defaultUser'),
+    true,
+  );
 
+  const tickerCollection = useCollection<Ticker>('ticker');
   const allTickersResponse = useQuery<Ticker>(tickerCollection.query(), true);
+
+  const portfolioCollection = useCollection<PortfolioItem>('portfolio');
   const portfolioResponse = useQuery<PortfolioItem>(
     portfolioCollection.query().sortBy('indexInUi'),
     true,
   );
 
-  const data = useMemo(() => {
+  const data = useMemo<ArcherContextData>(() => {
     if (!allTickersResponse.data || !portfolioResponse.data) {
       return {
         allTickers: [],
+        allTickersMap: {},
         portfolio: [],
+        userProfile: undefined,
         ready: false,
       };
     }
@@ -52,17 +63,23 @@ export function ArcherContextProvider({
 
     return {
       allTickers: allTickersResponse.data,
+      allTickersMap,
       portfolio,
+      userProfile: userProfileResponse.data[0],
       ready: !allTickersResponse.loading && !portfolioResponse.loading,
     };
-  }, [allTickersResponse.data, portfolioResponse.data]);
+  }, [
+    allTickersResponse.data,
+    portfolioResponse.data,
+    userProfileResponse.data,
+  ]);
 
   return (
     <ArcherContext.Provider value={data}>{children}</ArcherContext.Provider>
   );
 }
 
-export function useArcherContext() {
+export function useArcherContext(): ArcherContextData {
   const context = useContext(ArcherContext);
   if (context === null) {
     throw new Error(

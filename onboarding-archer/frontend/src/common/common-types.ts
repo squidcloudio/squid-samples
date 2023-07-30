@@ -179,4 +179,9 @@ export interface PortfolioItem {
   indexInUi: number;
 }
 
+export interface UserProfile {
+  id: string;
+  balance: number;
+}
+
 export type PortfolioTicker = Ticker & Omit<PortfolioItem, 'tickerId'>;

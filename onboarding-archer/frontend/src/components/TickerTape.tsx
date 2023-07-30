@@ -1,40 +1,48 @@
 import TickerTapeItem, { TickerOption } from '@/components/TickerTapeItem.tsx';
 import Button from '@/components/Button.tsx';
 import { useArcherContext } from '@/utils/ArcherContextProvider.tsx';
-import { useCollection } from '@squidcloud/react';
+import { useEffect, useState } from 'react';
+import PriceDisplay from '@/components/PriceDisplay.tsx';
+import { buyOrSellTicker } from '@/utils/portfolio.ts';
 import { PortfolioItem } from '@/common/common-types.ts';
-import { useEffect } from 'react';
+import { useCollection } from '@squidcloud/react';
 
 export default function TickerTape() {
+  const archerContextData = useArcherContext();
+  const { portfolio, allTickers, userProfile } = archerContextData;
   const portfolioCollection = useCollection<PortfolioItem>('portfolio');
-  const { portfolio, allTickers } = useArcherContext();
   const tickerOptions: Array<TickerOption> = allTickers.map((ticker) => ({
     label: ticker.id,
     value: ticker.id,
   }));
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (!portfolio.length) {
-      const randomStartIndex = Math.floor(
-        Math.random() * (tickerOptions.length - 5),
-      );
-      const randomPreselectedTickers = tickerOptions.slice(
-        randomStartIndex,
-        randomStartIndex + 5,
-      );
-      for (let i = 0; i < randomPreselectedTickers.length; i++) {
-        const ticker = randomPreselectedTickers[i];
-        portfolioCollection
-          .doc(i.toString())
-          .insert({
-            tickerId: ticker.value,
-            amount: 1,
-            indexInUi: i,
-          })
-          .then();
-      }
+    if (portfolio.length) {
+      return;
     }
-  }, [portfolio]);
+
+    console.log('aaaa');
+
+    const randomStartIndex = Math.floor(
+      Math.random() * (tickerOptions.length - 5),
+    );
+    const randomPreselectedTickers = tickerOptions.slice(
+      randomStartIndex,
+      randomStartIndex + 5,
+    );
+    for (let i = 0; i < randomPreselectedTickers.length; i++) {
+      const ticker = randomPreselectedTickers[i];
+      buyOrSellTicker(
+        archerContextData,
+        portfolioCollection,
+        ticker.value,
+        1,
+        i,
+      );
+    }
+    setIsLoading(false);
+  }, [portfolio, isLoading]);
 
   return (
     <div className="h-full flex flex-col">
@@ -61,7 +69,7 @@ export default function TickerTape() {
             Cash balance
           </div>
           <div className="text-[16px] leading-[20px] font-extrabold">
-            $6,524
+            <PriceDisplay value={userProfile?.balance}></PriceDisplay>
           </div>
         </div>
       </div>

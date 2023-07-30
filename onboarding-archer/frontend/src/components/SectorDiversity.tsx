@@ -2,7 +2,7 @@ import React from 'react';
 import DistributionCard from '@/components/DistributionCard.tsx';
 import { DistributionTitle } from '@/components/DistributionTitle.tsx';
 import { Cell, Pie, PieChart, Tooltip } from 'recharts';
-import { calculatePercent } from '@/utils/Portfolio.ts';
+import { calculatePercent } from '@/utils/portfolio.ts';
 import { useArcherContext } from '@/utils/ArcherContextProvider.tsx';
 
 export function SectorDiversity({
@@ -10,15 +10,17 @@ export function SectorDiversity({
   ...otherProps
 }: React.HTMLAttributes<HTMLElement>) {
   const { portfolio } = useArcherContext();
-  const pieData = portfolio.reduce((acc, item) => {
-    const sector = item.sector;
-    if (acc[sector]) {
-      acc[sector] += calculatePercent(portfolio, item);
-    } else {
-      acc[sector] = calculatePercent(portfolio, item);
-    }
-    return acc;
-  }, {} as Record<string, number>);
+  const pieData = portfolio
+    .filter((item) => item.amount > 0)
+    .reduce((acc, item) => {
+      const sector = item.sector;
+      if (acc[sector]) {
+        acc[sector] += calculatePercent(portfolio, item);
+      } else {
+        acc[sector] = calculatePercent(portfolio, item);
+      }
+      return acc;
+    }, {} as Record<string, number>);
 
   const pieDataArray = Object.entries(pieData).map(([key, value]) => ({
     name: key,
@@ -73,7 +75,7 @@ export function SectorDiversity({
                 {item.name}
               </div>
               <div className="font-extrabold justify-self-end flex-grow text-end">
-                {item.value}%
+                {Math.floor(item.value)}%
               </div>
             </div>
           ))}

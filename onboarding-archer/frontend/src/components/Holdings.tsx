@@ -8,7 +8,9 @@ export default function Holdings({
   className,
   ...otherProps
 }: React.HTMLAttributes<HTMLElement>) {
-  const portfolio = useArcherContext().portfolio;
+  const portfolio = useArcherContext().portfolio.filter(
+    (item) => item.amount > 0,
+  );
   return (
     <DistributionCard {...otherProps} className={` ${className ?? ''}`}>
       <DistributionTitle className="mb-[16px]">Holdings</DistributionTitle>

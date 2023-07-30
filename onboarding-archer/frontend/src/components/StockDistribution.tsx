@@ -2,7 +2,7 @@ import DistributionCard from '@/components/DistributionCard.tsx';
 import Holdings from '@/components/Holdings.tsx';
 import { DistributionTitle } from '@/components/DistributionTitle.tsx';
 import { SectorDiversity } from '@/components/SectorDiversity.tsx';
-import { calculatePercent } from '@/utils/Portfolio.ts';
+import { calculatePercent } from '@/utils/portfolio.ts';
 import Shares from '@/components/Shares.tsx';
 import { useArcherContext } from '@/utils/ArcherContextProvider.tsx';
 
@@ -29,7 +29,7 @@ export default function StockDistribution() {
                 ></div>
                 <div>{item.id}</div>
                 <div className="font-extrabold">
-                  {calculatePercent(portfolio, item)}%
+                  {Math.floor(calculatePercent(portfolio, item))}%
                 </div>
                 <div
                   className={

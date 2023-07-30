@@ -1,6 +1,6 @@
 import { scheduler, secureDatabase, SquidService } from "@squidcloud/backend";
 import { CronExpression } from "@squidcloud/common";
-import { ALL_TICKERS, Ticker } from "common/common-types";
+import { ALL_TICKERS, Ticker, UserProfile } from "common/common-types";
 import {
   fluctuatePrice,
   getRandomNumber,
@@ -10,13 +10,27 @@ import {
 // noinspection JSUnusedGlobalSymbols
 export class OnboardingArcherService extends SquidService {
   private readonly tickerCollection = this.squid.collection<Ticker>("ticker");
+  private readonly userProfileCollection =
+    this.squid.collection<UserProfile>("userProfile");
 
   @secureDatabase("all", "built_in_db")
   allowAllAccessToBuiltInDb(): boolean {
     return true;
   }
 
-  @scheduler("generateTickerPricesJob", CronExpression.EVERY_10_SECONDS)
+  @scheduler("initializeUserProfileJob", CronExpression.EVERY_10_SECONDS, true)
+  async initializeUserProfileJob(): Promise<void> {
+    console.log("Running initializeUserProfileJob...");
+    const userId = "defaultUser";
+    const doc = this.userProfileCollection.doc(userId);
+    const userProfileRef = await doc.snapshot();
+    if (userProfileRef) return;
+
+    // Initializing the user's profile with $100,000 balance
+    await doc.insert({ id: userId, balance: 100_000 });
+  }
+
+  @scheduler("generateTickerPricesJob", CronExpression.EVERY_10_SECONDS, true)
   async generateTickerPricesJob(): Promise<void> {
     console.log(`${new Date().toLocaleTimeString()} Updating tickers...`);
     const allTickersInDb = await this.tickerCollection

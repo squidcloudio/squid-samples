@@ -1,6 +1,9 @@
 import Select from 'react-select';
 import Icon from '@/components/lib/Icon.tsx';
 import { useArcherContext } from '@/utils/ArcherContextProvider.tsx';
+import { buyOrSellTicker } from '@/utils/portfolio.ts';
+import { useCollection } from '@squidcloud/react';
+import { PortfolioItem } from '@/common/common-types.ts';
 
 export interface TickerOption {
   value: string;
@@ -18,7 +21,10 @@ export default function TickerTapeItem({
   defaultOption,
   index,
 }: TickerTapeItemProps) {
-  const { portfolio } = useArcherContext();
+  const archerContextData = useArcherContext();
+  const { portfolio } = archerContextData;
+  const portfolioCollection = useCollection<PortfolioItem>('portfolio');
+
   // noinspection JSUnusedGlobalSymbols
   return (
     <div className="flex items-center justify-between">
@@ -37,15 +43,39 @@ export default function TickerTapeItem({
       />
 
       <div className="rounded-[100px] border-[1px] border-line2 p-3 text-[16px] text-text1 font-semibold flex items-center justify-between w-[140px]">
-        <Icon
-          icon="minus_button_icon"
-          className="hover:opacity-80 active:opacity-70 cursor-pointer"
-        ></Icon>
+        <button
+          onClick={() =>
+            buyOrSellTicker(
+              archerContextData,
+              portfolioCollection,
+              portfolio[index].id,
+              -1,
+              index,
+            )
+          }
+        >
+          <Icon
+            icon="minus_button_icon"
+            className="hover:opacity-80 active:opacity-70 cursor-pointer"
+          ></Icon>
+        </button>
         {portfolio[index].amount}
-        <Icon
-          icon="plus_button_icon"
-          className="hover:opacity-80 active:opacity-70 cursor-pointer"
-        ></Icon>
+        <button
+          onClick={() =>
+            buyOrSellTicker(
+              archerContextData,
+              portfolioCollection,
+              portfolio[index].id,
+              1,
+              index,
+            )
+          }
+        >
+          <Icon
+            icon="plus_button_icon"
+            className="hover:opacity-80 active:opacity-70 cursor-pointer"
+          ></Icon>
+        </button>
       </div>
     </div>
   );
