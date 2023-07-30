@@ -3,7 +3,7 @@ import Icon from '@/components/lib/Icon.tsx';
 import { useArcherContext } from '@/utils/ArcherContextProvider.tsx';
 import { buyOrSellTicker } from '@/utils/portfolio.ts';
 import { useCollection } from '@squidcloud/react';
-import { PortfolioItem } from '@/common/common-types.ts';
+import { PortfolioItem, UserProfile } from '@/common/common-types.ts';
 
 export interface TickerOption {
   value: string;
@@ -24,7 +24,7 @@ export default function TickerTapeItem({
   const archerContextData = useArcherContext();
   const { portfolio } = archerContextData;
   const portfolioCollection = useCollection<PortfolioItem>('portfolio');
-
+  const userProfileCollection = useCollection<UserProfile>('userProfile');
   // noinspection JSUnusedGlobalSymbols
   return (
     <div className="flex items-center justify-between">
@@ -48,6 +48,7 @@ export default function TickerTapeItem({
             buyOrSellTicker(
               archerContextData,
               portfolioCollection,
+              userProfileCollection,
               portfolio[index].id,
               -1,
               index,
@@ -65,6 +66,7 @@ export default function TickerTapeItem({
             buyOrSellTicker(
               archerContextData,
               portfolioCollection,
+              userProfileCollection,
               portfolio[index].id,
               1,
               index,

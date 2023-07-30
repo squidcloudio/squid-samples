@@ -1,4 +1,8 @@
-import { PortfolioItem, PortfolioTicker } from '@/common/common-types.ts';
+import {
+  PortfolioItem,
+  PortfolioTicker,
+  UserProfile,
+} from '@/common/common-types.ts';
 import { ArcherContextData } from '@/utils/ArcherContextProvider.tsx';
 import { CollectionReference } from '@squidcloud/client';
 
@@ -20,10 +24,12 @@ export function calculatePercent(
 
 export function buyOrSellTicker(
   archerContext: ArcherContextData,
-  collection: CollectionReference<PortfolioItem>,
+  portfolioCollection: CollectionReference<PortfolioItem>,
+  userProfileCollection: CollectionReference<UserProfile>,
   tickerId: string,
   amount: number,
   index: number,
+  txId?: string,
 ): void {
   const { allTickersMap, portfolio, userProfile } = archerContext;
   const ticker = allTickersMap[tickerId];
@@ -40,15 +46,20 @@ export function buyOrSellTicker(
   // We cannot sell more than we own
   if (amount < 0 && amountOwned + amount < 0) return;
 
+  const usdValue = amount * ticker.closePrice;
   // We don't have enough balance to buy these tickers
-  if (amount > 0 && amount * ticker.closePrice > balance) return;
+  if (amount > 0 && usdValue > balance) return;
 
-  const doc = collection.doc(ticker.id);
+  const userProfileDoc = userProfileCollection.doc(
+    userProfile?.id || 'defaultUser',
+  );
+  userProfileDoc.incrementInPath('balance', -usdValue, txId).then();
+  const portfolioDoc = portfolioCollection.doc(ticker.id);
   if (portfolioItem) {
-    doc.incrementInPath('amount', amount).then();
+    portfolioDoc.incrementInPath('amount', amount, txId).then();
   } else {
-    doc
-      .insert({ tickerId: ticker.id, amount: amount, indexInUi: index })
+    portfolioDoc
+      .insert({ tickerId: ticker.id, amount: amount, indexInUi: index }, txId)
       .then();
   }
 }

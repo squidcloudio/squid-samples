@@ -1,28 +1,27 @@
 import TickerTapeItem, { TickerOption } from '@/components/TickerTapeItem.tsx';
 import Button from '@/components/Button.tsx';
 import { useArcherContext } from '@/utils/ArcherContextProvider.tsx';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import PriceDisplay from '@/components/PriceDisplay.tsx';
 import { buyOrSellTicker } from '@/utils/portfolio.ts';
-import { PortfolioItem } from '@/common/common-types.ts';
-import { useCollection } from '@squidcloud/react';
+import { PortfolioItem, UserProfile } from '@/common/common-types.ts';
+import { useCollection, useSquid } from '@squidcloud/react';
 
 export default function TickerTape() {
+  const squid = useSquid();
   const archerContextData = useArcherContext();
   const { portfolio, allTickers, userProfile } = archerContextData;
   const portfolioCollection = useCollection<PortfolioItem>('portfolio');
+  const userProfileCollection = useCollection<UserProfile>('userProfile');
   const tickerOptions: Array<TickerOption> = allTickers.map((ticker) => ({
     label: ticker.id,
     value: ticker.id,
   }));
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (portfolio.length) {
       return;
     }
-
-    console.log('aaaa');
 
     const randomStartIndex = Math.floor(
       Math.random() * (tickerOptions.length - 5),
@@ -31,18 +30,23 @@ export default function TickerTape() {
       randomStartIndex,
       randomStartIndex + 5,
     );
-    for (let i = 0; i < randomPreselectedTickers.length; i++) {
-      const ticker = randomPreselectedTickers[i];
-      buyOrSellTicker(
-        archerContextData,
-        portfolioCollection,
-        ticker.value,
-        1,
-        i,
-      );
-    }
-    setIsLoading(false);
-  }, [portfolio, isLoading]);
+    squid
+      .runInTransaction(async (txId) => {
+        for (let i = 0; i < randomPreselectedTickers.length; i++) {
+          const ticker = randomPreselectedTickers[i];
+          buyOrSellTicker(
+            archerContextData,
+            portfolioCollection,
+            userProfileCollection,
+            ticker.value,
+            1,
+            i,
+            txId,
+          );
+        }
+      })
+      .then();
+  }, []);
 
   return (
     <div className="h-full flex flex-col">
