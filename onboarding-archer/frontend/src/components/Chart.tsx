@@ -7,6 +7,8 @@ import {
   YAxis,
 } from 'recharts';
 import Icon from '@/components/lib/Icon.tsx';
+import React, { memo } from 'react';
+import _ from 'lodash';
 
 export interface SimulationData {
   name: string;
@@ -31,7 +33,7 @@ const CustomTooltip: React.FC<any> = ({ active, payload, label }) => {
   return null;
 };
 
-export default function Chart({ data }: ChartProps) {
+export const Chart = ({ data }: ChartProps) => {
   const values = data.map((item) => item.value);
   const minValue = Math.min(...values);
   const maxValue = Math.max(...values);
@@ -76,4 +78,8 @@ export default function Chart({ data }: ChartProps) {
       </LineChart>
     </ResponsiveContainer>
   );
-}
+};
+
+export default memo(Chart, (prevProps, nextProps) =>
+  _.isEqual(prevProps.data, nextProps.data),
+);

@@ -1,7 +1,7 @@
 import TickerTapeItem, { TickerOption } from '@/components/TickerTapeItem.tsx';
 import Button from '@/components/Button.tsx';
 import { useArcherContext } from '@/utils/ArcherContextProvider.tsx';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import PriceDisplay from '@/components/PriceDisplay.tsx';
 import { buyOrSellTicker } from '@/utils/portfolio.ts';
 import { PortfolioItem, UserProfile } from '@/common/common-types.ts';
@@ -13,10 +13,23 @@ export default function TickerTape() {
   const { portfolio, allTickers, userProfile } = archerContextData;
   const portfolioCollection = useCollection<PortfolioItem>('portfolio');
   const userProfileCollection = useCollection<UserProfile>('userProfile');
+  const [ongoingServerRequest, setOngoingServerRequest] = useState(false);
+
   const tickerOptions: Array<TickerOption> = allTickers.map((ticker) => ({
     label: ticker.id,
     value: ticker.id,
   }));
+
+  function runSimulation() {
+    if (ongoingServerRequest) {
+      return;
+    }
+
+    setOngoingServerRequest(true);
+    squid.executeFunction('runSimulation').finally(() => {
+      setOngoingServerRequest(false);
+    });
+  }
 
   useEffect(() => {
     if (portfolio.length) {
@@ -86,13 +99,15 @@ export default function TickerTape() {
         <div className="grid grid-cols-2 gap-[12px]">
           <Button
             buttonType="primary"
-            onClick={() => squid.executeFunction('runSimulation').then()}
+            onClick={runSimulation}
+            disabled={ongoingServerRequest}
           >
             Run
           </Button>
           <Button
             buttonType="secondary"
-            onClick={() => squid.executeFunction('runSimulation').then()}
+            onClick={runSimulation}
+            disabled={ongoingServerRequest}
           >
             Regenerate
           </Button>

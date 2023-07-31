@@ -9,6 +9,7 @@ import { SimulationDay } from '@/common/common-types.ts';
 import _ from 'lodash';
 import Button from '@/components/Button.tsx';
 import { Link } from 'react-router-dom';
+import Icon from '@/components/lib/Icon.tsx';
 
 interface ChartTimeRange {
   startIndex: number;
@@ -41,7 +42,26 @@ const timeToRangeMap: Record<SelectedChartTime, ChartTimeRange> = {
 function getConfirmationBarMessage(percentChanged: number): React.ReactNode {
   const gained = percentChanged >= 0;
   const percentChangedString = Math.abs(percentChanged).toFixed(2);
-  const message = gained ? (
+  const message = (
+    <>
+      <Icon
+        icon={gained ? 'check_icon' : 'warning_icon'}
+        className="w-auto inline-block mr-2 self-center mt-[-3px]"
+      />
+      {gained ? (
+        <>
+          <span className="font-bold">Congrats!</span> Looks like your stock
+          portfolio went up {percentChangedString}% in 30 days!
+        </>
+      ) : (
+        <>
+          <span className="font-bold">Oooops!</span> Your portfolio dropped{' '}
+          {percentChangedString}%. Good thing this was just a simulation!
+        </>
+      )}
+    </>
+  );
+  /*const message = gained ? (
     <>
       <span className="font-bold">Congrats!</span> Looks like your stock
       portfolio went up {percentChangedString}% in 30 days!
@@ -51,7 +71,7 @@ function getConfirmationBarMessage(percentChanged: number): React.ReactNode {
       <span className="font-bold">Oooops!</span> Your portfolio dropped{' '}
       {percentChangedString}%. Good thing this was just a simulation!
     </>
-  );
+  );*/
   return (
     <>
       {message}
