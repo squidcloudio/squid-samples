@@ -64,7 +64,7 @@ export default function TickerTape() {
         }
       })
       .then();
-  }, []);
+  }, [userProfile]);
 
   return (
     <div className="h-full flex flex-col">
