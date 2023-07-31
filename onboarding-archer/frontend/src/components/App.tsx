@@ -11,7 +11,7 @@ export default function App() {
     <div className="flex flex-col h-full">
       <TopNavBar />
       <ConfirmationBar />
-      <div className="container basis-full mt-8 pb-4">
+      <div className="container basis-full mt-8 pb-4 lg:mt-12">
         <Routes>
           <Route path="/" element={<Home />} />
         </Routes>

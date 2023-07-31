@@ -18,6 +18,7 @@ export default function TickerTape() {
   const tickerOptions: Array<TickerOption> = allTickers.map((ticker) => ({
     label: ticker.id,
     value: ticker.id,
+    usdValue: ticker.closePrice,
   }));
 
   function runSimulation() {
@@ -79,6 +80,7 @@ export default function TickerTape() {
             defaultOption={{
               label: item.id,
               value: item.id,
+              usdValue: item.closePrice,
             }}
             index={index}
           />

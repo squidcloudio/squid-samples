@@ -1,13 +1,15 @@
-import Select from 'react-select';
+import Select, { components } from 'react-select';
 import Icon from '@/components/lib/Icon.tsx';
 import { useArcherContext } from '@/utils/ArcherContextProvider.tsx';
 import { buyOrSellTicker, replaceTicker } from '@/utils/portfolio.ts';
 import { useCollection, useSquid } from '@squidcloud/react';
 import { PortfolioItem, UserProfile } from '@/common/common-types.ts';
+import PriceDisplay from '@/components/PriceDisplay.tsx';
 
 export interface TickerOption {
   value: string;
   label: string;
+  usdValue: number;
 }
 
 interface TickerTapeItemProps {
@@ -15,6 +17,25 @@ interface TickerTapeItemProps {
   defaultOption?: TickerOption;
   index: number;
 }
+
+const CustomOption = ({ data, ...props }: any) => {
+  return (
+    <components.Option {...props}>
+      <div className="flex justify-between items-center">
+        <div className="flex items-center gap-[12px]">
+          <Icon
+            icon={data.value}
+            className="w-[32px] h-[32px] rounded-[32px] border-[1px] border-line1"
+          ></Icon>
+          <div className="font-semibold">{data.label}</div>
+        </div>
+        <div className="font-normal">
+          <PriceDisplay value={data.usdValue} minimumFractionDigits={2} />
+        </div>
+      </div>
+    </components.Option>
+  );
+};
 
 export default function TickerTapeItem({
   tickerOptions,
@@ -37,7 +58,16 @@ export default function TickerTapeItem({
           indicatorSeparator: () => 'hidden',
           dropdownIndicator: () => '!text-text1 w-[14px] !p-[0] mr-[16px]',
         }}
+        styles={{
+          menu: (provided) => ({
+            ...provided,
+            width: '344px',
+          }),
+        }}
         defaultValue={defaultOption}
+        components={{
+          Option: CustomOption,
+        }}
         options={tickerOptions}
         isSearchable={true}
         onChange={(value) => {
