@@ -18,6 +18,7 @@ import {
   isSameDate,
 } from "../utils/ticker.utils";
 import dayjs from "dayjs";
+import _ from "lodash"; // noinspection JSUnusedGlobalSymbols
 
 // noinspection JSUnusedGlobalSymbols
 export class OnboardingArcherService extends SquidService {
@@ -35,6 +36,40 @@ export class OnboardingArcherService extends SquidService {
   }
 
   @executable()
+  async generatePortfolio(): Promise<void> {
+    console.log("Generating portfolio");
+    const allTickers = await this.getAllTickers();
+    const shuffledTickers = _.shuffle(allTickers);
+    const balance = 100_000;
+    const maximumValuePerTicker = Math.floor(balance / 5);
+    let totalBalanceUsed = 0;
+    await this.squid.runInTransaction(async (txId) => {
+      for (let i = 0; i < shuffledTickers.slice(0, 5).length; i++) {
+        const ticker = shuffledTickers.slice(0, 5)[i];
+        const amountToBuy = Math.floor(
+          maximumValuePerTicker / ticker.closePrice
+        );
+        totalBalanceUsed += amountToBuy * ticker.closePrice;
+        await this.portfolioCollection.doc(String(i)).insert(
+          {
+            tickerId: ticker.id,
+            amount: amountToBuy,
+            indexInUi: i,
+          },
+          txId
+        );
+      }
+
+      await this.userProfileCollection
+        .doc("defaultUser")
+        .insert(
+          { id: "defaultUser", balance: balance - totalBalanceUsed },
+          txId
+        );
+    });
+  }
+
+  @executable()
   async runSimulation(): Promise<void> {
     console.log("Running simulation...");
     const portfolio = await this.portfolioCollection
@@ -42,15 +77,7 @@ export class OnboardingArcherService extends SquidService {
       .dereference()
       .snapshot();
 
-    const allTickers = await this.tickerCollection
-      .query()
-      .dereference()
-      .snapshot();
-
-    const allTickersMap = allTickers.reduce((acc, ticker) => {
-      acc[ticker.id] = ticker;
-      return acc;
-    }, {} as Record<string, Ticker>);
+    const allTickersMap = await this.getAllTickersMap();
 
     // Start transaction
     await this.squid.runInTransaction(async (txId) => {
@@ -149,5 +176,17 @@ export class OnboardingArcherService extends SquidService {
         this.tickerCollection.doc(ticker.id).insert(updatedTicker, txId);
       });
     });
+  }
+
+  private async getAllTickers(): Promise<Array<Ticker>> {
+    return await this.tickerCollection.query().dereference().snapshot();
+  }
+
+  private async getAllTickersMap(): Promise<Record<string, Ticker>> {
+    const allTickers = await this.getAllTickers();
+    return allTickers.reduce((acc, ticker) => {
+      acc[ticker.id] = ticker;
+      return acc;
+    }, {} as Record<string, Ticker>);
   }
 }

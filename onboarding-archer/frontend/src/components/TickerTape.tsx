@@ -3,16 +3,12 @@ import Button from '@/components/Button.tsx';
 import { useArcherContext } from '@/utils/ArcherContextProvider.tsx';
 import { useEffect, useState } from 'react';
 import PriceDisplay from '@/components/PriceDisplay.tsx';
-import { buyOrSellTicker } from '@/utils/portfolio.ts';
-import { PortfolioItem, UserProfile } from '@/common/common-types.ts';
-import { useCollection, useSquid } from '@squidcloud/react';
+import { useSquid } from '@squidcloud/react';
 
 export default function TickerTape() {
   const squid = useSquid();
   const archerContextData = useArcherContext();
   const { portfolio, allTickers, userProfile } = archerContextData;
-  const portfolioCollection = useCollection<PortfolioItem>('portfolio');
-  const userProfileCollection = useCollection<UserProfile>('userProfile');
   const [ongoingServerRequest, setOngoingServerRequest] = useState(false);
 
   const tickerOptions: Array<TickerOption> = allTickers.map((ticker) => ({
@@ -22,49 +18,25 @@ export default function TickerTape() {
   }));
 
   function runSimulation() {
-    if (ongoingServerRequest) {
-      return;
-    }
-
+    if (ongoingServerRequest) return;
     setOngoingServerRequest(true);
     squid.executeFunction('runSimulation').finally(() => {
       setOngoingServerRequest(false);
     });
   }
 
+  function generatePortfolio() {
+    if (ongoingServerRequest) return;
+    setOngoingServerRequest(true);
+    squid.executeFunction('generatePortfolio').finally(() => {
+      setOngoingServerRequest(false);
+    });
+  }
+
   useEffect(() => {
-    if (portfolio.length) {
-      return;
+    if (!portfolio.length) {
+      generatePortfolio();
     }
-
-    if (!userProfile) {
-      squid.executeFunction('initializeUserProfile').then();
-      return;
-    }
-
-    const randomStartIndex = Math.floor(
-      Math.random() * (tickerOptions.length - 5),
-    );
-    const randomPreselectedTickers = tickerOptions.slice(
-      randomStartIndex,
-      randomStartIndex + 5,
-    );
-    squid
-      .runInTransaction(async (txId) => {
-        for (let i = 0; i < randomPreselectedTickers.length; i++) {
-          const ticker = randomPreselectedTickers[i];
-          buyOrSellTicker(
-            archerContextData,
-            portfolioCollection,
-            userProfileCollection,
-            ticker.value,
-            1,
-            i,
-            txId,
-          );
-        }
-      })
-      .then();
   }, [userProfile]);
 
   return (
@@ -93,7 +65,10 @@ export default function TickerTape() {
             Cash balance
           </div>
           <div className="text-[16px] leading-[20px] font-extrabold">
-            <PriceDisplay value={userProfile?.balance}></PriceDisplay>
+            <PriceDisplay
+              value={userProfile?.balance}
+              minimumFractionDigits={2}
+            ></PriceDisplay>
           </div>
         </div>
       </div>
@@ -108,7 +83,7 @@ export default function TickerTape() {
           </Button>
           <Button
             buttonType="secondary"
-            onClick={runSimulation}
+            onClick={generatePortfolio}
             disabled={ongoingServerRequest}
           >
             Regenerate

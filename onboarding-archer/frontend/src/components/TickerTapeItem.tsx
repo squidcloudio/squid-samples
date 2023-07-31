@@ -68,7 +68,9 @@ export default function TickerTapeItem({
         components={{
           Option: CustomOption,
         }}
-        options={tickerOptions}
+        options={tickerOptions.filter(
+          (option) => option.value !== defaultOption?.value,
+        )}
         isSearchable={true}
         onChange={(value) => {
           if (!value) return;
