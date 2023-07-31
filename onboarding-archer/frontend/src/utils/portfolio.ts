@@ -22,6 +22,49 @@ export function calculatePercent(
   );
 }
 
+export function replaceTicker(
+  archerContext: ArcherContextData,
+  portfolioCollection: CollectionReference<PortfolioItem>,
+  userProfileCollection: CollectionReference<UserProfile>,
+  tickerId: string,
+  replaceWithTickerId: string,
+  index: number,
+  txId?: string,
+): void {
+  const { allTickersMap, portfolio } = archerContext;
+  const ticker = allTickersMap[tickerId];
+  if (!ticker) {
+    console.error(`Ticker ${tickerId} not found`);
+    return;
+  }
+  const portfolioItem = portfolio.find((item) => item.id === ticker.id);
+
+  // Sell all previous ticker
+  buyOrSellTicker(
+    archerContext,
+    portfolioCollection,
+    userProfileCollection,
+    tickerId,
+    -(portfolioItem?.amount || 0),
+    index,
+    txId,
+  );
+
+  // Delete current item
+  portfolioCollection.doc(tickerId).delete(txId).then();
+
+  // Buy new stock
+  buyOrSellTicker(
+    archerContext,
+    portfolioCollection,
+    userProfileCollection,
+    replaceWithTickerId,
+    1,
+    index,
+    txId,
+  );
+}
+
 export function buyOrSellTicker(
   archerContext: ArcherContextData,
   portfolioCollection: CollectionReference<PortfolioItem>,

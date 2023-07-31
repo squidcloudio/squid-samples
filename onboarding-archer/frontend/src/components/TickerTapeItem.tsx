@@ -1,8 +1,8 @@
 import Select from 'react-select';
 import Icon from '@/components/lib/Icon.tsx';
 import { useArcherContext } from '@/utils/ArcherContextProvider.tsx';
-import { buyOrSellTicker } from '@/utils/portfolio.ts';
-import { useCollection } from '@squidcloud/react';
+import { buyOrSellTicker, replaceTicker } from '@/utils/portfolio.ts';
+import { useCollection, useSquid } from '@squidcloud/react';
 import { PortfolioItem, UserProfile } from '@/common/common-types.ts';
 
 export interface TickerOption {
@@ -23,6 +23,7 @@ export default function TickerTapeItem({
 }: TickerTapeItemProps) {
   const archerContextData = useArcherContext();
   const { portfolio } = archerContextData;
+  const squid = useSquid();
   const portfolioCollection = useCollection<PortfolioItem>('portfolio');
   const userProfileCollection = useCollection<UserProfile>('userProfile');
   // noinspection JSUnusedGlobalSymbols
@@ -39,6 +40,22 @@ export default function TickerTapeItem({
         defaultValue={defaultOption}
         options={tickerOptions}
         isSearchable={true}
+        onChange={(value) => {
+          if (!value) return;
+          squid
+            .runInTransaction(async (txId: string) => {
+              replaceTicker(
+                archerContextData,
+                portfolioCollection,
+                userProfileCollection,
+                portfolio[index].id,
+                value.value,
+                index,
+                txId,
+              );
+            })
+            .then();
+        }}
         name="ticker"
       />
 
