@@ -1,17 +1,20 @@
-import { Line, LineChart, ResponsiveContainer, Tooltip, XAxis } from 'recharts';
+import {
+  Line,
+  LineChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from 'recharts';
 
-interface StockData {
+export interface SimulationData {
   name: string;
   value: number;
 }
 
-const data: Array<StockData> = [
-  { name: 'Day 1', value: 2400 },
-  { name: 'Day 2', value: 2210 },
-  { name: 'Day 3', value: 2290 },
-  { name: 'Day 4', value: 2000 },
-  { name: 'Day 5', value: 2181 },
-];
+interface ChartProps {
+  data: Array<SimulationData>;
+}
 
 const CustomTooltip: React.FC<any> = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
@@ -27,7 +30,13 @@ const CustomTooltip: React.FC<any> = ({ active, payload, label }) => {
   return null;
 };
 
-export default function Chart() {
+export default function Chart({ data }: ChartProps) {
+  const values = data.map((item) => item.value);
+  const minValue = Math.min(...values);
+  const maxValue = Math.max(...values);
+  const padding = 0.02; // Padding
+  const domain = [minValue - minValue * padding, maxValue + maxValue * padding];
+
   return (
     <ResponsiveContainer width="100%" height={235}>
       <LineChart
@@ -40,6 +49,7 @@ export default function Chart() {
         }}
       >
         <XAxis dataKey="name" interval={0} stroke="var(--text1)" />
+        <YAxis domain={domain} axisLine={false} tick={false} width={0} />
         <Tooltip content={<CustomTooltip />} />
         <Line
           type="monotone"

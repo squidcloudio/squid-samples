@@ -179,6 +179,11 @@ export interface PortfolioItem {
   indexInUi: number;
 }
 
+export interface SimulationDay {
+  date: Date;
+  value: number;
+}
+
 export interface UserProfile {
   id: string;
   balance: number;

@@ -79,8 +79,18 @@ export default function TickerTape() {
       </div>
       <div className="mt-14 flex-grow">
         <div className="grid grid-cols-2 gap-[12px]">
-          <Button buttonType="primary">Run</Button>
-          <Button buttonType="secondary">Regenerate</Button>
+          <Button
+            buttonType="primary"
+            onClick={() => squid.executeFunction('runSimulation').then()}
+          >
+            Run
+          </Button>
+          <Button
+            buttonType="secondary"
+            onClick={() => squid.executeFunction('runSimulation').then()}
+          >
+            Regenerate
+          </Button>
         </div>
       </div>
       <div className="mt-9 text-text2 text-[12px] font-medium leading-[16px]">

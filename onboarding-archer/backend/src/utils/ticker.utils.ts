@@ -1,8 +1,10 @@
-export function fluctuatePrice(price?: number): number {
+export function fluctuatePrice(
+  price?: number,
+  changePercentRange = 0.03
+): number {
   price = price || getRandomNumber(10, 130);
-  let changePercent = Math.random() * 0.08 - 0.04;
-  changePercent = changePercent / 10;
-  let newPrice = price + price * changePercent;
+  const changePercent = (Math.random() - 0.5) * 2 * changePercentRange;
+  let newPrice = price + (price * changePercent) / 100;
   newPrice = Math.round(newPrice * 100) / 100;
   return newPrice;
 }

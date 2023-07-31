@@ -1,21 +1,90 @@
-import { scheduler, secureDatabase, SquidService } from "@squidcloud/backend";
+import {
+  executable,
+  scheduler,
+  secureDatabase,
+  SquidService,
+} from "@squidcloud/backend";
 import { CronExpression } from "@squidcloud/common";
-import { ALL_TICKERS, Ticker, UserProfile } from "common/common-types";
+import {
+  ALL_TICKERS,
+  PortfolioItem,
+  SimulationDay,
+  Ticker,
+  UserProfile,
+} from "common/common-types";
 import {
   fluctuatePrice,
   getRandomNumber,
   isSameDate,
-} from "../utils/ticker.utils"; // noinspection JSUnusedGlobalSymbols
+} from "../utils/ticker.utils";
+import dayjs from "dayjs";
 
 // noinspection JSUnusedGlobalSymbols
 export class OnboardingArcherService extends SquidService {
   private readonly tickerCollection = this.squid.collection<Ticker>("ticker");
+  private readonly simulationDayCollection =
+    this.squid.collection<SimulationDay>("simulationDay");
+  private readonly portfolioCollection =
+    this.squid.collection<PortfolioItem>("portfolio");
   private readonly userProfileCollection =
     this.squid.collection<UserProfile>("userProfile");
 
   @secureDatabase("all", "built_in_db")
   allowAllAccessToBuiltInDb(): boolean {
     return true;
+  }
+
+  @executable()
+  async runSimulation(): Promise<void> {
+    console.log("Running simulation...");
+    const portfolio = await this.portfolioCollection
+      .query()
+      .dereference()
+      .snapshot();
+
+    const allTickers = await this.tickerCollection
+      .query()
+      .dereference()
+      .snapshot();
+
+    const allTickersMap = allTickers.reduce((acc, ticker) => {
+      acc[ticker.id] = ticker;
+      return acc;
+    }, {} as Record<string, Ticker>);
+
+    // Start transaction
+    await this.squid.runInTransaction(async (txId) => {
+      const today = dayjs().startOf("day");
+      // Insert data for 28 days back (should be divisible by 4)
+      let previousFluctuation = 0;
+      for (let i = 0; i < 28; i++) {
+        const date = today.subtract(i, "day").toDate();
+        const simulationDay: SimulationDay = {
+          date,
+          value: 0,
+        };
+
+        if (previousFluctuation) {
+          simulationDay.value += fluctuatePrice(previousFluctuation, 2);
+        } else {
+          for (const portfolioItem of portfolio) {
+            const ticker = allTickersMap[portfolioItem.tickerId];
+            const valueThisDay = ticker.closePrice * portfolioItem.amount;
+            simulationDay.value += valueThisDay;
+          }
+        }
+        previousFluctuation = simulationDay.value;
+
+        console.log(
+          `Inserting simulation day ${date.toISOString()}: `,
+          simulationDay
+        );
+
+        await this.simulationDayCollection
+          .doc(i + "")
+          .insert(simulationDay, txId);
+      }
+    });
   }
 
   @scheduler("initializeUserProfileJob", CronExpression.EVERY_10_SECONDS, true)

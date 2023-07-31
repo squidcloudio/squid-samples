@@ -1,9 +1,16 @@
 import React from 'react';
 
+export type SelectedChartTime = 'w1' | 'w2' | 'w3' | 'w4' | '1m';
+
 interface TimeSelectorOption {
   label: string;
-  value: string;
+  value: SelectedChartTime;
   separator?: boolean;
+}
+
+interface TimeSelectorProps {
+  selectedChartTime: SelectedChartTime;
+  setSelectedChartTime: (value: SelectedChartTime) => void;
 }
 
 const options: Array<TimeSelectorOption> = [
@@ -14,9 +21,11 @@ const options: Array<TimeSelectorOption> = [
   { label: '1M', value: '1m', separator: true },
 ];
 
-export default function TimeSelector() {
+export default function TimeSelector({
+  selectedChartTime,
+  setSelectedChartTime,
+}: TimeSelectorProps) {
   const gain = true;
-  const selectedValue = 'w1';
   return (
     <div
       className={`py-1 px-4 bg-bg4 rounded-[8px] flex gap-[12px] items-center`}
@@ -28,10 +37,11 @@ export default function TimeSelector() {
               <div className="w-[1px] h-[18px] bg-line1"></div>
             )}
             <div
+              onClick={() => setSelectedChartTime(option.value)}
               className={`py-[6px] px-[8px] bg-bg4 text-text2 rounded-[6px] text-[12px] leading-[16px] font-extrabold cursor-pointer ${
                 gain ? 'hover:bg-gain3' : 'hover:bg-lose3'
               } ${
-                selectedValue === option.value
+                selectedChartTime === option.value
                   ? `${gain ? '!bg-gain1' : '!bg-lose1'} !text-bg1`
                   : ''
               }`}
