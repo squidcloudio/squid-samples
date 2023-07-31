@@ -2,6 +2,7 @@ import archer_logo from '@/assets/icons/archer_logo.svg';
 import plus_button_icon from '@/assets/icons/plus_button_icon.svg';
 import minus_button_icon from '@/assets/icons/minus_button_icon.svg';
 import up_arrow from '@/assets/icons/up_arrow.svg';
+import chart_skeleton from '@/assets/icons/chart_skeleton.svg';
 import AAPL from '@/assets/icons/tickers/AAPL.svg';
 import AMGN from '@/assets/icons/tickers/AMGN.svg';
 import AXP from '@/assets/icons/tickers/AXP.svg';
@@ -38,6 +39,7 @@ export const Icons = {
   plus_button_icon,
   minus_button_icon,
   up_arrow,
+  chart_skeleton,
   AAPL,
   AMGN,
   AXP,

@@ -67,9 +67,13 @@ export default function ChartAndData() {
       });
   }
 
-  const currentPortfolioValue = portfolio.reduce((acc, item) => {
-    return acc + item.amount * item.closePrice;
-  }, 0);
+  const isDataGenerated = !!data.length;
+
+  const currentPortfolioValue = isDataGenerated
+    ? portfolio.reduce((acc, item) => {
+        return acc + item.amount * item.closePrice;
+      }, 0)
+    : 0;
 
   let portfolioValueToday = 0;
   let portfolioValueYesterday = 0;
@@ -91,14 +95,24 @@ export default function ChartAndData() {
     <div className="w-full mb-[48px]">
       <div className="flex justify-between items-center border-b border-line1 pb-[12px] mb-[12px]">
         <div className="flex items-center">
-          <div className="text-[32px] font-extrabold leading-[100%] mr-[12px]">
-            <PriceDisplay value={currentPortfolioValue} />
+          <div
+            className={`text-[32px] font-extrabold leading-[100%] mr-[12px] ${
+              !isDataGenerated ? 'text-text3' : ''
+            }`}
+          >
+            <PriceDisplay
+              value={currentPortfolioValue}
+              minimumFractionDigits={2}
+            />
           </div>
-          <GainLoseIndicator percentChange={totalChangeInPercent} />
+          {isDataGenerated ? (
+            <GainLoseIndicator percentChange={totalChangeInPercent} />
+          ) : null}
         </div>
         <TimeSelector
           selectedChartTime={selectedChartTime}
           setSelectedChartTime={setSelectedChartTime}
+          isDataGenerated={isDataGenerated}
         />
       </div>
       <Chart data={data} />

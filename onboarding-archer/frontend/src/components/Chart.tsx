@@ -6,6 +6,7 @@ import {
   XAxis,
   YAxis,
 } from 'recharts';
+import Icon from '@/components/lib/Icon.tsx';
 
 export interface SimulationData {
   name: string;
@@ -37,7 +38,20 @@ export default function Chart({ data }: ChartProps) {
   const padding = 0.02; // Padding
   const domain = [minValue - minValue * padding, maxValue + maxValue * padding];
 
-  return (
+  return !data.length ? (
+    <div className="mt-[63px] pb-[32px]">
+      <div className="w-full h-[172px] relative flex justify-center">
+        <div className="max-w-[426px] text-center text-text2 text-[16px] leading-[20px] font-semibold mt-[32px]">
+          Select or update stock holdings on the left panel then view your
+          simulation by clicking the run button
+        </div>
+        <Icon
+          icon={'chart_skeleton'}
+          className="w-full h-full absolute top-0 left-0 z-[-1]"
+        />
+      </div>
+    </div>
+  ) : (
     <ResponsiveContainer width="100%" height={235}>
       <LineChart
         data={data}
