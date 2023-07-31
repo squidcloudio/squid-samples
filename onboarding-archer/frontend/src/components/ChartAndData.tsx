@@ -70,9 +70,7 @@ export default function ChartAndData() {
   const isDataGenerated = !!data.length;
 
   const currentPortfolioValue = isDataGenerated
-    ? portfolio.reduce((acc, item) => {
-        return acc + item.amount * item.closePrice;
-      }, 0)
+    ? queryResult.data[queryResult.data.length - 1].value
     : 0;
 
   let portfolioValueToday = 0;
@@ -87,9 +85,9 @@ export default function ChartAndData() {
     portfolioValueYesterday += valueYesterday;
   });
 
-  const totalChangeInValue = portfolioValueToday - portfolioValueYesterday;
-  const totalChangeInPercent =
-    (totalChangeInValue / portfolioValueYesterday) * 100;
+  const firstDayValue = queryResult.data[0]?.value || 0;
+  const totalChangeInValue = currentPortfolioValue - firstDayValue;
+  const totalChangeInPercent = (totalChangeInValue / firstDayValue) * 100;
 
   return (
     <div className="w-full mb-[48px]">
