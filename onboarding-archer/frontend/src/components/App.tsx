@@ -18,6 +18,6 @@ export default function App() {
       </div>
     </div>
   ) : (
-    <div>Loading...</div>
+    <></>
   );
 }
