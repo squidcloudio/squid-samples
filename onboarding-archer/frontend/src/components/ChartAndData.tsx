@@ -97,7 +97,7 @@ function getConfirmationBarMessage(percentChanged: number): React.ReactNode {
 export default function ChartAndData() {
   const { portfolio, setConfirmationMessage } = useArcherContext();
   const [selectedChartTime, setSelectedChartTime] =
-    useState<SelectedChartTime>('w1');
+    useState<SelectedChartTime>('1m');
 
   const simulationDayCollection = useCollection<SimulationDay>('simulationDay');
   const ranges = timeToRangeMap[selectedChartTime];
