@@ -51,18 +51,10 @@ export function replaceTicker(
   );
 
   // Delete current item
-  portfolioCollection.doc(tickerId).delete(txId).then();
-
-  // Buy new stock
-  buyOrSellTicker(
-    archerContext,
-    portfolioCollection,
-    userProfileCollection,
-    replaceWithTickerId,
-    1,
-    index,
-    txId,
-  );
+  portfolioCollection
+    .doc(String(index))
+    .update({ tickerId: replaceWithTickerId, amount: 0 })
+    .then();
 }
 
 export function buyOrSellTicker(
@@ -97,7 +89,7 @@ export function buyOrSellTicker(
     userProfile?.id || 'defaultUser',
   );
   userProfileDoc.incrementInPath('balance', -usdValue, txId).then();
-  const portfolioDoc = portfolioCollection.doc(ticker.id);
+  const portfolioDoc = portfolioCollection.doc(String(index));
   if (portfolioItem) {
     portfolioDoc.incrementInPath('amount', amount, txId).then();
   } else {

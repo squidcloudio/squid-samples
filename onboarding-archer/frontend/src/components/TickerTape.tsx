@@ -23,6 +23,11 @@ export default function TickerTape() {
       return;
     }
 
+    if (!userProfile) {
+      squid.executeFunction('initializeUserProfile').then();
+      return;
+    }
+
     const randomStartIndex = Math.floor(
       Math.random() * (tickerOptions.length - 5),
     );

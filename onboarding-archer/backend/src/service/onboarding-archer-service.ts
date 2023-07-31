@@ -87,8 +87,8 @@ export class OnboardingArcherService extends SquidService {
     });
   }
 
-  @scheduler("initializeUserProfileJob", CronExpression.EVERY_10_SECONDS, true)
-  async initializeUserProfileJob(): Promise<void> {
+  @executable()
+  async initializeUserProfile(): Promise<void> {
     console.log("Running initializeUserProfileJob...");
     const userId = "defaultUser";
     const doc = this.userProfileCollection.doc(userId);
