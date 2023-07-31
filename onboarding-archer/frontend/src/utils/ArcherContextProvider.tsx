@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useMemo } from 'react';
+import React, { createContext, useContext, useMemo, useState } from 'react';
 import {
   PortfolioItem,
   PortfolioTicker,
@@ -13,6 +13,8 @@ export interface ArcherContextData {
   allTickersMap: Record<string, Ticker>;
   portfolio: Array<PortfolioTicker>;
   userProfile: UserProfile | undefined;
+  confirmationMessage: React.ReactNode | undefined;
+  setConfirmationMessage: (message: React.ReactNode | undefined) => void;
 }
 
 interface ArcherContextProviderProps {
@@ -24,6 +26,9 @@ const ArcherContext = createContext<ArcherContextData | null>(null);
 export function ArcherContextProvider({
   children,
 }: ArcherContextProviderProps) {
+  const [confirmationMessage, setConfirmationMessage] = useState<
+    React.ReactNode | undefined
+  >(undefined);
   const userProfileCollection = useCollection<UserProfile>('userProfile');
   const userProfileResponse = useQuery<UserProfile>(
     userProfileCollection.query().eq('id', 'defaultUser'),
@@ -47,6 +52,8 @@ export function ArcherContextProvider({
         portfolio: [],
         userProfile: undefined,
         ready: false,
+        confirmationMessage,
+        setConfirmationMessage,
       };
     }
 
@@ -67,6 +74,8 @@ export function ArcherContextProvider({
       portfolio,
       userProfile: userProfileResponse.data[0],
       ready: !allTickersResponse.loading && !portfolioResponse.loading,
+      confirmationMessage,
+      setConfirmationMessage,
     };
   }, [
     allTickersResponse.data,

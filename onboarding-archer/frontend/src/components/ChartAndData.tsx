@@ -3,10 +3,12 @@ import GainLoseIndicator from '@/components/GainLoseIndicator.tsx';
 import TimeSelector, { SelectedChartTime } from '@/components/TimeSelector.tsx';
 import { useArcherContext } from '@/utils/ArcherContextProvider.tsx';
 import PriceDisplay from '@/components/PriceDisplay.tsx';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useCollection, useQuery } from '@squidcloud/react';
 import { SimulationDay } from '@/common/common-types.ts';
 import _ from 'lodash';
+import Button from '@/components/Button.tsx';
+import { Link } from 'react-router-dom';
 
 interface ChartTimeRange {
   startIndex: number;
@@ -36,8 +38,44 @@ const timeToRangeMap: Record<SelectedChartTime, ChartTimeRange> = {
   },
 };
 
+function getConfirmationBarMessage(percentChanged: number): React.ReactNode {
+  const gained = percentChanged >= 0;
+  const percentChangedString = Math.abs(percentChanged).toFixed(2);
+  const message = gained ? (
+    <>
+      <span className="font-bold">Congrats!</span> Looks like your stock
+      portfolio went up {percentChangedString}% in 30 days!
+    </>
+  ) : (
+    <>
+      <span className="font-bold">Oooops!</span> Your portfolio dropped{' '}
+      {percentChangedString}%. Good thing this was just a simulation!
+    </>
+  );
+  return (
+    <>
+      {message}
+      <a
+        className="mx-2 underline"
+        href="https://console.squid.cloud"
+        target="_blank"
+      >
+        Explore next steps
+      </a>
+      or
+      <div className="inline-block">
+        <Link to="https://console.squid.cloud" target="_blank">
+          <Button buttonType="tertiary" className="ml-3 inline-block">
+            Go to Console
+          </Button>
+        </Link>
+      </div>
+    </>
+  );
+}
+
 export default function ChartAndData() {
-  const { portfolio } = useArcherContext();
+  const { portfolio, setConfirmationMessage } = useArcherContext();
   const [selectedChartTime, setSelectedChartTime] =
     useState<SelectedChartTime>('w1');
 
@@ -88,6 +126,11 @@ export default function ChartAndData() {
   const firstDayValue = queryResult.data[0]?.value || 0;
   const totalChangeInValue = currentPortfolioValue - firstDayValue;
   const totalChangeInPercent = (totalChangeInValue / firstDayValue) * 100;
+
+  useEffect(() => {
+    if (totalChangeInPercent)
+      setConfirmationMessage(getConfirmationBarMessage(totalChangeInPercent));
+  }, [totalChangeInPercent]);
 
   return (
     <div className="w-full mb-[48px]">
