@@ -114,7 +114,7 @@ export default function ChartAndData() {
     chunks.forEach((chunk, i) => {
       data.push({
         name: `Week ${i + 1}`,
-        value: chunk.reduce((acc, item) => acc + item.value, 0),
+        value: chunk.reduce((acc, item) => acc + item.value, 0) / chunk.length,
       });
     });
   } else {
