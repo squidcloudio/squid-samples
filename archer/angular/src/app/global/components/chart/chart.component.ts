@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit } from '@angular/core';
-import { assertTruthy } from '@squidcloud/common';
 import { Color } from '@swimlane/ngx-charts';
+import { assertTruthy } from 'archer-common';
 
 export type Chart = LineChart;
 export type ChartType = 'line';

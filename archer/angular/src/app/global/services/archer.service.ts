@@ -13,7 +13,7 @@ import {
 import {
   BehaviorSubject,
   distinctUntilChanged,
-  filter,
+  filter, firstValueFrom,
   from,
   map,
   NEVER,
@@ -21,7 +21,7 @@ import {
   of,
   shareReplay,
   switchMap,
-  timer,
+  timer
 } from 'rxjs';
 import { AuthService } from '@auth0/auth0-angular';
 

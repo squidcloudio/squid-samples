@@ -113,11 +113,11 @@ export class ArcherService extends SquidService {
 
   @scheduler('updateTickerPrices', '*/20 * * * * *', true)
   async updateTickerPrices(): Promise<void> {
+    console.log('Updating ticker prices...');
     if (!(await this.isMarketOpen())) {
       return;
     }
     const startTime = Date.now();
-    console.log('Updating ticker prices...');
     // Get all tickers from polygon
     const snapshotTickers = await this.getSnapshotTickers();
     if (!snapshotTickers.length) return;
