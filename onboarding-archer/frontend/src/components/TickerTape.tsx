@@ -4,6 +4,7 @@ import { useArcherContext } from '@/utils/ArcherContextProvider.tsx';
 import { useEffect, useState } from 'react';
 import PriceDisplay from '@/components/PriceDisplay.tsx';
 import { useSquid } from '@squidcloud/react';
+import Tooltip from '@/components/Tooltip.tsx';
 
 export default function TickerTape() {
   const squid = useSquid();
@@ -41,8 +42,9 @@ export default function TickerTape() {
 
   return (
     <div className="h-full flex flex-col">
-      <div className="text-[20px] leading-[100%] font-extrabold mb-4">
+      <div className="text-[20px] leading-[100%] font-extrabold mb-2 flex items-center">
         Ticker Tape Value
+        <Tooltip className={'ml-2'} mdFile="tape-tooltip.md"></Tooltip>
       </div>
       <div className="flex flex-col gap-[16px]">
         {portfolio.map((item, index) => (

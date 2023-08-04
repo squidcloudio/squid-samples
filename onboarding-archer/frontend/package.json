@@ -10,14 +10,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@squidcloud/react": "^1.0.16",
     "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-markdown": "^8.0.7",
     "react-router-dom": "^6.14.1",
     "react-select": "^5.7.4",
+    "react-syntax-highlighter": "^15.5.0",
     "recharts": "^2.7.2",
-    "sass": "^1.63.6",
-    "@squidcloud/react": "^1.0.16"
+    "sass": "^1.63.6"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.195",
@@ -25,6 +27,7 @@
     "@types/react": "^18.2.14",
     "@types/react-dom": "^18.2.6",
     "@types/react-router-dom": "^5.3.3",
+    "@types/react-syntax-highlighter": "^15.5.7",
     "@typescript-eslint/eslint-plugin": "^5.61.0",
     "@typescript-eslint/parser": "^5.61.0",
     "@vitejs/plugin-react": "^4.0.1",

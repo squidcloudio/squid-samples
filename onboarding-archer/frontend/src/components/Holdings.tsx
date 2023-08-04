@@ -20,9 +20,8 @@ export default function Holdings({
         </div>
         <div className="flex justify-end items-center">
           {portfolio.map((item, index) => (
-            <div title={item.name}>
+            <div title={item.name} key={item.id}>
               <Icon
-                key={item.id}
                 className={`w-[40px] h-[40px] rounded-[40px] border-[1px] border-line1 ${
                   index !== 0 ? '-ml-[14px]' : ''
                 }`}

@@ -13,7 +13,15 @@ fi
 mkdir generated
 
 # Copy all the files to the generated folder
-rsync -av --progress . generated --exclude 'node_modules' --exclude 'dist' --exclude 'generated' --exclude '.env' --exclude 'package-lock.json' --exclude 'prepareSchematics.sh'
+rsync -av --progress . generated \
+--exclude 'node_modules' \
+--exclude 'dist' \
+--exclude 'generated' \
+--exclude '.env' \
+--exclude 'package-lock.json' \
+--exclude 'prepareSchematics.sh' \
+--exclude 'sandbox.ts'
+
 cd generated
 
 # Rename all the gitignore files

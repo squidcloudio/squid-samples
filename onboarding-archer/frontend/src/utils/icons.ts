@@ -5,6 +5,8 @@ import up_arrow from '@/assets/icons/up_arrow.svg';
 import chart_skeleton from '@/assets/icons/chart_skeleton.svg';
 import check_icon from '@/assets/icons/check_icon.svg';
 import warning_icon from '@/assets/icons/warning_icon.svg';
+import tooltip_icon from '@/assets/icons/tooltip_icon.svg';
+import x_icon from '@/assets/icons/x_icon.svg';
 import AAPL from '@/assets/icons/tickers/AAPL.svg';
 import AMGN from '@/assets/icons/tickers/AMGN.svg';
 import AXP from '@/assets/icons/tickers/AXP.svg';
@@ -44,6 +46,8 @@ export const Icons = {
   chart_skeleton,
   check_icon,
   warning_icon,
+  tooltip_icon,
+  x_icon,
   AAPL,
   AMGN,
   AXP,
