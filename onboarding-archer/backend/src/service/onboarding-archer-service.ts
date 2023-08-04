@@ -3,41 +3,41 @@ import {
   scheduler,
   secureDatabase,
   SquidService,
-} from "@squidcloud/backend";
-import { CronExpression } from "@squidcloud/common";
+} from '@squidcloud/backend';
+import { CronExpression } from '@squidcloud/common';
 import {
   ALL_TICKERS,
   PortfolioItem,
   SimulationDay,
   Ticker,
   UserProfile,
-} from "common/common-types";
+} from 'common/common-types';
 import {
   fluctuatePrice,
   getRandomNumber,
   isSameDate,
-} from "../utils/ticker.utils";
-import dayjs from "dayjs";
-import _ from "lodash"; // noinspection JSUnusedGlobalSymbols
+} from '../utils/ticker.utils';
+import dayjs from 'dayjs';
+import _ from 'lodash'; // noinspection JSUnusedGlobalSymbols
 
 // noinspection JSUnusedGlobalSymbols
 export class OnboardingArcherService extends SquidService {
-  private readonly tickerCollection = this.squid.collection<Ticker>("ticker");
+  private readonly tickerCollection = this.squid.collection<Ticker>('ticker');
   private readonly simulationDayCollection =
-    this.squid.collection<SimulationDay>("simulationDay");
+    this.squid.collection<SimulationDay>('simulationDay');
   private readonly portfolioCollection =
-    this.squid.collection<PortfolioItem>("portfolio");
+    this.squid.collection<PortfolioItem>('portfolio');
   private readonly userProfileCollection =
-    this.squid.collection<UserProfile>("userProfile");
+    this.squid.collection<UserProfile>('userProfile');
 
-  @secureDatabase("all", "built_in_db")
+  @secureDatabase('all', 'built_in_db')
   allowAllAccessToBuiltInDb(): boolean {
     return true;
   }
 
   @executable()
   async generatePortfolio(): Promise<void> {
-    console.log("Generating portfolio");
+    console.log('Generating portfolio');
     const allTickers = await this.getAllTickers();
     const shuffledTickers = _.shuffle(allTickers);
     const balance = 100_000;
@@ -47,7 +47,7 @@ export class OnboardingArcherService extends SquidService {
       for (let i = 0; i < shuffledTickers.slice(0, 5).length; i++) {
         const ticker = shuffledTickers.slice(0, 5)[i];
         const amountToBuy = Math.floor(
-          maximumValuePerTicker / ticker.closePrice
+          maximumValuePerTicker / ticker.closePrice,
         );
         totalBalanceUsed += amountToBuy * ticker.closePrice;
         await this.portfolioCollection.doc(String(i)).insert(
@@ -56,22 +56,22 @@ export class OnboardingArcherService extends SquidService {
             amount: amountToBuy,
             indexInUi: i,
           },
-          txId
+          txId,
         );
       }
 
       await this.userProfileCollection
-        .doc("defaultUser")
+        .doc('defaultUser')
         .insert(
-          { id: "defaultUser", balance: balance - totalBalanceUsed },
-          txId
+          { id: 'defaultUser', balance: balance - totalBalanceUsed },
+          txId,
         );
     });
   }
 
   @executable()
   async runSimulation(): Promise<void> {
-    console.log("Running simulation...");
+    console.log('Running simulation...');
     const portfolio = await this.portfolioCollection
       .query()
       .dereference()
@@ -81,11 +81,11 @@ export class OnboardingArcherService extends SquidService {
 
     // Start transaction
     await this.squid.runInTransaction(async (txId) => {
-      const today = dayjs().startOf("day");
+      const today = dayjs().startOf('day');
       // Insert data for 28 days back (should be divisible by 4)
       let previousFluctuation = 0;
       for (let i = 0; i < 28; i++) {
-        const date = today.subtract(i, "day").toDate();
+        const date = today.subtract(i, 'day').toDate();
         const simulationDay: SimulationDay = {
           date,
           value: 0,
@@ -104,11 +104,11 @@ export class OnboardingArcherService extends SquidService {
 
         console.log(
           `Inserting simulation day ${date.toISOString()}: `,
-          simulationDay
+          simulationDay,
         );
 
         await this.simulationDayCollection
-          .doc(i + "")
+          .doc(i + '')
           .insert(simulationDay, txId);
       }
     });
@@ -116,8 +116,8 @@ export class OnboardingArcherService extends SquidService {
 
   @executable()
   async initializeUserProfile(): Promise<void> {
-    console.log("Running initializeUserProfileJob...");
-    const userId = "defaultUser";
+    console.log('Running initializeUserProfileJob...');
+    const userId = 'defaultUser';
     const doc = this.userProfileCollection.doc(userId);
     const userProfileRef = await doc.snapshot();
     if (userProfileRef) return;
@@ -126,7 +126,7 @@ export class OnboardingArcherService extends SquidService {
     await doc.insert({ id: userId, balance: 100_000 });
   }
 
-  @scheduler("generateTickerPricesJob", CronExpression.EVERY_10_SECONDS, true)
+  @scheduler('generateTickerPricesJob', CronExpression.EVERY_10_SECONDS, true)
   async generateTickerPricesJob(): Promise<void> {
     console.log(`${new Date().toLocaleTimeString()} Updating tickers...`);
     const allTickersInDb = await this.tickerCollection
@@ -151,17 +151,17 @@ export class OnboardingArcherService extends SquidService {
           !ticker.changeFromPrevClosePrice
             ? fluctuatePrice(fluctuatedPrice)
             : ticker.prevDayClosePrice || fluctuatedPrice
-          ).toFixed(2)
+          ).toFixed(2),
         );
 
         // Calculate the change from yesterday in price
         const changeFromPrevClosePrice = parseFloat(
-          (fluctuatedPrice - prevDayClosePrice).toFixed(2)
+          (fluctuatedPrice - prevDayClosePrice).toFixed(2),
         );
 
         // Calculate the change from yesterday in percent
         const changeFromPrevClosePercent = parseFloat(
-          ((changeFromPrevClosePrice / fluctuatedPrice) * 100).toFixed(2)
+          ((changeFromPrevClosePrice / fluctuatedPrice) * 100).toFixed(2),
         );
 
         // Update the ticker
@@ -184,9 +184,12 @@ export class OnboardingArcherService extends SquidService {
 
   private async getAllTickersMap(): Promise<Record<string, Ticker>> {
     const allTickers = await this.getAllTickers();
-    return allTickers.reduce((acc, ticker) => {
-      acc[ticker.id] = ticker;
-      return acc;
-    }, {} as Record<string, Ticker>);
+    return allTickers.reduce(
+      (acc, ticker) => {
+        acc[ticker.id] = ticker;
+        return acc;
+      },
+      {} as Record<string, Ticker>,
+    );
   }
 }

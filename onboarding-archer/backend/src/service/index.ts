@@ -1,1 +1,1 @@
-export * from "./onboarding-archer-service";
+export * from './onboarding-archer-service';
