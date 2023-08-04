@@ -30,7 +30,7 @@ const modalRudders: Array<ModalRudder> = [
   },
   {
     icon: 'modal_rudder_left',
-    className: 'top-[50%] left-[-37px] translate-y-[-50%] scale-x-[-1]',
+    className: 'top-[50%] left-[-37px] translate-y-[-50%]',
   },
 ];
 
