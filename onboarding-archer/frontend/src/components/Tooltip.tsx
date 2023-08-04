@@ -36,7 +36,7 @@ export default function Tooltip({
         icon={'tooltip_icon'}
       ></Icon>
       <div
-        className={`absolute top-[43px] left-[-35px] bg-line3 text-text4 p-[16px] rounded-[8px] shadow-elevation2 z-10 w-[385px] ${
+        className={`absolute top-[43px] left-[-35px] bg-line3 text-text4 p-[16px] rounded-[8px] shadow-elevation2 z-10 w-[500px] ${
           tooltipVisible ? '' : 'hidden'
         }`}
       >

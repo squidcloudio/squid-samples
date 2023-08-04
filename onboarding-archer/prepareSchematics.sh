@@ -20,7 +20,8 @@ rsync -av --progress . generated \
 --exclude '.env' \
 --exclude 'package-lock.json' \
 --exclude 'prepareSchematics.sh' \
---exclude 'sandbox.ts'
+--exclude 'sandbox.ts' \
+--exclude '/sleep.js'
 
 cd generated
 

@@ -1,14 +1,16 @@
-# Header
+# Querying data
 
-Notice how the Sector Diversity and Stock Distribution graphs update real-time. With Squid, you can create subscriptions
-to a document using snapshots. Each time the document changes, all subscriptions automatically update in real time.
+To get the list of tickers, we need to query the DB. This can be done using the Squid SDK as follows:
 
 ```typescript
- users = this.squid
-  .collection<User>('users')
-  .query()
-  .snapshots()
-  .pipe(map((users) => users.map((user) => user.data)));
+// Getting the collection reference using the Squid useCollection react hook
+const tickerCollection = useCollection<Ticker>('ticker');
+
+// Querying the collection and subscribing for updates
+const allTickersResponse = useQuery<Ticker>(
+  tickerCollection.query(),
+  true /* subscribe */
+);
 ```
 
-Each time the document changes, all subscriptions automatically update in real time
+Each time a document (ticker) changes, the query result updates in real-time.
