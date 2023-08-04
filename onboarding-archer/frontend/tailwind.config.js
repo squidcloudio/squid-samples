@@ -105,6 +105,13 @@ export default {
       'swipe-toast-y': 'swipeToastY 100ms ease-out',
     },
     extend: {
+      boxShadow: {
+        elevation1: 'var(--elevation1)',
+        elevation2: 'var(--elevation2)',
+        elevation3: 'var(--elevation3)',
+        elevation4: 'var(--elevation4)',
+        'elevation-navigation': 'var(--elevation-navigation)',
+      },
       dropShadow: {
         card: [
           '0px 2px 4px rgba(0, 0, 0, 0.08)',

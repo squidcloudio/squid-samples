@@ -30,9 +30,11 @@ for i in 'backend' 'frontend' '.' ; do
 done
 
 for i in 'backend' 'frontend'; do
-  for name in 'name' 'version' 'description' 'author' ; do
+  for name in 'version' 'description' 'author' ; do
     sed -i -e 's@\("'$name'": "\)[^"]*\(",\)@\1<%= '$name' %>\2@g' "./$i/package.json"
   done
+
+  sed -i -e 's@\("name": "\)[^"]*\(",\)@\1<%= '$i'PackageJsonName %>\2@g' "./$i/package.json"
 done
 
 if [ "$1" == "copy" ] ; then

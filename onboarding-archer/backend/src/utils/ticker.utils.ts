@@ -1,7 +1,4 @@
-export function fluctuatePrice(
-  price?: number,
-  changePercentRange = 0.03,
-): number {
+export function fluctuatePrice(price?: number, changePercentRange = 0.03): number {
   price = price || getRandomNumber(10, 130);
   const changePercent = (Math.random() - 0.5) * 2 * changePercentRange;
   let newPrice = price + (price * changePercent) / 100;
@@ -28,9 +25,5 @@ export function isSameDate(dateToCompare?: Date): boolean {
   const dayToCompare: number = dateToCompare.getDate();
 
   // Compare the date components
-  return (
-    yearToCompare === todayYear &&
-    monthToCompare === todayMonth &&
-    dayToCompare === todayDay
-  );
+  return yearToCompare === todayYear && monthToCompare === todayMonth && dayToCompare === todayDay;
 }
