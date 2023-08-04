@@ -4,10 +4,35 @@ import ReactMarkdown from 'react-markdown';
 import SyntaxHighlighter from 'react-syntax-highlighter/dist/esm/prism';
 import prismMaterialDarkTheme from '@/utils/prismMaterialDarkTheme.ts';
 import { useArcherContext } from '@/utils/ArcherContextProvider.tsx';
+import { Icons } from '@/utils/icons.ts';
 
 interface TooltipProps extends React.HTMLAttributes<HTMLElement> {
   mdFile: string;
 }
+
+interface ModalRudder {
+  className: string;
+  icon: keyof typeof Icons;
+}
+
+const modalRudders: Array<ModalRudder> = [
+  {
+    icon: 'modal_rudder_top',
+    className: 'top-[-37px] left-[50%] translate-x-[-50%]',
+  },
+  {
+    icon: 'modal_rudder_right',
+    className: 'top-[50%] right-[-37px] translate-y-[-50%]',
+  },
+  {
+    icon: 'modal_rudder_bottom',
+    className: 'bottom-[-37px] left-[50%] translate-x-[-50%]',
+  },
+  {
+    icon: 'modal_rudder_left',
+    className: 'top-[50%] left-[-37px] translate-y-[-50%] scale-x-[-1]',
+  },
+];
 
 export default function Tooltip({
   mdFile,
@@ -17,6 +42,14 @@ export default function Tooltip({
   const { inspectModeEnabled } = useArcherContext();
   const [tooltipVisible, setTooltipVisible] = useState(false);
   const [markdown, setMarkdown] = useState('');
+  const [modalRudder, setModalRudder] = useState<ModalRudder | undefined>(
+    undefined,
+  );
+
+  if (!modalRudder) {
+    const modalRudderIndex = Math.floor(Math.random() * modalRudders.length);
+    setModalRudder(modalRudders[modalRudderIndex]);
+  }
 
   useEffect(() => {
     fetch(`/docs/${mdFile}`)
@@ -49,9 +82,15 @@ export default function Tooltip({
       >
         <div
           className={
-            'w-[20px] h-[20px] rotate-[45deg] absolute top-[-8px] left-[40px] bg-line3 rounded-[4px]'
+            'w-[20px] h-[20px] rotate-[45deg] absolute top-[-8px] left-[43px] bg-line3 rounded-[4px]'
           }
         ></div>
+
+        {modalRudder && (
+          <div className={`absolute ${modalRudder.className}`}>
+            <Icon icon={modalRudder.icon}></Icon>
+          </div>
+        )}
 
         <div
           className={

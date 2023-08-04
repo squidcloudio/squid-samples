@@ -8,8 +8,11 @@ import warning_icon from '@/assets/icons/warning_icon.svg';
 import tooltip_icon from '@/assets/icons/tooltip_icon.svg';
 import x_icon from '@/assets/icons/x_icon.svg';
 import modal_x_icon from '@/assets/icons/modal_x_icon.svg';
-import inspector_toggle_off from '@/assets/icons/inspector_toggle_off.svg';
-import inspector_toggle_on from '@/assets/icons/inspector_toggle_on.svg';
+import inspector_toggle from '@/assets/icons/inspector_toggle.svg';
+import modal_rudder_top from '@/assets/icons/modal_rudder-top.svg';
+import modal_rudder_right from '@/assets/icons/modal_rudder-right.svg';
+import modal_rudder_bottom from '@/assets/icons/modal_rudder-bottom.svg';
+import modal_rudder_left from '@/assets/icons/modal_rudder-left.svg';
 import AAPL from '@/assets/icons/tickers/AAPL.svg';
 import AMGN from '@/assets/icons/tickers/AMGN.svg';
 import AXP from '@/assets/icons/tickers/AXP.svg';
@@ -52,8 +55,11 @@ export const Icons = {
   tooltip_icon,
   x_icon,
   modal_x_icon,
-  inspector_toggle_off,
-  inspector_toggle_on,
+  inspector_toggle,
+  modal_rudder_top,
+  modal_rudder_right,
+  modal_rudder_bottom,
+  modal_rudder_left,
   AAPL,
   AMGN,
   AXP,

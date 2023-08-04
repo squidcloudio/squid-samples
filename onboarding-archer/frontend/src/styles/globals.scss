@@ -32,6 +32,12 @@ html, body {
   box-sizing: border-box;
 }
 
+.gray_out_in_inspection_mode {
+  transition: filter 1s;
+}
 
 .inspection_mode {
+  .gray_out_in_inspection_mode {
+    filter: grayscale(100%);
+  }
 }

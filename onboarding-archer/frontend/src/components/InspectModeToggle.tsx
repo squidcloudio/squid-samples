@@ -17,11 +17,13 @@ export default function InspectModeToggle({
       {...otherProps}
       className={`flex items-center gap-[8px] ${className ?? ''}`}
     >
-      <div className="text-[#FFF] text-[12px] font-extrabold leading-[16px]">
-        Inspect mode
+      <div className="text-primary1 text-[12px] font-extrabold leading-[16px]">
+        Tooltips
       </div>
       <div
-        className="w-[54px] h-[28px] rounded-[100px] bg-line3 p-[2px] flex cursor-pointer"
+        className={`w-[54px] h-[28px] rounded-[100px] p-[2px] flex cursor-pointer ${
+          inspectModeEnabled ? `bg-primary1` : `bg-line3`
+        }`}
         onClick={toggleInspectMode}
       >
         <div
@@ -29,13 +31,7 @@ export default function InspectModeToggle({
             inspectModeEnabled ? `ml-[26px]` : `0`
           }`}
         >
-          <Icon
-            icon={
-              inspectModeEnabled
-                ? 'inspector_toggle_on'
-                : 'inspector_toggle_off'
-            }
-          ></Icon>
+          <Icon icon={'inspector_toggle'}></Icon>
         </div>
       </div>
     </div>

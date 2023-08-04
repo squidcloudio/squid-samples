@@ -153,7 +153,7 @@ export default function ChartAndData() {
   }, [totalChangeInPercent]);
 
   return (
-    <div className="w-full mb-[48px]">
+    <div className="gray_out_in_inspection_mode w-full mb-[48px]">
       <div className="flex justify-between items-center border-b border-line1 pb-[12px] mb-[12px]">
         <div className="flex items-center">
           <div

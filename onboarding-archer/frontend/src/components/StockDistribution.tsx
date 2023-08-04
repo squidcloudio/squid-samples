@@ -20,7 +20,7 @@ export default function StockDistribution() {
         Portfolio
         <Tooltip className={'ml-2'} mdFile="portfolio_section.md"></Tooltip>
       </div>
-      <DistributionCard>
+      <DistributionCard className={'gray_out_in_inspection_mode'}>
         <div className="flex justify-between items-start">
           <DistributionTitle className="w-[138px]">
             Stock Distribution and Performance
@@ -75,7 +75,7 @@ export default function StockDistribution() {
           })}
         </div>
       </DistributionCard>
-      <div className="flex justify-between mt-[32px]">
+      <div className="gray_out_in_inspection_mode flex justify-between mt-[32px]">
         <SectorDiversity className="basis-[468px]"></SectorDiversity>
         <div className="basis-[260px]">
           <Holdings />

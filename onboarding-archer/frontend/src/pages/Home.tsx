@@ -3,7 +3,7 @@ import MainPanel from '@/components/MainPanel.tsx';
 
 export default function Home() {
   return (
-    <div className="home_layout flex h-[844px] gap-[32px]">
+    <div className="home_layout flex h-[882px] gap-[32px]">
       <div className="w-[384px] h-full relative z-10">
         <LeftPanel />
       </div>
