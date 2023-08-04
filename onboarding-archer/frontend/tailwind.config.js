@@ -105,6 +105,9 @@ export default {
       'swipe-toast-y': 'swipeToastY 100ms ease-out',
     },
     extend: {
+      backgroundImage: {
+        'main-modal-footer': "url('/images/main_modal_footer.svg')",
+      },
       boxShadow: {
         elevation1: 'var(--elevation1)',
         elevation2: 'var(--elevation2)',

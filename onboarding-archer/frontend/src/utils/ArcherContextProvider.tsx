@@ -15,6 +15,8 @@ export interface ArcherContextData {
   userProfile: UserProfile | undefined;
   confirmationMessage: React.ReactNode | undefined;
   setConfirmationMessage: (message: React.ReactNode | undefined) => void;
+  mainModalOpen: boolean;
+  setMainModalOpen: (open: boolean) => void;
 }
 
 interface ArcherContextProviderProps {
@@ -29,6 +31,9 @@ export function ArcherContextProvider({
   const [confirmationMessage, setConfirmationMessage] = useState<
     React.ReactNode | undefined
   >(undefined);
+
+  const [mainModalOpen, setMainModalOpen] = React.useState(false);
+
   const userProfileCollection = useCollection<UserProfile>('userProfile');
   const userProfileResponse = useQuery<UserProfile>(
     userProfileCollection.query().eq('id', 'defaultUser'),
@@ -54,16 +59,15 @@ export function ArcherContextProvider({
         ready: false,
         confirmationMessage,
         setConfirmationMessage,
+        mainModalOpen,
+        setMainModalOpen,
       };
     }
 
-    const allTickersMap = allTickersResponse.data.reduce(
-      (map, item) => {
-        map[item.id] = item;
-        return map;
-      },
-      {} as Record<string, Ticker>,
-    );
+    const allTickersMap = allTickersResponse.data.reduce((map, item) => {
+      map[item.id] = item;
+      return map;
+    }, {} as Record<string, Ticker>);
 
     const portfolio = portfolioResponse.data.map<PortfolioTicker>((item) => ({
       ...allTickersMap[item.tickerId],
@@ -79,6 +83,8 @@ export function ArcherContextProvider({
       ready: !allTickersResponse.loading && !portfolioResponse.loading,
       confirmationMessage,
       setConfirmationMessage,
+      mainModalOpen,
+      setMainModalOpen,
     };
   }, [
     allTickersResponse.data,
