@@ -3,6 +3,7 @@ import Icon from '@/components/lib/Icon.tsx';
 import ReactMarkdown from 'react-markdown';
 import SyntaxHighlighter from 'react-syntax-highlighter/dist/esm/prism';
 import prismMaterialDarkTheme from '@/utils/prismMaterialDarkTheme.ts';
+import { useArcherContext } from '@/utils/ArcherContextProvider.tsx';
 
 interface TooltipProps extends React.HTMLAttributes<HTMLElement> {
   mdFile: string;
@@ -13,6 +14,7 @@ export default function Tooltip({
   className,
   ...otherProps
 }: TooltipProps) {
+  const { inspectModeEnabled } = useArcherContext();
   const [tooltipVisible, setTooltipVisible] = useState(false);
   const [markdown, setMarkdown] = useState('');
 
@@ -29,9 +31,14 @@ export default function Tooltip({
   }
 
   return (
-    <div {...otherProps} className={`inline-block relative ${className}`}>
+    <div
+      {...otherProps}
+      className={`inline-block relative ${
+        inspectModeEnabled ? '' : 'hidden'
+      } ${className}`}
+    >
       <Icon
-        className={`w-[32px] h-[32px] cursor-pointer hover:opacity-80 active:opacity-60`}
+        className={`w-[36px] h-[36px] cursor-pointer hover:opacity-80 active:opacity-60`}
         onClick={toggleTooltip}
         icon={'tooltip_icon'}
       ></Icon>

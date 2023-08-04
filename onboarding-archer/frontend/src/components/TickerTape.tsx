@@ -42,7 +42,7 @@ export default function TickerTape() {
 
   return (
     <div className="h-full flex flex-col">
-      <div className="text-[20px] leading-[100%] font-extrabold mb-2 flex items-center">
+      <div className="text-[20px] leading-[100%] font-extrabold mb-2 flex items-center h-[36px]">
         Ticker Tape Value
         <Tooltip className={'ml-2'} mdFile="tape-tooltip.md"></Tooltip>
       </div>
@@ -76,20 +76,35 @@ export default function TickerTape() {
       </div>
       <div className="mt-14 flex-grow">
         <div className="grid grid-cols-2 gap-[12px]">
-          <Button
-            buttonType="primary"
-            onClick={runSimulation}
-            disabled={ongoingServerRequest}
-          >
-            Run
-          </Button>
-          <Button
-            buttonType="secondary"
-            onClick={generatePortfolio}
-            disabled={ongoingServerRequest}
-          >
-            Regenerate
-          </Button>
+          <div className={'relative'}>
+            <Tooltip
+              className={'!absolute top-[-12px] right-[-13px] '}
+              mdFile="run_button.md"
+            ></Tooltip>
+            <Button
+              className={'w-full'}
+              buttonType="primary"
+              onClick={runSimulation}
+              disabled={ongoingServerRequest}
+            >
+              Run
+            </Button>
+          </div>
+
+          <div className={'relative'}>
+            <Tooltip
+              className={'!absolute top-[-12px] right-[-13px] '}
+              mdFile="regenerate_button.md"
+            ></Tooltip>
+            <Button
+              className={'w-full'}
+              buttonType="secondary"
+              onClick={generatePortfolio}
+              disabled={ongoingServerRequest}
+            >
+              Regenerate
+            </Button>
+          </div>
         </div>
       </div>
       <div className="mt-9 text-text2 text-[12px] font-medium leading-[16px]">

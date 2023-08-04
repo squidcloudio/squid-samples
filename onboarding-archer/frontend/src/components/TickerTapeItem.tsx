@@ -5,6 +5,7 @@ import { buyOrSellTicker, replaceTicker } from '@/utils/portfolio.ts';
 import { useCollection, useSquid } from '@squidcloud/react';
 import { PortfolioItem, UserProfile } from '@/common/common-types.ts';
 import PriceDisplay from '@/components/PriceDisplay.tsx';
+import Tooltip from '@/components/Tooltip.tsx';
 
 export interface TickerOption {
   value: string;
@@ -49,7 +50,14 @@ export default function TickerTapeItem({
   const userProfileCollection = useCollection<UserProfile>('userProfile');
   // noinspection JSUnusedGlobalSymbols
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex items-center justify-between relative">
+      {index === 0 && (
+        <Tooltip
+          className={'!absolute top-[-12px] right-[-13px] '}
+          mdFile="buy_stock.md"
+        ></Tooltip>
+      )}
+
       <Select
         className="w-[180px] bg-bg2 !text-[16px] !font-extrabold"
         classNames={{

@@ -105,6 +105,9 @@ export default {
       'swipe-toast-y': 'swipeToastY 100ms ease-out',
     },
     extend: {
+      transitionProperty: {
+        'margin-left': 'margin-left',
+      },
       backgroundImage: {
         'main-modal-footer': "url('/images/main_modal_footer.svg')",
       },

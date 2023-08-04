@@ -8,6 +8,8 @@ import warning_icon from '@/assets/icons/warning_icon.svg';
 import tooltip_icon from '@/assets/icons/tooltip_icon.svg';
 import x_icon from '@/assets/icons/x_icon.svg';
 import modal_x_icon from '@/assets/icons/modal_x_icon.svg';
+import inspector_toggle_off from '@/assets/icons/inspector_toggle_off.svg';
+import inspector_toggle_on from '@/assets/icons/inspector_toggle_on.svg';
 import AAPL from '@/assets/icons/tickers/AAPL.svg';
 import AMGN from '@/assets/icons/tickers/AMGN.svg';
 import AXP from '@/assets/icons/tickers/AXP.svg';
@@ -50,6 +52,8 @@ export const Icons = {
   tooltip_icon,
   x_icon,
   modal_x_icon,
+  inspector_toggle_off,
+  inspector_toggle_on,
   AAPL,
   AMGN,
   AXP,

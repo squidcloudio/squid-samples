@@ -5,12 +5,21 @@ import { SectorDiversity } from '@/components/SectorDiversity.tsx';
 import { calculatePercent } from '@/utils/portfolio.ts';
 import Shares from '@/components/Shares.tsx';
 import { useArcherContext } from '@/utils/ArcherContextProvider.tsx';
+import Tooltip from '@/components/Tooltip.tsx';
 
 export default function StockDistribution() {
   const { portfolio } = useArcherContext();
 
   return (
     <>
+      <div
+        className={
+          'flex items-center h-[36px] mb-[10px] text-[16px] font-extrabold leading-[100%]'
+        }
+      >
+        Portfolio
+        <Tooltip className={'ml-2'} mdFile="portfolio_section.md"></Tooltip>
+      </div>
       <DistributionCard>
         <div className="flex justify-between items-start">
           <DistributionTitle className="w-[138px]">

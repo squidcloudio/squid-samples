@@ -8,17 +8,17 @@ import MainModal from '@/components/MainModal.tsx';
 import { useEffect } from 'react';
 
 export default function App() {
-  const archerContextData = useArcherContext();
+  const { setMainModalOpen, ready, inspectModeEnabled } = useArcherContext();
   useEffect(() => {
     const archerModalSeen = localStorage.getItem('archerModalSeen') === 'true';
     if (!archerModalSeen) {
-      archerContextData.setMainModalOpen(true);
+      setMainModalOpen(true);
       localStorage.setItem('archerModalSeen', 'true');
     }
   });
 
-  return archerContextData.ready ? (
-    <>
+  return ready ? (
+    <div className={inspectModeEnabled ? 'inspection_mode' : ''}>
       <MainModal />
       <div className="flex flex-col h-full">
         <TopNavBar />
@@ -29,7 +29,7 @@ export default function App() {
           </Routes>
         </div>
       </div>
-    </>
+    </div>
   ) : (
     <></>
   );

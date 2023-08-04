@@ -17,6 +17,8 @@ export interface ArcherContextData {
   setConfirmationMessage: (message: React.ReactNode | undefined) => void;
   mainModalOpen: boolean;
   setMainModalOpen: (open: boolean) => void;
+  inspectModeEnabled: boolean;
+  setInspectModeEnabled: (open: boolean) => void;
 }
 
 interface ArcherContextProviderProps {
@@ -33,6 +35,7 @@ export function ArcherContextProvider({
   >(undefined);
 
   const [mainModalOpen, setMainModalOpen] = React.useState(false);
+  const [inspectModeEnabled, setInspectModeEnabled] = React.useState(false);
 
   const userProfileCollection = useCollection<UserProfile>('userProfile');
   const userProfileResponse = useQuery<UserProfile>(
@@ -61,6 +64,8 @@ export function ArcherContextProvider({
         setConfirmationMessage,
         mainModalOpen,
         setMainModalOpen,
+        inspectModeEnabled,
+        setInspectModeEnabled,
       };
     }
 
@@ -85,6 +90,8 @@ export function ArcherContextProvider({
       setConfirmationMessage,
       mainModalOpen,
       setMainModalOpen,
+      inspectModeEnabled,
+      setInspectModeEnabled,
     };
   }, [
     allTickersResponse.data,
