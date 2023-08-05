@@ -61,17 +61,7 @@ function getConfirmationBarMessage(percentChanged: number): React.ReactNode {
       )}
     </>
   );
-  /*const message = gained ? (
-    <>
-      <span className="font-bold">Congrats!</span> Looks like your stock
-      portfolio went up {percentChangedString}% in 30 days!
-    </>
-  ) : (
-    <>
-      <span className="font-bold">Oooops!</span> Your portfolio dropped{' '}
-      {percentChangedString}%. Good thing this was just a simulation!
-    </>
-  );*/
+
   return (
     <>
       {message}

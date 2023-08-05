@@ -56,16 +56,15 @@ export default function MainModal() {
             </div>
             <div className="text-16px leading-[20px] font-semibold text-text2 mb-[22px]">
               In the seconds it took to launch this app, Squid spun up a new
-              mid-tier for you that’s secure, scalable, and connects to a
-              built-in NoSQL database in real time, all with no work required
-              from you!
+              mid-tier for you that's secure, scalable, and connects to a
+              built-in NoSQL database in real time.
             </div>
             <div className="flex items-center gap-[12px]">
               <div className="basis-[36px]">
                 <Icon icon={'tooltip_icon'}></Icon>
               </div>
               <div className="text-16px leading-[20px] font-semibold text-text2">
-                Look out for tool tips we’ve left throughout the app to
+                Look out for tool tips we've left throughout the app to
                 understand the power and simplicity of Squid Cloud!{' '}
               </div>
             </div>

@@ -3,20 +3,43 @@ import { CronExpression } from '@squidcloud/common';
 import { ALL_TICKERS, BuiltInTicker, PortfolioItem, SimulationDay, Ticker, UserProfile } from 'common/common-types';
 import { fluctuatePrice, getRandomNumber, isSameDate } from '../utils/ticker.utils';
 import dayjs from 'dayjs';
-import _ from 'lodash'; // noinspection JSUnusedGlobalSymbols
+import _ from 'lodash';
 
 // noinspection JSUnusedGlobalSymbols
+/**
+ * `OnboardingArcherService` provides functionalities related to actions in the Archer sample app.
+ * It offers methods for generating portfolios, running simulations, and initializing user profiles,
+ * among other features. This service extends the `SquidService` and makes use of the
+ * Squid platform capabilities.
+ *
+ * For more detailed documentation, see {@link https://docs.squid.cloud/docs/backend/}.
+ */
 export class OnboardingArcherService extends SquidService {
+  /**
+   * Collection references in the Squid SDK. We use them to interact with those collections (for example, for queries)
+   * For more information, see {@link https://docs.squid.cloud/docs/client-sdk/collection-reference}.
+   */
   private readonly tickerCollection = this.squid.collection<Ticker>('ticker');
   private readonly simulationDayCollection = this.squid.collection<SimulationDay>('simulationDay');
   private readonly portfolioCollection = this.squid.collection<PortfolioItem>('portfolio');
   private readonly userProfileCollection = this.squid.collection<UserProfile>('userProfile');
 
+  /**
+   * Grants full access to the built-in database.
+   * For more information, see {@link https://docs.squid.cloud/docs/backend/security-rules/secure-data-access}.
+   *
+   * @returns {boolean} Always returns true to allow access.
+   */
   @secureDatabase('all', 'built_in_db')
   allowAllAccessToBuiltInDb(): boolean {
     return true;
   }
 
+  /**
+   * Asynchronously generates a user's portfolio by randomly selecting tickers and assigning values.
+   * To learn more about executables, see {@link https://docs.squid.cloud/docs/backend/executables}.
+   * To learn more about mutations, see {@link https://docs.squid.cloud/docs/client-sdk/mutations}.
+   */
   @executable()
   async generatePortfolio(): Promise<void> {
     console.log('Generating portfolio');
@@ -46,6 +69,11 @@ export class OnboardingArcherService extends SquidService {
     });
   }
 
+  /**
+   * Asynchronously runs a simulation for the user's portfolio for the past month.
+   * To learn more about executables, see {@link https://docs.squid.cloud/docs/backend/executables}.
+   * To learn more about mutations, see {@link https://docs.squid.cloud/docs/client-sdk/mutations}.
+   */
   @executable()
   async runSimulation(): Promise<void> {
     console.log('Running simulation...');
@@ -83,6 +111,11 @@ export class OnboardingArcherService extends SquidService {
     });
   }
 
+  /**
+   * Initializes a user's profile with a default balance of $100,000.
+   * To learn more about executables, see {@link https://docs.squid.cloud/docs/backend/executables}.
+   * To learn more about mutations, see {@link https://docs.squid.cloud/docs/client-sdk/mutations}.
+   */
   @executable()
   async initializeUserProfile(): Promise<void> {
     console.log('Running initializeUserProfileJob...');
@@ -95,6 +128,12 @@ export class OnboardingArcherService extends SquidService {
     await doc.insert({ id: userId, balance: 100_000 });
   }
 
+  /**
+   * Job that asynchronously generates ticker prices. Scheduled to run every 10 seconds.
+   * To learn more about schedulers, see {@link https://docs.squid.cloud/docs/backend/schedulers}.
+   * To learn more about mutations, see {@link https://docs.squid.cloud/docs/client-sdk/mutations}.
+   * To learn more about queries, see {@link https://docs.squid.cloud/docs/client-sdk/queries}.
+   */
   @scheduler('generateTickerPricesJob', CronExpression.EVERY_10_SECONDS, true)
   async generateTickerPricesJob(): Promise<void> {
     console.log(`${new Date().toLocaleTimeString()} Updating tickers...`);

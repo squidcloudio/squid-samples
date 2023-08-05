@@ -1,14 +1,11 @@
-import {
-  bootstrapLocalBackend,
-  LocalBackendModule,
-} from '@squidcloud/local-backend';
+import { bootstrapLocalBackend, LocalBackendModule } from '@squidcloud/local-backend';
 import * as backendService from './index';
 
-/*****************************
- *                           *
- *    INTERNAL USE ONLY      *
- *    DO NOT MODIFY          *
- *                           *
- *****************************/
+/***************************************
+ *                                     *
+ *    SQUID CLOUD INTERNAL USE ONLY    *
+ *    PLEASE DO NOT MODIFY             *
+ *                                     *
+ **************************************/
 
 bootstrapLocalBackend(LocalBackendModule.forRoot(backendService)).then();
