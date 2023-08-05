@@ -51,8 +51,8 @@ export default function MainModal() {
 
           <div className="pt-[52px] px-[40px] mb-[8px]">
             <div className="text-[32px] font-extrabold leading-[120%] mb-[24px]">
-              Great! You just built your first Squid app:{' '}
-              <span className="font-normal">Archer Ticker Tape</span>
+              Great! You just built your first Squid app:
+              <span className="ml-2 font-normal">Archer Ticker Tape</span>
             </div>
             <div className="text-16px leading-[20px] font-semibold text-text2 mb-[22px]">
               In the seconds it took to launch this app, Squid spun up a new
@@ -64,8 +64,9 @@ export default function MainModal() {
                 <Icon icon={'tooltip_icon'}></Icon>
               </div>
               <div className="text-16px leading-[20px] font-semibold text-text2">
-                Look out for tool tips we've left throughout the app to
-                understand the power and simplicity of Squid Cloud!{' '}
+                To view detailed tooltips for the different components, click
+                the <span className="font-extrabold">Tooltips</span> toggle at
+                the top right.
               </div>
             </div>
           </div>
