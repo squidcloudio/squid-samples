@@ -1,15 +1,15 @@
 export type PartialBy<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
 
-export const ALL_TICKERS: Array<
-  PartialBy<
-    Ticker,
-    | 'closePrice'
-    | 'prevDayClosePrice'
-    | 'changeFromPrevClosePercent'
-    | 'changeFromPrevClosePrice'
-    | 'updateDate'
-  >
-> = [
+export type BuiltInTicker = PartialBy<
+  Ticker,
+  | 'closePrice'
+  | 'prevDayClosePrice'
+  | 'changeFromPrevClosePercent'
+  | 'changeFromPrevClosePrice'
+  | 'updateDate'
+>;
+
+export const ALL_TICKERS: Array<BuiltInTicker> = [
   {
     id: 'PG',
     name: 'Procter & Gamble Co',
@@ -139,11 +139,6 @@ export const ALL_TICKERS: Array<
     id: 'JNJ',
     name: 'Johnson & Johnson',
     sector: 'Pharmaceutical Preparations',
-  },
-  {
-    id: 'MCD',
-    name: 'McDonald’s Corp',
-    sector: 'Retail-eating Places',
   },
   {
     id: 'V',

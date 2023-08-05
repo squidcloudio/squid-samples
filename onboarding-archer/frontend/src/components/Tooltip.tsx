@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Icon from '@/components/lib/Icon.tsx';
 import ReactMarkdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw';
 import SyntaxHighlighter from 'react-syntax-highlighter/dist/esm/prism';
 import prismMaterialDarkTheme from '@/utils/prismMaterialDarkTheme.ts';
 import { useArcherContext } from '@/utils/ArcherContextProvider.tsx';
@@ -66,7 +67,7 @@ export default function Tooltip({
   return (
     <div
       {...otherProps}
-      className={`inline-block relative ${
+      className={`inline-block relative font-normal ${
         inspectModeEnabled ? '' : 'hidden'
       } ${className}`}
     >
@@ -76,7 +77,7 @@ export default function Tooltip({
         icon={'tooltip_icon'}
       ></Icon>
       <div
-        className={`absolute top-[43px] left-[-35px] bg-line3 text-text4 p-[16px] rounded-[8px] shadow-elevation2 z-10 w-[500px] ${
+        className={`absolute top-[43px] left-[-35px] bg-line3 text-text4 p-[16px] rounded-[8px] shadow-elevation2 z-10 w-[580px] ${
           tooltipVisible ? '' : 'hidden'
         }`}
       >
@@ -103,6 +104,7 @@ export default function Tooltip({
         <div className="markdown">
           <ReactMarkdown
             children={markdown}
+            rehypePlugins={[rehypeRaw]}
             components={{
               code({ node, inline, className, children, ...props }) {
                 const match = /language-(\w+)/.exec(className || '');

@@ -1,16 +1,19 @@
-# Querying data
+# Querying Data
 
-To get the list of tickers, we need to query the DB. This can be done using the Squid SDK as follows:
+To retrieve a list of tickers, query the DB using the Squid SDK:
 
 ```typescript
-// Getting the collection reference using the Squid useCollection react hook
+// Use Squid's useCollection React hook to get the collection reference
 const tickerCollection = useCollection<Ticker>('ticker');
 
-// Querying the collection and subscribing for updates
+// Query the collection and subscribe for updates
 const allTickersResponse = useQuery<Ticker>(
   tickerCollection.query(),
-  true /* subscribe */
+  true, // this enables real-time updates to the query result
 );
 ```
 
-Each time a document (ticker) changes, the query result updates in real-time.
+The query result updates in real-time when a document (ticker) changes. Squid has many querying capabilities.
+
+For additional details, see the  <a target="_blank" href="https://docs.squid.cloud/docs/client-sdk/queries">
+documentation</a>.

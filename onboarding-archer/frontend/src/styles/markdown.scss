@@ -128,13 +128,12 @@ pre[class*="language-"] {
 
   code:not([class*='language-']) {
     background: $primary2;
-    font-family: 'IBM Plex Mono', sans-serif;
+    font-family: "Roboto Mono", monospace;
     font-weight: 400;
-    font-size: 16px;
     line-height: 20px;
     border-radius: 4px;
     color: $primary1;
-    padding: 0 8px;
+    padding: 0 0;
   }
 
   strong {

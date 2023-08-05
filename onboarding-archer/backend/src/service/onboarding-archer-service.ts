@@ -1,6 +1,6 @@
 import { executable, scheduler, secureDatabase, SquidService } from '@squidcloud/backend';
 import { CronExpression } from '@squidcloud/common';
-import { ALL_TICKERS, PortfolioItem, SimulationDay, Ticker, UserProfile } from 'common/common-types';
+import { ALL_TICKERS, BuiltInTicker, PortfolioItem, SimulationDay, Ticker, UserProfile } from 'common/common-types';
 import { fluctuatePrice, getRandomNumber, isSameDate } from '../utils/ticker.utils';
 import dayjs from 'dayjs';
 import _ from 'lodash'; // noinspection JSUnusedGlobalSymbols
@@ -101,41 +101,46 @@ export class OnboardingArcherService extends SquidService {
     const allTickersInDb = await this.tickerCollection.query().dereference().snapshot();
     const allTickers = allTickersInDb.length ? allTickersInDb : ALL_TICKERS;
     await this.squid.runInTransaction(async (txId) => {
-      allTickers.forEach((ticker) => {
-        const closePrice = ticker.closePrice || getRandomNumber(10, 130);
-
-        let fluctuatedPrice = -1;
-        // Make sure the price is not negative
-        while (fluctuatedPrice < 0) {
-          fluctuatedPrice = fluctuatePrice(closePrice);
-        }
-
-        // Calculate previous close's price
-        const prevDayClosePrice = parseFloat(
-          (!ticker.closePrice || !isSameDate(ticker.updateDate) || !ticker.changeFromPrevClosePrice
-            ? fluctuatePrice(fluctuatedPrice)
-            : ticker.prevDayClosePrice || fluctuatedPrice
-          ).toFixed(2),
-        );
-
-        // Calculate the change from yesterday in price
-        const changeFromPrevClosePrice = parseFloat((fluctuatedPrice - prevDayClosePrice).toFixed(2));
-
-        // Calculate the change from yesterday in percent
-        const changeFromPrevClosePercent = parseFloat(((changeFromPrevClosePrice / fluctuatedPrice) * 100).toFixed(2));
-
-        // Update the ticker
-        const updatedTicker: Ticker = {
-          ...ticker,
-          closePrice: fluctuatedPrice,
-          prevDayClosePrice,
-          updateDate: new Date(),
-          changeFromPrevClosePrice,
-          changeFromPrevClosePercent,
-        };
-        this.tickerCollection.doc(ticker.id).insert(updatedTicker, txId);
-      });
+      for (const ticker of allTickers) {
+        await this.generateTickerPrice(ticker, txId);
+      }
     });
+  }
+
+  private async generateTickerPrice(ticker: BuiltInTicker, txId: string): Promise<void> {
+    const closePrice = ticker.closePrice || getRandomNumber(10, 130);
+
+    let fluctuatedPrice = -1;
+    // Make sure the price is not negative
+    while (fluctuatedPrice < 0) {
+      fluctuatedPrice = fluctuatePrice(closePrice);
+    }
+
+    // Calculate previous close's price
+    const prevDayClosePrice = parseFloat(
+      (!ticker.closePrice || !isSameDate(ticker.updateDate) || !ticker.changeFromPrevClosePrice
+        ? fluctuatePrice(fluctuatedPrice)
+        : ticker.prevDayClosePrice || fluctuatedPrice
+      ).toFixed(2),
+    );
+
+    // Calculate the change from yesterday in price
+    const changeFromPrevClosePrice = parseFloat((fluctuatedPrice - prevDayClosePrice).toFixed(2));
+
+    // Calculate the change from yesterday in percent
+    const changeFromPrevClosePercent = parseFloat(((changeFromPrevClosePrice / fluctuatedPrice) * 100).toFixed(2));
+
+    // Update the ticker
+    const updatedTicker: Ticker = {
+      ...ticker,
+      closePrice: fluctuatedPrice,
+      prevDayClosePrice,
+      updateDate: new Date(),
+      changeFromPrevClosePrice,
+      changeFromPrevClosePercent,
+    };
+
+    await this.tickerCollection.doc(ticker.id).insert(updatedTicker, txId);
   }
 
   private async getAllTickers(): Promise<Array<Ticker>> {
@@ -144,12 +149,9 @@ export class OnboardingArcherService extends SquidService {
 
   private async getAllTickersMap(): Promise<Record<string, Ticker>> {
     const allTickers = await this.getAllTickers();
-    return allTickers.reduce(
-      (acc, ticker) => {
-        acc[ticker.id] = ticker;
-        return acc;
-      },
-      {} as Record<string, Ticker>,
-    );
+    return allTickers.reduce((acc, ticker) => {
+      acc[ticker.id] = ticker;
+      return acc;
+    }, {} as Record<string, Ticker>);
   }
 }

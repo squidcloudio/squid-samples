@@ -77,10 +77,6 @@ export default function TickerTape() {
       <div className="mt-14 flex-grow">
         <div className="grid grid-cols-2 gap-[12px]">
           <div className={'relative'}>
-            <Tooltip
-              className={'!absolute top-[-12px] right-[-13px] '}
-              mdFile="run_button.md"
-            ></Tooltip>
             <Button
               className={'w-full'}
               buttonType="primary"

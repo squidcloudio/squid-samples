@@ -72,8 +72,9 @@ export function buyOrSellTicker(
     console.error(`Ticker ${tickerId} not found`);
     return;
   }
+  if (!userProfile) return;
   const portfolioItem = portfolio.find((item) => item.id === ticker.id);
-  const balance = userProfile?.balance || 0;
+  const balance = userProfile.balance || 0;
   const amountOwned = portfolioItem?.amount || 0;
 
   if (amount === 0) return;
@@ -85,9 +86,7 @@ export function buyOrSellTicker(
   // We don't have enough balance to buy these tickers
   if (amount > 0 && usdValue > balance) return;
 
-  const userProfileDoc = userProfileCollection.doc(
-    userProfile?.id || 'defaultUser',
-  );
+  const userProfileDoc = userProfileCollection.doc(userProfile.id);
   userProfileDoc.incrementInPath('balance', -usdValue, txId).then();
   const portfolioDoc = portfolioCollection.doc(String(index));
   if (portfolioItem) {
