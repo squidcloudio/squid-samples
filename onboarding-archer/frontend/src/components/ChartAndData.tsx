@@ -8,7 +8,6 @@ import { useCollection, useQuery } from '@squidcloud/react';
 import { SimulationDay } from '@/common/common-types.ts';
 import _ from 'lodash';
 import Button from '@/components/Button.tsx';
-import { Link } from 'react-router-dom';
 import Icon from '@/components/lib/Icon.tsx';
 
 interface ChartTimeRange {
@@ -74,11 +73,11 @@ function getConfirmationBarMessage(percentChanged: number): React.ReactNode {
       </a>
       or
       <div className="inline-block">
-        <Link to="https://console.squid.cloud" target="_blank">
+        <a href="https://console.squid.cloud" target="_blank">
           <Button buttonType="tertiary" className="ml-3 inline-block">
             Go to Console
           </Button>
-        </Link>
+        </a>
       </div>
     </>
   );
