@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import Icon from '@/components/lib/Icon.tsx';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
@@ -40,7 +40,9 @@ export default function Tooltip({
   className,
   ...otherProps
 }: TooltipProps) {
-  const { inspectModeEnabled } = useArcherContext();
+  const { inspectModeEnabled, openTooltipId, setOpenTooltipId } =
+    useArcherContext();
+  const tooltipId = useMemo(() => crypto.randomUUID(), []);
   const [tooltipVisible, setTooltipVisible] = useState(false);
   const [markdown, setMarkdown] = useState('');
   const [modalRudder, setModalRudder] = useState<ModalRudder | undefined>(
@@ -59,9 +61,22 @@ export default function Tooltip({
         setMarkdown(text);
       });
   }, []);
+  useEffect(() => {
+    // Check if another tooltip was opened and hide the current one if so
+    if (openTooltipId !== tooltipId) {
+      setTooltipVisible(false);
+    }
+  }, [openTooltipId]);
 
   function toggleTooltip(): void {
-    setTooltipVisible(!tooltipVisible);
+    if (tooltipVisible) {
+      // If the tooltip is currently visible, just close it without updating the context
+      setTooltipVisible(false);
+    } else {
+      // If the tooltip is not visible, open it and set its ID in the context
+      setTooltipVisible(true);
+      setOpenTooltipId(tooltipId);
+    }
   }
 
   return (

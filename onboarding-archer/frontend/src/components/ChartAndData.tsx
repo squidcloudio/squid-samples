@@ -67,7 +67,7 @@ function getConfirmationBarMessage(percentChanged: number): React.ReactNode {
       {message}
       <a
         className="mx-2 underline"
-        href="https://console.squid.cloud"
+        href="https://console.squid.cloud/application/quick-start"
         target="_blank"
       >
         Explore next steps

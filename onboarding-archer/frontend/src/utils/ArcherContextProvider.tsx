@@ -19,6 +19,8 @@ export interface ArcherContextData {
   setMainModalOpen: (open: boolean) => void;
   inspectModeEnabled: boolean;
   setInspectModeEnabled: (open: boolean) => void;
+  openTooltipId?: string;
+  setOpenTooltipId: (id: string | undefined) => void;
 }
 
 interface ArcherContextProviderProps {
@@ -34,8 +36,12 @@ export function ArcherContextProvider({
     React.ReactNode | undefined
   >(undefined);
 
-  const [mainModalOpen, setMainModalOpen] = React.useState(false);
-  const [inspectModeEnabled, setInspectModeEnabled] = React.useState(false);
+  const [mainModalOpen, setMainModalOpen] = React.useState<boolean>(false);
+  const [inspectModeEnabled, setInspectModeEnabled] =
+    React.useState<boolean>(false);
+  const [openTooltipId, setOpenTooltipId] = React.useState<string | undefined>(
+    undefined,
+  );
 
   const userProfileCollection = useCollection<UserProfile>('userProfile');
   const userProfileResponse = useQuery<UserProfile>(
@@ -66,6 +72,8 @@ export function ArcherContextProvider({
         setMainModalOpen,
         inspectModeEnabled,
         setInspectModeEnabled,
+        openTooltipId,
+        setOpenTooltipId,
       };
     }
 
@@ -92,6 +100,8 @@ export function ArcherContextProvider({
       setMainModalOpen,
       inspectModeEnabled,
       setInspectModeEnabled,
+      openTooltipId,
+      setOpenTooltipId,
     };
   }, [
     allTickersResponse.data,
