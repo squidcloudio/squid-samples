@@ -43,14 +43,19 @@ export class OnboardingArcherService extends SquidService {
   @executable()
   async generatePortfolio(): Promise<void> {
     console.log('Generating portfolio');
-    const allTickers = await this.getAllTickers();
+    let allTickers = await this.getAllTickers();
+    if (!allTickers.length) {
+      await this.generateTickerPricesJob();
+      allTickers = await this.getAllTickers();
+    }
     const shuffledTickers = _.shuffle(allTickers);
     const balance = 100_000;
     const maximumValuePerTicker = Math.floor(balance / 5);
     let totalBalanceUsed = 0;
     await this.squid.runInTransaction(async (txId) => {
-      for (let i = 0; i < shuffledTickers.slice(0, 5).length; i++) {
-        const ticker = shuffledTickers.slice(0, 5)[i];
+      const firstFiveTickers = shuffledTickers.slice(0, 5);
+      for (let i = 0; i < firstFiveTickers.length; i++) {
+        const ticker = firstFiveTickers[i];
         const amountToBuy = Math.floor(maximumValuePerTicker / ticker.closePrice);
         totalBalanceUsed += amountToBuy * ticker.closePrice;
         await this.portfolioCollection.doc(String(i)).insert(
