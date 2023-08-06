@@ -44,7 +44,7 @@ export default function TickerTape() {
     <div className="h-full flex flex-col">
       <div className="text-[20px] leading-[100%] font-extrabold mb-2 flex items-center h-[36px]">
         Ticker Tape Value
-        <Tooltip className={'ml-2'} mdFile="tape-tooltip.md"></Tooltip>
+        <Tooltip className={'ml-2'} mdFile="queries-tooltip.md"></Tooltip>
       </div>
       <div className="flex flex-col gap-[16px]">
         {portfolio.map((item, index) => (
