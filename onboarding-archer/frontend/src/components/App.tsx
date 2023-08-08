@@ -15,7 +15,7 @@ export default function App() {
       setMainModalOpen(true);
       localStorage.setItem('archerModalSeen', 'true');
     }
-  });
+  }, []);
 
   return ready ? (
     <div className={inspectModeEnabled ? 'inspection_mode' : ''}>
