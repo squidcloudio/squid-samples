@@ -1,9 +1,9 @@
 import React from 'react';
-import DistributionCard from '@/components/DistributionCard.tsx';
-import { DistributionTitle } from '@/components/DistributionTitle.tsx';
+import DistributionCard from '@/components/DistributionCard';
+import { DistributionTitle } from '@/components/DistributionTitle';
 import { Cell, Pie, PieChart, Tooltip } from 'recharts';
-import { calculatePercent } from '@/utils/portfolio.ts';
-import { useArcherContext } from '@/utils/ArcherContextProvider.tsx';
+import { calculatePercent } from '@/utils/portfolio';
+import { useArcherContext } from '@/utils/ArcherContextProvider';
 
 export function SectorDiversity({
   className,
@@ -12,18 +12,15 @@ export function SectorDiversity({
   const { portfolio } = useArcherContext();
   const pieData = portfolio
     .filter((item) => item.amount > 0)
-    .reduce(
-      (acc, item) => {
-        const sector = item.sector;
-        if (acc[sector]) {
-          acc[sector] += calculatePercent(portfolio, item);
-        } else {
-          acc[sector] = calculatePercent(portfolio, item);
-        }
-        return acc;
-      },
-      {} as Record<string, number>,
-    );
+    .reduce((acc, item) => {
+      const sector = item.sector;
+      if (acc[sector]) {
+        acc[sector] += calculatePercent(portfolio, item);
+      } else {
+        acc[sector] = calculatePercent(portfolio, item);
+      }
+      return acc;
+    }, {} as Record<string, number>);
 
   const pieDataArray = Object.entries(pieData).map(([key, value]) => ({
     name: key,

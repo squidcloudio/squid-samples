@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom/client';
-import App from '@/components/App.tsx';
+import App from '@/components/App';
 import { SquidContextProvider } from '@squidcloud/react';
-import { ArcherContextProvider } from '@/utils/ArcherContextProvider.tsx';
+import { ArcherContextProvider } from '@/utils/ArcherContextProvider';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <SquidContextProvider

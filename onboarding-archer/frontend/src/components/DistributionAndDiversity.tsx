@@ -1,4 +1,4 @@
-import StockDistribution from '@/components/StockDistribution.tsx';
+import StockDistribution from '@/components/StockDistribution';
 
 export default function DistributionAndDiversity() {
   return (

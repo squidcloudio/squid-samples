@@ -1,5 +1,5 @@
-import Intro from '@/components/Intro.tsx';
-import TickerTape from '@/components/TickerTape.tsx';
+import Intro from '@/components/Intro';
+import TickerTape from '@/components/TickerTape';
 
 export default function LeftPanel() {
   return (

@@ -6,7 +6,7 @@ import {
   XAxis,
   YAxis,
 } from 'recharts';
-import Icon from '@/components/lib/Icon.tsx';
+import Icon from '@/components/lib/Icon';
 import React, { memo } from 'react';
 import _ from 'lodash';
 

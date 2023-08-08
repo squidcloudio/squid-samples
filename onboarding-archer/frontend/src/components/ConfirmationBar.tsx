@@ -1,4 +1,4 @@
-import { useArcherContext } from '@/utils/ArcherContextProvider.tsx';
+import { useArcherContext } from '@/utils/ArcherContextProvider';
 
 export default function ConfirmationBar() {
   const { confirmationMessage } = useArcherContext();

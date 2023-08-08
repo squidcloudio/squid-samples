@@ -1,11 +1,11 @@
 import '../styles/globals.scss';
-import TopNavBar from './TopNavBar.tsx';
-import ConfirmationBar from '@/components/ConfirmationBar.tsx';
-import { useArcherContext } from '@/utils/ArcherContextProvider.tsx';
-import MainModal from '@/components/MainModal.tsx';
+import TopNavBar from './TopNavBar';
+import ConfirmationBar from '@/components/ConfirmationBar';
+import { useArcherContext } from '@/utils/ArcherContextProvider';
+import MainModal from '@/components/MainModal';
 import { useEffect } from 'react';
-import LeftPanel from '@/components/LeftPanel.tsx';
-import MainPanel from '@/components/MainPanel.tsx';
+import LeftPanel from '@/components/LeftPanel';
+import MainPanel from '@/components/MainPanel';
 
 export default function App() {
   const { setMainModalOpen, ready, inspectModeEnabled } = useArcherContext();

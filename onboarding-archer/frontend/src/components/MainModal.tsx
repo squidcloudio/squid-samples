@@ -1,7 +1,7 @@
 import Modal from 'react-modal';
-import { useArcherContext } from '@/utils/ArcherContextProvider.tsx';
-import Icon from '@/components/lib/Icon.tsx';
-import Button from '@/components/Button.tsx';
+import { useArcherContext } from '@/utils/ArcherContextProvider';
+import Icon from '@/components/lib/Icon';
+import Button from '@/components/Button';
 
 Modal.setAppElement('body');
 

@@ -1,5 +1,5 @@
-import { useArcherContext } from '@/utils/ArcherContextProvider.tsx';
-import Icon from '@/components/lib/Icon.tsx';
+import { useArcherContext } from '@/utils/ArcherContextProvider';
+import Icon from '@/components/lib/Icon';
 import React from 'react';
 
 export default function InspectModeToggle({

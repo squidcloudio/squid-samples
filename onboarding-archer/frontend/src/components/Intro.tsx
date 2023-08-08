@@ -1,4 +1,4 @@
-import Tooltip from '@/components/Tooltip.tsx';
+import Tooltip from '@/components/Tooltip';
 
 export default function Intro() {
   return (

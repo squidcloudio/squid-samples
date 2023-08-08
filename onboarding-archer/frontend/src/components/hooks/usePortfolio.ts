@@ -1,6 +1,6 @@
-import { useArcherContext } from '@/utils/ArcherContextProvider.tsx';
+import { useArcherContext } from '@/utils/ArcherContextProvider';
 import { useCollection } from '@squidcloud/react';
-import { PortfolioItem, UserProfile } from '@/common/common-types.ts';
+import { PortfolioItem, UserProfile } from '@/common/common-types';
 
 export function usePortfolio() {
   const archerContext = useArcherContext();

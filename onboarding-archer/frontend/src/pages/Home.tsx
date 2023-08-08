@@ -1,5 +1,5 @@
-import LeftPanel from '@/components/LeftPanel.tsx';
-import MainPanel from '@/components/MainPanel.tsx';
+import LeftPanel from '@/components/LeftPanel';
+import MainPanel from '@/components/MainPanel';
 
 export default function Home() {
   return (

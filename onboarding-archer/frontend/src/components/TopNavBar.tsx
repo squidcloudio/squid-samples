@@ -1,5 +1,5 @@
-import Icon from '@/components/lib/Icon.tsx';
-import InspectModeToggle from '@/components/InspectModeToggle.tsx';
+import Icon from '@/components/lib/Icon';
+import InspectModeToggle from '@/components/InspectModeToggle';
 
 export default function TopNavBar() {
   return (

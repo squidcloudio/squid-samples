@@ -1,10 +1,10 @@
 import Select, { components } from 'react-select';
-import Icon from '@/components/lib/Icon.tsx';
-import { useArcherContext } from '@/utils/ArcherContextProvider.tsx';
+import Icon from '@/components/lib/Icon';
+import { useArcherContext } from '@/utils/ArcherContextProvider';
 import { useSquid } from '@squidcloud/react';
-import PriceDisplay from '@/components/PriceDisplay.tsx';
-import Tooltip from '@/components/Tooltip.tsx';
-import { usePortfolio } from '@/components/hooks/usePortfolio.ts';
+import PriceDisplay from '@/components/PriceDisplay';
+import Tooltip from '@/components/Tooltip';
+import { usePortfolio } from '@/components/hooks/usePortfolio';
 
 export interface TickerOption {
   value: string;

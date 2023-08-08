@@ -1,4 +1,4 @@
-import { Icons } from '@/utils/icons.ts';
+import { Icons } from '@/utils/icons';
 import React from 'react';
 
 interface PropTypes extends React.HTMLAttributes<HTMLElement> {

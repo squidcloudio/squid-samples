@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
-import Icon from '@/components/lib/Icon.tsx';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import SyntaxHighlighter from 'react-syntax-highlighter/dist/esm/prism';
-import prismMaterialDarkTheme from '@/utils/prismMaterialDarkTheme.ts';
-import { useArcherContext } from '@/utils/ArcherContextProvider.tsx';
-import { Icons } from '@/utils/icons.ts';
+import { useArcherContext } from '@/utils/ArcherContextProvider';
+import { Icons } from '@/utils/icons';
+import prismMaterialDarkTheme from '@/utils/prismMaterialDarkTheme';
+import Icon from '@/components/lib/Icon';
 
 interface TooltipProps extends React.HTMLAttributes<HTMLElement> {
   mdFile: string;

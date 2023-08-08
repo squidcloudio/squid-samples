@@ -1,6 +1,6 @@
-import ChartAndData from '@/components/ChartAndData.tsx';
-import DistributionAndDiversity from '@/components/DistributionAndDiversity.tsx';
-import Tooltip from '@/components/Tooltip.tsx';
+import ChartAndData from '@/components/ChartAndData';
+import DistributionAndDiversity from '@/components/DistributionAndDiversity';
+import Tooltip from '@/components/Tooltip';
 
 export default function MainPanel() {
   return (

@@ -1,10 +1,10 @@
-import TickerTapeItem, { TickerOption } from '@/components/TickerTapeItem.tsx';
-import Button from '@/components/Button.tsx';
-import { useArcherContext } from '@/utils/ArcherContextProvider.tsx';
+import TickerTapeItem, { TickerOption } from '@/components/TickerTapeItem';
+import Button from '@/components/Button';
+import { useArcherContext } from '@/utils/ArcherContextProvider';
 import { useEffect, useState } from 'react';
-import PriceDisplay from '@/components/PriceDisplay.tsx';
+import PriceDisplay from '@/components/PriceDisplay';
 import { useSquid } from '@squidcloud/react';
-import Tooltip from '@/components/Tooltip.tsx';
+import Tooltip from '@/components/Tooltip';
 
 export default function TickerTape() {
   const squid = useSquid();

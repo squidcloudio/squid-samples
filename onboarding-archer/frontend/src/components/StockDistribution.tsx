@@ -1,11 +1,11 @@
-import DistributionCard from '@/components/DistributionCard.tsx';
-import Holdings from '@/components/Holdings.tsx';
-import { DistributionTitle } from '@/components/DistributionTitle.tsx';
-import { SectorDiversity } from '@/components/SectorDiversity.tsx';
-import { calculatePercent } from '@/utils/portfolio.ts';
-import Shares from '@/components/Shares.tsx';
-import { useArcherContext } from '@/utils/ArcherContextProvider.tsx';
-import Tooltip from '@/components/Tooltip.tsx';
+import DistributionCard from '@/components/DistributionCard';
+import Holdings from '@/components/Holdings';
+import { DistributionTitle } from '@/components/DistributionTitle';
+import { SectorDiversity } from '@/components/SectorDiversity';
+import { calculatePercent } from '@/utils/portfolio';
+import Shares from '@/components/Shares';
+import { useArcherContext } from '@/utils/ArcherContextProvider';
+import Tooltip from '@/components/Tooltip';
 
 export default function StockDistribution() {
   const { portfolio } = useArcherContext();

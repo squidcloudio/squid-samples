@@ -1,14 +1,14 @@
-import Chart, { SimulationData } from '@/components/Chart.tsx';
-import GainLoseIndicator from '@/components/GainLoseIndicator.tsx';
-import TimeSelector, { SelectedChartTime } from '@/components/TimeSelector.tsx';
-import { useArcherContext } from '@/utils/ArcherContextProvider.tsx';
-import PriceDisplay from '@/components/PriceDisplay.tsx';
+import Chart, { SimulationData } from '@/components/Chart';
+import GainLoseIndicator from '@/components/GainLoseIndicator';
+import TimeSelector, { SelectedChartTime } from '@/components/TimeSelector';
+import { useArcherContext } from '@/utils/ArcherContextProvider';
+import PriceDisplay from '@/components/PriceDisplay';
 import React, { useEffect, useState } from 'react';
 import { useCollection, useQuery } from '@squidcloud/react';
-import { SimulationDay } from '@/common/common-types.ts';
+import { SimulationDay } from '@/common/common-types';
 import _ from 'lodash';
-import Button from '@/components/Button.tsx';
-import Icon from '@/components/lib/Icon.tsx';
+import Button from '@/components/Button';
+import Icon from '@/components/lib/Icon';
 
 interface ChartTimeRange {
   startIndex: number;

@@ -1,8 +1,8 @@
 import React from 'react';
-import DistributionCard from '@/components/DistributionCard.tsx';
-import { DistributionTitle } from '@/components/DistributionTitle.tsx';
-import Icon from '@/components/lib/Icon.tsx';
-import { useArcherContext } from '@/utils/ArcherContextProvider.tsx';
+import DistributionCard from '@/components/DistributionCard';
+import { DistributionTitle } from '@/components/DistributionTitle';
+import Icon from '@/components/lib/Icon';
+import { useArcherContext } from '@/utils/ArcherContextProvider';
 
 export default function Holdings({
   className,

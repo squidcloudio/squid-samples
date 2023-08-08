@@ -1,4 +1,4 @@
-import { PortfolioTicker } from '@/common/common-types.ts';
+import { PortfolioTicker } from '@/common/common-types';
 
 export function calculatePercent(
   portfolio: Array<PortfolioTicker>,

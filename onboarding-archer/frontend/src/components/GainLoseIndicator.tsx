@@ -1,4 +1,4 @@
-import Icon from '@/components/lib/Icon.tsx';
+import Icon from '@/components/lib/Icon';
 
 interface GainLoseIndicatorProps {
   percentChange: number;
