@@ -17,6 +17,7 @@ export interface SimulationData {
 
 interface ChartProps {
   data: Array<SimulationData>;
+  gained: boolean;
 }
 
 const CustomTooltip: React.FC<any> = ({ active, payload, label }) => {
@@ -33,7 +34,7 @@ const CustomTooltip: React.FC<any> = ({ active, payload, label }) => {
   return null;
 };
 
-export const Chart = ({ data }: ChartProps) => {
+export const Chart = ({ data, gained }: ChartProps) => {
   const values = data.map((item) => item.value);
   const minValue = Math.min(...values);
   const maxValue = Math.max(...values);
@@ -70,7 +71,7 @@ export const Chart = ({ data }: ChartProps) => {
         <Line
           type="monotone"
           dataKey="value"
-          stroke="var(--gain1)"
+          stroke={gained ? 'var(--gain1)' : 'var(--lose1)'}
           strokeWidth={2}
           dot={false}
           activeDot={{ r: 6 }}

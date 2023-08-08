@@ -135,7 +135,7 @@ export default function ChartAndData() {
   const firstDayValue = queryResult.data[0]?.value || 0;
   const totalChangeInValue = currentPortfolioValue - firstDayValue;
   const totalChangeInPercent = (totalChangeInValue / firstDayValue) * 100;
-
+  const gained = totalChangeInPercent >= 0;
   useEffect(() => {
     if (totalChangeInPercent)
       setConfirmationMessage(getConfirmationBarMessage(totalChangeInPercent));
@@ -162,10 +162,11 @@ export default function ChartAndData() {
         <TimeSelector
           selectedChartTime={selectedChartTime}
           setSelectedChartTime={setSelectedChartTime}
+          gained={gained}
           isDataGenerated={isDataGenerated}
         />
       </div>
-      <Chart data={data} />
+      <Chart data={data} gained={gained} />
     </div>
   );
 }

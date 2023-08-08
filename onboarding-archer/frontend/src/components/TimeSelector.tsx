@@ -12,6 +12,7 @@ interface TimeSelectorProps {
   selectedChartTime: SelectedChartTime;
   setSelectedChartTime: (value: SelectedChartTime) => void;
   isDataGenerated: boolean;
+  gained: boolean;
 }
 
 const options: Array<TimeSelectorOption> = [
@@ -26,8 +27,8 @@ export default function TimeSelector({
   selectedChartTime,
   setSelectedChartTime,
   isDataGenerated,
+  gained,
 }: TimeSelectorProps) {
-  const gain = true;
   return (
     <div
       className={`py-1 px-4 bg-bg4 rounded-[8px] flex gap-[12px] items-center`}
@@ -42,9 +43,9 @@ export default function TimeSelector({
               onClick={() => setSelectedChartTime(option.value)}
               className={`py-[6px] px-[8px] bg-bg4 text-text2 rounded-[6px] text-[12px] leading-[16px] font-extrabold cursor-pointer ${
                 !isDataGenerated && 'grayscale'
-              } ${gain ? 'hover:bg-gain3' : 'hover:bg-lose3'} ${
+              } ${gained ? 'hover:bg-gain3' : 'hover:bg-lose3'} ${
                 selectedChartTime === option.value
-                  ? `${gain ? '!bg-gain1' : '!bg-lose1'} !text-bg1`
+                  ? `${gained ? '!bg-gain1' : '!bg-lose1'} !text-bg1`
                   : ''
               }`}
             >
