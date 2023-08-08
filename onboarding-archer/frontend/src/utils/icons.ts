@@ -13,6 +13,7 @@ import modal_rudder_top from '@/assets/icons/modal_rudder-top.svg';
 import modal_rudder_right from '@/assets/icons/modal_rudder-right.svg';
 import modal_rudder_bottom from '@/assets/icons/modal_rudder-bottom.svg';
 import modal_rudder_left from '@/assets/icons/modal_rudder-left.svg';
+import navbar_rudder from '@/assets/icons/navbar_rudder.svg';
 import AAPL from '@/assets/icons/tickers/AAPL.svg';
 import AMGN from '@/assets/icons/tickers/AMGN.svg';
 import AXP from '@/assets/icons/tickers/AXP.svg';
@@ -60,6 +61,7 @@ export const Icons = {
   modal_rudder_right,
   modal_rudder_bottom,
   modal_rudder_left,
+  navbar_rudder,
   AAPL,
   AMGN,
   AXP,

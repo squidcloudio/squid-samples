@@ -15,8 +15,12 @@ export default function InspectModeToggle({
   return (
     <div
       {...otherProps}
-      className={`flex items-center gap-[8px] ${className ?? ''}`}
+      className={`flex items-center gap-[8px] relative z-10 ${className ?? ''}`}
     >
+      <div className={'absolute left-[-134px] bottom-[-37px]'}>
+        <Icon icon={'navbar_rudder'}></Icon>
+      </div>
+
       <div className="text-primary1 text-[12px] font-extrabold leading-[16px]">
         Tooltips
       </div>
