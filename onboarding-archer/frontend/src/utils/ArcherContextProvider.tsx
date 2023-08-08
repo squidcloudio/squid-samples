@@ -4,7 +4,7 @@ import {
   PortfolioTicker,
   Ticker,
   UserProfile,
-} from '@/common/common-types.ts';
+} from '@/common/common-types';
 import { useCollection, useQuery } from '@squidcloud/react';
 
 export interface ArcherContextData {
@@ -36,64 +36,50 @@ export function ArcherContextProvider({
     React.ReactNode | undefined
   >(undefined);
 
-  const [mainModalOpen, setMainModalOpen] = React.useState<boolean>(false);
-  const [inspectModeEnabled, setInspectModeEnabled] =
-    React.useState<boolean>(false);
-  const [openTooltipId, setOpenTooltipId] = React.useState<string | undefined>(
+  const [mainModalOpen, setMainModalOpen] = useState<boolean>(false);
+  const [inspectModeEnabled, setInspectModeEnabled] = useState<boolean>(false);
+  const [openTooltipId, setOpenTooltipId] = useState<string | undefined>(
     undefined,
   );
 
   const userProfileCollection = useCollection<UserProfile>('userProfile');
-  const userProfileResponse = useQuery<UserProfile>(
-    userProfileCollection.query().eq('id', 'defaultUser'),
-    true,
-  );
+  const { loading: userProfileLoading, data: userProfiles } =
+    useQuery<UserProfile>(
+      userProfileCollection.query().eq('id', 'defaultUser'),
+      true,
+    );
 
   const tickerCollection = useCollection<Ticker>('ticker');
-  const allTickersResponse = useQuery<Ticker>(tickerCollection.query(), true);
-
-  const portfolioCollection = useCollection<PortfolioItem>('portfolio');
-  const portfolioResponse = useQuery<PortfolioItem>(
-    portfolioCollection.query().sortBy('indexInUi'),
+  const { loading: tickersLoading, data: allTickers } = useQuery<Ticker>(
+    tickerCollection.query(),
     true,
   );
 
-  const data = useMemo<ArcherContextData>(() => {
-    if (!allTickersResponse.data || !portfolioResponse.data) {
-      return {
-        allTickers: [],
-        allTickersMap: {},
-        portfolio: [],
-        userProfile: undefined,
-        ready: false,
-        confirmationMessage,
-        setConfirmationMessage,
-        mainModalOpen,
-        setMainModalOpen,
-        inspectModeEnabled,
-        setInspectModeEnabled,
-        openTooltipId,
-        setOpenTooltipId,
-      };
-    }
+  const portfolioCollection = useCollection<PortfolioItem>('portfolio');
+  const { loading: portfolioItemsLoading, data: portfolioItems } =
+    useQuery<PortfolioItem>(
+      portfolioCollection.query().sortBy('indexInUi'),
+      true,
+    );
 
-    const allTickersMap = allTickersResponse.data.reduce((map, item) => {
+  const data = useMemo<ArcherContextData>(() => {
+    const allTickersMap = allTickers.reduce((map, item) => {
       map[item.id] = item;
       return map;
     }, {} as Record<string, Ticker>);
 
-    const portfolio = portfolioResponse.data.map<PortfolioTicker>((item) => ({
+    const portfolio = portfolioItems.map<PortfolioTicker>((item) => ({
       ...allTickersMap[item.tickerId],
       amount: item.amount,
       indexInUi: item.indexInUi,
     }));
 
     return {
-      allTickers: allTickersResponse.data,
+      allTickers: allTickers,
       allTickersMap,
       portfolio,
-      userProfile: userProfileResponse.data[0],
-      ready: !allTickersResponse.loading && !portfolioResponse.loading,
+      userProfile: userProfiles[0],
+      ready: !tickersLoading && !portfolioItemsLoading && !userProfileLoading,
       confirmationMessage,
       setConfirmationMessage,
       mainModalOpen,
@@ -103,11 +89,7 @@ export function ArcherContextProvider({
       openTooltipId,
       setOpenTooltipId,
     };
-  }, [
-    allTickersResponse.data,
-    portfolioResponse.data,
-    userProfileResponse.data,
-  ]);
+  }, [allTickers, portfolioItems, userProfiles]);
 
   return (
     <ArcherContext.Provider value={data}>{children}</ArcherContext.Provider>
