@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+
 export function fluctuatePrice(price?: number, changePercentRange = 0.03): number {
   price = price || getRandomNumber(10, 130);
   const changePercent = (Math.random() - 0.5) * 2 * changePercentRange;
@@ -12,18 +14,7 @@ export function getRandomNumber(min: number, max: number): number {
 
 export function isSameDate(dateToCompare?: Date): boolean {
   if (!dateToCompare) return false;
-
-  // Get today's date
-  const today: Date = new Date();
-  const todayYear: number = today.getFullYear();
-  const todayMonth: number = today.getMonth();
-  const todayDay: number = today.getDate();
-
-  // Extract date components from the date to compare
-  const yearToCompare: number = dateToCompare.getFullYear();
-  const monthToCompare: number = dateToCompare.getMonth();
-  const dayToCompare: number = dateToCompare.getDate();
-
-  // Compare the date components
-  return yearToCompare === todayYear && monthToCompare === todayMonth && dayToCompare === todayDay;
+  const today = dayjs();
+  const dayjsDateToCompare = dayjs(dateToCompare);
+  return today.format('YYYY-MM-DD') === dayjsDateToCompare.format('YYYY-MM-DD');
 }

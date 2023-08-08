@@ -126,8 +126,8 @@ export class OnboardingArcherService extends SquidService {
     console.log('Running initializeUserProfileJob...');
     const userId = 'defaultUser';
     const doc = this.userProfileCollection.doc(userId);
-    const userProfileRef = await doc.snapshot();
-    if (userProfileRef) return;
+    const userProfile = await doc.snapshot();
+    if (userProfile) return;
 
     // Initializing the user's profile with $100,000 balance
     await doc.insert({ id: userId, balance: 100_000 });
