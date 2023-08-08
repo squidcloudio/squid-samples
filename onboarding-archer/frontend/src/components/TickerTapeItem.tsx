@@ -1,11 +1,10 @@
 import Select, { components } from 'react-select';
 import Icon from '@/components/lib/Icon.tsx';
 import { useArcherContext } from '@/utils/ArcherContextProvider.tsx';
-import { buyOrSellTicker, replaceTicker } from '@/utils/portfolio.ts';
-import { useCollection, useSquid } from '@squidcloud/react';
-import { PortfolioItem, UserProfile } from '@/common/common-types.ts';
+import { useSquid } from '@squidcloud/react';
 import PriceDisplay from '@/components/PriceDisplay.tsx';
 import Tooltip from '@/components/Tooltip.tsx';
+import { usePortfolio } from '@/components/hooks/usePortfolio.ts';
 
 export interface TickerOption {
   value: string;
@@ -44,10 +43,9 @@ export default function TickerTapeItem({
   index,
 }: TickerTapeItemProps) {
   const archerContextData = useArcherContext();
+  const { replaceTicker, buyOrSellTicker } = usePortfolio();
   const { portfolio } = archerContextData;
   const squid = useSquid();
-  const portfolioCollection = useCollection<PortfolioItem>('portfolio');
-  const userProfileCollection = useCollection<UserProfile>('userProfile');
   // noinspection JSUnusedGlobalSymbols
   return (
     <div className="flex items-center justify-between relative">
@@ -84,15 +82,7 @@ export default function TickerTapeItem({
           if (!value) return;
           squid
             .runInTransaction(async (txId: string) => {
-              replaceTicker(
-                archerContextData,
-                portfolioCollection,
-                userProfileCollection,
-                portfolio[index].id,
-                value.value,
-                index,
-                txId,
-              );
+              replaceTicker(portfolio[index].id, value.value, index, txId);
             })
             .then();
         }}
@@ -100,36 +90,14 @@ export default function TickerTapeItem({
       />
 
       <div className="rounded-[100px] border-[1px] border-line2 p-3 text-[16px] text-text1 font-semibold flex items-center justify-between w-[140px]">
-        <button
-          onClick={() =>
-            buyOrSellTicker(
-              archerContextData,
-              portfolioCollection,
-              userProfileCollection,
-              portfolio[index].id,
-              -1,
-              index,
-            )
-          }
-        >
+        <button onClick={() => buyOrSellTicker(portfolio[index].id, -1, index)}>
           <Icon
             icon="minus_button_icon"
             className="hover:opacity-80 active:opacity-70 cursor-pointer"
           ></Icon>
         </button>
         {portfolio[index].amount}
-        <button
-          onClick={() =>
-            buyOrSellTicker(
-              archerContextData,
-              portfolioCollection,
-              userProfileCollection,
-              portfolio[index].id,
-              1,
-              index,
-            )
-          }
-        >
+        <button onClick={() => buyOrSellTicker(portfolio[index].id, 1, index)}>
           <Icon
             icon="plus_button_icon"
             className="hover:opacity-80 active:opacity-70 cursor-pointer"
