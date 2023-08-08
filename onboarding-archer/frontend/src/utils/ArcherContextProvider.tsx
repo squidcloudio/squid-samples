@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useMemo, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import {
   PortfolioItem,
   PortfolioTicker,
@@ -60,42 +60,32 @@ export function ArcherContextProvider({
     true,
   );
 
-  const data = useMemo<ArcherContextData>(() => {
-    const allTickersMap = allTickers.reduce((map, item) => {
-      map[item.id] = item;
-      return map;
-    }, {} as Record<string, Ticker>);
+  const allTickersMap = allTickers.reduce((map, item) => {
+    map[item.id] = item;
+    return map;
+  }, {} as Record<string, Ticker>);
 
-    const portfolio = portfolioItems.map<PortfolioTicker>((item) => ({
-      ...allTickersMap[item.tickerId],
-      amount: item.amount,
-      indexInUi: item.indexInUi,
-    }));
+  const portfolio = portfolioItems.map<PortfolioTicker>((item) => ({
+    ...allTickersMap[item.tickerId],
+    amount: item.amount,
+    indexInUi: item.indexInUi,
+  }));
 
-    return {
-      allTickers: allTickers,
-      allTickersMap,
-      portfolio,
-      userProfile: userProfiles[0],
-      ready: !tickersLoading && !portfolioItemsLoading && !userProfileLoading,
-      confirmationMessage,
-      setConfirmationMessage,
-      mainModalOpen,
-      setMainModalOpen,
-      inspectModeEnabled,
-      setInspectModeEnabled,
-      openTooltipId,
-      setOpenTooltipId,
-    };
-  }, [
-    allTickers,
-    portfolioItems,
-    userProfiles,
+  const data = {
+    allTickers: allTickers,
+    allTickersMap,
+    portfolio,
+    userProfile: userProfiles[0],
+    ready: !tickersLoading && !portfolioItemsLoading && !userProfileLoading,
     confirmationMessage,
+    setConfirmationMessage,
     mainModalOpen,
+    setMainModalOpen,
     inspectModeEnabled,
+    setInspectModeEnabled,
     openTooltipId,
-  ]);
+    setOpenTooltipId,
+  };
 
   return (
     <ArcherContext.Provider value={data}>{children}</ArcherContext.Provider>
