@@ -87,7 +87,15 @@ export function ArcherContextProvider({
       openTooltipId,
       setOpenTooltipId,
     };
-  }, [allTickers, portfolioItems, userProfiles]);
+  }, [
+    allTickers,
+    portfolioItems,
+    userProfiles,
+    confirmationMessage,
+    mainModalOpen,
+    inspectModeEnabled,
+    openTooltipId,
+  ]);
 
   return (
     <ArcherContext.Provider value={data}>{children}</ArcherContext.Provider>
