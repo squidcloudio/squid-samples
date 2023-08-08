@@ -7,7 +7,7 @@ import React, { useEffect, useState } from 'react';
 import { useCollection, useQuery } from '@squidcloud/react';
 import { SimulationDay } from '@/common/common-types';
 import _ from 'lodash';
-import Button from '@/components/Button';
+import Button from '@/components/lib/Button';
 import Icon from '@/components/lib/Icon';
 
 interface ChartTimeRange {

@@ -44,7 +44,7 @@ export const Chart = ({ data, gained }: ChartProps) => {
   return !data.length ? (
     <div className="mt-[63px] pb-[32px]">
       <div className="w-full h-[172px] relative flex justify-center">
-        <div className="max-w-[426px] text-center text-text2 text-[16px] leading-[20px] font-semibold mt-[32px]">
+        <div className="max-w-[426px] text-center text-text2 text leading-[20px] font-semibold mt-[32px]">
           Select or update stock holdings on the left panel then view your
           simulation by clicking the run button
         </div>

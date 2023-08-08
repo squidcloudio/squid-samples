@@ -14,7 +14,7 @@ export default function StockDistribution() {
     <>
       <div
         className={
-          'flex items-center h-[36px] mb-[10px] text-[16px] font-extrabold leading-[100%]'
+          'flex items-center h-[36px] mb-[10px] text font-extrabold leading-[100%]'
         }
       >
         Portfolio

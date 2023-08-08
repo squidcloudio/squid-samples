@@ -25,7 +25,7 @@ const CustomOption = ({ data, ...props }: any) => {
         <div className="flex items-center gap-[12px]">
           <Icon
             icon={data.value}
-            className="w-[32px] h-[32px] rounded-[32px] border-[1px] border-line1"
+            className="w-[32px] h-[32px] rounded-[32px] border border-line1"
           ></Icon>
           <div className="font-semibold">{data.label}</div>
         </div>
@@ -57,7 +57,7 @@ export default function TickerTapeItem({
       )}
 
       <Select
-        className="w-[180px] bg-bg2 !text-[16px] !font-extrabold"
+        className="w-[180px] bg-bg2 !text !font-extrabold"
         classNames={{
           control: () => '!bg-bg2 pl-[0] pt-[5px] pb-[5px] pr-[0px]',
           valueContainer: () => '!pl-[22px]',
@@ -89,7 +89,7 @@ export default function TickerTapeItem({
         name="ticker"
       />
 
-      <div className="rounded-[100px] border-[1px] border-line2 p-3 text-[16px] text-text1 font-semibold flex items-center justify-between w-[140px]">
+      <div className="rounded-[100px] border border-line2 p-3 text text-text1 font-semibold flex items-center justify-between w-[140px]">
         <button onClick={() => buyOrSellTicker(portfolio[index].id, -1, index)}>
           <Icon
             icon="minus_button_icon"

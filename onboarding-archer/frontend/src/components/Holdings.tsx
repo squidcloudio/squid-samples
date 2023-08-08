@@ -22,7 +22,7 @@ export default function Holdings({
           {portfolio.map((item, index) => (
             <div title={item.name} key={item.id}>
               <Icon
-                className={`w-[40px] h-[40px] rounded-[40px] border-[1px] border-line1 ${
+                className={`w-[40px] h-[40px] rounded-[40px] border border-line1 ${
                   index !== 0 ? '-ml-[14px]' : ''
                 }`}
                 icon={item.id as any}

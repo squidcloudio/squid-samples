@@ -5,7 +5,7 @@ import Tooltip from '@/components/Tooltip';
 export default function MainPanel() {
   return (
     <div>
-      <div className="text-[16px] text-text1 mb-4 font-extrabold flex items-center h-[36px]">
+      <div className="text text-text1 mb-4 font-extrabold flex items-center h-[36px]">
         Portfolio Performance
         <Tooltip className={'ml-2'} mdFile="portfolio_performance.md"></Tooltip>
       </div>

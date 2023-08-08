@@ -10,7 +10,7 @@ export default function TopNavBar() {
           className="flex justify-center items-center absolute left-[50%] top-[50%] translate-y-[-50%] translate-x-[-50%]"
         >
           <Icon icon="archer_logo" />
-          <div className="text-primary1 text-[16px] leading-[100%] font-bold uppercase tracking-[12.16px] ml-3">
+          <div className="text-primary1 text leading-[100%] font-bold uppercase tracking-[12.16px] ml-3">
             Archer
           </div>
         </a>

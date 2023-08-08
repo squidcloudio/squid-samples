@@ -1,5 +1,5 @@
 import TickerTapeItem, { TickerOption } from '@/components/TickerTapeItem';
-import Button from '@/components/Button';
+import Button from '@/components/lib/Button';
 import { useArcherContext } from '@/utils/ArcherContextProvider';
 import { useEffect, useState } from 'react';
 import PriceDisplay from '@/components/PriceDisplay';
@@ -63,10 +63,8 @@ export default function TickerTape() {
       <div>
         <div className="w-full h-[1px] bg-text3 my-[20px]"></div>
         <div className="flex justify-between items-center">
-          <div className="text-[16px] leading-[20px] font-semibold">
-            Cash balance
-          </div>
-          <div className="text-[16px] leading-[20px] font-extrabold">
+          <div className="text leading-[20px] font-semibold">Cash balance</div>
+          <div className="text leading-[20px] font-extrabold">
             <PriceDisplay
               value={userProfile?.balance}
               minimumFractionDigits={2}
