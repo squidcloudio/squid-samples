@@ -1,4 +1,4 @@
-import Select, { components } from 'react-select';
+import Select, { components, SingleValue } from 'react-select';
 import Icon from '@/components/lib/Icon';
 import { useArcherContext } from '@/utils/ArcherContextProvider';
 import { useSquid } from '@squidcloud/react';
@@ -46,6 +46,16 @@ export default function TickerTapeItem({
   const { replaceTicker, buyOrSellTicker } = usePortfolio();
   const { portfolio } = archerContextData;
   const squid = useSquid();
+
+  function onTickerChanged(value: SingleValue<TickerOption>) {
+    if (!value) return;
+    squid
+      .runInTransaction(async (txId: string) => {
+        replaceTicker(portfolio[index].id, value.value, index, txId);
+      })
+      .then();
+  }
+
   // noinspection JSUnusedGlobalSymbols
   return (
     <div className="flex items-center justify-between relative">
@@ -78,14 +88,7 @@ export default function TickerTapeItem({
           (option) => option.value !== defaultOption?.value,
         )}
         isSearchable={true}
-        onChange={(value) => {
-          if (!value) return;
-          squid
-            .runInTransaction(async (txId: string) => {
-              replaceTicker(portfolio[index].id, value.value, index, txId);
-            })
-            .then();
-        }}
+        onChange={onTickerChanged}
         name="ticker"
       />
 

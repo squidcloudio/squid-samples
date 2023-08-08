@@ -38,7 +38,7 @@ export default function TickerTape() {
     if (!portfolio.length) {
       generatePortfolio();
     }
-  }, [userProfile]);
+  }, [portfolio]);
 
   return (
     <div className="h-full flex flex-col">
@@ -68,7 +68,7 @@ export default function TickerTape() {
             <PriceDisplay
               value={userProfile?.balance}
               minimumFractionDigits={2}
-            ></PriceDisplay>
+            />
           </div>
         </div>
       </div>

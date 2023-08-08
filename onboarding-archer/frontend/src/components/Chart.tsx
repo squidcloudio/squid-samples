@@ -3,6 +3,7 @@ import {
   LineChart,
   ResponsiveContainer,
   Tooltip,
+  TooltipProps,
   XAxis,
   YAxis,
 } from 'recharts';
@@ -20,13 +21,17 @@ interface ChartProps {
   gained: boolean;
 }
 
-const CustomTooltip: React.FC<any> = ({ active, payload, label }) => {
+const CustomTooltip: React.FC<TooltipProps<number, string>> = ({
+  active,
+  payload,
+  label,
+}) => {
   if (active && payload && payload.length) {
     return (
       <div className="bg-bg2 py-2 px-4 border-1 border-text1 drop-shadow-card rounded">
-        <p className="label">{`${
-          label ?? payload[0].payload.name
-        }: $${payload[0].value.toLocaleString()}`}</p>
+        <p className="label">{`${label ?? payload[0].payload.name}: $${(
+          payload[0].value || 0
+        ).toLocaleString()}`}</p>
       </div>
     );
   }

@@ -91,15 +91,15 @@ export default function ChartAndData() {
   const simulationDayCollection = useCollection<SimulationDay>('simulationDay');
   const ranges = timeToRangeMap[selectedChartTime];
 
-  const queryResult = useQuery(
+  const { data: simulationData } = useQuery(
     simulationDayCollection.query().sortBy('date'),
     true,
   );
 
   const data: Array<SimulationData> = [];
   if (selectedChartTime === '1m') {
-    const chunkSize = Math.ceil(queryResult.data.length / 4);
-    const chunks = _.chunk(queryResult.data, chunkSize);
+    const chunkSize = Math.ceil(simulationData.length / 4);
+    const chunks = _.chunk(simulationData, chunkSize);
     chunks.forEach((chunk, i) => {
       data.push({
         name: `Week ${i + 1}`,
@@ -107,7 +107,7 @@ export default function ChartAndData() {
       });
     });
   } else {
-    queryResult.data
+    simulationData
       .slice(ranges.startIndex, ranges.endIndex)
       .forEach((simulationDay, i) => {
         data.push({ name: `Day ${i + 1}`, value: simulationDay.value });
@@ -117,7 +117,7 @@ export default function ChartAndData() {
   const isDataGenerated = !!data.length;
 
   const currentPortfolioValue = isDataGenerated
-    ? queryResult.data[queryResult.data.length - 1].value
+    ? simulationData[simulationData.length - 1].value
     : 0;
 
   let portfolioValueToday = 0;
@@ -132,7 +132,7 @@ export default function ChartAndData() {
     portfolioValueYesterday += valueYesterday;
   });
 
-  const firstDayValue = queryResult.data[0]?.value || 0;
+  const firstDayValue = simulationData[0]?.value || 0;
   const totalChangeInValue = currentPortfolioValue - firstDayValue;
   const totalChangeInPercent = (totalChangeInValue / firstDayValue) * 100;
   const gained = totalChangeInPercent >= 0;
