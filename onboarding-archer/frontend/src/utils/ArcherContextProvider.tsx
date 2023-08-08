@@ -43,24 +43,22 @@ export function ArcherContextProvider({
   );
 
   const userProfileCollection = useCollection<UserProfile>('userProfile');
-  const { loading: userProfileLoading, data: userProfiles } =
-    useQuery<UserProfile>(
-      userProfileCollection.query().eq('id', 'defaultUser'),
-      true,
-    );
+  const { loading: userProfileLoading, data: userProfiles } = useQuery(
+    userProfileCollection.query().eq('id', 'defaultUser').dereference(),
+    true,
+  );
 
   const tickerCollection = useCollection<Ticker>('ticker');
-  const { loading: tickersLoading, data: allTickers } = useQuery<Ticker>(
-    tickerCollection.query(),
+  const { loading: tickersLoading, data: allTickers } = useQuery(
+    tickerCollection.query().dereference(),
     true,
   );
 
   const portfolioCollection = useCollection<PortfolioItem>('portfolio');
-  const { loading: portfolioItemsLoading, data: portfolioItems } =
-    useQuery<PortfolioItem>(
-      portfolioCollection.query().sortBy('indexInUi'),
-      true,
-    );
+  const { loading: portfolioItemsLoading, data: portfolioItems } = useQuery(
+    portfolioCollection.query().sortBy('indexInUi').dereference(),
+    true,
+  );
 
   const data = useMemo<ArcherContextData>(() => {
     const allTickersMap = allTickers.reduce((map, item) => {

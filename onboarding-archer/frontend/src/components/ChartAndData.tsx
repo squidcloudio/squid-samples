@@ -92,7 +92,7 @@ export default function ChartAndData() {
   const ranges = timeToRangeMap[selectedChartTime];
 
   const { data: simulationData } = useQuery(
-    simulationDayCollection.query().sortBy('date'),
+    simulationDayCollection.query().sortBy('date').dereference(),
     true,
   );
 
