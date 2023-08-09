@@ -141,12 +141,12 @@ To work with collections, the user needs to obtain a token, which is used to pro
 **Squid Cloud** provides a way for the client to protect data from outside access, preventing sensitive information from being exposed.
 To achieve this, Squid uses the **secureCollection** decorator, which is explained in more detail in the security rules [documentation](https://docs.squid.cloud/docs/backend/security-rules/)
 
-`src/service/example-service.ts:`
+`src/service/onboarding-archer-service.ts:`
 
 ```typescript
 import { SquidService, secureCollection } from '@squidcloud/backend';
 
-export class ExampleService extends SquidService {
+export class OnboardingArcherService extends SquidService {
   @secureCollection('lists', 'all')
   secureListCollection(): boolean {
     return this.isAuthenticated();
