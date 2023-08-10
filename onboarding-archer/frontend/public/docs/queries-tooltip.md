@@ -15,5 +15,5 @@ const allTickersResponse = useQuery<Ticker>(
 
 The query result updates in real-time when a document (ticker) changes. Squid has many querying capabilities.
 
-For additional details, see the  <a target="_blank" href="https://docs.squid.cloud/docs/client-sdk/queries">
+For additional details, see the  <a target="_blank" href="https://docs.squid.cloud/docs/development-tools/client-sdk/queries">
 documentation</a>.

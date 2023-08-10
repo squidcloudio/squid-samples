@@ -12,7 +12,7 @@ export default function Shares({
     <DistributionCard {...otherProps} className={` ${className ?? ''}`}>
       <DistributionTitle className="mb-[16px]">Shares</DistributionTitle>
       <div className="text-[60px] font-extrabold leading-[42px]">
-        {portfolio.reduce((acc, item) => acc + item.amount, 0)}
+        {portfolio.reduce((acc, item) => acc + (item.amount || 0), 0)}
       </div>
     </DistributionCard>
   );

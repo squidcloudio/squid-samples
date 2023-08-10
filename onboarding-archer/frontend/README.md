@@ -20,4 +20,4 @@ To run the sample, run this in the root directory:
 npm run squid-start
 ```
 
-For more information, see the [documentation](https://docs.squid.cloud/docs/getting-started/)
+For more information, see the [documentation](https://docs.squid.cloud/docs/getting-started/what-is-squid/)

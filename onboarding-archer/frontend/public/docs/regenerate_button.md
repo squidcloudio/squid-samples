@@ -27,6 +27,6 @@ export class OnboardingArcherService extends SquidService {
 }
 ```
 
-For additional details, see the  <a target="_blank" href="https://docs.squid.cloud/docs/backend/executables">
+For additional details, see the  <a target="_blank" href="https://docs.squid.cloud/docs/development-tools/backend/executables">
 documentation</a>.
 

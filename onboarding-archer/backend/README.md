@@ -34,4 +34,4 @@ making it available to your client application.
 In conclusion, the Squid Backend code has extensive power and flexibility, making it a powerful tool for developers who
 need to build complex backend functionality for their applications.
 
-For more information, see the [documentation](https://docs.squid.cloud/docs/backend/)
+For more information, see the [documentation](https://docs.squid.cloud/docs/development-tools/backend//)

@@ -22,5 +22,5 @@ const simulationData: Array<SimulationData> =
 return (<Chart data={simulationData} />);
 ```
 
-For additional details, see the  <a target="_blank" href="https://docs.squid.cloud/docs/client-sdk/queries">
+For additional details, see the  <a target="_blank" href="https://docs.squid.cloud/docs/development-tools/client-sdk/queries">
 documentation</a>.

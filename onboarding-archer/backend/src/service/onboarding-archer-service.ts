@@ -12,12 +12,12 @@ import _ from 'lodash';
  * among other features. This service extends the `SquidService` and makes use of the
  * Squid platform capabilities.
  *
- * For more detailed documentation, see {@link https://docs.squid.cloud/docs/backend/}.
+ * For more detailed documentation, see {@link https://docs.squid.cloud/docs/development-tools/backend//}.
  */
 export class OnboardingArcherService extends SquidService {
   /**
    * Collection references in the Squid SDK. We use them to interact with those collections (for example, for queries)
-   * For more information, see {@link https://docs.squid.cloud/docs/client-sdk/collection-reference}.
+   * For more information, see {@link https://docs.squid.cloud/docs/development-tools/client-sdk/collection-reference}.
    */
   private readonly tickerCollection = this.squid.collection<Ticker>('ticker');
   private readonly simulationDayCollection = this.squid.collection<SimulationDay>('simulationDay');
@@ -26,7 +26,7 @@ export class OnboardingArcherService extends SquidService {
 
   /**
    * Grants full access to the built-in database.
-   * For more information, see {@link https://docs.squid.cloud/docs/backend/security-rules/secure-data-access}.
+   * For more information, see {@link https://docs.squid.cloud/docs/development-tools/backend//security-rules/secure-data-access}.
    *
    * @returns {boolean} Always returns true to allow access.
    */
@@ -37,8 +37,8 @@ export class OnboardingArcherService extends SquidService {
 
   /**
    * Asynchronously generates a user's portfolio by randomly selecting tickers and assigning values.
-   * To learn more about executables, see {@link https://docs.squid.cloud/docs/backend/executables}.
-   * To learn more about mutations, see {@link https://docs.squid.cloud/docs/client-sdk/mutations}.
+   * To learn more about executables, see {@link https://docs.squid.cloud/docs/development-tools/backend/executables}.
+   * To learn more about mutations, see {@link https://docs.squid.cloud/docs/development-tools/client-sdk/mutations}.
    */
   @executable()
   async generatePortfolio(): Promise<void> {
@@ -76,8 +76,8 @@ export class OnboardingArcherService extends SquidService {
 
   /**
    * Asynchronously runs a simulation for the user's portfolio for the past month.
-   * To learn more about executables, see {@link https://docs.squid.cloud/docs/backend/executables}.
-   * To learn more about mutations, see {@link https://docs.squid.cloud/docs/client-sdk/mutations}.
+   * To learn more about executables, see {@link https://docs.squid.cloud/docs/development-tools/backend/executables}.
+   * To learn more about mutations, see {@link https://docs.squid.cloud/docs/development-tools/client-sdk/mutations}.
    */
   @executable()
   async runSimulation(): Promise<void> {
@@ -118,8 +118,8 @@ export class OnboardingArcherService extends SquidService {
 
   /**
    * Initializes a user's profile with a default balance of $100,000.
-   * To learn more about executables, see {@link https://docs.squid.cloud/docs/backend/executables}.
-   * To learn more about mutations, see {@link https://docs.squid.cloud/docs/client-sdk/mutations}.
+   * To learn more about executables, see {@link https://docs.squid.cloud/docs/development-tools/backend/executables}.
+   * To learn more about mutations, see {@link https://docs.squid.cloud/docs/development-tools/client-sdk/mutations}.
    */
   @executable()
   async initializeUserProfile(): Promise<void> {
@@ -135,9 +135,9 @@ export class OnboardingArcherService extends SquidService {
 
   /**
    * Job that asynchronously generates ticker prices. Scheduled to run every 10 seconds.
-   * To learn more about schedulers, see {@link https://docs.squid.cloud/docs/backend/schedulers}.
-   * To learn more about mutations, see {@link https://docs.squid.cloud/docs/client-sdk/mutations}.
-   * To learn more about queries, see {@link https://docs.squid.cloud/docs/client-sdk/queries}.
+   * To learn more about schedulers, see {@link https://docs.squid.cloud/docs/development-tools/backend/schedulers}.
+   * To learn more about mutations, see {@link https://docs.squid.cloud/docs/development-tools/client-sdk/mutations}.
+   * To learn more about queries, see {@link https://docs.squid.cloud/docs/development-tools/client-sdk/queries}.
    */
   @scheduler('generateTickerPricesJob', CronExpression.EVERY_10_SECONDS, true)
   async generateTickerPricesJob(): Promise<void> {

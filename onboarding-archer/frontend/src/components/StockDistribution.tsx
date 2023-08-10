@@ -29,7 +29,7 @@ export default function StockDistribution() {
             {portfolio.map((item, index) => (
               <div
                 className="flex items-center gap-x-[8px] text-[12px] leading-[16px]"
-                key={item.id}
+                key={item.id || index}
               >
                 <div
                   className={`w-[10px] h-[10px] rounded-[10px] bg-data${

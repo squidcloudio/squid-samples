@@ -3,7 +3,7 @@
 ## Overview
 
 This application demonstrates how a user can create, update, delete, and fetch data using only the frontend and
-the [Squid Cloud](https://docs.squid.cloud/docs/what-is-squid) service.
+the [Squid Cloud](https://docs.squid.cloud/docs/getting-started/what-is-squid) service.
 For authentication, this application uses [Auth0](https://auth0.com/).
 
 ## Start
@@ -139,7 +139,7 @@ To work with collections, the user needs to obtain a token, which is used to pro
 **_Backend:_**
 
 **Squid Cloud** provides a way for the client to protect data from outside access, preventing sensitive information from being exposed.
-To achieve this, Squid uses the **secureCollection** decorator, which is explained in more detail in the security rules [documentation](https://docs.squid.cloud/docs/backend/security-rules/)
+To achieve this, Squid uses the **secureCollection** decorator, which is explained in more detail in the security rules [documentation](https://docs.squid.cloud/docs/development-tools/backend//security-rules/)
 
 `src/service/onboarding-archer-service.ts:`
 

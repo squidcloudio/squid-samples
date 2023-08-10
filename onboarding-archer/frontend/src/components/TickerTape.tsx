@@ -49,7 +49,7 @@ export default function TickerTape() {
       <div className="flex flex-col gap-[16px]">
         {portfolio.map((item, index) => (
           <TickerTapeItem
-            key={item.id}
+            key={item.id || index}
             tickerOptions={tickerOptions}
             defaultOption={{
               label: item.id,
