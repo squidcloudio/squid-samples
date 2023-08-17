@@ -207,7 +207,7 @@ export class ArcherService extends SquidService {
     if (!tickerRef) {
       throw new Error('Ticker not found');
     }
-    const price = tickerRef.data.closePrice;
+    const price = tickerRef.closePrice;
     const totalPrice = price * quantity;
 
     if (totalPrice > user.balance) {
@@ -279,7 +279,7 @@ export class ArcherService extends SquidService {
     if (!user) {
       throw new Error('User not found');
     }
-    return user.data;
+    return user;
   }
 
   private async getPortfolioValue(userId: string, tickers: Record<string, Ticker>): Promise<number> {

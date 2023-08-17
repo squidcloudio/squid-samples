@@ -63,9 +63,6 @@ export class ArcherService {
             .doc(auth0User.sub)
             .snapshots()
             .pipe(
-              map((snapshot) => {
-                return snapshot?.data;
-              }),
               switchMap((archerUser) => {
                 if (!archerUser) {
                   // TODO: Move this to executable
