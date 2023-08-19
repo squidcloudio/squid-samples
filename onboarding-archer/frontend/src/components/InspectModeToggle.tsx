@@ -1,11 +1,11 @@
 import { useArcherContext } from '@/utils/ArcherContextProvider';
 import Icon from '@/components/lib/Icon';
-import React from 'react';
+import { HTMLAttributes } from 'react';
 
 export default function InspectModeToggle({
   className,
   ...otherProps
-}: React.HTMLAttributes<HTMLElement>) {
+}: HTMLAttributes<HTMLElement>) {
   const { inspectModeEnabled, setInspectModeEnabled } = useArcherContext();
 
   function toggleInspectMode(): void {

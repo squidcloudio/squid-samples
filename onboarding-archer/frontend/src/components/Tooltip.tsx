@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { HTMLAttributes, useEffect, useRef, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import SyntaxHighlighter from 'react-syntax-highlighter/dist/esm/prism';
@@ -7,7 +7,7 @@ import { Icons } from '@/utils/icons';
 import prismMaterialDarkTheme from '@/utils/prismMaterialDarkTheme';
 import Icon from '@/components/lib/Icon';
 
-interface TooltipProps extends React.HTMLAttributes<HTMLElement> {
+interface TooltipProps extends HTMLAttributes<HTMLElement> {
   mdFile: string;
 }
 

@@ -3,10 +3,10 @@ import GainLoseIndicator from '@/components/GainLoseIndicator';
 import TimeSelector, { SelectedChartTime } from '@/components/TimeSelector';
 import { useArcherContext } from '@/utils/ArcherContextProvider';
 import PriceDisplay from '@/components/PriceDisplay';
-import React, { useEffect, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { useCollection, useQuery } from '@squidcloud/react';
 import { SimulationDay } from '@/common/common-types';
-import _ from 'lodash';
+import * as _ from 'lodash';
 import Button from '@/components/lib/Button';
 import Icon from '@/components/lib/Icon';
 
@@ -38,7 +38,7 @@ const timeToRangeMap: Record<SelectedChartTime, ChartTimeRange> = {
   },
 };
 
-function getConfirmationBarMessage(percentChanged: number): React.ReactNode {
+function getConfirmationBarMessage(percentChanged: number): ReactNode {
   const gained = percentChanged >= 0;
   const percentChangedString = Math.abs(percentChanged).toFixed(2);
   const message = (
@@ -84,7 +84,7 @@ function getConfirmationBarMessage(percentChanged: number): React.ReactNode {
 }
 
 export default function ChartAndData() {
-  const { portfolio, setConfirmationMessage } = useArcherContext();
+  const { setConfirmationMessage } = useArcherContext();
   const [selectedChartTime, setSelectedChartTime] =
     useState<SelectedChartTime>('1m');
 
@@ -119,18 +119,6 @@ export default function ChartAndData() {
   const currentPortfolioValue = isDataGenerated
     ? simulationData[simulationData.length - 1].value
     : 0;
-
-  let portfolioValueToday = 0;
-  let portfolioValueYesterday = 0;
-
-  portfolio.forEach((portfolioTicker) => {
-    const valueToday = portfolioTicker.closePrice * portfolioTicker.amount;
-    const valueYesterday =
-      portfolioTicker.prevDayClosePrice * portfolioTicker.amount;
-
-    portfolioValueToday += valueToday;
-    portfolioValueYesterday += valueYesterday;
-  });
 
   const firstDayValue = simulationData[0]?.value || 0;
   const totalChangeInValue = currentPortfolioValue - firstDayValue;

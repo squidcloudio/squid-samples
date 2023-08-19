@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import { createContext, ReactNode, useContext, useState } from 'react';
 import {
   PortfolioItem,
   PortfolioTicker,
@@ -13,8 +13,8 @@ export interface ArcherContextData {
   allTickersMap: Record<string, Ticker>;
   portfolio: Array<PortfolioTicker>;
   userProfile: UserProfile | undefined;
-  confirmationMessage: React.ReactNode | undefined;
-  setConfirmationMessage: (message: React.ReactNode | undefined) => void;
+  confirmationMessage: ReactNode | undefined;
+  setConfirmationMessage: (message: ReactNode | undefined) => void;
   mainModalOpen: boolean;
   setMainModalOpen: (open: boolean) => void;
   inspectModeEnabled: boolean;
@@ -24,7 +24,7 @@ export interface ArcherContextData {
 }
 
 interface ArcherContextProviderProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 const ArcherContext = createContext<ArcherContextData | null>(null);
@@ -33,7 +33,7 @@ export function ArcherContextProvider({
   children,
 }: ArcherContextProviderProps) {
   const [confirmationMessage, setConfirmationMessage] = useState<
-    React.ReactNode | undefined
+    ReactNode | undefined
   >(undefined);
 
   const [mainModalOpen, setMainModalOpen] = useState<boolean>(false);

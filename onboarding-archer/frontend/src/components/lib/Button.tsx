@@ -1,9 +1,9 @@
-import React from 'react';
 import { omit } from 'lodash';
+import { ButtonHTMLAttributes } from 'react';
 
 type ButtonType = 'primary' | 'secondary' | 'tertiary' | 'modal';
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   buttonType: ButtonType;
 }
 

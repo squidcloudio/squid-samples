@@ -1,10 +1,10 @@
-import React from 'react';
+import { HTMLAttributes } from 'react';
 
 export function DistributionTitle({
   children,
   className,
   ...otherProps
-}: React.HTMLAttributes<HTMLElement>) {
+}: HTMLAttributes<HTMLElement>) {
   return (
     <div
       {...otherProps}

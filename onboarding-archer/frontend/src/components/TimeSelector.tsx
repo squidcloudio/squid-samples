@@ -1,4 +1,4 @@
-import React from 'react';
+import { Fragment } from 'react';
 
 export type SelectedChartTime = 'w1' | 'w2' | 'w3' | 'w4' | '1m';
 
@@ -35,7 +35,7 @@ export default function TimeSelector({
     >
       {options.map((option) => {
         return (
-          <React.Fragment key={option.value}>
+          <Fragment key={option.value}>
             {option.separator && (
               <div className="w-[1px] h-[18px] bg-line1"></div>
             )}
@@ -51,7 +51,7 @@ export default function TimeSelector({
             >
               {option.label}
             </div>
-          </React.Fragment>
+          </Fragment>
         );
       })}
     </div>

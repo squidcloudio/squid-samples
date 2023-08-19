@@ -1,7 +1,7 @@
 import { Icons } from '@/utils/icons';
-import React from 'react';
+import { HTMLAttributes } from 'react';
 
-interface PropTypes extends React.HTMLAttributes<HTMLElement> {
+interface PropTypes extends HTMLAttributes<HTMLElement> {
   icon: keyof typeof Icons;
   className?: string;
 }

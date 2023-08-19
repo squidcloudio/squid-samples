@@ -8,8 +8,8 @@ import {
   YAxis,
 } from 'recharts';
 import Icon from '@/components/lib/Icon';
-import React, { memo } from 'react';
-import _ from 'lodash';
+import { FC, memo } from 'react';
+import * as _ from 'lodash';
 
 export interface SimulationData {
   name: string;
@@ -21,7 +21,7 @@ interface ChartProps {
   gained: boolean;
 }
 
-const CustomTooltip: React.FC<TooltipProps<number, string>> = ({
+const CustomTooltip: FC<TooltipProps<number, string>> = ({
   active,
   payload,
   label,

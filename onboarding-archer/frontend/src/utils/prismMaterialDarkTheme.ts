@@ -1,6 +1,6 @@
-import React from 'react';
+import { CSSProperties } from 'react';
 
-const css: Record<string, React.CSSProperties> = {
+const css: Record<string, CSSProperties> = {
   code: {
     whiteSpace: 'pre-wrap',
   },

@@ -1,14 +1,14 @@
-import React from 'react';
 import DistributionCard from '@/components/DistributionCard';
 import { DistributionTitle } from '@/components/DistributionTitle';
 import { Cell, Pie, PieChart, Tooltip } from 'recharts';
 import { calculatePercent } from '@/utils/portfolio';
 import { useArcherContext } from '@/utils/ArcherContextProvider';
+import { FC, HTMLAttributes } from 'react';
 
 export function SectorDiversity({
   className,
   ...otherProps
-}: React.HTMLAttributes<HTMLElement>) {
+}: HTMLAttributes<HTMLElement>) {
   const { portfolio } = useArcherContext();
   const pieData = portfolio
     .filter((item) => item.amount > 0)
@@ -85,7 +85,7 @@ export function SectorDiversity({
   );
 }
 
-const PieTooltip: React.FC<any> = ({ active, payload }) => {
+const PieTooltip: FC<any> = ({ active, payload }) => {
   if (active && payload && payload.length) {
     return (
       <div className="bg-bg2 py-2 px-4 border-1 border-text1 drop-shadow-card rounded">

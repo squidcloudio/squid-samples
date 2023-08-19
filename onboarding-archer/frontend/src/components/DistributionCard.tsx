@@ -1,9 +1,9 @@
-import React from 'react';
+import { HTMLAttributes } from 'react';
 
 export default function DistributionCard({
   children,
   className,
-}: React.HTMLAttributes<HTMLElement>) {
+}: HTMLAttributes<HTMLElement>) {
   return (
     <div
       className={`p-[20px] rounded-[8px] border border-line1 ${

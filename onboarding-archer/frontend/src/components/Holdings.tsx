@@ -1,13 +1,13 @@
-import React from 'react';
 import DistributionCard from '@/components/DistributionCard';
 import { DistributionTitle } from '@/components/DistributionTitle';
 import Icon from '@/components/lib/Icon';
 import { useArcherContext } from '@/utils/ArcherContextProvider';
+import { HTMLAttributes } from 'react';
 
 export default function Holdings({
   className,
   ...otherProps
-}: React.HTMLAttributes<HTMLElement>) {
+}: HTMLAttributes<HTMLElement>) {
   const portfolio = useArcherContext().portfolio.filter(
     (item) => item.amount > 0,
   );

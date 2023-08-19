@@ -1,4 +1,4 @@
-import Modal from 'react-modal';
+import * as Modal from 'react-modal';
 import { useArcherContext } from '@/utils/ArcherContextProvider';
 import Icon from '@/components/lib/Icon';
 import Button from '@/components/lib/Button';

@@ -1,12 +1,12 @@
-import React from 'react';
 import DistributionCard from '@/components/DistributionCard';
 import { DistributionTitle } from '@/components/DistributionTitle';
 import { useArcherContext } from '@/utils/ArcherContextProvider';
+import { HTMLAttributes } from 'react';
 
 export default function Shares({
   className,
   ...otherProps
-}: React.HTMLAttributes<HTMLElement>) {
+}: HTMLAttributes<HTMLElement>) {
   const { portfolio } = useArcherContext();
   return (
     <DistributionCard {...otherProps} className={` ${className ?? ''}`}>
