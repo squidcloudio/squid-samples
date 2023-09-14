@@ -35,20 +35,19 @@ const nextSteps: Array<NextStep> = [
   {
     title: 'Add a Scheduler',
     description:
-      'In the seconds it took to launch this app, Squid spun up a new mid-tier for you that’s secure, scalable, and.',
+      "Configure a scheduler to automate periodic tasks and optimize your application's performance.",
     mdFilePath: 'docs/next_steps/scheduler.md',
   },
   {
     title: 'Add a Trigger',
     description:
-      'In the seconds it took to launch this app, Squid spun up a new mid-tier for you that’s secure, scalable, and.',
+      "Set up triggers to initiate functions or processes in response to specific events, enhancing your application's reactivity and efficiency",
     mdFilePath: 'docs/next_steps/trigger.md',
   },
   {
-    title: 'Add an Executable',
-    description:
-      'In the seconds it took to launch this app, Squid spun up a new mid-tier for you that’s secure, scalable, and.',
-    mdFilePath: 'docs/next_steps/executable.md',
+    title: 'Use Squid AI',
+    description: 'Add AI capabilities to your application using Squid AI.',
+    mdFilePath: 'docs/next_steps/ai.md',
   },
 ];
 

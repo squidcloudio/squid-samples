@@ -83,7 +83,7 @@ export default function DocModal() {
               {docModalData?.title}
             </div>
           </div>
-          <div className="markdown light">
+          <div className="markdown doc_modal">
             <ReactMarkdown
               children={markdown}
               rehypePlugins={[rehypeRaw]}

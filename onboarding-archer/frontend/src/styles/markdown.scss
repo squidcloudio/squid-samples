@@ -154,7 +154,8 @@ pre[class*="language-"] {
     color: $primary1;
   }
 }
-.light.markdown {
+
+.doc_modal.markdown {
   blockquote {
     p {
       color: $text2;
@@ -179,6 +180,7 @@ pre[class*="language-"] {
 
   p {
     color: $text2;
+    font-size: 16px;
   }
 
   ul {
@@ -194,8 +196,9 @@ pre[class*="language-"] {
   }
 
   code:not([class*='language-']) {
-    background: $primary2;
-    color: $primary1;
+    background: $text1;
+    color: $text4;
+    padding:0 6px 2px 6px;
   }
 
   a {

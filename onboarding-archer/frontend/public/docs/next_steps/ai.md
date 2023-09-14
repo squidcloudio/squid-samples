@@ -1,8 +1,6 @@
-Let's build a scheduler that refreshes the portfolio every 10 minutes.
-
-While this is not recommended for a real trading system, it serves as a good illustration of scheduler creation.
-
-Creating a scheduler involves writing a TypeScript function with a `@scheduler` decorator.
+Squid AI works with your data to provide the domain-specific insights that you and your users need.
+You can integrate the Squid AI capabilities from the [Squid Cloud Console](https://console.squid.cloud/integrations/available/ai)
+Then you can use the Squid SDK to provide AI capabilities to your users based on your data.
 
 In the `backend/src/service/onboarding-archer-service.ts` file, include the code below:
 
