@@ -1,7 +1,11 @@
-import {createContext, ReactNode, useContext, useState} from 'react';
-import {PortfolioItem, PortfolioTicker, Ticker, UserProfile,} from '@/common/common-types';
-import {useCollection, useQuery} from '@squidcloud/react';
-
+import { createContext, ReactNode, useContext, useState } from 'react';
+import {
+  PortfolioItem,
+  PortfolioTicker,
+  Ticker,
+  UserProfile,
+} from '@/common/common-types';
+import { useCollection, useQuery } from '@squidcloud/react';
 
 export interface DocModalData {
   title: string;
@@ -35,14 +39,16 @@ interface ArcherContextProviderProps {
 const ArcherContext = createContext<ArcherContextData | null>(null);
 
 export function ArcherContextProvider({
-                                        children,
-                                      }: ArcherContextProviderProps) {
+  children,
+}: ArcherContextProviderProps) {
   const [confirmationMessage, setConfirmationMessage] = useState<
     ReactNode | undefined
   >(undefined);
 
   const [mainModalOpen, setMainModalOpen] = useState<boolean>(false);
-  const [docModalData, setDocModalData] = useState<DocModalData | undefined>(undefined);
+  const [docModalData, setDocModalData] = useState<DocModalData | undefined>(
+    undefined,
+  );
   const [nextStepsModalOpen, setNextStepsModalOpen] = useState<boolean>(false);
   const [inspectModeEnabled, setInspectModeEnabled] = useState<boolean>(false);
   const [openTooltipId, setOpenTooltipId] = useState<string | undefined>(
@@ -50,19 +56,19 @@ export function ArcherContextProvider({
   );
 
   const userProfileCollection = useCollection<UserProfile>('userProfile');
-  const {loading: userProfileLoading, data: userProfiles} = useQuery(
+  const { loading: userProfileLoading, data: userProfiles } = useQuery(
     userProfileCollection.query().eq('id', 'defaultUser').dereference(),
     true,
   );
 
   const tickerCollection = useCollection<Ticker>('ticker');
-  const {loading: tickersLoading, data: allTickers} = useQuery(
+  const { loading: tickersLoading, data: allTickers } = useQuery(
     tickerCollection.query().dereference(),
     true,
   );
 
   const portfolioCollection = useCollection<PortfolioItem>('portfolio');
-  const {loading: portfolioItemsLoading, data: portfolioItems} = useQuery(
+  const { loading: portfolioItemsLoading, data: portfolioItems } = useQuery(
     portfolioCollection.query().sortBy('indexInUi').dereference(),
     true,
   );
