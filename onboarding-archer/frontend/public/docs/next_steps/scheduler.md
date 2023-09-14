@@ -1,3 +1,6 @@
+A scheduler is a type of decorator that, when applied to a function, causes the function to be executed at regular intervals.
+The scheduling is specified using a cron expression.
+
 Let's build a scheduler that refreshes the portfolio every 10 minutes.
 
 While this is not recommended for a real trading system, it serves as a good illustration of scheduler creation.
