@@ -53,10 +53,16 @@ const nextSteps: Array<NextStep> = [
 ];
 
 export default function NextStepsModal() {
-  const { nextStepsModalOpen, setNextStepsModalOpen } = useArcherContext();
+  const { nextStepsModalOpen, setNextStepsModalOpen, setDocModalData } =
+    useArcherContext();
 
   function closeModal() {
     setNextStepsModalOpen(false);
+  }
+
+  function openDocModal({ title, mdFilePath }: NextStep) {
+    closeModal();
+    setDocModalData({ title, mdFilePath });
   }
 
   return (
@@ -88,6 +94,7 @@ export default function NextStepsModal() {
             return (
               <div
                 className="flex justify-between items-center mt-[16px] border border-1 border-line1 p-[16px] rounded-[8px] bg-bg4 hover:bg-bg2 cursor-pointer"
+                onClick={() => openDocModal(step)}
                 key={index}
               >
                 <div>

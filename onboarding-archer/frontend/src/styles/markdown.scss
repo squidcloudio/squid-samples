@@ -154,3 +154,51 @@ pre[class*="language-"] {
     color: $primary1;
   }
 }
+.light.markdown {
+  blockquote {
+    p {
+      color: $text2;
+    }
+  }
+
+  h1 {
+    color: $text2;
+  }
+
+  h3 {
+    color: $text2;
+  }
+
+  h4 {
+    color: $text2;
+  }
+
+  h5 {
+    color: $text2;
+  }
+
+  p {
+    color: $text2;
+  }
+
+  ul {
+    li {
+      color: $text2;
+    }
+  }
+
+  ol {
+    li {
+      color: $text2;
+    }
+  }
+
+  code:not([class*='language-']) {
+    background: $primary2;
+    color: $primary1;
+  }
+
+  a {
+    color: $text1;
+  }
+}
