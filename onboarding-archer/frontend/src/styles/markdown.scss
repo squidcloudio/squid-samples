@@ -196,9 +196,12 @@ pre[class*="language-"] {
   }
 
   code:not([class*='language-']) {
-    background: $text1;
-    color: $text4;
-    padding:0 6px 2px 6px;
+    background: $bg2;
+    color: $text1;
+    border: 1px solid $line1;
+    border-radius: 4px;
+    line-height: 20px;
+    padding: 0 8px 2px;
   }
 
   a {

@@ -70,7 +70,7 @@ export default function DocModal() {
           >
             <Icon icon={'modal_x_icon'}></Icon>
           </div>
-          <div className="flex items-center mb-[8px]">
+          <div className="flex items-center mb-[10px]">
             <div
               className="mr-[8px] cursor-pointer hover:opacity-80"
               onClick={goBackToNextSteps}

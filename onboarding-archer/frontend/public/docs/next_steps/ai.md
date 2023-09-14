@@ -1,20 +1,4 @@
-Squid AI works with your data to provide the domain-specific insights that you and your users need.
-You can integrate the Squid AI capabilities from the [Squid Cloud Console](https://console.squid.cloud/integrations/available/ai)
-Then you can use the Squid SDK to provide AI capabilities to your users based on your data.
+Squid AI works with your data to provide domain-specific insights that you and your users need.
 
-In the `backend/src/service/onboarding-archer-service.ts` file, include the code below:
-
-```typescript
-import { scheduler, SquidService } from '@squidcloud/backend';
-
-export class OnboardingArcherService extends SquidService {
-  // ...
-  @scheduler('regenerateTickerPricesJob', CronExpression.EVERY_10_SECONDS, true)
-  async regenerateTickerPricesJob(): Promise<void> {
-    await this.generatePortfolio();
-  }
-  // ...
-}
-```
-
-For a detailed explanation review our schedulers [documentation](https://docs.squid.cloud/docs/development-tools/backend/schedulers)
+For a comprehensive guide, refer to our Squid AI [documentation](https://docs.squid.cloud/docs/ai/), which includes a
+tutorial on creating a chatbot for your website.

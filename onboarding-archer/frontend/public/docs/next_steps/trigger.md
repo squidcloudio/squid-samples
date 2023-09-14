@@ -1,18 +1,36 @@
-Now that you have completed onboarding with the Archer lite demo app take it further and explore adding backend functions:
+Similar to database triggers, Squid offers a way to execute a function in response to a change in the database. This is
+achieved by decorating a function with the `@trigger` decorator within a class that extends the base `SquidService`
+class.
 
-To create a scheduler within Archer Ticker Tape:
+Example of a trigger that prints changes to portfolio items:
 
-* Install the Squid Client SDK:
-
-```sh
-npm install @squidcloud/client
-```
-
-* Fetch data
 ```typescript
-import { Squid } from '@squidcloud/client';
+import { SquidService, trigger } from '@squidcloud/backend';
+import { TriggerRequest } from '@squidcloud/common';
+import { PortfolioItem } from './common-types';
 
-const squid = new Squid({ appId: '<my app Id>' });
+export class OnboardingArcherService extends SquidService {
+  // ...
+  @trigger('tradeLogTrigger', 'portfolio')
+  tradeLogTrigger(request: TriggerRequest<PortfolioItem>): void {
+    const before = request.docBefore;
+    const after = request.docAfter;
+    const tickerId = before.tickerId || after.tickerId;
+    switch (request.mutationType) {
+      case 'delete':
+        console.log(`Deleted ${tickerId}`);
+        break;
+      case 'update':
+        console.log(`Updated ${tickerId} from ${before?.amount} to ${after?.amount}`);
+        break;
+      case 'insert':
+        console.log(`Inserted ${tickerId} with amount ${after?.amount}`);
+        break;
+    }
+  }
+  // ...
+}
 ```
 
-For a detailed explanation review our schedulers [documentation](https://docs.squid.cloud)
+For a detailed explanation review our
+trigger [documentation](https://docs.squid.cloud/docs/development-tools/backend/triggers)
