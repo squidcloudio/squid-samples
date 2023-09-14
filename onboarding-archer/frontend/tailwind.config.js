@@ -110,6 +110,7 @@ export default {
       },
       backgroundImage: {
         'main-modal-footer': "url('/images/main_modal_footer.svg')",
+        'next-steps-modal-footer': "url('/images/next_steps_wave.svg')",
       },
       boxShadow: {
         elevation1: 'var(--elevation1)',

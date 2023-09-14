@@ -154,3 +154,57 @@ pre[class*="language-"] {
     color: $primary1;
   }
 }
+
+.doc_modal.markdown {
+  blockquote {
+    p {
+      color: $text2;
+    }
+  }
+
+  h1 {
+    color: $text2;
+  }
+
+  h3 {
+    color: $text2;
+  }
+
+  h4 {
+    color: $text2;
+  }
+
+  h5 {
+    color: $text2;
+  }
+
+  p {
+    color: $text2;
+    font-size: 16px;
+  }
+
+  ul {
+    li {
+      color: $text2;
+    }
+  }
+
+  ol {
+    li {
+      color: $text2;
+    }
+  }
+
+  code:not([class*='language-']) {
+    background: $bg2;
+    color: $text1;
+    border: 1px solid $line1;
+    border-radius: 4px;
+    line-height: 20px;
+    padding: 0 8px 2px;
+  }
+
+  a {
+    color: $text1;
+  }
+}

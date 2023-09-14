@@ -7,6 +7,11 @@ import {
 } from '@/common/common-types';
 import { useCollection, useQuery } from '@squidcloud/react';
 
+export interface DocModalData {
+  title: string;
+  mdFilePath: string;
+}
+
 export interface ArcherContextData {
   ready: boolean;
   allTickers: Array<Ticker>;
@@ -17,6 +22,10 @@ export interface ArcherContextData {
   setConfirmationMessage: (message: ReactNode | undefined) => void;
   mainModalOpen: boolean;
   setMainModalOpen: (open: boolean) => void;
+  nextStepsModalOpen: boolean;
+  setNextStepsModalOpen: (open: boolean) => void;
+  docModalData: DocModalData | undefined;
+  setDocModalData: (data: DocModalData | undefined) => void;
   inspectModeEnabled: boolean;
   setInspectModeEnabled: (open: boolean) => void;
   openTooltipId?: string;
@@ -37,6 +46,10 @@ export function ArcherContextProvider({
   >(undefined);
 
   const [mainModalOpen, setMainModalOpen] = useState<boolean>(false);
+  const [docModalData, setDocModalData] = useState<DocModalData | undefined>(
+    undefined,
+  );
+  const [nextStepsModalOpen, setNextStepsModalOpen] = useState<boolean>(false);
   const [inspectModeEnabled, setInspectModeEnabled] = useState<boolean>(false);
   const [openTooltipId, setOpenTooltipId] = useState<string | undefined>(
     undefined,
@@ -71,7 +84,7 @@ export function ArcherContextProvider({
     indexInUi: item.indexInUi,
   }));
 
-  const data = {
+  const data: ArcherContextData = {
     allTickers: allTickers,
     allTickersMap,
     portfolio,
@@ -81,6 +94,10 @@ export function ArcherContextProvider({
     setConfirmationMessage,
     mainModalOpen,
     setMainModalOpen,
+    nextStepsModalOpen,
+    docModalData,
+    setDocModalData,
+    setNextStepsModalOpen,
     inspectModeEnabled,
     setInspectModeEnabled,
     openTooltipId,

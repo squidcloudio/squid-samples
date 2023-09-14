@@ -39,7 +39,6 @@ export default function MainModal() {
         isOpen={mainModalOpen}
         onRequestClose={closeModal}
         style={customStyles}
-        contentLabel="Example Modal"
       >
         <div className="relative">
           <div

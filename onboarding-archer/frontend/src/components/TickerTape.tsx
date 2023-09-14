@@ -1,15 +1,15 @@
-import TickerTapeItem, { TickerOption } from '@/components/TickerTapeItem';
+import TickerTapeItem, {TickerOption} from '@/components/TickerTapeItem';
 import Button from '@/components/lib/Button';
-import { useArcherContext } from '@/utils/ArcherContextProvider';
-import { useEffect, useState } from 'react';
+import {useArcherContext} from '@/utils/ArcherContextProvider';
+import {useEffect, useState} from 'react';
 import PriceDisplay from '@/components/PriceDisplay';
-import { useSquid } from '@squidcloud/react';
+import {useSquid} from '@squidcloud/react';
 import Tooltip from '@/components/Tooltip';
 
 export default function TickerTape() {
   const squid = useSquid();
   const archerContextData = useArcherContext();
-  const { portfolio, allTickers, userProfile } = archerContextData;
+  const {portfolio, allTickers, userProfile, setNextStepsModalOpen} = archerContextData;
   const [ongoingServerRequest, setOngoingServerRequest] = useState(false);
 
   const tickerOptions: Array<TickerOption> = allTickers.map((ticker) => ({
@@ -32,6 +32,10 @@ export default function TickerTape() {
     squid.executeFunction('generatePortfolio').finally(() => {
       setOngoingServerRequest(false);
     });
+  }
+
+  function showNextSteps() {
+    setNextStepsModalOpen(true);
   }
 
   useEffect(() => {
@@ -100,6 +104,13 @@ export default function TickerTape() {
             </Button>
           </div>
         </div>
+        <Button
+          className={'w-full mt-[12px] font-extrabold'}
+          buttonType="modal"
+          onClick={showNextSteps}
+        >
+          What's next...
+        </Button>
       </div>
       <div className="mt-9 text-text2 text-[12px] font-medium leading-[16px]">
         <span className="font-extrabold">Disclaimer: </span>
