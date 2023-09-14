@@ -9,7 +9,7 @@ import Tooltip from '@/components/Tooltip';
 export default function TickerTape() {
   const squid = useSquid();
   const archerContextData = useArcherContext();
-  const {portfolio, allTickers, userProfile} = archerContextData;
+  const {portfolio, allTickers, userProfile, setNextStepsModalOpen} = archerContextData;
   const [ongoingServerRequest, setOngoingServerRequest] = useState(false);
 
   const tickerOptions: Array<TickerOption> = allTickers.map((ticker) => ({
@@ -35,7 +35,7 @@ export default function TickerTape() {
   }
 
   function showNextSteps() {
-
+    setNextStepsModalOpen(true);
   }
 
   useEffect(() => {
