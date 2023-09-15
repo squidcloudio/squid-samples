@@ -12,7 +12,7 @@ import _ from 'lodash';
  * among other features. This service extends the `SquidService` and makes use of the
  * Squid platform capabilities.
  *
- * For more detailed documentation, see {@link https://docs.squid.cloud/docs/development-tools/backend//}.
+ * For more detailed documentation, see {@link https://docs.squid.cloud/docs/development-tools/backend/}.
  */
 export class OnboardingArcherService extends SquidService {
   /**
