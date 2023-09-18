@@ -15,7 +15,7 @@ export class OnboardingArcherService extends SquidService {
   tradeLogTrigger(request: TriggerRequest<PortfolioItem>): void {
     const before = request.docBefore;
     const after = request.docAfter;
-    const tickerId = before.tickerId || after.tickerId;
+    const tickerId = before?.tickerId || after?.tickerId;
     switch (request.mutationType) {
       case 'delete':
         console.log(`Deleted ${tickerId}`);

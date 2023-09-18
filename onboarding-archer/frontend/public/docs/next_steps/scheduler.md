@@ -15,7 +15,7 @@ import { CronExpression } from '@squidcloud/common';
 
 export class OnboardingArcherService extends SquidService {
   // ...
-  @scheduler('regenerateTickerPricesJob', CronExpression.EVERY_10_SECONDS, true)
+  @scheduler('regenerateTickerPricesJob', CronExpression.EVERY_10_MINUTES, true)
   async regenerateTickerPricesJob(): Promise<void> {
     await this.generatePortfolio();
   }
