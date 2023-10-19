@@ -1,4 +1,6 @@
-import { ChangeEvent, useState} from 'react';
+import { ChangeEvent, useState } from 'react';
+import Button from '@mui/material/Button';
+import { TextField } from '@mui/material';
 import Messages from './messages';
 import { useAiAssistant } from '@squidcloud/react';
 
@@ -19,7 +21,7 @@ function SquidFactsAI() {
         setQuestion((e.target as HTMLInputElement).value);
     }
 
-    function checkKey(ele: React.KeyboardEvent<HTMLInputElement>) {
+    function checkKey(ele: React.KeyboardEvent<HTMLDivElement>) {
         if (ele.key === 'Enter') {
             askQuestion();
         }
@@ -27,14 +29,15 @@ function SquidFactsAI() {
 
     return (
         <>
-            <div id="scrolling"  >
+            <div className="scrolling"  >
                 <Messages messages={history} />
             </div>
-            <input onChange={questionChanged} onKeyDown={(event) => checkKey(event)} value={question}></input>
-            <button disabled={!complete} onClick={askQuestion} >
-                Ask question
-            </button>
-
+            <div className='question' >
+                <TextField fullWidth id="outlined-basic" label="Enter your question" variant="outlined" onChange={questionChanged} onKeyDown={(event) => checkKey(event)} value={question} />
+                <Button variant="contained" disabled={!complete} onClick={askQuestion} >
+                    Ask question
+                </Button>
+            </div>
         </>
     );
 }

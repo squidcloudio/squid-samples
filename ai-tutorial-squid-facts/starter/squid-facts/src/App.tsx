@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import SquidFactsAI from './components/squid-facts-ai'
 import './App.css'
 

@@ -18,13 +18,27 @@
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
-#scrolling {
+div {
+  padding: 10px;
+}
+
+.scrolling {
   overflow-y:auto;
   max-height: 250px;
+  display: flex;
+  justify-content: center;
 }
 
 .messages {
   text-align: left;
+  width: 75%;
+}
+
+div.question {
+  margin: 0 auto;
+  width: 75%;
+  display: flex;
+  justify-content: space-between;
 }
 
 @keyframes logo-spin {
