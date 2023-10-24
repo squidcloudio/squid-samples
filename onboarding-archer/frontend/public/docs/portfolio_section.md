@@ -14,9 +14,7 @@ export class OnboardingArcherService extends SquidService {
       .dereference()
       .snapshot();
 
-    const allTickers = allTickersInDb.length
-      ? allTickersInDb
-      : ALL_TICKERS;
+    const allTickers = allTickersInDb.length ? allTickersInDb : ALL_TICKERS;
 
     await this.squid.runInTransaction(async (txId) => {
       for (const ticker of allTickers) {
@@ -29,6 +27,5 @@ export class OnboardingArcherService extends SquidService {
 }
 ```
 
-For additional details, see the  <a target="_blank" href="https://docs.squid.cloud/docs/development-tools/backend/schedulers">
+For additional details, see the <a target="_blank" href="https://docs.squid.cloud/docs/development-tools/backend/schedulers">
 documentation</a>.
-

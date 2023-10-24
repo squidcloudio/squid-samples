@@ -193,9 +193,12 @@ export class OnboardingArcherService extends SquidService {
 
   private async getAllTickersMap(): Promise<Record<string, Ticker>> {
     const allTickers = await this.getAllTickers();
-    return allTickers.reduce((acc, ticker) => {
-      acc[ticker.id] = ticker;
-      return acc;
-    }, {} as Record<string, Ticker>);
+    return allTickers.reduce(
+      (acc, ticker) => {
+        acc[ticker.id] = ticker;
+        return acc;
+      },
+      {} as Record<string, Ticker>,
+    );
   }
 }

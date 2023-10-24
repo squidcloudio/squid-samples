@@ -16,5 +16,5 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     >
       <App />
     </SquidContextProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );

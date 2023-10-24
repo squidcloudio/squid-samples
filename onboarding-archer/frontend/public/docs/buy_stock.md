@@ -21,5 +21,5 @@ this.squid.runInTransaction((txId) => {
 });
 ```
 
-For additional details, see the  <a target="_blank" href="https://docs.squid.cloud/docs/development-tools/client-sdk/mutations">
+For additional details, see the <a target="_blank" href="https://docs.squid.cloud/docs/development-tools/client-sdk/mutations">
 documentation</a>.

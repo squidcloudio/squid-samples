@@ -1,15 +1,16 @@
-import TickerTapeItem, {TickerOption} from '@/components/TickerTapeItem';
+import TickerTapeItem, { TickerOption } from '@/components/TickerTapeItem';
 import Button from '@/components/lib/Button';
-import {useArcherContext} from '@/utils/ArcherContextProvider';
-import {useEffect, useState} from 'react';
+import { useArcherContext } from '@/utils/ArcherContextProvider';
+import { useEffect, useState } from 'react';
 import PriceDisplay from '@/components/PriceDisplay';
-import {useSquid} from '@squidcloud/react';
+import { useSquid } from '@squidcloud/react';
 import Tooltip from '@/components/Tooltip';
 
 export default function TickerTape() {
   const squid = useSquid();
   const archerContextData = useArcherContext();
-  const {portfolio, allTickers, userProfile, setNextStepsModalOpen} = archerContextData;
+  const { portfolio, allTickers, userProfile, setNextStepsModalOpen } =
+    archerContextData;
   const [ongoingServerRequest, setOngoingServerRequest] = useState(false);
 
   const tickerOptions: Array<TickerOption> = allTickers.map((ticker) => ({
