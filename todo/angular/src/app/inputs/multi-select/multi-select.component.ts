@@ -21,7 +21,10 @@ export class MultiSelectComponent implements OnInit {
 
   selectedTags: Tag[] = [];
 
-  constructor(private renderer: Renderer2, readonly themeService: ThemeService) {}
+  constructor(
+    private renderer: Renderer2,
+    readonly themeService: ThemeService,
+  ) {}
   focus(e: MouseEvent): void {
     e.stopImmediatePropagation();
   }

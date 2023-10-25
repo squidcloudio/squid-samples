@@ -1,10 +1,11 @@
 <div class="totals_container">
-  <div class="value"
-       [ngClass]="changePercent >= 0 ? 'gain' : 'lose'">
-    {{value | currency: 'USD'}}
+  <div class="value" [ngClass]="changePercent >= 0 ? 'gain' : 'lose'">
+    {{ value | currency: 'USD' }}
   </div>
-  <div class="change_since_yesterday"
-       [ngClass]="changePercent >= 0 ? 'gain_bg' : 'lose_bg'">
+  <div
+    class="change_since_yesterday"
+    [ngClass]="changePercent >= 0 ? 'gain_bg' : 'lose_bg'"
+  >
     <percent-change [value]="changePercent"></percent-change>
   </div>
 </div>

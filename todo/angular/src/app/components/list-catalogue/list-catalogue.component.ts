@@ -14,7 +14,10 @@ export class ListCatalogueComponent implements OnInit {
   listCatalogObs?: Observable<List[]>;
   currentList?: List;
 
-  constructor(private listService: ListService, readonly themeService: ThemeService) {}
+  constructor(
+    private listService: ListService,
+    readonly themeService: ThemeService,
+  ) {}
 
   ngOnInit(): void {
     this.listCatalogObs =

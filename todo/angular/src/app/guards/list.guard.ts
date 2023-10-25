@@ -6,7 +6,11 @@ import { AccountService } from '../services/account.service';
 
 @Injectable({ providedIn: 'root' })
 export class ChildrenGuard implements CanActivateChild {
-  constructor(private listService: ListService, private router: Router, private accountService: AccountService) {}
+  constructor(
+    private listService: ListService,
+    private router: Router,
+    private accountService: AccountService,
+  ) {}
   canActivateChild(
     childRoute: ActivatedRouteSnapshot,
     state: RouterStateSnapshot,
