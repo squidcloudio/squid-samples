@@ -18,7 +18,11 @@ export class ListSelectComponent implements OnInit, OnDestroy {
   selectedList?: List;
   listObs: Observable<List[]> = this.listService.observeUserCollection();
 
-  constructor(readonly themeService: ThemeService, private listService: ListService, private dialog: Dialog) {}
+  constructor(
+    readonly themeService: ThemeService,
+    private listService: ListService,
+    private dialog: Dialog,
+  ) {}
 
   selectList(list?: List): void {
     if (list) {

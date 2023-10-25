@@ -69,7 +69,7 @@ export interface UserAsset {
   avgBuyPrice: number;
 }
 
-export type UserAssetWithTicker = UserAsset & { ticker: Ticker };
+export type UserAssetWithTicker = { holding: UserAsset; ticker: Ticker };
 
 export interface PortfolioValueHistory {
   userId: string;

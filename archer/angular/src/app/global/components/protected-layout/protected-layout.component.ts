@@ -13,7 +13,10 @@ export class ProtectedLayoutComponent {
   userObs = this.archerService.observeUser();
   userAssetsObs = this.archerService.observeUserAssets();
 
-  constructor(private readonly archerService: ArcherService, private readonly authService: AuthService) {}
+  constructor(
+    private readonly archerService: ArcherService,
+    private readonly authService: AuthService,
+  ) {}
 
   showSearchBar() {
     this.searchBarVisible = true;
