@@ -3,7 +3,7 @@
     <h3 class="calendar-tasks-title">Due Tomorrow</h3>
   </ng-container>
   <ng-template #standardTitle>
-    <h3 class="calendar-tasks-title">{{ calendarService.currentDate | date : formatTypes.MONTH_AND_DATE }}</h3>
+    <h3 class="calendar-tasks-title">{{ calendarService.currentDate | date: formatTypes.MONTH_AND_DATE }}</h3>
   </ng-template>
   <ng-container *ngIf="activeTasksObs | async as tasks">
     <ul class="calendar-tasks-list" *ngIf="tasks.length">

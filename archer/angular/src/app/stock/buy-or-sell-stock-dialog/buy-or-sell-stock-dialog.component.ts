@@ -43,7 +43,7 @@ export class BuyOrSellStockDialogComponent extends OnDestroyComponent {
     this.archerService
       .observeUserAsset(this.ticker.id)
       .pipe(takeUntil(this.onDestroy))
-      .subscribe((userAsset) => this.userAssetSubject.next(userAsset));
+      .subscribe((userAsset) => this.userAssetSubject.next(userAsset?.holding));
 
     this.archerService
       .observeUser()

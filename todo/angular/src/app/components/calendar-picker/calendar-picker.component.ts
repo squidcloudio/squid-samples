@@ -16,7 +16,10 @@ export class CalendarPickerComponent implements OnInit, OnDestroy {
   readonly formatTypes = FormatTypes;
   readonly calendarSubj: BehaviorSubject<Dayjs> = new BehaviorSubject(dayjs());
   readonly calendarList: string[] = [];
-  constructor(private calendarService: CalendarService, readonly themeService: ThemeService) {}
+  constructor(
+    private calendarService: CalendarService,
+    readonly themeService: ThemeService,
+  ) {}
   ngOnInit(): void {
     this.calendarSubj
       .asObservable()

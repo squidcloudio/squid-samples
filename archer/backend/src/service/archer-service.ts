@@ -111,7 +111,7 @@ export class ArcherService extends SquidService {
     console.log('Done caching ticker details!');
   }
 
-  @scheduler('updateTickerPrices', CronExpression.EVERY_10_SECONDS, true)
+  @scheduler('updateTickerPrices', '*/20 * * * * *', true)
   async updateTickerPrices(): Promise<void> {
     if (!(await this.isMarketOpen())) {
       return;
@@ -121,7 +121,7 @@ export class ArcherService extends SquidService {
     // Get all tickers from polygon
     const snapshotTickers = await this.getSnapshotTickers();
     if (!snapshotTickers.length) return;
-    const snapshotPartitions = _.chunk(snapshotTickers, 500);
+    const snapshotPartitions = _.chunk(snapshotTickers, 100);
     const tickerCollection = this.getTickerCollection();
     await PromisePool.for(snapshotPartitions)
       .handleError((error) => {
@@ -179,11 +179,14 @@ export class ArcherService extends SquidService {
   }
 
   private async getAllTickersMap(): Promise<Record<string, Ticker>> {
-    return (await this.getTickerCollection().query().limit(20000).snapshot()).reduce((acc, item) => {
-      const data = item.data;
-      acc[data.id] = data;
-      return acc;
-    }, {} as Record<string, Ticker>);
+    return (await this.getTickerCollection().query().limit(20000).snapshot()).reduce(
+      (acc, item) => {
+        const data = item.data;
+        acc[data.id] = data;
+        return acc;
+      },
+      {} as Record<string, Ticker>,
+    );
   }
 
   private async getDenyList(): Promise<Set<string>> {
@@ -207,7 +210,7 @@ export class ArcherService extends SquidService {
     if (!tickerRef) {
       throw new Error('Ticker not found');
     }
-    const price = tickerRef.data.closePrice;
+    const price = tickerRef.closePrice;
     const totalPrice = price * quantity;
 
     if (totalPrice > user.balance) {
@@ -279,7 +282,7 @@ export class ArcherService extends SquidService {
     if (!user) {
       throw new Error('User not found');
     }
-    return user.data;
+    return user;
   }
 
   private async getPortfolioValue(userId: string, tickers: Record<string, Ticker>): Promise<number> {

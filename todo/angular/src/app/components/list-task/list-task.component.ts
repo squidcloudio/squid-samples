@@ -16,7 +16,11 @@ export class ListTaskComponent implements OnInit {
   @Input('taskId') taskId?: string;
   formatDateFormTask?: string;
   readonly modalWindowName = ModalListNames;
-  constructor(private taskService: TaskService, private dialog: Dialog, readonly themeService: ThemeService) {}
+  constructor(
+    private taskService: TaskService,
+    private dialog: Dialog,
+    readonly themeService: ThemeService,
+  ) {}
 
   ngOnInit(): void {
     if (this.task)

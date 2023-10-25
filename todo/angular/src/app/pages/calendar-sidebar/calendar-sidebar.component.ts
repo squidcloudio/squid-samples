@@ -17,5 +17,8 @@ export class CalendarSidebarComponent {
     dayjs().add(1, 'day').format(FormatTypes.DEFAULT_FORMAT),
   );
 
-  constructor(readonly themeService: ThemeService, readonly taskService: TaskService) {}
+  constructor(
+    readonly themeService: ThemeService,
+    readonly taskService: TaskService,
+  ) {}
 }

@@ -3,8 +3,12 @@
     <nav class="navigation_bar">
       <mat-icon class="logo" svgIcon="archer_logo" routerLink="/"></mat-icon>
       <div class="right">
-        <mat-icon class="outer_search_icon" svgIcon="search_icon" (click)="showSearchBar(); $event.stopPropagation()"
-                  *ngIf="!searchBarVisible"></mat-icon>
+        <mat-icon
+          class="outer_search_icon"
+          svgIcon="search_icon"
+          (click)="showSearchBar(); $event.stopPropagation()"
+          *ngIf="!searchBarVisible"
+        ></mat-icon>
         <div class="search_bar_wrapper" *ngIf="searchBarVisible">
           <search-bar (cleared)="hideSearchBar()"></search-bar>
         </div>
@@ -16,21 +20,22 @@
             My portfolio
           </a>
         </ng-container>
-        <avatar class="avatar" [name]="user.name" [imageUrl]="user.picture" [matMenuTriggerFor]="userDropdown"></avatar>
+        <avatar
+          class="avatar"
+          [name]="user.name"
+          [imageUrl]="user.picture"
+          [matMenuTriggerFor]="userDropdown"
+        ></avatar>
       </div>
     </nav>
     <div class="main_content">
       <router-outlet></router-outlet>
     </div>
   </div>
-  <mat-menu #userDropdown="matMenu"
-            class="user_dropdown"
-            xPosition="before">
+  <mat-menu #userDropdown="matMenu" class="user_dropdown" xPosition="before">
     <button (click)="signOut()" class="log_out_button" mat-menu-item>
       <mat-icon class="icon" svgIcon="logout_icon"></mat-icon>
       Log out
     </button>
   </mat-menu>
-
 </ng-container>
-
