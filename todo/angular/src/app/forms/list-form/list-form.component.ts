@@ -25,7 +25,10 @@ export class ListFormComponent {
     { color: '#9747FF', name: 'Purple' },
   ];
   selectedColor: Color = this.colors[0];
-  constructor(private listService: ListService, readonly themeService: ThemeService) {}
+  constructor(
+    private listService: ListService,
+    readonly themeService: ThemeService,
+  ) {}
 
   newListForm: FormGroup = new FormGroup({
     title: new FormControl(null, Validators.required),

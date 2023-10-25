@@ -62,20 +62,23 @@ export class PortfolioComponent {
   getAllocationsPerIndustry(userAssets: Array<UserAssetWithTicker>): { percentage: number; sicDescription: string }[] {
     const portfolioValue = this.getPortfolioValue(userAssets);
     if (portfolioValue === 0) return [];
-    return userAssets.reduce((acc, userAsset) => {
-      const industry = userAsset.ticker.sicDescription || 'General';
-      const industryIndex = acc.findIndex((allocation) => allocation.sicDescription === industry);
-      if (industryIndex === -1) {
-        acc.push({
-          sicDescription: industry,
-          percentage: ((userAsset.holding.quantity * userAsset.ticker.closePrice) / portfolioValue) * 100,
-        });
-      } else {
-        acc[industryIndex].percentage +=
-          ((userAsset.holding.quantity * userAsset.ticker.closePrice) / portfolioValue) * 100;
-      }
-      return acc;
-    }, [] as { percentage: number; sicDescription: string }[]);
+    return userAssets.reduce(
+      (acc, userAsset) => {
+        const industry = userAsset.ticker.sicDescription || 'General';
+        const industryIndex = acc.findIndex((allocation) => allocation.sicDescription === industry);
+        if (industryIndex === -1) {
+          acc.push({
+            sicDescription: industry,
+            percentage: ((userAsset.holding.quantity * userAsset.ticker.closePrice) / portfolioValue) * 100,
+          });
+        } else {
+          acc[industryIndex].percentage +=
+            ((userAsset.holding.quantity * userAsset.ticker.closePrice) / portfolioValue) * 100;
+        }
+        return acc;
+      },
+      [] as { percentage: number; sicDescription: string }[],
+    );
   }
 
   getPortfolioChart(chartData: Array<{ date: Date; value: number }>, gain: boolean): Chart {
