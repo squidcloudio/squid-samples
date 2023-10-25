@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { CollectionReference, Squid } from '@squidcloud/client';
+import { CollectionReference, Squid, DocumentReference } from '@squidcloud/client';
+import { SnapshotEmitter } from '@squidcloud/common';
 import {
   ArcherUser,
   PortfolioValueHistory,
@@ -52,7 +53,10 @@ export class ArcherService {
     shareReplay(1),
   );
 
-  constructor(private readonly squid: Squid, private readonly authService: AuthService) {
+  constructor(
+    private readonly squid: Squid,
+    private readonly authService: AuthService,
+  ) {
     this.authService.user$
       .pipe(
         switchMap((auth0User) => {
@@ -62,9 +66,6 @@ export class ArcherService {
             .doc(auth0User.sub)
             .snapshots()
             .pipe(
-              map((snapshot) => {
-                return snapshot?.data;
-              }),
               switchMap((archerUser) => {
                 if (!archerUser) {
                   // TODO: Move this to executable
@@ -98,17 +99,19 @@ export class ArcherService {
             .joinQuery('userAsset')
             .where('userId', '==', user.id)
             .sortBy('tickerId')
-            .join(this.getTickerCollection().joinQuery('ticker'), 'tickerId', 'id')
+            .join(this.getTickerCollection().query(), 'ticker', { left: 'tickerId', right: 'id' })
+            .dereference()
+            .grouped()
             .snapshots()
             .pipe(
-              map((snapshots) => {
-                const assets: Array<UserAssetWithTicker> = [];
-                for (const row of snapshots) {
-                  const ticker = row['ticker'];
-                  const userAsset = row['userAsset'];
-                  assets.push({ ...userAsset.data, ticker: ticker!.data });
-                }
-                return assets;
+              map((assetsWithTickers) => {
+                return assetsWithTickers.map((assetWithTickers) => {
+                  const userAssertWithOneTicker: UserAssetWithTicker = {
+                    ticker: assetWithTickers.ticker[0],
+                    holding: assetWithTickers.userAsset,
+                  };
+                  return userAssertWithOneTicker;
+                });
               }),
             );
         }),
@@ -150,15 +153,14 @@ export class ArcherService {
   }
 
   observeUserAssets(): Observable<Array<UserAssetWithTicker>> {
-    return this.userAssetsSubject.pipe(
-      filter((userAssets) => userAssets !== undefined),
-      map((userAssets) => userAssets || []),
-    );
+    return this.userAssetsSubject.pipe(filter(Boolean));
   }
 
   observeUserAsset(tickerId: string): Observable<UserAssetWithTicker | undefined> {
     return this.observeUserAssets().pipe(
-      map((userAssets) => userAssets.find((userAsset) => userAsset.tickerId === tickerId)),
+      map((userAssetsWithTickers) =>
+        userAssetsWithTickers.find((userAssetWithTicker) => userAssetWithTicker.holding.tickerId === tickerId),
+      ),
     );
   }
 
@@ -210,12 +212,12 @@ export class ArcherService {
   }
 
   async searchTickers(query: string): Promise<Ticker[]> {
-    const results = await this.getTickerCollection()
-      .or(
+    const results = await (
+      this.getTickerCollection().or(
         this.getTickerCollection().query().like('id', `%${query}%`, false).limit(100).sortBy('id'),
         this.getTickerCollection().query().like('name', `%${query}%`, false).limit(100).sortBy('id'),
-      )
-      .snapshot();
+      ) as SnapshotEmitter<DocumentReference<Ticker>>
+    ).snapshot();
     return results.map((result) => result.data);
   }
 

@@ -15,12 +15,16 @@
       [xAxisTicks]="chart.options.xAxisTicks || undefAsAny"
       [yAxisTicks]="chart.options.yAxisTicks || undefAsAny"
       [trimXAxisTicks]="true"
-      [results]="chart.data">
+      [results]="chart.data"
+    >
       <ng-template #seriesTooltipTemplate let-model="model">
         <div class="tooltip_content">
           <div class="tooltip_row" *ngFor="let item of model">
             <div class="bullet" [style.background-color]="item.color"></div>
-            <div class="text">{{item.name}}: {{item.value}}{{item.suffix ? item.suffix : ''}}</div>
+            <div class="text">
+              {{ item.name }}: {{ item.value
+              }}{{ item.suffix ? item.suffix : '' }}
+            </div>
           </div>
         </div>
       </ng-template>

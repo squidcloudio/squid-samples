@@ -70,6 +70,7 @@ import { environment } from '../environments/environment';
       authorizationParams: {
         redirect_uri: window.location.origin,
       },
+      cacheLocation: 'localstorage',
     }),
     SquidModule.forRoot({
       appId: environment.squidAppId,
