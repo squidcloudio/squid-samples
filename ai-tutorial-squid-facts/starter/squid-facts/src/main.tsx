@@ -8,7 +8,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <SquidContextProvider
       options={{
-        appId: 'YOUR-APP-ID',
+        appId: 'YOUR_APP_ID',
         region: 'us-east-1.aws',
         environmentId: 'prod',
       }}
