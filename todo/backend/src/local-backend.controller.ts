@@ -8,10 +8,17 @@ export class LocalBackendController {
   constructor(private readonly localBackendService: LocalBackendService) {}
 
   @Post('run')
-  async runCode(@Body() request: RunConfigurationRequest, @Res() res: Response): Promise<void> {
+  async runCode(
+    @Body() request: RunConfigurationRequest,
+    @Res() res: Response,
+  ): Promise<void> {
     try {
-      const processResult = await this.localBackendService.processRunCode(request);
-      res.set('Content-Type', 'application/json').status(200).send(serializeObj(processResult));
+      const processResult =
+        await this.localBackendService.processRunCode(request);
+      res
+        .set('Content-Type', 'application/json')
+        .status(200)
+        .send(serializeObj(processResult));
     } catch (e) {
       res
         .set('Content-Type', 'application/json')

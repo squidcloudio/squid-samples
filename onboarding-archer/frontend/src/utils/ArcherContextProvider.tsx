@@ -73,10 +73,13 @@ export function ArcherContextProvider({
     true,
   );
 
-  const allTickersMap = allTickers.reduce((map, item) => {
-    map[item.id] = item;
-    return map;
-  }, {} as Record<string, Ticker>);
+  const allTickersMap = allTickers.reduce(
+    (map, item) => {
+      map[item.id] = item;
+      return map;
+    },
+    {} as Record<string, Ticker>,
+  );
 
   const portfolio = portfolioItems.map<PortfolioTicker>((item) => ({
     ...allTickersMap[item.tickerId],

@@ -21,7 +21,9 @@ export class OnboardingArcherService extends SquidService {
         console.log(`Deleted ${tickerId}`);
         break;
       case 'update':
-        console.log(`Updated ${tickerId} from ${before?.amount} to ${after?.amount}`);
+        console.log(
+          `Updated ${tickerId} from ${before?.amount} to ${after?.amount}`,
+        );
         break;
       case 'insert':
         console.log(`Inserted ${tickerId} with amount ${after?.amount}`);

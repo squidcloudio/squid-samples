@@ -14,7 +14,11 @@ import { DialogRef } from '@angular/cdk/dialog';
 export class ExpiredTasksComponent implements OnInit {
   @Input('dialog') dialog?: DialogRef<string>;
   expiredTasksObs?: Observable<Task[]>;
-  constructor(private taskService: TaskService, readonly themeService: ThemeService, private router: Router) {}
+  constructor(
+    private taskService: TaskService,
+    readonly themeService: ThemeService,
+    private router: Router,
+  ) {}
 
   ngOnInit(): void {
     this.expiredTasksObs = this.taskService.observeExpiredTasks();

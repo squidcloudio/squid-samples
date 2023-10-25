@@ -3,10 +3,7 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
   plugins: ['react', 'react-hooks', 'prettier', '@typescript-eslint'],
-  extends: [
-    'plugin:@typescript-eslint/recommended',
-    'prettier',
-  ],
+  extends: ['plugin:@typescript-eslint/recommended', 'prettier'],
   rules: {
     '@typescript-eslint/interface-name-prefix': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
@@ -25,4 +22,4 @@ module.exports = {
   parserOptions: {
     project: './tsconfig.json',
   },
-}
+};

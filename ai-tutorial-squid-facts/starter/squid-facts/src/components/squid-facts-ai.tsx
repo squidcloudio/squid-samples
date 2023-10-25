@@ -3,17 +3,8 @@ import Button from '@mui/material/Button';
 import { TextField } from '@mui/material';
 import Messages from './messages';
 
-
-
 function SquidFactsAI() {
-
- 
-
-    return (
-        <>
-        
-        </>
-    );
+  return <></>;
 }
 
 export default SquidFactsAI;

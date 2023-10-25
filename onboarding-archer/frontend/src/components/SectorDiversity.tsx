@@ -12,15 +12,18 @@ export function SectorDiversity({
   const { portfolio } = useArcherContext();
   const pieData = portfolio
     .filter((item) => item.amount > 0)
-    .reduce((acc, item) => {
-      const sector = item.sector;
-      if (acc[sector]) {
-        acc[sector] += calculatePercent(portfolio, item);
-      } else {
-        acc[sector] = calculatePercent(portfolio, item);
-      }
-      return acc;
-    }, {} as Record<string, number>);
+    .reduce(
+      (acc, item) => {
+        const sector = item.sector;
+        if (acc[sector]) {
+          acc[sector] += calculatePercent(portfolio, item);
+        } else {
+          acc[sector] = calculatePercent(portfolio, item);
+        }
+        return acc;
+      },
+      {} as Record<string, number>,
+    );
 
   const pieDataArray = Object.entries(pieData).map(([key, value]) => ({
     name: key,

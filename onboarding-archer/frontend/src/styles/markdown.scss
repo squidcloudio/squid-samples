@@ -1,8 +1,8 @@
 @import 'colors';
 
 // For prism
-code[class*="language-"],
-pre[class*="language-"] {
+code[class*='language-'],
+pre[class*='language-'] {
   white-space: pre-wrap !important;
 }
 
@@ -53,7 +53,6 @@ pre[class*="language-"] {
   }
 
   h2 {
-
     font-weight: 700;
     font-size: 32px;
     line-height: 39px;
@@ -62,7 +61,6 @@ pre[class*="language-"] {
   }
 
   h3 {
-
     font-weight: 400;
     font-size: 24px;
     line-height: 34px;
@@ -72,7 +70,6 @@ pre[class*="language-"] {
   }
 
   h4 {
-
     font-weight: 300;
     font-size: 24px;
     line-height: 29px;
@@ -82,7 +79,6 @@ pre[class*="language-"] {
   }
 
   h5 {
-
     font-weight: 600;
     font-size: 16px;
     line-height: 22px;
@@ -129,7 +125,7 @@ pre[class*="language-"] {
 
   code:not([class*='language-']) {
     background: $primary2;
-    font-family: "Roboto Mono", monospace;
+    font-family: 'Roboto Mono', monospace;
     font-weight: 400;
     line-height: 20px;
     border-radius: 4px;

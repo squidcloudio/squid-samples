@@ -1,13 +1,5 @@
-
-
-
 const Messages = () => {
-
-  return (
-    <>
-    
-    </>
-  )
-}
+  return <></>;
+};
 
 export default Messages;
