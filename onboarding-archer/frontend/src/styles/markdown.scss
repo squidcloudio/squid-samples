@@ -1,0 +1,206 @@
+@import 'colors';
+
+// For prism
+code[class*='language-'],
+pre[class*='language-'] {
+  white-space: pre-wrap !important;
+}
+
+.markdown {
+  & > * {
+    &:first-child {
+      margin-top: 0 !important;
+    }
+
+    &:last-child {
+      margin-bottom: 0 !important;
+    }
+  }
+
+  blockquote {
+    background: $primary2;
+    margin-top: 32px;
+    margin-bottom: 40px;
+    padding: 24px;
+    border-radius: 14px;
+    position: relative;
+
+    &::before {
+      content: '';
+      width: 8px;
+      height: 100%;
+      background: $primary1;
+      position: absolute;
+      top: 0;
+      left: 0;
+      border-radius: 16px 0 0 16px;
+    }
+
+    p {
+      color: $text4;
+      margin-bottom: 0;
+      margin-top: 0;
+    }
+  }
+
+  h1 {
+    font-weight: 800;
+    font-size: 14px;
+    line-height: 14px;
+    margin-top: 32px;
+    margin-bottom: 15px;
+    color: $text4;
+  }
+
+  h2 {
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 39px;
+    margin-top: 32px;
+    margin-bottom: 8px;
+  }
+
+  h3 {
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 34px;
+    color: $text2;
+    margin-top: 8px;
+    margin-bottom: 16px;
+  }
+
+  h4 {
+    font-weight: 300;
+    font-size: 24px;
+    line-height: 29px;
+    color: $text4;
+    margin-top: 32px;
+    margin-bottom: 8px;
+  }
+
+  h5 {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+    color: $text4;
+    margin-top: 8px;
+    margin-bottom: 16px;
+  }
+
+  p {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    color: $text4;
+    margin-top: 8px;
+    margin-bottom: 12px;
+  }
+
+  ul {
+    margin-top: 8px;
+    margin-bottom: 16px;
+    list-style: initial;
+
+    li {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 22px;
+      color: $text4;
+      margin-left: 24px;
+    }
+  }
+
+  ol {
+    margin-top: 8px;
+    margin-bottom: 16px;
+
+    li {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 22px;
+      color: $text4;
+      margin-left: 32px;
+    }
+  }
+
+  code:not([class*='language-']) {
+    background: $primary2;
+    font-family: 'Roboto Mono', monospace;
+    font-weight: 400;
+    line-height: 20px;
+    border-radius: 4px;
+    color: $primary1;
+    padding: 0 0;
+  }
+
+  strong {
+    font-weight: 700;
+  }
+
+  pre[class*='language-'] {
+    position: relative;
+    margin-top: 8px;
+    margin-bottom: 16px;
+    padding: 24px;
+  }
+
+  a {
+    text-decoration: underline;
+    font-weight: bold;
+    color: $primary1;
+  }
+}
+
+.doc_modal.markdown {
+  blockquote {
+    p {
+      color: $text2;
+    }
+  }
+
+  h1 {
+    color: $text2;
+  }
+
+  h3 {
+    color: $text2;
+  }
+
+  h4 {
+    color: $text2;
+  }
+
+  h5 {
+    color: $text2;
+  }
+
+  p {
+    color: $text2;
+    font-size: 16px;
+  }
+
+  ul {
+    li {
+      color: $text2;
+    }
+  }
+
+  ol {
+    li {
+      color: $text2;
+    }
+  }
+
+  code:not([class*='language-']) {
+    background: $bg2;
+    color: $text1;
+    border: 1px solid $line1;
+    border-radius: 4px;
+    line-height: 20px;
+    padding: 0 8px 2px;
+  }
+
+  a {
+    color: $text1;
+  }
+}

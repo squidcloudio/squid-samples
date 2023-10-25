@@ -3,20 +3,20 @@
 @include mat.core();
 @import 'colors';
 
-$dark-primary-text: #1D2433;
-$light-primary-text: #FFFBFE;
+$dark-primary-text: #1d2433;
+$light-primary-text: #fffbfe;
 
 $squid-primary-light-palette: (
-  50: #0F69FF,
-  100: #0F69FF,
-  200: #0F69FF,
-  300: #0F69FF,
-  400: #0F69FF,
-  500: #0F69FF,
-  600: #0F69FF,
-  700: #0F69FF,
-  800: #0F69FF,
-  900: #0F69FF,
+  50: #0f69ff,
+  100: #0f69ff,
+  200: #0f69ff,
+  300: #0f69ff,
+  400: #0f69ff,
+  500: #0f69ff,
+  600: #0f69ff,
+  700: #0f69ff,
+  800: #0f69ff,
+  900: #0f69ff,
   contrast: (
     50: $dark-primary-text,
     100: $dark-primary-text,
@@ -28,20 +28,20 @@ $squid-primary-light-palette: (
     700: $light-primary-text,
     800: $light-primary-text,
     900: $light-primary-text,
-  )
+  ),
 );
 
 $squid-primary-dark-palette: (
-  50: #188FFF,
-  100: #188FFF,
-  200: #188FFF,
-  300: #188FFF,
-  400: #188FFF,
-  500: #188FFF,
-  600: #188FFF,
-  700: #188FFF,
-  800: #188FFF,
-  900: #188FFF,
+  50: #188fff,
+  100: #188fff,
+  200: #188fff,
+  300: #188fff,
+  400: #188fff,
+  500: #188fff,
+  600: #188fff,
+  700: #188fff,
+  800: #188fff,
+  900: #188fff,
   contrast: (
     50: $dark-primary-text,
     100: $dark-primary-text,
@@ -53,7 +53,7 @@ $squid-primary-dark-palette: (
     700: $light-primary-text,
     800: $light-primary-text,
     900: $light-primary-text,
-  )
+  ),
 );
 
 $squid-accent-palette: (
@@ -78,7 +78,7 @@ $squid-accent-palette: (
     700: $light-primary-text,
     800: $light-primary-text,
     900: $light-primary-text,
-  )
+  ),
 );
 
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
@@ -89,23 +89,27 @@ $web-dark-primary: mat.define-palette($squid-primary-dark-palette);
 $web-accent: mat.define-palette($squid-accent-palette);
 $web-warn: mat.define-palette(mat.$red-palette);
 
-$light-theme: mat.define-light-theme((
-  color: (
-    primary: $web-light-primary,
-    accent: $web-accent,
-    warn: $web-warn,
-  ),
-  typography: mat.define-typography-config('Nunito Sans')
-));
+$light-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $web-light-primary,
+      accent: $web-accent,
+      warn: $web-warn,
+    ),
+    typography: mat.define-typography-config('Nunito Sans'),
+  )
+);
 
-$dark-theme: mat.define-dark-theme((
-  color: (
-    primary: $web-dark-primary,
-    accent: $web-accent,
-    warn: $web-warn,
-  ),
-  typography: mat.define-typography-config('Nunito Sans')
-));
+$dark-theme: mat.define-dark-theme(
+  (
+    color: (
+      primary: $web-dark-primary,
+      accent: $web-accent,
+      warn: $web-warn,
+    ),
+    typography: mat.define-typography-config('Nunito Sans'),
+  )
+);
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
@@ -118,4 +122,3 @@ $dark-theme: mat.define-dark-theme((
 .dark {
   @include mat.all-component-colors($dark-theme);
 }
-

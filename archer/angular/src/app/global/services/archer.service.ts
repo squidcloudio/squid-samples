@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { CollectionReference, Squid } from '@squidcloud/client';
+import { CollectionReference, Squid, DocumentReference } from '@squidcloud/client';
+import { SnapshotEmitter } from '@squidcloud/common';
 import {
   ArcherUser,
   PortfolioValueHistory,
@@ -9,7 +10,19 @@ import {
   UserAsset,
   UserAssetWithTicker,
 } from 'archer-common';
-import { BehaviorSubject, filter, from, map, NEVER, Observable, of, switchMap } from 'rxjs';
+import {
+  BehaviorSubject,
+  distinctUntilChanged,
+  filter,
+  from,
+  map,
+  NEVER,
+  Observable,
+  of,
+  shareReplay,
+  switchMap,
+  timer,
+} from 'rxjs';
 import { AuthService } from '@auth0/auth0-angular';
 
 @Injectable({
@@ -21,8 +34,29 @@ export class ArcherService {
   private readonly userAssetsSubject = new BehaviorSubject<UserAssetWithTicker[] | undefined>(undefined);
   private readonly tickerIdsToObserve = new BehaviorSubject<Set<string>>(new Set());
   private readonly tickersSubject = new BehaviorSubject<Ticker[] | undefined>(undefined);
+  private gainersAndLosersObs = timer(0, 60_000 /* every minute */).pipe(
+    switchMap(() => {
+      return from(
+        Promise.all([
+          this.squid.callApi<SnapshotsResponse>('polygon', 'gainers'),
+          this.squid.callApi<SnapshotsResponse>('polygon', 'losers'),
+        ]),
+      ).pipe(
+        switchMap(([gainers, losers]) => {
+          const tickerIds = new Set<string>();
+          gainers.tickers.forEach((ticker) => tickerIds.add(ticker.ticker));
+          losers.tickers.forEach((ticker) => tickerIds.add(ticker.ticker));
+          return this.observeTickers(Array.from(tickerIds));
+        }),
+      );
+    }),
+    shareReplay(1),
+  );
 
-  constructor(private readonly squid: Squid, private readonly authService: AuthService) {
+  constructor(
+    private readonly squid: Squid,
+    private readonly authService: AuthService,
+  ) {
     this.authService.user$
       .pipe(
         switchMap((auth0User) => {
@@ -32,9 +66,6 @@ export class ArcherService {
             .doc(auth0User.sub)
             .snapshots()
             .pipe(
-              map((snapshot) => {
-                return snapshot?.data;
-              }),
               switchMap((archerUser) => {
                 if (!archerUser) {
                   // TODO: Move this to executable
@@ -68,17 +99,19 @@ export class ArcherService {
             .joinQuery('userAsset')
             .where('userId', '==', user.id)
             .sortBy('tickerId')
-            .join(this.getTickerCollection().joinQuery('ticker'), 'tickerId', 'id')
+            .join(this.getTickerCollection().query(), 'ticker', { left: 'tickerId', right: 'id' })
+            .dereference()
+            .grouped()
             .snapshots()
             .pipe(
-              map((snapshots) => {
-                const assets: Array<UserAssetWithTicker> = [];
-                for (const row of snapshots) {
-                  const ticker = row['ticker'];
-                  const userAsset = row['userAsset'];
-                  assets.push({ ...userAsset.data, ticker: ticker!.data });
-                }
-                return assets;
+              map((assetsWithTickers) => {
+                return assetsWithTickers.map((assetWithTickers) => {
+                  const userAssertWithOneTicker: UserAssetWithTicker = {
+                    ticker: assetWithTickers.ticker[0],
+                    holding: assetWithTickers.userAsset,
+                  };
+                  return userAssertWithOneTicker;
+                });
               }),
             );
         }),
@@ -120,15 +153,14 @@ export class ArcherService {
   }
 
   observeUserAssets(): Observable<Array<UserAssetWithTicker>> {
-    return this.userAssetsSubject.pipe(
-      filter((userAssets) => userAssets !== undefined),
-      map((userAssets) => userAssets || []),
-    );
+    return this.userAssetsSubject.pipe(filter(Boolean));
   }
 
   observeUserAsset(tickerId: string): Observable<UserAssetWithTicker | undefined> {
     return this.observeUserAssets().pipe(
-      map((userAssets) => userAssets.find((userAsset) => userAsset.tickerId === tickerId)),
+      map((userAssetsWithTickers) =>
+        userAssetsWithTickers.find((userAssetWithTicker) => userAssetWithTicker.holding.tickerId === tickerId),
+      ),
     );
   }
 
@@ -161,7 +193,10 @@ export class ArcherService {
   }
 
   observeTicker(tickerId: string): Observable<Ticker | undefined> {
-    return this.observeTickers([tickerId]).pipe(map((tickers) => tickers[0]));
+    return this.observeTickers([tickerId]).pipe(
+      map((tickers) => tickers[0]),
+      distinctUntilChanged(),
+    );
   }
 
   async buyAsset(tickerId: string, quantity: number): Promise<void> {
@@ -173,29 +208,16 @@ export class ArcherService {
   }
 
   observeGainersAndLosers(): Observable<Ticker[]> {
-    const gainersAndLosersPromise = Promise.all([
-      this.squid.callApi<SnapshotsResponse>('polygon', 'gainers'),
-      this.squid.callApi<SnapshotsResponse>('polygon', 'losers'),
-    ]);
-
-    return from(gainersAndLosersPromise).pipe(
-      switchMap(([gainers, losers]) => {
-        const tickerIds = new Set<string>();
-        gainers.tickers.forEach((ticker) => tickerIds.add(ticker.ticker));
-        losers.tickers.forEach((ticker) => tickerIds.add(ticker.ticker));
-
-        return this.observeTickers(Array.from(tickerIds));
-      }),
-    );
+    return this.gainersAndLosersObs;
   }
 
   async searchTickers(query: string): Promise<Ticker[]> {
-    const results = await this.getTickerCollection()
-      .or(
+    const results = await (
+      this.getTickerCollection().or(
         this.getTickerCollection().query().like('id', `%${query}%`, false).limit(100).sortBy('id'),
         this.getTickerCollection().query().like('name', `%${query}%`, false).limit(100).sortBy('id'),
-      )
-      .snapshot();
+      ) as SnapshotEmitter<DocumentReference<Ticker>>
+    ).snapshot();
     return results.map((result) => result.data);
   }
 

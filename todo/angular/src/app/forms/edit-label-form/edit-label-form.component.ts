@@ -15,7 +15,10 @@ export class EditLabelFormComponent implements OnInit, OnDestroy {
   @Input('dialog') dialog?: DialogRef<string>;
   labelForm?: FormGroup;
   listSub?: Subscription;
-  constructor(private listService: ListService, readonly themeService: ThemeService) {}
+  constructor(
+    private listService: ListService,
+    readonly themeService: ThemeService,
+  ) {}
 
   ngOnInit(): void {
     if (this.listId)

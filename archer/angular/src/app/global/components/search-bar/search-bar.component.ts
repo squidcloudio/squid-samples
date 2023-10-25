@@ -22,7 +22,10 @@ export class SearchBarComponent {
     switchMap((searchText) => this.archerService.searchTickers(searchText)),
   );
 
-  constructor(private readonly archerService: ArcherService, private readonly router: Router) {}
+  constructor(
+    private readonly archerService: ArcherService,
+    private readonly router: Router,
+  ) {}
 
   async searchStockSelected(): Promise<void> {
     if (!this.searchControl.value) return;

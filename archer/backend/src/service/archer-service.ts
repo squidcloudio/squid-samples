@@ -2,6 +2,7 @@ import { executable, scheduler, secureApi, secureDatabase, SquidService } from '
 import {
   ArcherUser,
   DenyList,
+  MarketStatusResponse,
   PortfolioValueHistory,
   RelevantTicker,
   SnapshotsResponse,
@@ -110,8 +111,11 @@ export class ArcherService extends SquidService {
     console.log('Done caching ticker details!');
   }
 
-  @scheduler('updateTickerPrices', CronExpression.EVERY_10_SECONDS, true)
+  @scheduler('updateTickerPrices', '*/20 * * * * *', true)
   async updateTickerPrices(): Promise<void> {
+    if (!(await this.isMarketOpen())) {
+      return;
+    }
     const startTime = Date.now();
     console.log('Updating ticker prices...');
     // Get all tickers from polygon
@@ -125,13 +129,13 @@ export class ArcherService extends SquidService {
       })
       .withConcurrency(1)
       .process(async (snapshotPartition, i) => {
-        console.log(`Handling snapshot partition ${i + 1}/${snapshotPartitions.length}`);
+        const start = Date.now();
         await this.squid.runInTransaction(async (transactionId) => {
           for (const ticker of snapshotPartition) {
             const docRef = tickerCollection.doc(ticker.ticker);
             await docRef.update(
               {
-                closePrice: ticker.lastTrade?.p || ticker.day.c || ticker.prevDay.c,
+                closePrice: ticker.min?.c || ticker.lastTrade?.p || ticker.day.c || ticker.prevDay.c,
                 openPrice: ticker.day.o,
                 volume: ticker.day.v,
                 volumeWeighted: ticker.day.vw,
@@ -144,6 +148,7 @@ export class ArcherService extends SquidService {
             );
           }
         });
+        console.log(`Handling snapshot partition ${i + 1}/${snapshotPartitions.length}, took: ${Date.now() - start}ms`);
       });
 
     console.log('All done! Snapshots took: ', Date.now() - startTime, 'ms');
@@ -174,11 +179,14 @@ export class ArcherService extends SquidService {
   }
 
   private async getAllTickersMap(): Promise<Record<string, Ticker>> {
-    return (await this.getTickerCollection().query().limit(20000).snapshot()).reduce((acc, item) => {
-      const data = item.data;
-      acc[data.id] = data;
-      return acc;
-    }, {} as Record<string, Ticker>);
+    return (await this.getTickerCollection().query().limit(20000).snapshot()).reduce(
+      (acc, item) => {
+        const data = item.data;
+        acc[data.id] = data;
+        return acc;
+      },
+      {} as Record<string, Ticker>,
+    );
   }
 
   private async getDenyList(): Promise<Set<string>> {
@@ -202,7 +210,7 @@ export class ArcherService extends SquidService {
     if (!tickerRef) {
       throw new Error('Ticker not found');
     }
-    const price = tickerRef.data.closePrice;
+    const price = tickerRef.closePrice;
     const totalPrice = price * quantity;
 
     if (totalPrice > user.balance) {
@@ -274,7 +282,7 @@ export class ArcherService extends SquidService {
     if (!user) {
       throw new Error('User not found');
     }
-    return user.data;
+    return user;
   }
 
   private async getPortfolioValue(userId: string, tickers: Record<string, Ticker>): Promise<number> {
@@ -293,11 +301,8 @@ export class ArcherService extends SquidService {
   }
 
   private async isMarketOpen(): Promise<boolean> {
-    // TODO: remove this when done testing
-    return true;
-
-    /*const response = await this.squid.callApi<MarketStatusResponse>('polygon', 'marketStatus');
-    return response.exchanges.nyse === 'open';*/
+    const response = await this.squid.callApi<MarketStatusResponse>('polygon', 'marketStatus');
+    return response.exchanges.nyse === 'open';
   }
 
   private async getSnapshotTickers(): Promise<SnapshotTicker[]> {

@@ -30,6 +30,7 @@ export class ThemeService {
     'website_icon',
     'close_icon',
     'logout_icon',
+    'portfolio_icon',
   ];
 
   constructor(

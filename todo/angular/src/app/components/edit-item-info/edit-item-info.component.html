@@ -1,36 +1,35 @@
-<button
-  [matMenuTriggerFor]="menu"
-  class="menu-button"
-  [ngClass]="{ 'menu-button-dark': themeService.isDark }">
+<button [matMenuTriggerFor]="menu" class="menu-button" [ngClass]="{ 'menu-button-dark': themeService.isDark }">
   <mat-icon class="white-icon">more_horiz</mat-icon>
 </button>
 <mat-menu #menu="matMenu" xPosition="before">
   <button mat-menu-item (click)="openModalWindow()">
     <div class="menu-component">
-      <img alt="component_logo"
-           [src]="themeService.isDark ? '../../../../assets/edit-white.svg' : '../../../../assets/edit.svg'"/>
-      <ng-container *ngIf="type==='list'">
-        <span class="menu-component-text"
-              [ngClass]="{ 'menu-component-text-dark': themeService.isDark }">Edit list</span>
+      <img
+        alt="component_logo"
+        [src]="themeService.isDark ? '../../../../assets/edit-white.svg' : '../../../../assets/edit.svg'" />
+      <ng-container *ngIf="type === 'list'">
+        <span class="menu-component-text" [ngClass]="{ 'menu-component-text-dark': themeService.isDark }"
+          >Edit list</span
+        >
       </ng-container>
-      <ng-container *ngIf="type==='task'">
+      <ng-container *ngIf="type === 'task'">
         <span class="menu-component-text" [ngClass]="{ 'menu-component-text-dark': themeService.isDark }">Edit</span>
       </ng-container>
-
     </div>
   </button>
   <button mat-menu-item (click)="deleteList()">
     <div class="menu-component">
-      <img alt="component_logo"
-           [src]="themeService.isDark ? '../../../../assets/delete-white.svg' : '../../../../assets/delete.svg'"/>
-      <ng-container *ngIf="type==='list'">
-        <span class="menu-component-text"
-              [ngClass]="{ 'menu-component-text-dark': themeService.isDark }">Delete list</span>
+      <img
+        alt="component_logo"
+        [src]="themeService.isDark ? '../../../../assets/delete-white.svg' : '../../../../assets/delete.svg'" />
+      <ng-container *ngIf="type === 'list'">
+        <span class="menu-component-text" [ngClass]="{ 'menu-component-text-dark': themeService.isDark }"
+          >Delete list</span
+        >
       </ng-container>
-      <ng-container *ngIf="type==='task'">
+      <ng-container *ngIf="type === 'task'">
         <span class="menu-component-text" [ngClass]="{ 'menu-component-text-dark': themeService.isDark }">Delete</span>
       </ng-container>
     </div>
   </button>
-
 </mat-menu>

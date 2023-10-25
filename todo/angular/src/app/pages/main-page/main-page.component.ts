@@ -15,13 +15,13 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 })
 export class MainPageComponent {
   readonly userObs = this.accountService.observeUser();
-  a = this.br.observe('(max-width: 1247px)');
+  breakpoint = this.breakpointObs.observe('(max-width: 1247px)');
   constructor(
     private accountService: AccountService,
     readonly listCollection: ListService,
     private themeService: ThemeService,
     private dialog: Dialog,
-    private br: BreakpointObserver,
+    private breakpointObs: BreakpointObserver,
   ) {}
 
   openModalWindow(): void {

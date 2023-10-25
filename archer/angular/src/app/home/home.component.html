@@ -1,0 +1,66 @@
+<div class="zero_state_container">
+  <div class="hero">
+    <mat-icon class="hero_logo" svgIcon="hero_logo"></mat-icon>
+    <div class="search_section">
+      <div class="title">Start targeting your portfolio today!</div>
+      <div class="description">
+        Explore curated stocks, top gainers or losers or search for your
+        favorite
+      </div>
+      <div class="search_bar_wrapper">
+        <search-bar></search-bar>
+      </div>
+    </div>
+  </div>
+  <div class="body">
+    <div class="container">
+      <div class="fade_background"></div>
+
+      <div
+        class="companies_section"
+        *ngIf="promotedTickersObs | async as promotedTickers"
+      >
+        <a
+          class="company"
+          *ngFor="let ticker of promotedTickers"
+          [routerLink]="'/stock/' + ticker.id"
+        >
+          <div class="logo_and_ticker">
+            <mat-icon
+              class="ticker_logo"
+              [svgIcon]="ticker.id + '_icon'"
+            ></mat-icon>
+            <div class="ticker_id">{{ ticker.id }}</div>
+          </div>
+          <div class="ticker_value">
+            <div class="current_price">
+              {{ ticker.closePrice | currency: 'USD' }}
+            </div>
+            <div
+              class="percent_change_wrapper"
+              [ngClass]="ticker.todaysChangePerc >= 0 ? 'gain_bg' : 'lose_bg'"
+            >
+              <percent-change
+                class="change_percent"
+                [value]="ticker.todaysChangePerc"
+              ></percent-change>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div
+        class="gainers_and_losers_section"
+        *ngIf="gainersAndLosersObs | async as gainersAndLosers"
+      >
+        <div class="title">Today's top gainers and losers</div>
+        <stock-table
+          [tableData]="{
+            data: convertToTableData(gainersAndLosers),
+            type: 'tickers'
+          }"
+        ></stock-table>
+      </div>
+    </div>
+  </div>
+</div>

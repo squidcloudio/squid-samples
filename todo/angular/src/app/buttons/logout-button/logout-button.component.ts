@@ -8,7 +8,10 @@ import { ThemeService } from '../../services/theme.service';
   styleUrls: ['./logout-button.component.scss'],
 })
 export class LogoutButtonComponent {
-  constructor(private accountService: AccountService, readonly themeService: ThemeService) {}
+  constructor(
+    private accountService: AccountService,
+    readonly themeService: ThemeService,
+  ) {}
   logout(): void {
     this.accountService.logout();
   }

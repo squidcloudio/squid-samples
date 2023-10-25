@@ -3,7 +3,7 @@
 .new-task-section {
   &-button {
     display: flex;
-    align-tasks: center;
+    align-items: center;
 
     &-title {
       margin-left: 16px;
@@ -13,16 +13,16 @@
     }
   }
 }
-.new-task-section-button-calendar{
+.new-task-section-button-calendar {
   align-items: center;
-  & .new-task-section-button-title{
+  & .new-task-section-button-title {
     margin-left: 0;
   }
 }
 
 @media screen and (min-width: 378px) and (max-width: 768px) {
-  .new-task-section-button-calendar{
-    & .new-task-section-button-title{
+  .new-task-section-button-calendar {
+    & .new-task-section-button-title {
       font-size: 12px;
     }
   }

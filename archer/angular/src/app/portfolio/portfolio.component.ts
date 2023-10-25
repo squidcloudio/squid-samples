@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ArcherService } from '../global/services/archer.service';
-import { allTimeFrames, TimeFrame, UserAssetWithTicker } from 'archer-common';
+import { TimeFrame, UserAssetWithTicker } from 'archer-common';
 import { Chart, LineChartData } from '../global/components/chart/chart.component';
 import { BehaviorSubject, switchMap } from 'rxjs';
 import { StockTableData } from '../global/components/stock-table/stock-table.component';
@@ -25,13 +25,13 @@ export class PortfolioComponent {
 
   getPortfolioValue(userAssets: UserAssetWithTicker[]): number {
     return userAssets.reduce((acc, userAsset) => {
-      return acc + userAsset.quantity * userAsset.ticker.closePrice;
+      return acc + userAsset.holding.quantity * userAsset.ticker.closePrice;
     }, 0);
   }
 
   getPortfolioChange(userAssets: UserAssetWithTicker[]): number {
     const prevValue = userAssets.reduce((acc, userAsset) => {
-      return acc + userAsset.quantity * (userAsset.ticker.closePrice - userAsset.ticker.todaysChange);
+      return acc + userAsset.holding.quantity * (userAsset.ticker.closePrice - userAsset.ticker.todaysChange);
     }, 0);
 
     const currentValue = this.getPortfolioValue(userAssets);
@@ -40,7 +40,11 @@ export class PortfolioComponent {
 
   getTotalGain(userAssets: Array<UserAssetWithTicker>): number {
     return userAssets.reduce((acc, userAsset) => {
-      return acc + userAsset.quantity * userAsset.ticker.closePrice - userAsset.quantity * userAsset.avgBuyPrice;
+      return (
+        acc +
+        userAsset.holding.quantity * userAsset.ticker.closePrice -
+        userAsset.holding.quantity * userAsset.holding.avgBuyPrice
+      );
     }, 0);
   }
 
@@ -51,26 +55,30 @@ export class PortfolioComponent {
 
   getTotalStockQuantity(userAssets: Array<UserAssetWithTicker>): number {
     return userAssets.reduce((acc, userAsset) => {
-      return acc + userAsset.quantity;
+      return acc + userAsset.holding.quantity;
     }, 0);
   }
 
   getAllocationsPerIndustry(userAssets: Array<UserAssetWithTicker>): { percentage: number; sicDescription: string }[] {
     const portfolioValue = this.getPortfolioValue(userAssets);
     if (portfolioValue === 0) return [];
-    return userAssets.reduce((acc, userAsset) => {
-      const industry = userAsset.ticker.sicDescription || 'General';
-      const industryIndex = acc.findIndex((allocation) => allocation.sicDescription === industry);
-      if (industryIndex === -1) {
-        acc.push({
-          sicDescription: industry,
-          percentage: ((userAsset.quantity * userAsset.ticker.closePrice) / portfolioValue) * 100,
-        });
-      } else {
-        acc[industryIndex].percentage += ((userAsset.quantity * userAsset.ticker.closePrice) / portfolioValue) * 100;
-      }
-      return acc;
-    }, [] as { percentage: number; sicDescription: string }[]);
+    return userAssets.reduce(
+      (acc, userAsset) => {
+        const industry = userAsset.ticker.sicDescription || 'General';
+        const industryIndex = acc.findIndex((allocation) => allocation.sicDescription === industry);
+        if (industryIndex === -1) {
+          acc.push({
+            sicDescription: industry,
+            percentage: ((userAsset.holding.quantity * userAsset.ticker.closePrice) / portfolioValue) * 100,
+          });
+        } else {
+          acc[industryIndex].percentage +=
+            ((userAsset.holding.quantity * userAsset.ticker.closePrice) / portfolioValue) * 100;
+        }
+        return acc;
+      },
+      [] as { percentage: number; sicDescription: string }[],
+    );
   }
 
   getPortfolioChart(chartData: Array<{ date: Date; value: number }>, gain: boolean): Chart {
@@ -101,7 +109,7 @@ export class PortfolioComponent {
         closePrice: ticker.closePrice,
         todaysChange: ticker.todaysChange,
         todaysChangePerc: ticker.todaysChangePerc,
-        quantity: userAsset.quantity,
+        quantity: userAsset.holding.quantity,
       };
     });
   }
