@@ -14,7 +14,10 @@ export class NgVarDirective<T> {
   private hasView = false;
 
   // eslint-disable-next-line no-unused-vars
-  constructor(private viewContainer: ViewContainerRef, private templateRef: TemplateRef<NgVarContext<T>>) {}
+  constructor(
+    private viewContainer: ViewContainerRef,
+    private templateRef: TemplateRef<NgVarContext<T>>,
+  ) {}
 
   @Input()
   set ngVar(value: T) {

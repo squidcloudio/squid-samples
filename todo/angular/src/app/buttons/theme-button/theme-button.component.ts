@@ -7,7 +7,10 @@ import { ThemeService } from '../../services/theme.service';
   styleUrls: ['theme-button.component.scss'],
 })
 export class ThemeButtonComponent {
-  constructor(readonly themeService: ThemeService, private renderer: Renderer2) {}
+  constructor(
+    readonly themeService: ThemeService,
+    private renderer: Renderer2,
+  ) {}
   toggleTheme(): void {
     this.themeService.toggleTheme();
     if (this.themeService.isDark) this.renderer.addClass(document.body, 'body-dark');

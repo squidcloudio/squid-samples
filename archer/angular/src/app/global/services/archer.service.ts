@@ -53,7 +53,10 @@ export class ArcherService {
     shareReplay(1),
   );
 
-  constructor(private readonly squid: Squid, private readonly authService: AuthService) {
+  constructor(
+    private readonly squid: Squid,
+    private readonly authService: AuthService,
+  ) {
     this.authService.user$
       .pipe(
         switchMap((auth0User) => {
@@ -63,9 +66,6 @@ export class ArcherService {
             .doc(auth0User.sub)
             .snapshots()
             .pipe(
-              map((snapshot) => {
-                return snapshot?.data;
-              }),
               switchMap((archerUser) => {
                 if (!archerUser) {
                   // TODO: Move this to executable

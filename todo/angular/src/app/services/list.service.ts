@@ -10,7 +10,11 @@ export class ListService {
   currentList?: List;
   readonly listCollection;
 
-  constructor(private readonly squid: Squid, private accountService: AccountService, private router: Router) {
+  constructor(
+    private readonly squid: Squid,
+    private accountService: AccountService,
+    private router: Router,
+  ) {
     this.listCollection = this.squid.collection<List>('lists');
   }
 

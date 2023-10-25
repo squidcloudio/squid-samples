@@ -21,55 +21,59 @@ $breakpoints: (
 
 .light {
   color: var(--text1);
-  --primary1: #72FFA2;
+  --primary1: #72ffa2;
   --primary2: rgba(114, 255, 162, 0.1);
-  --primary3: #23272F;
+  --primary3: #23272f;
   --scrim1: rgba(0, 0, 0, 0.4);
-  --line1: #E1E6EF;
-  --line2: #C4CCD9;
-  --line3: #3F444D;
-  --bg1: #F1F3F9;
-  --bg2: #F8F9FC;
-  --bg3: #D9DBE0;
-  --bg4: #FFFFFF;
+  --line1: #e1e6ef;
+  --line2: #c4ccd9;
+  --line3: #3f444d;
+  --bg1: #f1f3f9;
+  --bg2: #f8f9fc;
+  --bg3: #d9dbe0;
+  --bg4: #ffffff;
   --bg5: #242424;
   --bg6: #373737;
   --bg7: #000000;
-  --bg8: #D9DBE0;
-  --bg9: #1B1F27;
-  --text1: #1F2020;
+  --bg8: #d9dbe0;
+  --bg9: #1b1f27;
+  --text1: #1f2020;
   --text2: #606164;
   --text3: #949494;
   --text4: rgba(255, 255, 255, 0.9);
   --gain1: #018638;
-  --gain2: #E6FAE6;
-  --gain3: #BCE5C6;
-  --lose1: #EB0F29;
-  --lose2: #FFDDE1;
-  --lose3: #FFC5CB;
-  --data1: #F80E5D;
-  --data2: #12A9FF;
-  --data3: #0F69FF;
-  --data4: #00AB5E;
-  --data5: #FF520D;
-  --data6: #FFD333;
-  --data7: #003ABC;
-  --data8: #CC008C;
-  --data9: #39007D;
-  --data10: #21D87D;
-  --data11: #FF8B12;
-  --data12: #FFA700;
-  --data13: #FF333A;
-  --data14: #11D3CD;
-  --data15: #7E1FFF;
-  --data16: #907CFF;
-  --data17: #1AC567;
-  --data18: #009C94;
+  --gain2: #e6fae6;
+  --gain3: #bce5c6;
+  --lose1: #eb0f29;
+  --lose2: #ffdde1;
+  --lose3: #ffc5cb;
+  --data1: #f80e5d;
+  --data2: #12a9ff;
+  --data3: #0f69ff;
+  --data4: #00ab5e;
+  --data5: #ff520d;
+  --data6: #ffd333;
+  --data7: #003abc;
+  --data8: #cc008c;
+  --data9: #39007d;
+  --data10: #21d87d;
+  --data11: #ff8b12;
+  --data12: #ffa700;
+  --data13: #ff333a;
+  --data14: #11d3cd;
+  --data15: #7e1fff;
+  --data16: #907cff;
+  --data17: #1ac567;
+  --data18: #009c94;
   --elevation1: 0px 0px 2px rgba(0, 0, 0, 0.08), 0px 2px 4px rgba(0, 0, 0, 0.08);
-  --elevation2: 0px -1px 2px rgba(0, 0, 0, 0.08), 0px 4px 8px rgba(0, 0, 0, 0.12);
-  --elevation3: 0px 0px 16px rgba(0, 0, 0, 0.12), 0px 20px 20px -16px rgba(0, 0, 0, 0.28);
-  --elevation4: 0px 0px 16px rgba(0, 0, 0, 0.05), 0px 28px 24px -16px rgba(0, 0, 0, 0.32);
-  --elevation-navigation: 12px 0px 72px -8px rgba(0, 0, 0, 0.16), 1px 0px 0px #E1E6EF;
+  --elevation2: 0px -1px 2px rgba(0, 0, 0, 0.08),
+    0px 4px 8px rgba(0, 0, 0, 0.12);
+  --elevation3: 0px 0px 16px rgba(0, 0, 0, 0.12),
+    0px 20px 20px -16px rgba(0, 0, 0, 0.28);
+  --elevation4: 0px 0px 16px rgba(0, 0, 0, 0.05),
+    0px 28px 24px -16px rgba(0, 0, 0, 0.32);
+  --elevation-navigation: 12px 0px 72px -8px rgba(0, 0, 0, 0.16),
+    1px 0px 0px #e1e6ef;
 }
 
 $primary1: var(--primary1);
