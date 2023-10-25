@@ -6,7 +6,7 @@ import { secureAiAssistant, SquidService } from '@squidcloud/backend';
   https://docs.squid.cloud/docs/development-tools/backend/security-rules/secure-ai-assistant
 */
 export class AiSecurityService extends SquidService {
-  @secureAiAssistant('squid-facts', 'chat', 'squid-facts-assistant')
+  @secureAiAssistant('squid-facts-ai', 'chat', 'squid-facts-assistant')
   allowChat(): boolean {
     return this.isAuthenticated();
   }
