@@ -6,7 +6,7 @@ import { useAiAssistant } from '@squidcloud/react';
 const SquidFactsAI = () => {
   const [question, setQuestion] = useState('');
   const { history, chat, complete, error } = useAiAssistant(
-    'squid-facts',
+    'squid-facts-ai',
     'squid-facts-assistant',
   );
 
