@@ -17,7 +17,10 @@ export class EditListFormComponent implements OnInit, OnDestroy {
   editLabelForm?: FormGroup;
   todoSub?: Subscription;
 
-  constructor(private listService: ListService, readonly themeService: ThemeService) {}
+  constructor(
+    private listService: ListService,
+    readonly themeService: ThemeService,
+  ) {}
 
   ngOnInit(): void {
     if (this.listId) {

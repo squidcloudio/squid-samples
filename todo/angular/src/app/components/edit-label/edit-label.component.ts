@@ -14,7 +14,11 @@ export class EditLabelComponent {
   @Input('listId') listId?: string;
   @Input('labelType') labelType?: string;
 
-  constructor(readonly themeService: ThemeService, private dialog: Dialog, private taskService: TaskService) {}
+  constructor(
+    readonly themeService: ThemeService,
+    private dialog: Dialog,
+    private taskService: TaskService,
+  ) {}
 
   openModalWindow(id: string): void {
     const dialogRef = this.dialog.open(ModalWindowComponent, { data: { name: ModalListNames.editLabel, id: id } });
