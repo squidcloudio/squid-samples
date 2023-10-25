@@ -6,8 +6,8 @@ import { Auth0Provider } from '@auth0/auth0-react';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <Auth0Provider
-    domain="AUTH0-DOMAIN"
-    clientId="AUTH0-CLIENT-ID"
+    domain="AUTH0_DOMAIN"
+    clientId="AUTH0_CLIENT_ID"
     authorizationParams={{
       redirect_uri: window.location.origin,
     }}
@@ -15,10 +15,10 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   >
     <SquidContextProvider
       options={{
-        appId: 'YOUR-APP-ID',
+        appId: 'YOUR_APP_ID',
         region: 'us-east-1.aws',
         environmentId: 'dev',
-        squidDeveloperId: 'YOUR-DEVELOPER-ID',
+        squidDeveloperId: 'YOUR_DEVELOPER_ID',
       }}
     >
       <App />
