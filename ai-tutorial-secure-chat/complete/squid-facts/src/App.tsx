@@ -8,7 +8,7 @@ import { Snackbar, Alert } from '@mui/material';
 
 function App() {
   // Set state of toast message
-  const [open, setOpen] = useState(false);
+  const [toastOpen, setToastOpen] = useState(false);
   const [loginMessage, setLoginMessage] = useState('');
 
   // Get Auth0 authentication state
@@ -24,7 +24,7 @@ function App() {
         setAuthIdToken(undefined, 'auth0');
 
         setLoginMessage('You are logged out!');
-        setOpen(true);
+        setToastOpen(true);
       } else {
         // Send Squid Auth ID Token to Squid backend
         setAuthIdToken(
@@ -33,7 +33,7 @@ function App() {
         );
 
         setLoginMessage('You are logged in!');
-        setOpen(true);
+        setToastOpen(true);
       }
     };
     updateAuth().then();
@@ -44,7 +44,7 @@ function App() {
   }
 
   const handleToClose = () => {
-    setOpen(false);
+    setToastOpen(false);
   };
 
   return (
@@ -52,7 +52,7 @@ function App() {
       <NavBar isAuthenticated={isAuthenticated} />
       <img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/Sepioteuthis_sepioidea_%28Caribbean_Reef_Squid%29.jpg" />
       <SquidFactsAI />
-      <Snackbar open={open} onClose={handleToClose} autoHideDuration={6000}>
+      <Snackbar open={toastOpen} onClose={handleToClose} autoHideDuration={6000}>
         <Alert severity="success">{loginMessage}</Alert>
       </Snackbar>
     </>
