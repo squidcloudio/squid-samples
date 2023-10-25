@@ -8,7 +8,10 @@ import { ThemeService } from '../services/theme.service';
   styleUrls: ['sidebar-navigation.component.scss'],
 })
 export class SidebarNavigationComponent {
-  constructor(readonly dialogRef: DialogRef<string>, readonly themeService: ThemeService) {}
+  constructor(
+    readonly dialogRef: DialogRef<string>,
+    readonly themeService: ThemeService,
+  ) {}
 
   close(): void {
     this.dialogRef.close();
