@@ -1,0 +1,174 @@
+@import 'colors';
+
+.zero_state_container {
+  .hero {
+    height: 291px;
+    width: 100%;
+    background: url('/assets/images/hero_background.png') center center
+      no-repeat;
+    background-size: cover;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .hero_logo {
+      position: absolute;
+      bottom: -90px;
+      right: 70px;
+      width: 330px;
+      height: 330px;
+    }
+
+    .search_section {
+      margin-top: 40px;
+      margin-bottom: 40px;
+      color: $text4;
+      width: 100%;
+      text-align: center;
+      position: relative;
+
+      .title {
+        font-weight: 600;
+        font-size: 36px;
+        line-height: 41px;
+        margin-bottom: 8px;
+        letter-spacing: 0.04em;
+      }
+
+      .description {
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 24px;
+        margin-bottom: 24px;
+        letter-spacing: 0.02em;
+      }
+
+      .search_bar_wrapper {
+        margin: 0 auto;
+        max-width: 488px;
+        width: 100%;
+        border: 1px solid $line2;
+        border-radius: 8px;
+        color: $text1;
+      }
+    }
+  }
+
+  .body {
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+
+      .fade_background {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 0;
+        background: url('/assets/images/fade_background.svg') top center
+          no-repeat;
+        width: 100%;
+        height: 720px;
+        z-index: -1;
+      }
+
+      $company_side_padding: 16px;
+
+      .companies_section {
+        margin-top: 40px;
+        margin-bottom: 60px;
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-gap: 32px;
+
+        .company {
+          text-decoration: none;
+          padding-top: 20px;
+          box-shadow: $elevation2;
+          border-radius: 16px;
+          background: $bg4;
+          transition: box-shadow 300ms;
+          overflow: hidden;
+
+          &:hover {
+            box-shadow: $elevation3;
+          }
+
+          .logo_and_ticker {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            width: 100%;
+            padding: 0 $company_side_padding;
+
+            .ticker_logo {
+              border: 1px solid $line1;
+              width: 40px;
+              height: 40px;
+              line-height: 0;
+              margin-right: 8px;
+              border-radius: 50%;
+            }
+
+            .ticker_id {
+              font-weight: 800;
+              font-size: 24px;
+              line-height: 16px;
+              color: $text1;
+            }
+          }
+
+          .ticker_value {
+            text-align: right;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+
+            .current_price {
+              font-weight: 800;
+              font-size: 24px;
+              line-height: 16px;
+              margin-bottom: 8px;
+              color: $text2;
+              padding: 0 $company_side_padding;
+            }
+
+            .percent_change_wrapper {
+              width: 100%;
+              display: flex;
+              justify-content: flex-end;
+              padding: 10px $company_side_padding;
+
+              .change_percent {
+                font-weight: 800;
+                font-size: 16px;
+                line-height: 100%;
+              }
+            }
+          }
+        }
+      }
+
+      .gainers_and_losers_section {
+        max-width: 800px;
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 60px;
+
+        .title {
+          font-weight: 800;
+          font-size: 20px;
+          line-height: 100%;
+          color: $text1;
+          margin-bottom: 24px;
+        }
+      }
+    }
+  }
+}

@@ -19,7 +19,10 @@ export class AccountService {
     }),
   );
 
-  constructor(private readonly authService: AuthService, private readonly squid: Squid) {
+  constructor(
+    private readonly authService: AuthService,
+    private readonly squid: Squid,
+  ) {
     this.authService.idTokenClaims$.subscribe(idToken => {
       if (!idToken) this.authService.loginWithRedirect();
       if (idToken) {

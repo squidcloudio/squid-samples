@@ -41,7 +41,10 @@
     background: none;
     padding: 0 2px;
     font-size: t.text(xs);
-    transition: top 160ms ease-in, left 160ms ease-in, font-size 160ms ease-in;
+    transition:
+      top 160ms ease-in,
+      left 160ms ease-in,
+      font-size 160ms ease-in;
   }
 
   &-picker {
@@ -116,7 +119,7 @@
   right: 5px;
   top: 4px;
   cursor: pointer;
-  &:hover{
+  &:hover {
     background: rgba(0, 0, 0, 0.15);
   }
 }

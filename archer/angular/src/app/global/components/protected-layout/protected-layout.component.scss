@@ -11,7 +11,7 @@
     height: 80px;
     width: 100%;
     padding: 0 70px;
-    background: #23272F;
+    background: #23272f;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -44,6 +44,28 @@
 
       .search_bar_wrapper {
         width: 488px;
+      }
+
+      .divider {
+        width: 1px;
+        height: 18px;
+        background: $line3;
+        margin-right: 24px;
+        margin-left: 24px;
+      }
+
+      .portfolio_link {
+        display: flex;
+        align-items: center;
+
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 16px;
+        color: $primary1;
+
+        .icon {
+          margin-right: 4px;
+        }
       }
     }
   }
@@ -79,5 +101,4 @@
       }
     }
   }
-
 }

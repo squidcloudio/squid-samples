@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ThemeService } from '../../services/theme.service';
-import { CalendarService } from '../../services/calendar.service';
 import { TaskService } from '../../services/task.service';
 import { Observable } from 'rxjs';
 import { FormatTypes, Task } from '../../interfaces';
@@ -12,13 +11,14 @@ import * as dayjs from 'dayjs';
   styleUrls: ['./calendar-sidebar.component.scss'],
 })
 export class CalendarSidebarComponent {
+  @Input('currentListId') currentListId?: string;
   expiredTasksObs: Observable<Task[]> = this.taskService.observeExpiredTasks();
   tomorrowTasksObs: Observable<Task[]> = this.taskService.observeTasksSortedByDate(
     dayjs().add(1, 'day').format(FormatTypes.DEFAULT_FORMAT),
   );
+
   constructor(
     readonly themeService: ThemeService,
-    readonly calendarService: CalendarService,
     readonly taskService: TaskService,
   ) {}
 }

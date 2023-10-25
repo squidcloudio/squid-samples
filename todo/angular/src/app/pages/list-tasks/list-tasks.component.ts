@@ -32,13 +32,13 @@ export class ListTasksComponent implements OnInit, OnDestroy {
       if (params) this.taskId = params['taskId'];
     });
     this.paramsSub = this.paramsObs.subscribe(params => {
-      const currentlistId = params['id'];
-      this.listObs = this.listService.observeList(currentlistId);
-      this.activeTasksObs = this.TaskService.observeTaskList(currentlistId).pipe(
+      const currentListId = params['id'];
+      this.listObs = this.listService.observeList(currentListId);
+      this.activeTasksObs = this.TaskService.observeTaskList(currentListId).pipe(
         map(tasks => tasks.filter(task => !task.completed)),
       );
 
-      this.completedTasksObs = this.TaskService.observeTaskList(currentlistId).pipe(
+      this.completedTasksObs = this.TaskService.observeTaskList(currentListId).pipe(
         map(tasks => tasks.filter(task => task.completed)),
       );
     });

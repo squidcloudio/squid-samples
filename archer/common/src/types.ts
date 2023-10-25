@@ -69,7 +69,7 @@ export interface UserAsset {
   avgBuyPrice: number;
 }
 
-export type UserAssetWithTicker = UserAsset & { ticker: Ticker };
+export type UserAssetWithTicker = { holding: UserAsset; ticker: Ticker };
 
 export interface PortfolioValueHistory {
   userId: string;
@@ -111,6 +111,13 @@ export interface SnapshotTrade {
   t: number;
   x: number;
 }
+export interface SnapshotQuote {
+  P: number;
+  S: number;
+  p: number;
+  s: number;
+  t: number;
+}
 
 export interface MinuteSnapshotTickerDay extends SnapshotTickerDay {
   av: number;
@@ -121,6 +128,7 @@ export interface SnapshotTicker {
   prevDay: SnapshotTickerDay;
   min: MinuteSnapshotTickerDay;
   lastTrade: SnapshotTrade;
+  lastQuote: SnapshotQuote;
   ticker: string;
   todaysChange: number;
   todaysChangePerc: number;

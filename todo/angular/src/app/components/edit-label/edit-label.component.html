@@ -3,14 +3,14 @@
     <mat-icon class="white-icon">more_horiz</mat-icon>
   </button>
   <mat-menu #menu="matMenu" xPosition="before">
-    <ng-container *ngIf="(listId!=='today' && listId !=='tomorrow' && listId!=='someday')">
+    <ng-container *ngIf="listId !== 'today' && listId !== 'tomorrow' && listId !== 'someday'">
       <button mat-menu-item (click)="openModalWindow(listId)">
         <div class="menu-component">
           <img
             alt="component_logo"
             [src]="themeService.isDark ? '../../../../assets/edit-white.svg' : '../../../../assets/edit.svg'" />
           <span class="menu-component-text" [ngClass]="{ 'menu-component-text-dark': themeService.isDark }"
-            >Edit label</span
+            >Edit labels</span
           >
         </div>
       </button>

@@ -7,7 +7,7 @@
     grid-column-gap: 12px;
     align-items: center;
     padding: 14px 0;
-    border-bottom: 1px solid #E1E6EF;
+    border-bottom: 1px solid #e1e6ef;
 
     &.userAssets {
       grid-template-columns: 0.5fr repeat(5, 1fr);
@@ -36,8 +36,8 @@
 
     &.header {
       padding: 17px 0;
-      border-top: 1px solid #C4CCD9;
-      border-bottom: 1px solid #C4CCD9;
+      border-top: 1px solid #c4ccd9;
+      border-bottom: 1px solid #c4ccd9;
 
       .cell {
         color: $text1;

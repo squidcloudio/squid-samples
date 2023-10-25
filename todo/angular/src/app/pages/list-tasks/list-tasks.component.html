@@ -1,4 +1,9 @@
-<ng-container *ngIf="{list: listObs | async, activeTasks: activeTasksObs | async, completedTask: completedTasksObs | async} as collection">
+<ng-container
+  *ngIf="{
+    list: listObs | async,
+    activeTasks: activeTasksObs | async,
+    completedTask: completedTasksObs | async
+  } as collection">
   <ng-container *ngIf="collection.list as list">
     <div class="current-list">
       <div class="current-list-info">
@@ -54,8 +59,6 @@
           </div>
         </div>
       </ng-container>
-
     </ng-container>
   </ng-container>
-
 </ng-container>
