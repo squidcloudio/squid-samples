@@ -40,6 +40,7 @@ div.question {
   display: flex;
   justify-content: space-between;
   background-color: #ffffff;
+  color: #1b1f27;
 }
 
 @keyframes logo-spin {
