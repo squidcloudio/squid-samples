@@ -5,29 +5,22 @@
   text-align: center;
 }
 
-div {
-  padding: 10px;
+.ispaid {
+  text-align: right;
 }
 
-.scrolling {
-  overflow-y: auto;
-  max-height: 250px;
-  display: flex;
-  justify-content: center;
-}
-
-.messages {
+.invoice-id {
   text-align: left;
-  width: 75%;
 }
 
-div.question {
-  margin: 0 auto;
-  width: 75%;
-  display: flex;
-  justify-content: space-between;
-  background-color: #ffffff;
-  color: #1b1f27;
+td,
+th {
+  border: 1px solid #dddddd;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
 }
 
 @keyframes logo-spin {
@@ -44,4 +37,3 @@ div.question {
     animation: logo-spin infinite 20s linear;
   }
 }
-
