@@ -23,7 +23,7 @@
     "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "@squidcloud/local-backend": "^1.0.91",
+    "@squidcloud/local-backend": "^1.0.96",
     "@nestjs/cli": "^9.0.0",
     "@types/lodash": "^4.14.194",
     "copy-webpack-plugin": "^11.0.0",

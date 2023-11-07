@@ -26,7 +26,8 @@
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0",
-    "dayjs": "^1.11.7"
+    "dayjs": "^1.11.7",
+    "assertic": "^1.0.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^15.2.6",
