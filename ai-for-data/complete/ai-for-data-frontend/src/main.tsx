@@ -7,11 +7,11 @@ import React from 'react';
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <SquidContextProvider
     options={{
-      appId: 'im99udtfllbzs4q35b',
-      region: 'us-east-1.aws',
+      appId: '[YOUR_APP_ID]',
+      region: '[YOUR_REGION]',
       environmentId: 'dev',
-      squidDeveloperId: '9cggw9fdl73jtrw56a',
-      apiKey: 'a8e9ca28-df5d-4bfd-97cc-9257be335b43',
+      squidDeveloperId: '[YOUR_SQUID_DEVELOPER_ID]',
+      apiKey: '[YOUR_API_KEY]',
     }}
   >
     <App />

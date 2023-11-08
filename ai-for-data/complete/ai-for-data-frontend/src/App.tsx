@@ -11,6 +11,8 @@ function App() {
   const favoritePetsCollection = useCollection<FavoritePets>('animals');
   const { executeFunction } = useSquid();
   const { data } = useQuery(favoritePetsCollection.query().dereference(), true);
+
+  // prevent adding mock data multiple times
   const [dataIsAdded, setDataIsAdded] = useState(false);
 
   const addData = () => {
