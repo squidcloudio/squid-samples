@@ -28,7 +28,7 @@ export class DatabaseSecurityService extends SquidService {
 
     // only admins can read all payments
     if (userAuth.attributes['admin']) {
-      return !!userAuth.attributes['admin'];
+      return true;
     }
 
     return context.isSubqueryOf('__id' as any, '==', userId!);

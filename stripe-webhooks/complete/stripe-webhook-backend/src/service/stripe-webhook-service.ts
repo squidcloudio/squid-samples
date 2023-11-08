@@ -2,7 +2,7 @@ import { SquidService, webhook } from '@squidcloud/backend';
 import { WebhookRequest, WebhookResponse } from '@squidcloud/common';
 
 export class StripeWebhookService extends SquidService {
-  async addInvoiceToDatabase(stripeUserId: string, invoiceId: string, paid: boolean): Promise<string | any> {
+  async addInvoiceToDatabase(stripeUserId: string, invoiceId: string, paid: boolean): Promise<string> {
     const paidStatus = paid ? 'paid' : 'unpaid';
 
     try {

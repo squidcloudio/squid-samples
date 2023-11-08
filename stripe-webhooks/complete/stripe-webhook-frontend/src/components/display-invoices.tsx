@@ -1,12 +1,16 @@
 import { UserPayment } from '../common/user-payment';
-
-interface UserPaymentProps {
-  userPayment: UserPayment;
+import { useCollection, useDoc } from '@squidcloud/react';
+interface UserIdProps {
+  userId: string;
 }
 
-const DisplayInvoices: React.FC<UserPaymentProps> = ({ userPayment }) => {
-  const invoices = userPayment.invoices;
-  const invoiceKeys = Object.keys(invoices);
+const DisplayInvoices: React.FC<UserIdProps> = ({ userId }) => {
+  const userPaymentsCollection = useCollection<UserPayment>('userPayments');
+
+  const { data: userPayment } = useDoc(
+    userPaymentsCollection.doc(userId),
+    true,
+  );
 
   return (
     <div>
@@ -17,14 +21,16 @@ const DisplayInvoices: React.FC<UserPaymentProps> = ({ userPayment }) => {
             <th>Payment status</th>
           </tr>
         </thead>
-        <tbody>
-          {invoiceKeys.map((key) => (
-            <tr key={key}>
-              <td className="invoice-id">{key}</td>
-              <td className="ispaid">{invoices[key]}</td>
-            </tr>
-          ))}
-        </tbody>
+        {userPayment && (
+          <tbody>
+            {Object.keys(userPayment.invoices).map((key) => (
+              <tr key={key}>
+                <td className="invoice-id">{key}</td>
+                <td className="ispaid">{userPayment.invoices[key]}</td>
+              </tr>
+            ))}
+          </tbody>
+        )}
       </table>
     </div>
   );
