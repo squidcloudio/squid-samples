@@ -9,6 +9,8 @@ export class StripeWebhookService extends SquidService {
       // Find user in database
       const userDocs = await this.squid.collection('userPayments').query().eq('stripeUserId', stripeUserId).snapshot();
 
+      // This section is for demo purposes.
+      // In your own code, you would want to handle the case where a user is not found in the database.
       if (userDocs.length === 0) {
         console.log('new user found, adding to database');
         const newInvoices = { [invoiceId]: paidStatus };

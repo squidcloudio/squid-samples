@@ -1,17 +1,9 @@
 import { UserPayment } from '../common/user-payment';
-import { useCollection, useDoc } from '@squidcloud/react';
-interface UserIdProps {
-  userId: string;
+interface UserPaymentProps {
+  userPayment: UserPayment | undefined;
 }
 
-const DisplayInvoices: React.FC<UserIdProps> = ({ userId }) => {
-  const userPaymentsCollection = useCollection<UserPayment>('userPayments');
-
-  const { data: userPayment } = useDoc(
-    userPaymentsCollection.doc(userId),
-    true,
-  );
-
+const DisplayInvoices: React.FC<UserPaymentProps> = ({ userPayment }) => {
   return (
     <div>
       <table>
