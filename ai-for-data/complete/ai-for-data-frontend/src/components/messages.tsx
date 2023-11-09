@@ -1,9 +1,8 @@
 import { useEffect, useRef } from 'react';
 import React from 'react';
-import { ChatMessage } from '@squidcloud/react';
-
+import { AiResponse } from '../common/favorite-pets';
 interface ChatHistoryProps {
-  messages: ChatMessage[];
+  messages: AiResponse[];
 }
 
 const Messages: React.FC<ChatHistoryProps> = ({ messages }) => {
@@ -19,16 +18,14 @@ const Messages: React.FC<ChatHistoryProps> = ({ messages }) => {
 
   return (
     <div className="messages">
-      {messages.map(({ id, message, type }) => (
-        <div key={id}>
-          <span key={id}>
-            <b>{type}:</b>{' '}
-            {message.split('Query:').map((item, key) => (
-              <span key={key}>
-                {item}
-                <br />
-              </span>
-            ))}
+      {messages.map(({ author, answer, executedQuery, explanation }, index) => (
+        <div key={index}>
+          <span key={index}>
+            <b>{author}:</b> {answer}
+            <br />
+            {executedQuery}
+            <br />
+            {explanation}
           </span>
         </div>
       ))}

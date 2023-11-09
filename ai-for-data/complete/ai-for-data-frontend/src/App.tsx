@@ -24,7 +24,7 @@ function App() {
     <div>
       <NavBar />
       {data && <DisplayPets favoritePets={data} />}
-      <Button onClick={() => addData()} disabled={dataIsAdded}>
+      <Button onClick={() => addData()} hidden={dataIsAdded}>
         Add Mock Data
       </Button>
       <AiDatabot />

@@ -11,7 +11,6 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
       region: '[YOUR_REGION]',
       environmentId: 'dev',
       squidDeveloperId: '[YOUR_SQUID_DEVELOPER_ID]',
-      apiKey: '[YOUR_API_KEY]',
     }}
   >
     <App />

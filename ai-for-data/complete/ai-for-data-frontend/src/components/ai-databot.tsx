@@ -1,15 +1,26 @@
 import { ChangeEvent, useState } from 'react';
 import { TextField, Button } from '@mui/material';
-import { useAiQuery } from '@squidcloud/react';
+import { useSquid } from '@squidcloud/react';
 import Messages from './messages';
+import { AiResponse } from '../common/favorite-pets';
 
 const AiDatabot = () => {
   const [question, setQuestion] = useState('');
-  const { history, chat, complete, error } = useAiQuery('built_in_db');
+  const [history, setHistory] = useState<AiResponse[]>([]);
+  const [complete, setComplete] = useState(true);
+  const squid = useSquid();
 
   function askQuestion() {
-    chat(question);
-    setQuestion('');
+    setComplete(false);
+    squid?.executeFunction('askQuestion', question).then((response) => {
+      setHistory((prev) => [
+        ...prev,
+        { author: 'user', answer: question },
+        response,
+      ]);
+      setComplete(true);
+      setQuestion('');
+    });
   }
 
   function questionChanged(e: ChangeEvent) {
@@ -40,7 +51,6 @@ const AiDatabot = () => {
         <Button variant="contained" disabled={!complete} onClick={askQuestion}>
           Ask question
         </Button>
-        {error && <div>{error.toString()}</div>}
       </div>
     </>
   );
