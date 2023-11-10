@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit } from '@angular/core';
-import { assertTruthy } from '@squidcloud/common';
+import { assertTruthy } from 'assertic';
 
 @Component({
   selector: 'totals',

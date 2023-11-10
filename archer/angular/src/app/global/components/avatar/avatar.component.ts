@@ -10,7 +10,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { assertTruthy } from '@squidcloud/common';
+import { assertTruthy } from 'assertic';
 
 @Component({
   selector: 'avatar',
