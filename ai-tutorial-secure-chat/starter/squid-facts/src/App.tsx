@@ -2,12 +2,12 @@ import SquidFactsAI from './components/squid-facts-ai';
 import NavBar from './components/nav-bar';
 import './App.css';
 import { Snackbar, Alert } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 function App() {
   // Set state of toast message
   const [toastOpen, setToastOpen] = useState(false);
-  const [loginMessage, setLoginMessage] = useState('');
+  const [loginMessage, _] = useState('');
 
   const handleToClose = () => {
     setToastOpen(false);
