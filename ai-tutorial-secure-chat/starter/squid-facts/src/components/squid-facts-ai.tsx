@@ -1,6 +1,5 @@
 import { ChangeEvent, useState } from 'react';
 import { TextField, Button } from '@mui/material';
-import Messages from './messages';
 
 const SquidFactsAI = () => {
   const [question, setQuestion] = useState('');
