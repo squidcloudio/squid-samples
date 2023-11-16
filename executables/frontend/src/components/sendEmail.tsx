@@ -5,15 +5,13 @@ export default function SendEmail() {
   const { executeFunction } = useSquid();
 
   const send = async () => {
-    const bodyContent = (document.getElementById("emailBody") as HTMLFormElement).value
-    if (!bodyContent.trim()) {
-      return;
-    }
-    const returnAddress = (document.getElementById("emailAddress") as HTMLFormElement).value
-    if (!returnAddress.trim()) {
-      return;
-    }
     const status = (document.getElementById('status') as HTMLElement);
+    const bodyContent = (document.getElementById("emailBody") as HTMLFormElement).value
+    const returnAddress = (document.getElementById("emailAddress") as HTMLFormElement).value
+    if (!bodyContent.trim() || !returnAddress.trim()) {
+      status.textContent = 'Both text boxes are required.';
+      return;
+    }
     executeFunction('sendEmail', returnAddress, 'Message from the send email example', bodyContent).then((confirmed) => {
       if (confirmed) {
         status.textContent = 'Sent!';
