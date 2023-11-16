@@ -57,7 +57,7 @@ export class ExampleService extends SquidService {
     const keys = await this.squid.secrets.apiKeys.getAll();
     for (const [_, entry] of Object.entries(keys)) {
       if (entry.value === key) {
-        return true
+        return true;
       }
     }
     return false;
