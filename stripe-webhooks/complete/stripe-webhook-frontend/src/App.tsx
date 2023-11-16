@@ -15,7 +15,7 @@ function App() {
   const userPaymentsCollection = useCollection<UserPayment>('userPayments');
   const { setAuthIdToken, executeFunction } = useSquid();
 
-  const [userId, setUserId] = useState<string | undefined>();
+  // const [userId, setUserId] = useState<string | undefined>();
   const [userPayment, setUserPayment] = useState<UserPayment>();
 
   useEffect(() => {
