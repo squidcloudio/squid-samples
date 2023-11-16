@@ -1,4 +1,5 @@
 import { executable, secureDatabase, SquidService } from '@squidcloud/backend';
+import nodemailer from 'nodemailer';
 
 /**
  * Here you can define different backend functions that:
@@ -22,8 +23,38 @@ export class ExampleService extends SquidService {
   }
 
   @executable()
-  sendEmail(subject: string, body: string): boolean {
-    console.log('sendEmail got:', subject, body);
+  async sendEmail(from: string, subject: string, body: string): Promise<boolean> {
+    try {
+      const transporter = nodemailer.createTransport({
+        service: 'gmail', // use your preferred service
+        auth: {
+          user: 'YOUR_EMAIL@gmail.com',
+          pass: 'YOUR_PASSWORD'
+        }
+      });
+
+      await transporter.sendMail({
+        from: 'YOUR_EMAIL@gmail.com',
+        to: 'YOUR_EMAIL@gmail.com',
+        replyTo: from,
+        subject: subject,
+        text: body,
+      });
+    } catch (e) {
+      console.log(e);
+      return false;
+    }
+    return true;
+  }
+
+  @executable()
+  async validateApiKey(key: string): Promise<boolean> {
+    const keys = await this.squid.secrets.apiKeys.getAll();
+    for (const [_, entry] of Object.entries(keys)) {
+      if (entry.value === key) {
+        return true
+      }
+    }
     return false;
   }
 }
