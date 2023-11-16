@@ -28,14 +28,14 @@ export class ExampleService extends SquidService {
       const transporter = nodemailer.createTransport({
         service: 'YOUR_EMAIL_SERVICE',
         auth: {
-          user: 'YOUR_EMAIL@gmail.com',
+          user: 'YOUR_EMAIL@DOMAIN',
           pass: 'YOUR_PASSWORD'
         }
       });
 
       await transporter.sendMail({
-        from: 'YOUR_EMAIL@gmail.com',
-        to: 'YOUR_EMAIL@gmail.com',
+        from: 'YOUR_EMAIL@DOMAIN',
+        to: 'YOUR_EMAIL@DOMAIN',
         replyTo: from,
         subject: subject,
         text: body,
@@ -45,6 +45,11 @@ export class ExampleService extends SquidService {
       return false;
     }
     return true;
+  }
+
+  @executable()
+  async generateApiKey(name: string): Promise<string> {
+    return (await this.squid.secrets.apiKeys.upsert(name)).value as string;
   }
 
   @executable()

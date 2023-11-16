@@ -1,6 +1,6 @@
 import './App.css';
 import SendEmail from './components/sendEmail.tsx';
-import CheckSecret from './components/checkSecret.tsx';
+import Secrets from './components/secrets.tsx';
 
 function App() {
   return (
@@ -8,7 +8,7 @@ function App() {
       <h1>Examples of Executables</h1>
 
       <SendEmail />
-      <CheckSecret />
+      <Secrets />
     </div>
   );
 }
