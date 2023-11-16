@@ -10,6 +10,8 @@ export default function DeleteUser() {
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Find the first user with the matching email
     const user = users.data.find(
       (user) =>
         user.data.email == (e.target as unknown as Array<EventObj>)[0].value
