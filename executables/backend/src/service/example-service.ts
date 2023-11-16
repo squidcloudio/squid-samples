@@ -26,7 +26,7 @@ export class ExampleService extends SquidService {
   async sendEmail(from: string, subject: string, body: string): Promise<boolean> {
     try {
       const transporter = nodemailer.createTransport({
-        service: 'gmail', // use your preferred service
+        service: 'YOUR_EMAIL_SERVICE',
         auth: {
           user: 'YOUR_EMAIL@gmail.com',
           pass: 'YOUR_PASSWORD'
