@@ -14,7 +14,7 @@ type User = { id: string; email: string; age: number };
 export class InsertUserComponent {
   constructor(private readonly squid: Squid) {}
 
-  // Insert data
+  /* Inserts new user data into the 'users' collection */
   async insertNewUser(): Promise<void> {
     const userId = crypto.randomUUID();
     const email = `${userId}@gmail.com`;

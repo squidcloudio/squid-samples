@@ -14,6 +14,8 @@ type User = { id: string; email: string; age: number };
 export class ReadUsersComponent {
   constructor(private readonly squid: Squid) {}
 
+  /* Sets the users variable to an observable of the 'users' collection
+   * and subscribes to updates */
   users = this.squid
     .collection<User>('users')
     .query()

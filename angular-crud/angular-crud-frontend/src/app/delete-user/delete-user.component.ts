@@ -22,6 +22,7 @@ export class DeleteUserComponent {
 
   inputId: string;
 
+  /* Accesses the 'users' collection and deletes the user with the specified inputId */
   async deleteUser(): Promise<void> {
     await this.squid.collection<User>('users').doc(this.inputId).delete();
   }

@@ -32,6 +32,7 @@ export class UpdateUserComponent {
   inputId: string;
   inputAge: number | undefined;
 
+  /* Accesses the user document with the specified inputId and updates their age */
   async updateUser(): Promise<void> {
     if (this.inputAge) {
       await this.squid.collection<User>('users').doc(this.inputId).update({
