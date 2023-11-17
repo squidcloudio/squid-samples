@@ -6,12 +6,12 @@ type User = { id: string; email: string; age: number };
 @Component({
   selector: 'delete-user',
   template: `
-    <form style="margin: 10px" name="form" (ngSubmit)="deleteUser()">
+    <form name="form" (ngSubmit)="deleteUser()">
       <div>
-        <label style="padding-right: 9px" for="input-id">ID: </label>
+        <label for="input-id">ID: </label>
         <input id="input-id" name="input-id" [(ngModel)]="inputId" />
       </div>
-      <button style="margin-top: 4px">Delete</button>
+      <button>Delete</button>
     </form>
   `,
 })

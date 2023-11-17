@@ -6,9 +6,9 @@ type User = { id: string; email: string; age: number };
 @Component({
   selector: 'update-user',
   template: `
-    <form style="margin: 10px" name="form" (ngSubmit)="updateUser()">
+    <form name="form" (ngSubmit)="updateUser()">
       <div>
-        <label style="padding-right: 9px" for="input-id">ID: </label>
+        <label for="input-id">ID: </label>
         <input id="input-id" name="input-id" [(ngModel)]="inputId" />
       </div>
       <div>
@@ -20,7 +20,7 @@ type User = { id: string; email: string; age: number };
           [(ngModel)]="inputAge"
         />
       </div>
-      <button style="margin-top: 4px">Update Age</button>
+      <button>Update Age</button>
     </form>
   `,
 })

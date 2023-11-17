@@ -7,7 +7,7 @@ type User = { id: string; email: string; age: number };
 @Component({
   selector: 'insert-user',
   template: `
-    <button (click)="insertNewUser()">Create user</button>
+    <button id="insert" (click)="insertNewUser()">Create user</button>
     <br />
   `,
 })

@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { SquidModule } from '@squidcloud/angular';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { SquidModule } from '@squidcloud/angular';
+
 import { InsertUserComponent } from './insert-user/insert-user.component';
 import { ReadUsersComponent } from './read-users/read-users.component';
 import { UpdateUserComponent } from './update-user/update-user.component';
-import { FormsModule } from '@angular/forms';
 import { DeleteUserComponent } from './delete-user/delete-user.component';
 
 @NgModule({
