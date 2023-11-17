@@ -20,10 +20,10 @@ import { DeleteUserComponent } from './delete-user/delete-user.component';
   ],
   imports: [
     SquidModule.forRoot({
-      appId: '6ud47ji964n2pdhxfn',
-      region: 'us-east-1.aws', // example: 'us-east-1.aws'
-      environmentId: 'dev', // choose one of 'dev' or 'prod'
-      squidDeveloperId: 'etai'
+      appId: 'YOUR_APP_ID',
+      region: 'YOUR_REGION', // example: 'us-east-1.aws'
+      environmentId: 'dev | prod', // choose one of 'dev' or 'prod'
+      squidDeveloperId: 'YOUR_DEVELOPER_ID'
     }),
     FormsModule,
     BrowserModule,
