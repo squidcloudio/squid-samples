@@ -7,9 +7,10 @@ type User = { id: string; email: string; age: number };
 @Component({
   selector: 'insert-user',
   template: `
-    <button id="insert" (click)="insertNewUser()">Create user</button>
+    <button id="insert" (click)="insertNewUser()">Create new user</button>
     <br />
   `,
+  styleUrls: ['./insert-user.component.scss'],
 })
 export class InsertUserComponent {
   constructor(private readonly squid: Squid) {}
