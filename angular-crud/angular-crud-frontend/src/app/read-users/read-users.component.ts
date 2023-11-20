@@ -5,9 +5,11 @@ type User = { id: string; email: string; age: number };
 
 @Component({
   selector: 'read-users',
-  template: ` <ul>
+  template: `
+  <ul>
     <li *ngFor="let user of users | async">
       {{ user.email }} - {{ user.age }}
+      <options [id]=user.id />
     </li>
   </ul>`,
 })

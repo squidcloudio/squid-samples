@@ -9,6 +9,11 @@ import { InsertUserComponent } from './insert-user/insert-user.component';
 import { ReadUsersComponent } from './read-users/read-users.component';
 import { UpdateUserComponent } from './update-user/update-user.component';
 import { DeleteUserComponent } from './delete-user/delete-user.component';
+import { TableComponent } from './table/table.component';
+import { OptionsComponent } from './options/options.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
+import { OptionsDialogComponent } from './options-dialog/options-dialog.component';
 
 @NgModule({
   declarations: [
@@ -16,18 +21,23 @@ import { DeleteUserComponent } from './delete-user/delete-user.component';
     InsertUserComponent,
     ReadUsersComponent,
     UpdateUserComponent,
-    DeleteUserComponent
+    DeleteUserComponent,
+    TableComponent,
+    OptionsComponent,
+    OptionsDialogComponent
   ],
   imports: [
     SquidModule.forRoot({
-      appId: 'YOUR_APP_ID',
-      region: 'YOUR_REGION', // example: 'us-east-1.aws'
-      environmentId: 'dev | prod', // choose one of 'dev' or 'prod'
-      squidDeveloperId: 'YOUR_DEVELOPER_ID'
+      appId: '6ud47ji964n2pdhxfn',
+      region: 'us-east-1.aws', // example: 'us-east-1.aws'
+      environmentId: 'dev', // choose one of 'dev' or 'prod'
+      squidDeveloperId: 'etai'
     }),
     FormsModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
