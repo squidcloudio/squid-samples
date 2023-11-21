@@ -10,7 +10,7 @@
 * A [Squid Cloud](https://console.squid.cloud) account
 * Node.js and npm
 * [The Squid CLI](https://docs.squid.cloud/docs/development-tools/local-dev-cli)
-* An email account to use to send emails with Nodemailer.
+* An email account to use to send emails with [Nodemailer](https://nodemailer.com/).
 
 ### Running the project
 1. In the [Squid Cloud Console](https://console.squid.cloud) create a new app called `executables-sample`.
@@ -62,4 +62,4 @@ npm run dev
       - Generate a key first and copy it into the box to check if it is a valid key.
 
 ### Next Steps:
-To understand the code better, visit our [Getting Started tutorial](https://docs.squid.cloud/docs/getting-started/dive-in/) which walks through the creation of this React application. 
+To learn more, visit our [tutorials](https://docs.squid.cloud/docs/tutorials/) or read about [Squid Executables](https://docs.squid.cloud/docs/development-tools/backend/executables) and [Squid Secrets](https://docs.squid.cloud/docs/development-tools/client-sdk/secrets)!

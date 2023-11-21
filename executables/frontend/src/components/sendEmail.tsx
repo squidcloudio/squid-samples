@@ -20,7 +20,7 @@ const SendEmail: React.FC = () => {
   const [formData, setFormData] = useState({ address: '', body: '' });
   const [statusData, setStatusData] = useState<string>('');
 
-  const send = (e: React.FormEvent) => {
+  const sendEmail = (e: React.FormEvent) => {
     e.preventDefault();
     const bodyContent = formData.body
     const returnAddress = formData.address
@@ -53,7 +53,7 @@ const SendEmail: React.FC = () => {
       <h2>Send an Email</h2>
       <p>This could be your company's support form.</p>
 
-      <form id="emailForm" onSubmit={send}>
+      <form id="emailForm" onSubmit={sendEmail}>
         <input
           type="email"
           name="address"
@@ -63,7 +63,6 @@ const SendEmail: React.FC = () => {
         />
         <br/>
         <input
-          type="text"
           name="body"
           value={formData.body}
           onChange={handleInputChange}

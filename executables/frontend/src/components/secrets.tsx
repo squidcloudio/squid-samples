@@ -16,9 +16,10 @@ const Secrets: React.FC = () => {
   const { executeFunction } = useSquid();
 
   const [generationData, setGenerationData] = useState<string>('');
-  const [statusData, setStatusData] = useState<string>('');
+  const [statusText, setStatusText] = useState<string>('');
+  const [formData, setFormData] = useState({ apiKey: '' });
 
-  const generate = async (e: React.FormEvent) => {
+  const generateKey = async (e: React.FormEvent) => {
     e.preventDefault();
     setGenerationData('⏳');
     executeFunction('generateApiKey', 'SOME_KEY_NAME').then((key) => {
@@ -26,17 +27,24 @@ const Secrets: React.FC = () => {
     });
   };
 
-  const check = async (e: React.FormEvent) => {
+  const checkKey = async (e: React.FormEvent) => {
     e.preventDefault();
-    const secret = (document.getElementById("secret") as HTMLFormElement).value;
-    setStatusData('⏳');
-    executeFunction('validateApiKey', secret).then((confirmed) => {
+    setStatusText('⏳');
+    executeFunction('validateApiKey', formData.apiKey).then((confirmed) => {
       if (confirmed) {
-        setStatusData('👍');
+        setStatusText('👍');
       } else {
-        setStatusData('🙅');
+        setStatusText('🙅');
       }
     });
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData(prevFormData => ({
+      ...prevFormData,
+      [name]: value
+    }));
   };
 
   return (
@@ -44,15 +52,20 @@ const Secrets: React.FC = () => {
       <h2>API keys</h2>
 
       <h3>Generate yourself a key</h3>
-      <form id="generate" onSubmit={generate}>
+      <form id="generate" onSubmit={generateKey}>
         <StatusComponent text={generationData} />
         <Button type="submit">Generate New Key</Button>
       </form>
 
       <h3>Check if your key is valid</h3>
-      <form id="form" onSubmit={check}>
-        <input type="text" id="secret" name="text" placeholder="Your API key" />
-        <StatusComponent text={statusData} />
+      <form id="form" onSubmit={checkKey}>
+        <input
+          name="apiKey"
+          value={formData.apiKey}
+          onChange={handleInputChange}
+          placeholder="Your API key"
+        />
+        <StatusComponent text={statusText} />
         <Button type="submit">Check Key</Button>
       </form>
     </div>
