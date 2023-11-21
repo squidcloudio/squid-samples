@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-table',
   template: `
     <table>
-      <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center">
+      <div id="theader">
         <thead>
           Crew to Enlist
         </thead>

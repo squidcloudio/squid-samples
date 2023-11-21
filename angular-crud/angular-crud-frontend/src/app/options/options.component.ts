@@ -2,10 +2,10 @@ import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { OptionsDialogComponent } from '../options-dialog/options-dialog.component';
 
-
 @Component({
   selector: 'options',
-  template: `<button (click)='openDialog()'>...</button>`
+  template: `<button (click)="openDialog()">...</button>`,
+  styleUrls: ['./options.component.scss'],
 })
 export class OptionsComponent {
   @Input() id = '';
@@ -14,8 +14,10 @@ export class OptionsComponent {
 
   openDialog(): void {
     let dialogRef = this.dialog.open(OptionsDialogComponent, {
-      width: '250px',
-      data: { id: this.id }
+      height: '200px',
+      width: '300px',
+      panelClass: 'my-dialog',
+      data: { id: this.id },
     });
   }
 }
