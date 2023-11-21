@@ -1,26 +1,40 @@
 import { useSquid } from '@squidcloud/react';
 import { Button } from '@mui/material';
+import React, { useState } from 'react';
 
-export default function Secrets() {
+interface StatusProps {
+  text: string;
+}
+
+const StatusComponent: React.FC<StatusProps> = ({text}) => {
+  return (
+    <p>{text}</p>
+  )
+}
+
+const Secrets: React.FC = () => {
   const { executeFunction } = useSquid();
 
-  const generate = async () => {
-    const keyElement = (document.getElementById('generatedKey') as HTMLElement);
-    keyElement.textContent = '⏳';
+  const [generationData, setGenerationData] = useState<string>('');
+  const [statusData, setStatusData] = useState<string>('');
+
+  const generate = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setGenerationData('⏳');
     executeFunction('generateApiKey', 'SOME_KEY_NAME').then((key) => {
-      keyElement.textContent = key;
+      setGenerationData(key);
     });
   };
 
-  const check = async () => {
+  const check = async (e: React.FormEvent) => {
+    e.preventDefault();
     const secret = (document.getElementById("secret") as HTMLFormElement).value;
-    const status = (document.getElementById('statusEmoji') as HTMLElement);
-    status.textContent = '⏳';
+    setStatusData('⏳');
     executeFunction('validateApiKey', secret).then((confirmed) => {
       if (confirmed) {
-        status.textContent = '👍';
+        setStatusData('👍');
       } else {
-        status.textContent = '🙅';
+        setStatusData('🙅');
       }
     });
   };
@@ -30,15 +44,18 @@ export default function Secrets() {
       <h2>API keys</h2>
 
       <h3>Generate yourself a key</h3>
-      <p id="generatedKey"></p>
-      <Button type="button" onClick={() => generate()}>Generate New Key</Button>
+      <form id="generate" onSubmit={generate}>
+        <StatusComponent text={generationData} />
+        <Button type="submit">Generate New Key</Button>
+      </form>
 
       <h3>Check if your key is valid</h3>
-      <form id="form">
+      <form id="form" onSubmit={check}>
         <input type="text" id="secret" name="text" placeholder="Your API key" />
-        <p id="statusEmoji"></p>
-        <Button type="button" onClick={() => check()}>Check Key</Button>
+        <StatusComponent text={statusData} />
+        <Button type="submit">Check Key</Button>
       </form>
     </div>
   );
 }
+export default Secrets;
