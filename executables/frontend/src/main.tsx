@@ -3,28 +3,18 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import './index.css';
 import React from 'react';
-import { Auth0Provider } from '@auth0/auth0-react';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <Auth0Provider
-      domain="AUTH0_DOMAIN"
-      clientId="AUTH0_CLIENT_ID"
-      authorizationParams={{
-        redirect_uri: window.location.origin,
+    <SquidContextProvider
+      options={{
+        appId: 'YOUR_APP_ID',
+        region: 'YOUR_REGION',
+        environmentId: 'dev',
+        squidDeveloperId: 'YOUR_DEVELOPER_ID',
       }}
-      cacheLocation="localstorage"
     >
-      <SquidContextProvider
-        options={{
-          appId: 'YOUR_APP_ID',
-          region: 'YOUR_REGION',
-          environmentId: 'dev',
-          squidDeveloperId: 'YOUR_DEVELOPER_ID',
-        }}
-      >
-        <App />
-      </SquidContextProvider>
-    </Auth0Provider>
+      <App />
+    </SquidContextProvider>
   </React.StrictMode>,
 );

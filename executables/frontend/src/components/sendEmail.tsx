@@ -1,25 +1,53 @@
 import { useSquid } from '@squidcloud/react';
 import { Button } from '@mui/material';
+import React, { useState } from 'react';
 
-export default function SendEmail() {
+interface StatusProps {
+  text: string;
+}
+
+const StatusComponent: React.FC<StatusProps> = ({text}) => {
+  return (
+    <div>
+      <p>{text}</p>
+    </div>
+  )
+}
+
+const SendEmail: React.FC = () => {
   const { executeFunction } = useSquid();
 
-  const send = async () => {
-    const status = (document.getElementById('status') as HTMLElement);
-    const bodyContent = (document.getElementById("emailBody") as HTMLFormElement).value
-    const returnAddress = (document.getElementById("emailAddress") as HTMLFormElement).value
+  const [formData, setFormData] = useState({ address: '', body: '' });
+  const [statusData, setStatusData] = useState<string>('');
+
+  const send = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log('formData', formData);
+    console.log('status', statusData);
+    const bodyContent = formData.body
+    const returnAddress = formData.address
     if (!bodyContent.trim() || !returnAddress.trim()) {
-      status.textContent = 'Both text boxes are required.';
+      setStatusData('Both text boxes are required.');
       return;
+    } else {
+      setStatusData('Sending...');
     }
     executeFunction('sendEmail', returnAddress, 'Message from the send email example', bodyContent).then((confirmed) => {
       if (confirmed) {
-        status.textContent = 'Sent!';
-        (document.getElementById("emailForm") as HTMLFormElement).reset();
+        setStatusData('Sent!');
+        setFormData({ address: '', body: '' });
       } else {
-        status.textContent = 'Failed to send!';
+        setStatusData('Failed to send!');
       }
     });
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData(prevFormData => ({
+      ...prevFormData,
+      [name]: value
+    }));
   };
 
   return (
@@ -27,13 +55,27 @@ export default function SendEmail() {
       <h2>Send an Email</h2>
       <p>This could be your company's support form.</p>
 
-      <form id="emailForm">
-        <input type="text" id="emailAddress" name="address" placeholder="Your email address" />
+      <form id="emailForm" onSubmit={send}>
+        <input
+          type="text"
+          name="address"
+          value={formData.address}
+          onChange={handleInputChange}
+          placeholder="Your email address"
+        />
         <br/>
-        <input type="text" id="emailBody" name="text" placeholder="Your message here" />
-        <p id="status"></p>
-        <Button type="button" onClick={() => send()}>Send</Button>
+        <input
+          type="text"
+          name="body"
+          value={formData.body}
+          onChange={handleInputChange}
+          placeholder="Your message here"
+        />
+        <StatusComponent text={statusData} />
+        <Button type="submit">Send</Button>
       </form>
     </div>
   );
 }
+
+export default SendEmail;
