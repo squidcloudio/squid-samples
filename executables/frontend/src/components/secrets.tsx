@@ -6,11 +6,9 @@ interface StatusProps {
   text: string;
 }
 
-const StatusComponent: React.FC<StatusProps> = ({text}) => {
-  return (
-    <p>{text}</p>
-  )
-}
+const StatusComponent: React.FC<StatusProps> = ({ text }) => {
+  return <p>{text}</p>;
+};
 
 const Secrets: React.FC = () => {
   const { executeFunction } = useSquid();
@@ -30,20 +28,22 @@ const Secrets: React.FC = () => {
   const checkKey = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatusText('⏳');
-    executeFunction('validateApiKey', 'SOME_KEY_NAME', formData.apiKey).then((confirmed) => {
-      if (confirmed) {
-        setStatusText('👍');
-      } else {
-        setStatusText('🙅');
-      }
-    });
+    executeFunction('validateApiKey', 'SOME_KEY_NAME', formData.apiKey).then(
+      (confirmed) => {
+        if (confirmed) {
+          setStatusText('👍');
+        } else {
+          setStatusText('🙅');
+        }
+      },
+    );
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(prevFormData => ({
+    setFormData((prevFormData) => ({
       ...prevFormData,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -70,5 +70,5 @@ const Secrets: React.FC = () => {
       </form>
     </div>
   );
-}
+};
 export default Secrets;

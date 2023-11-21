@@ -4,18 +4,12 @@ import nodemailer from 'nodemailer';
 /**
  * Contains our backend implementation.
  *
- * Primarily for this sample, it contains our `@executable`s for:
+ * For this sample, it contains our `@executable`s for:
  *   - Sending an email.
  *   - Generating an API key.
  *   - Validating an API key.
  */
 export class ExampleService extends SquidService {
-  // TODO: !!!IMPORTANT!!! - Replace this function with your own granular security rules
-  @secureDatabase('all', 'built_in_db')
-  allowAllAccessToBuiltInDb(): boolean {
-    return true;
-  }
-
   @executable()
   async sendEmail(from: string, subject: string, body: string): Promise<boolean> {
     const username = (await this.squid.secrets.get('email_username'))?.value;
@@ -25,8 +19,8 @@ export class ExampleService extends SquidService {
         service: 'YOUR_EMAIL_SERVICE',
         auth: {
           user: username,
-          pass: password
-        }
+          pass: password,
+        },
       });
 
       await transporter.sendMail({
@@ -52,6 +46,5 @@ export class ExampleService extends SquidService {
   async validateApiKey(name: string, key: string): Promise<boolean> {
     const expectedKey = await this.squid.secrets.apiKeys.get(name);
     return expectedKey !== undefined && expectedKey.value === key;
-
   }
 }

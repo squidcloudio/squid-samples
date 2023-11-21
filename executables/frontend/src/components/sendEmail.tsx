@@ -6,13 +6,13 @@ interface StatusProps {
   text: string;
 }
 
-const StatusComponent: React.FC<StatusProps> = ({text}) => {
+const StatusComponent: React.FC<StatusProps> = ({ text }) => {
   return (
     <div>
       <p>{text}</p>
     </div>
-  )
-}
+  );
+};
 
 const SendEmail: React.FC = () => {
   const { executeFunction } = useSquid();
@@ -22,15 +22,20 @@ const SendEmail: React.FC = () => {
 
   const sendEmail = (e: React.FormEvent) => {
     e.preventDefault();
-    const bodyContent = formData.body
-    const returnAddress = formData.address
+    const bodyContent = formData.body;
+    const returnAddress = formData.address;
     if (!bodyContent.trim() || !returnAddress.trim()) {
       setEmailStatus('Both text boxes are required.');
       return;
     } else {
       setEmailStatus('Sending...');
     }
-    executeFunction('sendEmail', returnAddress, 'Message from the send email example', bodyContent).then((confirmed) => {
+    executeFunction(
+      'sendEmail',
+      returnAddress,
+      'Message from the send email example',
+      bodyContent,
+    ).then((confirmed) => {
       if (confirmed) {
         setEmailStatus('Sent!');
         setFormData({ address: '', body: '' });
@@ -42,9 +47,9 @@ const SendEmail: React.FC = () => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(prevFormData => ({
+    setFormData((prevFormData) => ({
       ...prevFormData,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -61,7 +66,7 @@ const SendEmail: React.FC = () => {
           onChange={handleInputChange}
           placeholder="Your email address"
         />
-        <br/>
+        <br />
         <input
           name="body"
           value={formData.body}
@@ -73,6 +78,6 @@ const SendEmail: React.FC = () => {
       </form>
     </div>
   );
-}
+};
 
 export default SendEmail;
