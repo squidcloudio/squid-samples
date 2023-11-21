@@ -15,22 +15,22 @@ const StatusComponent: React.FC<StatusProps> = ({text}) => {
 const Secrets: React.FC = () => {
   const { executeFunction } = useSquid();
 
-  const [generationData, setGenerationData] = useState<string>('');
+  const [generatedKey, setGeneratedKey] = useState<string>('');
   const [statusText, setStatusText] = useState<string>('');
   const [formData, setFormData] = useState({ apiKey: '' });
 
   const generateKey = async (e: React.FormEvent) => {
     e.preventDefault();
-    setGenerationData('⏳');
+    setGeneratedKey('⏳');
     executeFunction('generateApiKey', 'SOME_KEY_NAME').then((key) => {
-      setGenerationData(key);
+      setGeneratedKey(key);
     });
   };
 
   const checkKey = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatusText('⏳');
-    executeFunction('validateApiKey', formData.apiKey).then((confirmed) => {
+    executeFunction('validateApiKey', 'SOME_KEY_NAME', formData.apiKey).then((confirmed) => {
       if (confirmed) {
         setStatusText('👍');
       } else {
@@ -53,7 +53,7 @@ const Secrets: React.FC = () => {
 
       <h3>Generate yourself a key</h3>
       <form id="generate" onSubmit={generateKey}>
-        <StatusComponent text={generationData} />
+        <StatusComponent text={generatedKey} />
         <Button type="submit">Generate New Key</Button>
       </form>
 

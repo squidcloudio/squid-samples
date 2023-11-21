@@ -2,18 +2,12 @@ import { executable, secureDatabase, SquidService } from '@squidcloud/backend';
 import nodemailer from 'nodemailer';
 
 /**
- * Here you can define different backend functions that:
- * 1 - Can be called from the frontend
- * 2 - Can secure data access
- * 3 - Can be called as a trigger
- * 4 - Can define a webhook
- * 5 - Can be called as a scheduler
- * 6 - And more
+ * Contains our backend implementation.
  *
- * Note: This code will be executed in a secure environment and can perform any operation including database access,
- * API calls, etc.
- *
- * For more information and examples see: https://docs.squid.cloud/docs/development-tools/backend/
+ * Primarily for this sample, it contains our `@executable`s for:
+ *   - Sending an email.
+ *   - Generating an API key.
+ *   - Validating an API key.
  */
 export class ExampleService extends SquidService {
   // TODO: !!!IMPORTANT!!! - Replace this function with your own granular security rules
@@ -55,13 +49,9 @@ export class ExampleService extends SquidService {
   }
 
   @executable()
-  async validateApiKey(key: string): Promise<boolean> {
-    const keys = await this.squid.secrets.apiKeys.getAll();
-    for (const [_, entry] of Object.entries(keys)) {
-      if (entry.value === key) {
-        return true;
-      }
-    }
-    return false;
+  async validateApiKey(name: string, key: string): Promise<boolean> {
+    const expectedKey = await this.squid.secrets.apiKeys.get(name);
+    return expectedKey !== undefined && expectedKey.value === key;
+
   }
 }

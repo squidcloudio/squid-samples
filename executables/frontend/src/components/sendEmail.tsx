@@ -18,24 +18,24 @@ const SendEmail: React.FC = () => {
   const { executeFunction } = useSquid();
 
   const [formData, setFormData] = useState({ address: '', body: '' });
-  const [statusData, setStatusData] = useState<string>('');
+  const [emailStatus, setEmailStatus] = useState<string>('');
 
   const sendEmail = (e: React.FormEvent) => {
     e.preventDefault();
     const bodyContent = formData.body
     const returnAddress = formData.address
     if (!bodyContent.trim() || !returnAddress.trim()) {
-      setStatusData('Both text boxes are required.');
+      setEmailStatus('Both text boxes are required.');
       return;
     } else {
-      setStatusData('Sending...');
+      setEmailStatus('Sending...');
     }
     executeFunction('sendEmail', returnAddress, 'Message from the send email example', bodyContent).then((confirmed) => {
       if (confirmed) {
-        setStatusData('Sent!');
+        setEmailStatus('Sent!');
         setFormData({ address: '', body: '' });
       } else {
-        setStatusData('Failed to send! Is your Nodemailer config correct?');
+        setEmailStatus('Failed to send! Is your Nodemailer config correct?');
       }
     });
   };
@@ -68,7 +68,7 @@ const SendEmail: React.FC = () => {
           onChange={handleInputChange}
           placeholder="Your message here"
         />
-        <StatusComponent text={statusData} />
+        <StatusComponent text={emailStatus} />
         <Button type="submit">Send</Button>
       </form>
     </div>
