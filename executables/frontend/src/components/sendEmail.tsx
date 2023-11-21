@@ -35,7 +35,7 @@ const SendEmail: React.FC = () => {
         setStatusData('Sent!');
         setFormData({ address: '', body: '' });
       } else {
-        setStatusData('Failed to send!');
+        setStatusData('Failed to send! Is your Nodemailer config correct?');
       }
     });
   };

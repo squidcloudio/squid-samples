@@ -54,7 +54,8 @@ npm run dev
 12. Click the URL in the terminal logs to open the app (likely http://localhost:5173/).
 13. Interact with the UI. There are two sections:
     - Send an Email
-      - Could be a support form where the user can submit an issue alongside an email address to reply to.
+      - Enter your own email address on the form to verify that it sent as expected.
+      - Possible use case: A support form where the user can submit an issue alongside an email address to reply to.
       - Invisible to the user/client, the backend executable is in charge of sending the message as an email to the support team.
     - API Keys
       - For a user to check that their API key is still valid, the check can be done on the backend via an executable.
