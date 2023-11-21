@@ -24,18 +24,20 @@ export class ExampleService extends SquidService {
 
   @executable()
   async sendEmail(from: string, subject: string, body: string): Promise<boolean> {
+    const username = (await this.squid.secrets.get('email_username'))?.value;
+    const password = (await this.squid.secrets.get('email_password'))?.value;
     try {
       const transporter = nodemailer.createTransport({
         service: 'YOUR_EMAIL_SERVICE',
         auth: {
-          user: 'YOUR_EMAIL@DOMAIN',
-          pass: 'YOUR_PASSWORD'
+          user: username,
+          pass: password
         }
       });
 
       await transporter.sendMail({
         from: 'YOUR_EMAIL@DOMAIN',
-        to: 'YOUR_EMAIL@DOMAIN',
+        to: 'RECEIVER_EMAIL@DOMAIN',
         replyTo: from,
         subject: subject,
         text: body,

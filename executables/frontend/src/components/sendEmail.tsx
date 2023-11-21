@@ -22,8 +22,6 @@ const SendEmail: React.FC = () => {
 
   const send = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('formData', formData);
-    console.log('status', statusData);
     const bodyContent = formData.body
     const returnAddress = formData.address
     if (!bodyContent.trim() || !returnAddress.trim()) {
@@ -57,7 +55,7 @@ const SendEmail: React.FC = () => {
 
       <form id="emailForm" onSubmit={send}>
         <input
-          type="text"
+          type="email"
           name="address"
           value={formData.address}
           onChange={handleInputChange}

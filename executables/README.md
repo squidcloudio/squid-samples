@@ -10,19 +10,22 @@
 * A [Squid Cloud](https://console.squid.cloud) account
 * Node.js and npm
 * [The Squid CLI](https://docs.squid.cloud/docs/development-tools/local-dev-cli)
+* An email account to use to send emails with Nodemailer.
 
 ### Running the project
 1. In the [Squid Cloud Console](https://console.squid.cloud) create a new app called `executables-sample`.
 2. Connect the Squid backend to the new app you created by scrolling in the console to the **Backend** section and selecting **Create .env file**. Copy the command.
-3. Open a terminal window and change to the `backend` directory.
+3. Enter your email login credentials to the **Secrets** section of the Console. The "Send an Email" example will use these credentials for sending the email.
+   * The code is expecting the secrets to be called `email_username` and `email_password`. Adjust as needed.
+4. Open a terminal window and change to the `backend` directory.
 ```bash
 cd executables/backend
 ```
-4. Install the required packages:
+5. Install the required packages:
 ```bash
 npm install
 ```
-5. Create the `.env` file by running the command you copied. It will have this format:
+6. Create the `.env` file by running the command you copied. It will have this format:
 ```bash
 squid init-env \
  --appId [YOUR_APP_ID] \
@@ -31,25 +34,25 @@ squid init-env \
  --squidDeveloperId [YOUR_SQUID_DEVELOPER_ID]  \
  --region [YOUR_REGION]
 ```
-6. Start the backend in this terminal window by running the following command:
+7. Start the backend in this terminal window by running the following command:
 ```bash
 squid start
 ```
-7. Open a second terminal window. In this window, navigate to the frontend:
+8. Open a second terminal window. In this window, navigate to the frontend:
 ```bash
 cd executables/frontend
 ```
-8. Install the required dependencies:
+9. Install the required dependencies:
 ```bash
 npm install
 ```
-9. Open the `frontend/src/main.tsx` file and update the configuration with your app's information. You can find the values in the Squid Cloud Console or in the `.env` file you downloaded.
-10. Start the frontend by running:
+10. Open the `frontend/src/main.tsx` file and update the configuration with your app's information. You can find the values in the Squid Cloud Console or in the `.env` file you downloaded.
+11. Start the frontend by running:
 ```bash
 npm run dev
 ```
-11. Click the URL in the terminal logs to open the app (likely http://localhost:5173/).
-12. Interact with the UI. There are two sections:
+12. Click the URL in the terminal logs to open the app (likely http://localhost:5173/).
+13. Interact with the UI. There are two sections:
     - Send an Email
       - Could be a support form where the user can submit an issue alongside an email address to reply to.
       - Invisible to the user/client, the backend executable is in charge of sending the message as an email to the support team.
