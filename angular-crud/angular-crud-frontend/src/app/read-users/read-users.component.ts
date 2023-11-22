@@ -17,6 +17,7 @@ type User = { id: string; email: string; age: number };
       <td>
         {{ user.age }}
       </td>
+      <!-- options contains update and delete -->
       <options [id]="user.id" />
     </tr>
   `,

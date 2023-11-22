@@ -9,10 +9,11 @@ div[id='header'] {
 
 button[id='exit'] {
   border: none;
-  background-color: #FF333A;
-  color: #FBFCFD;
+  background-color: transparent;
+  color: gray;
   padding: 4px 8px;
   border-radius: 4px;
+  font-size: 16px;
 }
 
 button[id='exit']:hover {
@@ -20,6 +21,6 @@ button[id='exit']:hover {
 }
 
 h3 {
-  padding: 2px 0;
-  margin: 2px 0;
+  padding: 4px 0;
+  margin: 4px 0;
 }

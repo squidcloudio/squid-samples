@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { OptionsDialogComponent } from '../options-dialog/options-dialog.component';
 
+// options: opens a dialog for updating and deleting a user
 @Component({
   selector: 'options',
   template: `<button (click)="openDialog()">...</button>`,
