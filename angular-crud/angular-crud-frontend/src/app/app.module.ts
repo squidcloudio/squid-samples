@@ -24,14 +24,14 @@ import { OptionsDialogComponent } from './options-dialog/options-dialog.componen
     DeleteUserComponent,
     TableComponent,
     OptionsComponent,
-    OptionsDialogComponent
+    OptionsDialogComponent,
   ],
   imports: [
     SquidModule.forRoot({
-      appId: '6ud47ji964n2pdhxfn',
-      region: 'us-east-1.aws', // example: 'us-east-1.aws'
-      environmentId: 'dev', // choose one of 'dev' or 'prod'
-      squidDeveloperId: 'etai'
+      appId: 'YOUR_APP_ID',
+      region: 'YOUR_REGION', // example: 'us-east-1.aws'
+      environmentId: 'dev | prod', // choose one of 'dev' or 'prod'
+      squidDeveloperId: 'YOUR_DEVELOPER_ID',
     }),
     FormsModule,
     BrowserModule,
@@ -40,6 +40,6 @@ import { OptionsDialogComponent } from './options-dialog/options-dialog.componen
     MatDialogModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

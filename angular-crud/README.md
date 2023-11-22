@@ -12,6 +12,9 @@
 * [The Squid CLI](https://docs.squid.cloud/docs/development-tools/local-dev-cli)
 * [The Angular CLI](https://angular.io/cli)
 
+### Notes
+* This sample app contains similar code to our [Getting Started tutorial](https://docs.squid.cloud/docs/getting-started/dive-in/). To get a deep dive into the Squid code in this project, walkthrough the tutorial. The components that contain Squid code are `insert-user`, `read-users`, `update-user`, and `delete-user`. Note that this sample app contains additional organization and styling compared to the tutorial.
+
 ### Running the project
 1. In the [Squid Cloud Console](https://console.squid.cloud) create a new app called `angular-crud`.
 2. Connect the Squid backend to the new app you created by scrolling in the console to the **Backend** section and selecting **Create .env file**. Copy the command.
@@ -44,13 +47,10 @@ cd angular-crud/angular-crud-frontend
 ```bash
 npm install
 ```
-9. Open the `angular-crud-frontend/src/main.tsx` file and update the configuration with your app's information. You can find the values in the Squid Cloud Console or in the `.env` file you downloaded.
+9. Open the `angular-crud-frontend/src/app/app.module.ts` file and update the configuration with your app's information. You can find the values in the Squid Cloud Console or in the `.env` file you downloaded.
 10. Start the frontend by running:
 ```bash
 npm run dev
 ```
 11. Click the URL in the terminal logs to open the app (likely http://localhost:4200/).
 12. Interact with the UI. To add a new user, click the **Create user** button. You can then update a user's age using the **Update age** form, or delete a user using the **Delete user** form.
-
-### Next Steps:
-To understand the code better, visit our [Getting Started tutorial](https://docs.squid.cloud/docs/getting-started/dive-in/) which walks through the creation of this Angular application. Note: this sample app contains additional organization and styling compared to the tutorial. 
