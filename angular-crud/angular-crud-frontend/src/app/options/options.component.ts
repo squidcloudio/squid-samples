@@ -14,9 +14,9 @@ export class OptionsComponent {
 
   openDialog(): void {
     let dialogRef = this.dialog.open(OptionsDialogComponent, {
-      height: '200px',
+      height: '250px',
       width: '300px',
-      panelClass: 'my-dialog',
+      position: {},
       data: { id: this.id },
     });
   }

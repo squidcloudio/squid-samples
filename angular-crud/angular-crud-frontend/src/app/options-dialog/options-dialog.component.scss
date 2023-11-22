@@ -1,1 +1,25 @@
+div[id='container'] {
+  padding: 12px;
+}
 
+div[id='header'] {
+  display: flex;
+  justify-content: space-between;
+}
+
+button[id='exit'] {
+  border: none;
+  background-color: #FF333A;
+  color: #FBFCFD;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+button[id='exit']:hover {
+  cursor: pointer;
+}
+
+h3 {
+  padding: 2px 0;
+  margin: 2px 0;
+}

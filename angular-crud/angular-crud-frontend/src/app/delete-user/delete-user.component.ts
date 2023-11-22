@@ -5,11 +5,8 @@ type User = { id: string; email: string; age: number };
 
 @Component({
   selector: 'delete-user',
-  template: `
-    <form name="form" (ngSubmit)="deleteUser()">
-      <button>Delete</button>
-    </form>
-  `,
+  template: `<div><button (click)="deleteUser()">Delete user</button></div>`,
+  styleUrls: ['./delete-user.component.scss'],
 })
 export class DeleteUserComponent {
   constructor(private readonly squid: Squid) {}

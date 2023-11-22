@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
     <table>
       <div id="theader">
         <thead>
-          Crew to Enlist
+          Crew Members
         </thead>
         <insert-user />
       </div>

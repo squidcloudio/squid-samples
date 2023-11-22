@@ -1,0 +1,22 @@
+div {
+  display: flex;
+  justify-content: center;
+}
+
+button {
+  border-radius: 8px;
+  border: none;
+  padding: 8px;
+  font-size: 1em;
+  font-weight: 400;
+  font-family: inherit;
+  transition: border-color 0.25s;
+  width: 100%;
+  margin: 8px;
+  background-color: #EB0F2910;
+  color: #FF333A;
+  flex-grow: 1;
+}
+button:hover {
+  cursor: pointer;
+}

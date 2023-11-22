@@ -7,13 +7,11 @@ type User = { id: string; email: string; age: number };
   selector: 'update-user',
   template: `
     <form name="form" (ngSubmit)="updateUser()">
-      <div>
-        <label for="input-age">Age: </label>
-        <input id="input-age" name="input-age" type="number" placeholder="Update age" [(ngModel)]="inputAge" />
-      </div>
+      <input id="input-age" name="input-age" type="number" placeholder="Age" [(ngModel)]="inputAge" />
       <button>Update Age</button>
     </form>
   `,
+  styleUrls: ['./update-user.component.scss'],
 })
 export class UpdateUserComponent {
   @Input() id = '';
