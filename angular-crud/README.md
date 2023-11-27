@@ -43,14 +43,15 @@ squid start
 ```bash
 cd angular-crud/angular-crud-frontend
 ```
-8. Install the required dependencies:
+8. Install the required dependencies, including the Angular CLI:
 ```bash
+npm install -g @angular/cli
 npm install
 ```
 9. Open the `angular-crud-frontend/src/app/app.module.ts` file and update the configuration with your app's information. You can find the values in the Squid Cloud Console or in the `.env` file you downloaded.
 10. Start the frontend by running:
 ```bash
-npm run dev
+ng serve
 ```
 11. Click the URL in the terminal logs to open the app (likely http://localhost:4200/).
 12. Interact with the UI. To add a new user, click the **Create user** button. You can then update a user's age using the **Update age** form, or delete a user using the **Delete user** form.
