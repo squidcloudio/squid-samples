@@ -1,0 +1,12 @@
+button {
+  border: none;
+  background-color: transparent;
+  font-size: 40px;
+  font-family: "Apple Braille", serif;
+  text-align: center;
+}
+
+button:hover {
+  cursor: pointer;
+  color: gray;
+}
