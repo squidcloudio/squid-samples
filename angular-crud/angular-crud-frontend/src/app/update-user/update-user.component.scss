@@ -1,0 +1,40 @@
+input {
+  border-radius: 8px;
+  border: 1px solid #E1E6EF;
+  padding: 8px;
+  font-size: 1em;
+  font-weight: 400;
+  font-family: inherit;
+  transition: border-color 0.25s;
+  margin: 8px;
+  width: 100%;
+  background-color: #F1F3F9;
+}
+
+input:focus {
+  outline: transparent;
+}
+
+button {
+  border-radius: 8px;
+  border: none;
+  padding: 8px;
+  font-size: 1em;
+  font-weight: 400;
+  font-family: inherit;
+  transition: border-color 0.25s;
+  margin: 8px;
+  width: 100%;
+  background-color: #188FFF;
+  color: white;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
