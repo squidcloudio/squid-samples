@@ -27,31 +27,30 @@ const AiDatabot = () => {
     setQuestion((e.target as HTMLInputElement).value);
   }
 
-  function checkKey(ele: React.KeyboardEvent<HTMLDivElement>) {
-    if (ele.key === 'Enter') {
-      askQuestion();
-    }
-  }
-
   return (
     <>
       <div className="scrolling">
         <Messages messages={history} />
       </div>
-      <div className="question">
-        <TextField
-          fullWidth
-          id="outlined-basic"
-          label="Enter your question"
-          variant="outlined"
-          onChange={questionChanged}
-          onKeyDown={(event) => checkKey(event)}
-          value={question}
-        />
-        <Button variant="contained" disabled={!complete} onClick={askQuestion}>
-          Ask question
-        </Button>
-      </div>
+      <form onSubmit={() => askQuestion()}>
+        <div className="question">
+          <TextField
+            fullWidth
+            id="outlined-basic"
+            label="Enter your question"
+            variant="outlined"
+            onChange={questionChanged}
+            value={question}
+          />
+          <Button
+            variant="contained"
+            disabled={!complete}
+            onClick={askQuestion}
+          >
+            Ask question
+          </Button>
+        </div>
+      </form>
     </>
   );
 };
