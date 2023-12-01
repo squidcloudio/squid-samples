@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useImperativeHandle, forwardRef } from 'react';
+import { useState, useImperativeHandle, forwardRef, ChangeEvent } from 'react';
 import { Modal, Box, Typography, TextField, Button, Fab } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import { OnNoteAction, Note } from '@/utils/types';
@@ -20,50 +20,89 @@ const emptyNote = (): Note => ({
   timestamp: new Date(),
 });
 
+const modalStyle = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  boxShadow: 24,
+  padding: 4,
+};
+
+const buttonStyle = {
+  marginTop: '20px',
+  float: 'right',
+  color: 'black',
+  '&:hover': {
+    color: 'white',
+  },
+};
+
+type NoteTextFieldProps = {
+  name: string;
+  value: string;
+  autoFocus: boolean;
+  multiline: boolean;
+  rows: number;
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+};
+
+const NoteTextField = ({
+  name,
+  value,
+  autoFocus,
+  multiline,
+  rows,
+  onChange,
+}: NoteTextFieldProps) => (
+  <TextField
+    autoFocus={autoFocus}
+    margin="dense"
+    id={name}
+    name={name}
+    label={name.charAt(0).toUpperCase() + name.slice(1)}
+    type="text"
+    fullWidth
+    multiline={multiline}
+    rows={rows}
+    variant="outlined"
+    value={value}
+    onChange={onChange}
+  />
+);
+
 export const NoteModal = forwardRef<NoteModalRef, NoteModalProps>(
-  ({ onNoteSave }: NoteModalProps, reference) => {
+  ({ onNoteSave }, ref) => {
     const [openModal, setOpenModal] = useState(false);
     const [isEditingNote, setIsEditingNote] = useState(false);
     const [currentNote, setCurrentNote] = useState<Note>(emptyNote());
 
-    useImperativeHandle<NoteModalRef, NoteModalRef>(reference, () => ({
-      handleNoteEdit: (note: Note) => {
+    useImperativeHandle(ref, () => ({
+      handleNoteEdit: note => {
         setIsEditingNote(true);
         setCurrentNote(note);
         setOpenModal(true);
       },
     }));
 
-    const handleOpenForNewNote = () => {
-      setIsEditingNote(false);
-      setCurrentNote(emptyNote());
-      setOpenModal(true);
+    const handleModalToggle = (open: boolean, newNote: boolean = false) => {
+      setOpenModal(open);
+      if (newNote) {
+        setIsEditingNote(false);
+        setCurrentNote(emptyNote());
+      }
     };
 
-    const handleCloseModal = () => setOpenModal(false);
-
-    const handleChangeNote = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChangeNote = (event: ChangeEvent<HTMLInputElement>) => {
       const { name, value } = event.target;
-      setCurrentNote((previousNote: Note) => ({
-        ...previousNote,
-        [name]: value,
-      }));
+      setCurrentNote(prevNote => ({ ...prevNote, [name]: value }));
     };
 
     const handleSaveNote = async () => {
       await onNoteSave(currentNote);
-      handleCloseModal();
-    };
-
-    const modalStyle = {
-      position: 'absolute',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)',
-      width: 400,
-      bgcolor: 'background.paper',
-      boxShadow: 24,
-      padding: 4,
+      handleModalToggle(false);
     };
 
     return (
@@ -72,14 +111,14 @@ export const NoteModal = forwardRef<NoteModalRef, NoteModalProps>(
           color="primary"
           aria-label="add"
           style={{ position: 'fixed', right: 20, bottom: 20 }}
-          onClick={handleOpenForNewNote}
+          onClick={() => handleModalToggle(true, true)}
         >
           <AddIcon />
         </Fab>
 
         <Modal
           open={openModal}
-          onClose={handleCloseModal}
+          onClose={() => handleModalToggle(false)}
           aria-labelledby="modal-title"
           aria-describedby="modal-description"
         >
@@ -87,28 +126,19 @@ export const NoteModal = forwardRef<NoteModalRef, NoteModalProps>(
             <Typography id="modal-title" variant="h6" component="h2">
               {isEditingNote ? 'Edit' : 'New'} Note
             </Typography>
-            <TextField
-              autoFocus
-              margin="dense"
-              id="title"
+            <NoteTextField
               name="title"
-              label="Title"
-              type="text"
-              fullWidth
-              variant="outlined"
+              autoFocus={true}
+              multiline={false}
+              rows={1}
               value={currentNote.title}
               onChange={handleChangeNote}
             />
-            <TextField
-              margin="dense"
-              id="content"
+            <NoteTextField
               name="content"
-              label="Content"
-              type="text"
-              fullWidth
-              multiline
+              autoFocus={false}
+              multiline={true}
               rows={4}
-              variant="outlined"
               value={currentNote.content}
               onChange={handleChangeNote}
             />
@@ -116,16 +146,9 @@ export const NoteModal = forwardRef<NoteModalRef, NoteModalProps>(
               onClick={handleSaveNote}
               variant="contained"
               color="primary"
-              sx={{
-                marginTop: '20px',
-                float: 'right',
-                color: 'black',
-                '&:hover': {
-                  color: 'white',
-                },
-              }}
+              sx={buttonStyle}
             >
-              {isEditingNote ? 'Save Note' : 'Add Note'}
+              {isEditingNote ? 'Save' : 'Add'} Note
             </Button>
           </Box>
         </Modal>
