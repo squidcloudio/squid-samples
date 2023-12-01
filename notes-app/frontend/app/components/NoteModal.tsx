@@ -1,5 +1,3 @@
-'use client';
-
 import { useState, useImperativeHandle, forwardRef, ChangeEvent } from 'react';
 import { Modal, Box, Typography, TextField, Button, Fab } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
