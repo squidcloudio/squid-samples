@@ -1,4 +1,4 @@
-import { FavoritePets } from '../common/favorite-pets';
+import { FavoritePets } from '../common/favoritePets';
 
 interface FavoritePetsProps {
   favoritePets: FavoritePets[];

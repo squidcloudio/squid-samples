@@ -1,11 +1,11 @@
 import { useCollection, useQuery, useSquid } from '@squidcloud/react';
 import './App.css';
 import { useState } from 'react';
-import NavBar from './components/nav-bar';
+import NavBar from './components/navBar';
 import { Button } from '@mui/material';
-import DisplayPets from './components/display-pets';
-import { FavoritePets } from './common/favorite-pets';
-import AiDatabot from './components/ai-databot';
+import DisplayPets from './components/displayPets';
+import { FavoritePets } from './common/favoritePets';
+import AiDatabot from './components/aiDatabot';
 
 function App() {
   const favoritePetsCollection = useCollection<FavoritePets>('animals');
