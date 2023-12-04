@@ -10,18 +10,18 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     clientId="AUTH0_CLIENT_ID"
     authorizationParams={{
       redirect_uri: window.location.origin,
+      audience: 'squid-ai'
     }}
-    cacheLocation="localstorage"
   >
-    <SquidContextProvider
-      options={{
-        appId: 'YOUR_APP_ID',
-        region: 'YOUR_REGION',
-        environmentId: 'dev',
-        squidDeveloperId: 'YOUR_DEVELOPER_ID',
-      }}
-    >
-      <App />
-    </SquidContextProvider>
+  <SquidContextProvider
+    options={{
+      appId: '[YOUR_APP_ID]',
+      region: '[YOUR_REGION]',
+      environmentId: 'dev',
+      squidDeveloperId: '[YOUR_SQUID_DEVELOPER_ID]',
+    }}
+  >
+    <App />
+  </SquidContextProvider>
   </Auth0Provider>,
 );
