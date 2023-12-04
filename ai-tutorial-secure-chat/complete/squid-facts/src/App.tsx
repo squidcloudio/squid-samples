@@ -12,32 +12,29 @@ function App() {
   const [loginMessage, setLoginMessage] = useState('');
 
   // Get Auth0 authentication state
-  const { isAuthenticated, isLoading, getIdTokenClaims } = useAuth0();
-  const { setAuthIdToken } = useSquid();
+  const { user, isLoading, getAccessTokenSilently } = useAuth0();
+  const { setAuthProvider } = useSquid();
 
   useEffect(() => {
-    const updateAuth = async () => {
-      if (isLoading) return;
+    console.log(user)
 
-      if (!isAuthenticated) {
-        // Inform Squid backend of logout
-        setAuthIdToken(undefined, 'auth0');
+  setAuthProvider({
+    integrationId: 'auth0',
+    getToken: async () => {
+      if (!user) return undefined;
+      return getAccessTokenSilently();
+  }});
+  if (isLoading) return;
+  if (!user) {
+    setLoginMessage('You are logged out!');
+    setToastOpen(true);
+  } else {
+    setLoginMessage('You are logged in!');
+    setToastOpen(true);
+  }
+}, [user, isLoading, getAccessTokenSilently, setAuthProvider]);
+     
 
-        setLoginMessage('You are logged out!');
-        setToastOpen(true);
-      } else {
-        // Send Squid Auth ID Token to Squid backend
-        setAuthIdToken(
-          getIdTokenClaims().then((claims) => claims?.__raw),
-          'auth0',
-        );
-
-        setLoginMessage('You are logged in!');
-        setToastOpen(true);
-      }
-    };
-    updateAuth().then();
-  }, [isAuthenticated, isLoading, getIdTokenClaims, setAuthIdToken]);
 
   if (isLoading) {
     return <span>Loading...</span>;
@@ -49,7 +46,7 @@ function App() {
 
   return (
     <>
-      <NavBar isAuthenticated={isAuthenticated} />
+      <NavBar isAuthenticated={!!user} />
       <img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/Sepioteuthis_sepioidea_%28Caribbean_Reef_Squid%29.jpg" />
       <SquidFactsAI />
       <Snackbar open={toastOpen} onClose={handleToClose} autoHideDuration={6000}>
