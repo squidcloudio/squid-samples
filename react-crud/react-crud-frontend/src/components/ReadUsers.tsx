@@ -1,4 +1,5 @@
 import { useCollection, useQuery } from '@squidcloud/react';
+import Options from './Options.tsx';
 
 type User = { id: string; email: string; age: number };
 
@@ -8,12 +9,21 @@ export default function ReadUsers() {
   const users = useQuery(collection.query(), true /* subscribe */);
 
   return (
-    <ul style={{ listStyle: 'none', paddingLeft: '0px' }}>
+    <>
+      <tr>
+        <th>Email</th>
+        <th>Age</th>
+      </tr>
+
       {users.data.map((user) => (
-        <li key={user.data.id}>
-          {user.data.email} - {user.data.age}
-        </li>
+        <tr key={user.data.id}>
+          <td>{user.data.email}</td>
+          <td>{user.data.age}</td>
+          <td>
+            <Options user={user.data} />
+          </td>
+        </tr>
       ))}
-    </ul>
+    </>
   );
 }
