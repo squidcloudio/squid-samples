@@ -7,8 +7,14 @@ function App() {
     <div>
       <h1>Examples of Executables</h1>
 
-      <SendEmail />
-      <Secrets />
+      <div className="side-by-side">
+        <div className="flex-child">
+          <SendEmail />
+        </div>
+        <div className="flex-child">
+          <Secrets />
+        </div>
+      </div>
     </div>
   );
 }
