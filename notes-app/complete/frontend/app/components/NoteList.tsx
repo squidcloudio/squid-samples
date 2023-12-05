@@ -3,13 +3,16 @@
 import { List } from '@mui/material';
 import { NoteItem } from '@/components/NoteItem';
 import { Note } from '@/utils/types';
-import { WithQueryProps, useCollection } from '@squidcloud/react';
 import { useRef } from 'react';
 import { NoteModal, NoteModalRef } from '@/components//NoteModal';
+// Add the Squid Cloud React SDK hooks
+import { WithQueryProps, useCollection } from '@squidcloud/react';
 
 export const NoteList = ({ data }: WithQueryProps<Note>) => {
+  // Squid notes colleciton
   const collection = useCollection<Note>('notes');
 
+  // Save the note to the database
   const handleSave = async ({ id, title, content }: Note) => {
     const timestamp = new Date();
     if (id !== '') {
@@ -29,6 +32,7 @@ export const NoteList = ({ data }: WithQueryProps<Note>) => {
     }
   };
 
+  // Delete note from database
   const handleDelete = ({ id }: Note) => collection.doc(id).delete();
 
   const noteModalRef = useRef<NoteModalRef>(null);
@@ -36,6 +40,7 @@ export const NoteList = ({ data }: WithQueryProps<Note>) => {
   const handleEditNote = (note: Note) =>
     noteModalRef.current?.handleNoteEdit(note);
 
+  // Add NoteItem components
   return (
     <>
       <NoteModal ref={noteModalRef} onNoteSave={handleSave} />
