@@ -6,7 +6,7 @@ command = "npm run build"
 publish = ".next"
 
 [build.environment]
-SQUID_APP_ID = "48255y5ppugg5s5npi"
+SQUID_APP_ID = "YOUR_APP_ID"
 SQUID_REGION = "us-east-1.aws"
 SQUID_DEVELOPER_ID = ""
 
