@@ -3,7 +3,7 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color: rgba(255, 255, 255, 0.87);
+  color: #213547;
 }
 
 #root {
@@ -21,12 +21,6 @@ body {
   min-height: 100vh;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-  }
-}
-
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
@@ -41,7 +35,7 @@ button[id='create'] {
   font-family: inherit;
   cursor: pointer;
   transition: border-color 0.25s;
-  background-color: #188fff;
+  background-color: #3ba0ff;
   color: white;
 }
 button[id='create']:hover {
@@ -88,7 +82,7 @@ input {
 }
 
 table {
-  background-color: #fbfcfd;
+  background-color: #f1f3f9;
   padding: 16px;
   border-radius: 16px;
   width: 100%;
@@ -96,11 +90,20 @@ table {
 
 thead {
   height: 4em;
-  /* text-align: left; */
+  vertical-align: top;
 }
 
-tr {
+.tableTitles {
+  color: #3ba0ff;
+  height: 2em;
+}
+
+.colLeft {
   text-align: left;
+}
+
+.colRight {
+  text-align: right;
 }
 
 button[id='options'] {

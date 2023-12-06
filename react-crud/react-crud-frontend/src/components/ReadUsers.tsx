@@ -10,16 +10,18 @@ export default function ReadUsers() {
 
   return (
     <>
-      <tr>
-        <th>Email</th>
-        <th>Age</th>
+      <tr className="tableTitles">
+        <th className="colLeft">Email</th>
+        <th className="colRight">Age</th>
       </tr>
-
+      <tr style={{ backgroundColor: '#e1e6ef' }}>
+        <td colSpan={3}></td>
+      </tr>
       {users.data.map((user) => (
         <tr key={user.data.id}>
-          <td>{user.data.email}</td>
-          <td>{user.data.age}</td>
-          <td>
+          <td className="colLeft">{user.data.email}</td>
+          <td className="colRight">{user.data.age}</td>
+          <td className="colRight">
             <Options user={user.data} />
           </td>
         </tr>
