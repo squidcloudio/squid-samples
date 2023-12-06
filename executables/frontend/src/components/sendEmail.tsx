@@ -1,34 +1,28 @@
 import { useSquid } from '@squidcloud/react';
-import { Button } from '@mui/material';
 import React, { useState } from 'react';
-
-interface StatusProps {
-  text: string;
-}
-
-const StatusComponent: React.FC<StatusProps> = ({ text }) => {
-  return (
-    <div>
-      <p>{text}</p>
-    </div>
-  );
-};
+import { StatusComponent, StatusStates } from './sendEmailHelper.tsx';
 
 const SendEmail: React.FC = () => {
   const { executeFunction } = useSquid();
 
   const [formData, setFormData] = useState({ address: '', body: '' });
-  const [emailStatus, setEmailStatus] = useState<string>('');
+  const [emailStatus, setEmailStatus] = useState<{
+    status: StatusStates;
+    message?: string;
+  }>({ status: StatusStates.Idle });
 
   const sendEmail = (e: React.FormEvent) => {
     e.preventDefault();
     const bodyContent = formData.body;
     const returnAddress = formData.address;
     if (!bodyContent.trim() || !returnAddress.trim()) {
-      setEmailStatus('Both text boxes are required.');
+      setEmailStatus({
+        status: StatusStates.Error,
+        message: 'Both text boxes are required.',
+      });
       return;
     } else {
-      setEmailStatus('Sending...');
+      setEmailStatus({ status: StatusStates.Sending });
     }
     executeFunction(
       'sendEmail',
@@ -37,10 +31,13 @@ const SendEmail: React.FC = () => {
       bodyContent,
     ).then((confirmed) => {
       if (confirmed) {
-        setEmailStatus('Sent!');
+        setEmailStatus({ status: StatusStates.Sent });
         setFormData({ address: '', body: '' });
       } else {
-        setEmailStatus('Failed to send! Is your Nodemailer config correct?');
+        setEmailStatus({
+          status: StatusStates.Error,
+          message: 'Failed to send! Is your Nodemailer config correct?',
+        });
       }
     });
   };
@@ -64,17 +61,19 @@ const SendEmail: React.FC = () => {
           name="address"
           value={formData.address}
           onChange={handleInputChange}
-          placeholder="Your email address"
+          placeholder="Email Address"
         />
-        <br />
         <input
           name="body"
           value={formData.body}
           onChange={handleInputChange}
-          placeholder="Your message here"
+          placeholder="Message"
         />
-        <StatusComponent text={emailStatus} />
-        <Button type="submit">Send</Button>
+        <StatusComponent
+          status={emailStatus.status}
+          message={emailStatus.message}
+        />
+        <button type="submit">Send</button>
       </form>
     </div>
   );

@@ -10,7 +10,7 @@
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
-  text-align: center;
+  text-align: left;
 }
 
 body {
@@ -30,6 +30,20 @@ body {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+  text-align: center;
+}
+
+h2 {
+  margin-top: 0;
+}
+
+h3 {
+  color: #666666;
+  font-size: 16px;
+}
+
+p {
+  color: #9e9e9e;
 }
 
 button {
@@ -75,12 +89,80 @@ input[type='submit']:focus-visible {
 }
 
 input {
-  border-1radius: 8px;
-  border: 1px solid black;
+  background-color: #f8f9fc;
+  border-radius: 8px;
+  border: 1px solid #e1e6ef;
   padding: 0.6em 0.8em;
   font-size: 1em;
   font-weight: 400;
   font-family: inherit;
   transition: border-color 0.25s;
-  margin-left: 8px;
+  width: 100%;
+  box-sizing: border-box; /* Ensures padding doesn't affect overall width */
+  margin-bottom: 12px;
+}
+
+input::placeholder {
+  color: #9e9e9e;
+}
+
+.side-by-side {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.flex-child {
+  flex: 1; /* This ensures equal width */
+  min-width: 300px;
+  border: 1px solid #e1e6ef; /* Light grey border for the outline */
+  border-radius: 12px;
+  padding: 48px;
+}
+
+.justify-left {
+  justify-content: left;
+}
+
+.key-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  padding-left: 20px;
+  background-color: #fff;
+  border: 1px solid #f1f1f1; /* Light grey border for the outline */
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 100%;
+}
+
+.key-text {
+  margin-right: 20px;
+}
+
+.key-action {
+  margin-left: 10px; /* Add some spacing between buttons */
+}
+
+.text {
+  font-size: 16px;
+  font-weight: bold;
+  font-family: Inter, sans-serif;
+}
+
+.status-box {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 12px;
+}
+
+.sad-color {
+  color: #eb0f29;
+}
+
+.happy-color {
+  color: #018638;
 }
