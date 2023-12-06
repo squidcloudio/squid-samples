@@ -1,0 +1,160 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color: #213547;
+}
+
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button[id='create'] {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 0.8em;
+  font-weight: 400;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 0.25s;
+  background-color: #3ba0ff;
+  color: white;
+}
+button[id='create']:hover {
+  background-color: rgb(15, 105, 255, 0.3);
+}
+button[id='create']:focus,
+button[id='create']:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+input[type='submit'] {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 400;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 0.25s;
+  margin-left: 8px;
+  background-color: #188fff;
+  color: white;
+  width: 33%;
+}
+
+input[type='submit']:hover {
+  background-color: rgb(15, 105, 255, 0.3);
+}
+input[type='submit']:focus,
+input[type='submit']:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+input {
+  margin: 10px 0;
+  border-radius: 8px;
+  border: 1px solid black;
+  padding: 0.6em 0.8em;
+  font-size: 1em;
+  font-weight: 400;
+  font-family: inherit;
+  transition: border-color 0.25s;
+  width: 59%;
+}
+
+table {
+  background-color: #f1f3f9;
+  padding: 16px;
+  border-radius: 16px;
+  width: 100%;
+}
+
+thead {
+  height: 4em;
+  vertical-align: top;
+}
+
+.tableTitles {
+  color: #3ba0ff;
+  height: 2em;
+}
+
+.colLeft {
+  text-align: left;
+}
+
+.colRight {
+  text-align: right;
+}
+
+button[id='options'] {
+  border: none;
+  background-color: transparent;
+  font-size: 30px;
+  padding-bottom: 12px;
+}
+
+button[id='options']:hover {
+  cursor: pointer;
+}
+
+div[id='dialogContainer'] {
+  padding: 16px;
+}
+
+div[id='dialogHeader'] {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+button[id='delete'] {
+  width: 100%;
+  border-radius: 8px;
+  border: none;
+  padding: 8px;
+  font-size: 1em;
+  font-weight: 400;
+  font-family: inherit;
+  transition: border-color 0.25s;
+  margin: 10px 0;
+  background-color: #eb0f2910;
+  color: #ff333a;
+}
+
+button[id='delete']:hover {
+  cursor: pointer;
+  background-color: #eb0f2920;
+}
+
+button[id='close'] {
+  border: none;
+  background-color: transparent;
+  color: rgb(128, 128, 128);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+button[id='close']:hover {
+  cursor: pointer;
+}
