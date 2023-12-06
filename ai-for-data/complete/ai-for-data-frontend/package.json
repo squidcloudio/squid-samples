@@ -1,5 +1,5 @@
 {
-  "name": "squid-facts",
+  "name": "ai-for-data-frontend",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,11 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@auth0/auth0-react": "^2.2.1",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
-    "@mui/material": "^5.14.14",
-    "@squidcloud/react": "^1.0.41",
+    "@mui/material": "^5.14.17",
+    "@squidcloud/react": "^1.0.39",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
@@ -28,7 +27,6 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
     "typescript": "^5.0.2",
-    "vite": "^4.4.5",
-    "vite-plugin-checker": "^0.6.2"
+    "vite": "^4.4.5"
   }
 }
