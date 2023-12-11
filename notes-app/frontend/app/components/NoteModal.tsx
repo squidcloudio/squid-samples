@@ -143,7 +143,6 @@ export const NoteModal = forwardRef<NoteModalRef, NoteModalProps>(
             <Button
               onClick={handleSaveNote}
               variant="contained"
-              color="primary"
               sx={buttonStyle}
             >
               {isEditingNote ? 'Save' : 'Add'} Note
