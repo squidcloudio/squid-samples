@@ -9,7 +9,7 @@ import { NoteModal, NoteModalRef } from '@/components//NoteModal';
 import { WithQueryProps, useCollection } from '@squidcloud/react';
 
 export const NoteList = ({ data }: WithQueryProps<Note>) => {
-  // Squid notes colleciton
+  // Squid notes collection
   const collection = useCollection<Note>('notes');
 
   // Save the note to the database
@@ -37,8 +37,7 @@ export const NoteList = ({ data }: WithQueryProps<Note>) => {
 
   const noteModalRef = useRef<NoteModalRef>(null);
 
-  const handleEditNote = (note: Note) =>
-    noteModalRef.current?.handleNoteEdit(note);
+  const handleEdit = (note: Note) => noteModalRef.current?.handleEditNote(note);
 
   // Add NoteItem components
   return (
@@ -49,7 +48,7 @@ export const NoteList = ({ data }: WithQueryProps<Note>) => {
           <NoteItem
             key={note.id}
             note={note}
-            onEdit={handleEditNote}
+            onEdit={handleEdit}
             onDelete={handleDelete}
           />
         ))}

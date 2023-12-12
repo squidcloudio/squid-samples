@@ -20,10 +20,10 @@ npm install -g netlify-cli
 
 4. In the Squid Console, navigate to the application overview page and scroll to the **Backend project** section. Click **Create .env file** and copy the command.
 
-5. Change to the backend directory in the `complete` project.
+5. Change to the backend directory.
 
 ```bash
-cd notes-app/complete/backen
+cd notes-app/backend
 ```
 
 6. Create the `.env` file using the command you copied from the console. The command has the following format:
@@ -46,7 +46,7 @@ npm install
 8. Open a new terminal window and navigate to the notes app frontend. You should now have two open terminal windows: one for the app's backend and one for the frontend.
 
 ```bash
-cd notes-app/complete/frontend
+cd notes-app/frontend
 ```
 
 9. Install the required dependencies:

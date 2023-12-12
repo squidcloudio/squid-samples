@@ -8,7 +8,7 @@ export type NoteModalProps = {
 };
 
 export type NoteModalRef = {
-  handleNoteEdit: (note: Note) => void;
+  handleEditNote: (note: Note) => void;
 };
 
 const emptyNote = (): Note => ({
@@ -78,7 +78,7 @@ export const NoteModal = forwardRef<NoteModalRef, NoteModalProps>(
     const [currentNote, setCurrentNote] = useState<Note>(emptyNote());
 
     useImperativeHandle(ref, () => ({
-      handleNoteEdit: note => {
+      handleEditNote: note => {
         setIsEditingNote(true);
         setCurrentNote(note);
         setOpenModal(true);
