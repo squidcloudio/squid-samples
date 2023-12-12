@@ -6,10 +6,10 @@ import './index.css';
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <SquidContextProvider
     options={{
-      appId: '[YOUR_APP_ID]',
-      region: '[YOUR_REGION]',
+      appId: 'YOUR_APP_ID', // Add your app ID
+      region: 'YOUR_REGION', // Likely us-east-1.aws
       environmentId: 'dev',
-      squidDeveloperId: '[YOUR_SQUID_DEVELOPER_ID]',
+      developerId: 'YOUR_SQUID_DEVELOPER_ID', // Add your developer ID
     }}
   >
     <App />
