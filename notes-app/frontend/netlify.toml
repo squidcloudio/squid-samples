@@ -1,0 +1,17 @@
+[[plugins]]
+package = "@netlify/plugin-nextjs"
+
+[build]
+command = "npm run build"
+publish = ".next"
+
+[build.environment]
+SQUID_APP_ID = "YOUR_APP_ID"
+SQUID_REGION = "us-east-1.aws"
+
+[context.prod.environment]
+SQUID_ENVIRONMENT_ID = "prod"
+SQUID_DEVELOPER_ID = ""
+
+[context.dev.environment]
+SQUID_ENVIRONMENT_ID = "dev"
