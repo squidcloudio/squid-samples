@@ -3,6 +3,7 @@ import { SquidService, executable } from '@squidcloud/backend';
 export class AddDataService extends SquidService {
   @executable()
   async addMockData(): Promise<void> {
+    console.log('addmockdata');
     const votes = ['cat', 'dog', 'bird', 'fish', 'reptile'];
     // add 30 random documents to the animals collection
     await this.squid.runInTransaction(async (transactionId: string) => {
