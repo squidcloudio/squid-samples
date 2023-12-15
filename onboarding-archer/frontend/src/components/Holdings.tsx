@@ -3,6 +3,7 @@ import { DistributionTitle } from '@/components/DistributionTitle';
 import Icon from '@/components/lib/Icon';
 import { useArcherContext } from '@/utils/ArcherContextProvider';
 import { HTMLAttributes } from 'react';
+import { Icons } from '@/utils/icons';
 
 export default function Holdings({
   className,
@@ -25,7 +26,7 @@ export default function Holdings({
                 className={`w-[40px] h-[40px] rounded-[40px] border border-line1 ${
                   index !== 0 ? '-ml-[14px]' : ''
                 }`}
-                icon={item.id as any}
+                icon={item.id as keyof typeof Icons}
               ></Icon>
             </div>
           ))}

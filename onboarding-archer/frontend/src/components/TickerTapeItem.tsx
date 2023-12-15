@@ -1,4 +1,4 @@
-import Select, { components, SingleValue } from 'react-select';
+import Select, {components, CSSObjectWithLabel, SingleValue} from 'react-select';
 import Icon from '@/components/lib/Icon';
 import { useArcherContext } from '@/utils/ArcherContextProvider';
 import { useSquid } from '@squidcloud/react';
@@ -18,6 +18,7 @@ interface TickerTapeItemProps {
   index: number;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const CustomOption = ({ data, ...props }: any) => {
   return (
     <components.Option {...props}>
@@ -78,7 +79,7 @@ export default function TickerTapeItem({
           menu: (provided) => ({
             ...provided,
             width: '344px',
-          }),
+          } as CSSObjectWithLabel),
         }}
         defaultValue={defaultOption}
         components={{

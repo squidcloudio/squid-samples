@@ -88,6 +88,7 @@ export function SectorDiversity({
   );
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const PieTooltip: FC<any> = ({ active, payload }) => {
   if (active && payload && payload.length) {
     return (
