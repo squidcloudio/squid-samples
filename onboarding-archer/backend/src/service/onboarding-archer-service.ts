@@ -1,9 +1,9 @@
 import { executable, scheduler, secureDatabase, SquidService } from '@squidcloud/backend';
 import { CronExpression } from '@squidcloud/common';
-import { ALL_TICKERS, BuiltInTicker, PortfolioItem, SimulationDay, Ticker, UserProfile } from 'common/common-types';
 import { fluctuatePrice, getRandomNumber, isSameDate } from '../utils/ticker.utils';
 import dayjs from 'dayjs';
 import _ from 'lodash';
+import { ALL_TICKERS, BuiltInTicker, PortfolioItem, SimulationDay, Ticker, UserProfile } from 'common/common-types';
 
 // noinspection JSUnusedGlobalSymbols
 /**

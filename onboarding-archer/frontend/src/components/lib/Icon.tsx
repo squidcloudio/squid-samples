@@ -7,6 +7,7 @@ interface PropTypes extends HTMLAttributes<HTMLElement> {
 }
 export default function Icon({ icon, ...otherProps }: PropTypes) {
   const paths = icon.split('.');
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let Comp = (Icons as Record<string, any>)[paths[0]];
   for (let i = 1; i < paths.length; i++) {
     Comp = Comp[paths[i]];
