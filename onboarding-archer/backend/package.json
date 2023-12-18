@@ -15,9 +15,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@squidcloud/backend": "1.0.152",
-    "@squidcloud/client": "1.0.152",
-    "@squidcloud/common": "1.0.152",
+    "@squidcloud/backend": "^1.0.153",
+    "@squidcloud/client": "^1.0.153",
+    "@squidcloud/common": "^1.0.153",
     "dayjs": "^1.11.9",
     "reflect-metadata": "^0.1.13",
     "rxjs": ">=7.5.7 <8.0.0"
@@ -25,7 +25,7 @@
   "devDependencies": {
     "@jest/globals": "^29.4.1",
     "@jest/types": "^29.4.1",
-    "@squidcloud/local-backend": "1.0.152",
+    "@squidcloud/local-backend": "^1.0.153",
     "@types/lodash": "^4.14.189",
     "@types/node": "18.11.18",
     "@typescript-eslint/eslint-plugin": "^6.14.0",
