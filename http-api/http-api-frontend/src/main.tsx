@@ -1,11 +1,11 @@
-import React from 'react';
+import { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
 import { SquidContextProvider } from '@squidcloud/react';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
+  <StrictMode>
     <SquidContextProvider
       options={{
         appId: 'YOUR_APP_ID',
@@ -16,5 +16,5 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     >
       <App />
     </SquidContextProvider>
-  </React.StrictMode>,
+  </StrictMode>,
 );
