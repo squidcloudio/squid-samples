@@ -2,13 +2,13 @@ import { ChangeEvent, useState } from 'react';
 import Button from '@mui/material/Button';
 import { TextField } from '@mui/material';
 import Messages from './messages';
-import { useAiAssistant } from '@squidcloud/react';
+import { useAiChatbot } from '@squidcloud/react';
 
 function SquidFactsAI() {
   const [question, setQuestion] = useState('');
-  const { history, chat, complete } = useAiAssistant(
-    'squid-facts',
-    'wikipedia-facts',
+  const { history, chat, complete } = useAiChatbot(
+    'squid-facts-ai',
+    'squid-facts-chatbot',
   );
 
   function askQuestion() {

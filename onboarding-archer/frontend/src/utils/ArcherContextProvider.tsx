@@ -1,11 +1,11 @@
 import { createContext, ReactNode, useContext, useState } from 'react';
+import { useCollection, useQuery } from '@squidcloud/react';
 import {
   PortfolioItem,
   PortfolioTicker,
   Ticker,
   UserProfile,
-} from '@/common/common-types';
-import { useCollection, useQuery } from '@squidcloud/react';
+} from 'common/common-types';
 
 export interface DocModalData {
   title: string;
