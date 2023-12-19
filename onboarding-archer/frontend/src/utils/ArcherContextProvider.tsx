@@ -58,19 +58,16 @@ export function ArcherContextProvider({
   const userProfileCollection = useCollection<UserProfile>('userProfile');
   const { loading: userProfileLoading, data: userProfiles } = useQuery(
     userProfileCollection.query().eq('id', 'defaultUser').dereference(),
-    true,
   );
 
   const tickerCollection = useCollection<Ticker>('ticker');
   const { loading: tickersLoading, data: allTickers } = useQuery(
     tickerCollection.query().dereference(),
-    true,
   );
 
   const portfolioCollection = useCollection<PortfolioItem>('portfolio');
   const { loading: portfolioItemsLoading, data: portfolioItems } = useQuery(
     portfolioCollection.query().sortBy('indexInUi').dereference(),
-    true,
   );
 
   const allTickersMap = allTickers.reduce(

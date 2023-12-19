@@ -13,8 +13,7 @@ export default function Home() {
       .collection<Note>('notes')
       .query()
       .sortBy('timestamp', false)
-      .dereference(),
-    true
+      .dereference()
   );
   return <Notes />;
 }

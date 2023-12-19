@@ -12,9 +12,7 @@ import {
 
 @Injectable()
 export class LocalBackendService {
-  private async executeActionRequest(
-    actionRequest: ActionRequest,
-  ): Promise<any> {
+  private async executeActionRequest(actionRequest: ActionRequest): Promise<any> {
     const { action } = actionRequest;
     if (action !== 'executeFunction') {
       console.error('UNSUPPORTED ACTION!!! ', action);
@@ -40,15 +38,9 @@ export class LocalBackendService {
       return { ok: false, error: 'FUNCTION_NOT_FOUND' };
     }
     try {
-      const transformedParams = transformParams(
-        payload.params,
-        payload.executeFunctionAnnotationType,
-      );
+      const transformedParams = transformParams(payload.params, payload.executeFunctionAnnotationType);
       const functionResponse = await fn(...transformedParams);
-      const transformedResponse = transformResponse(
-        functionResponse,
-        payload.executeFunctionAnnotationType,
-      );
+      const transformedResponse = transformResponse(functionResponse, payload.executeFunctionAnnotationType);
       return { ok: true, functionResponse: transformedResponse };
     } catch (err) {
       console.error('Error while invoking function', err);

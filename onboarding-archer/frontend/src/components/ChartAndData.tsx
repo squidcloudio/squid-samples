@@ -93,7 +93,6 @@ export default function ChartAndData() {
 
   const { data: simulationData } = useQuery(
     simulationDayCollection.query().sortBy('date').dereference(),
-    true,
   );
 
   const data: Array<SimulationData> = [];

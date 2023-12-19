@@ -10,7 +10,7 @@ import AiDatabot from './components/aiDatabot';
 function App() {
   const favoritePetsCollection = useCollection<FavoritePets>('animals');
   const { executeFunction } = useSquid();
-  const { data } = useQuery(favoritePetsCollection.query().dereference(), true);
+  const { data } = useQuery(favoritePetsCollection.query().dereference());
 
   // prevent adding mock data multiple times
   const [dataIsAdded, setDataIsAdded] = useState(false);
