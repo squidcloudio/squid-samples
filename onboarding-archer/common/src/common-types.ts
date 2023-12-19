@@ -2,11 +2,7 @@ export type PartialBy<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
 
 export type BuiltInTicker = PartialBy<
   Ticker,
-  | 'closePrice'
-  | 'prevDayClosePrice'
-  | 'changeFromPrevClosePercent'
-  | 'changeFromPrevClosePrice'
-  | 'updateDate'
+  'closePrice' | 'prevDayClosePrice' | 'changeFromPrevClosePercent' | 'changeFromPrevClosePrice' | 'updateDate'
 >;
 
 export const ALL_TICKERS: Array<BuiltInTicker> = [

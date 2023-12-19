@@ -16,7 +16,7 @@
     "@mui/material": "^5.14.18",
     "@squidcloud/client": "^1.0.143",
     "@squidcloud/common": "^1.0.143",
-    "@squidcloud/react": "^1.0.40",
+    "@squidcloud/react": "^1.0.44",
     "date-fns": "^2.30.0",
     "next": "14.0.3",
     "react": "^18",

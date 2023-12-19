@@ -1,4 +1,8 @@
-import Select, {components, CSSObjectWithLabel, SingleValue} from 'react-select';
+import Select, {
+  components,
+  CSSObjectWithLabel,
+  SingleValue,
+} from 'react-select';
 import Icon from '@/components/lib/Icon';
 import { useArcherContext } from '@/utils/ArcherContextProvider';
 import { useSquid } from '@squidcloud/react';
@@ -76,10 +80,11 @@ export default function TickerTapeItem({
           dropdownIndicator: () => '!text-text1 w-[14px] !p-[0] mr-[16px]',
         }}
         styles={{
-          menu: (provided) => ({
-            ...provided,
-            width: '344px',
-          } as CSSObjectWithLabel),
+          menu: (provided) =>
+            ({
+              ...provided,
+              width: '344px',
+            }) as CSSObjectWithLabel,
         }}
         defaultValue={defaultOption}
         components={{
