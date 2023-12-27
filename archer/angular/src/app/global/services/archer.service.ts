@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CollectionReference, Squid, DocumentReference } from '@squidcloud/client';
-import { SnapshotEmitter } from '@squidcloud/common';
+import { CollectionReference, DocumentReference, SnapshotEmitter, Squid } from '@squidcloud/client';
 import {
   ArcherUser,
   PortfolioValueHistory,

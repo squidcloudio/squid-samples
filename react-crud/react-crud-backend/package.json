@@ -15,7 +15,6 @@
   "license": "ISC",
   "dependencies": {
     "rxjs": "7.5.7",
-    "@squidcloud/common": "latest",
     "@squidcloud/client": "latest",
     "@squidcloud/backend": "latest",
     "reflect-metadata": "^0.1.13"

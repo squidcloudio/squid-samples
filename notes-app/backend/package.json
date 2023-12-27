@@ -20,8 +20,8 @@
     "@nestjs/platform-express": "^9.4.3",
     "@squidcloud/backend": "latest",
     "@squidcloud/client": "latest",
-    "@squidcloud/common": "latest",
     "reflect-metadata": "^0.1.13",
+    "axios": "^1.6.3",
     "rxjs": "7.5.7"
   },
   "devDependencies": {

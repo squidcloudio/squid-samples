@@ -15,7 +15,7 @@
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.14.16",
     "@mui/material": "^5.14.16",
-    "@squidcloud/react": "^1.0.44",
+    "@squidcloud/react": "^1.0.45",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
