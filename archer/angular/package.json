@@ -22,6 +22,7 @@
     "@angular/router": "^15.2.0",
     "@auth0/auth0-angular": "^2.1.0",
     "@squidcloud/angular": "^1.0.19",
+    "@squidcloud/client": "latest",
     "@swimlane/ngx-charts": "^20.1.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
