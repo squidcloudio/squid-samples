@@ -19,6 +19,7 @@
     "importHelpers": true,
     "target": "es2017",
     "module": "commonjs",
+    "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
     "strictNullChecks": true,
     "esModuleInterop": true,
