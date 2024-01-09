@@ -9,7 +9,7 @@ import { SquidModule } from '@squidcloud/angular';
 import { Squid } from '@squidcloud/client';
 import { ProtectedLayoutComponent } from './global/components/protected-layout/protected-layout.component';
 import { PortfolioComponent } from './portfolio/portfolio.component';
-import { map } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
 import { ThemeService } from './global/services/theme.service';
 import { MatIconModule } from '@angular/material/icon';
 import { HttpClientModule } from '@angular/common/http';
@@ -37,6 +37,7 @@ import { OnDestroyComponent } from './global/components/on-destroy/on-destroy.co
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatMenuModule } from '@angular/material/menu';
 import { environment } from '../environments/environment';
+import { SquidAuthProvider } from '@squidcloud/client/dist/typescript-client/src/squid';
 
 @NgModule({
   declarations: [
@@ -92,7 +93,32 @@ import { environment } from '../environments/environment';
 })
 export class AppModule {
   constructor(squid: Squid, authService: AuthService, themeService: ThemeService) {
-    squid.setAuthIdToken(authService.idTokenClaims$.pipe(map((idToken) => idToken?.__raw)));
+    const authProvider: SquidAuthProvider = {
+      getToken: async (): Promise<string | undefined> => {
+        // Wait until the authentication state is resolved by Auth0.
+        const user = await firstValueFrom(authService.user$);
+        if (!user) {
+          return undefined;
+        }
+        try {
+          // Try to query an access token without user interaction (silently).
+          // This method should never fail.
+          return await firstValueFrom(authService.getAccessTokenSilently());
+        } catch (e) {
+          // If 'getAccessTokenSilently' is failed, it is either a network or a misconfiguration
+          // (configuration change) issue.
+          // In this case, log out the user: this way the user will be forced to use a UI login form.
+          if ((e as Error)?.message?.includes('Login required')) {
+            console.warn('Cached Auth0 token is expired. Forcing a new sign in.');
+          } else {
+            console.error(`Can't get Auth token, logging out.`, e);
+          }
+          authService.logout({ logoutParams: { returnTo: window.location.origin } });
+          return undefined;
+        }
+      },
+    };
+    squid.setAuthProvider(authProvider);
     themeService.initialize();
     (window as any).squid = squid;
   }
