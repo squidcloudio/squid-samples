@@ -1,4 +1,9 @@
-import { AppId, EnvironmentId, SquidOptions, SupportedSquidRegion } from '@squidcloud/client';
+import {
+  AppId,
+  EnvironmentId,
+  SquidOptions,
+  SupportedSquidRegion,
+} from '@squidcloud/client';
 
 export function getSquidOptions(): SquidOptions {
   return {
