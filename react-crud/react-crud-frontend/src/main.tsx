@@ -11,7 +11,6 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         appId: '[YOUR_APP_ID]',
         region: '[YOUR_REGION]', // example: us-east-1.aws
         environmentId: 'dev | prod',
-        apiKey: '[YOUR_API_KEY]',
         squidDeveloperId: '[YOUR_DEVELOPER_ID]',
       }}
     >
