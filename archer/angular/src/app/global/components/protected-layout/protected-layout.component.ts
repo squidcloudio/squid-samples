@@ -1,6 +1,6 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {ArcherService} from '../../services/archer.service';
-import {AuthService} from '@auth0/auth0-angular';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ArcherService } from '../../services/archer.service';
+import { AuthService } from '@auth0/auth0-angular';
 
 @Component({
   selector: 'app-protected-layout',
