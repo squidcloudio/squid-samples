@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { ArcherService } from '../../services/archer.service';
-import { AuthService } from '@auth0/auth0-angular';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {ArcherService} from '../../services/archer.service';
+import {AuthService} from '@auth0/auth0-angular';
 
 @Component({
   selector: 'app-protected-layout',
@@ -27,6 +27,11 @@ export class ProtectedLayoutComponent {
   }
 
   signOut() {
-    this.authService.logout();
+    this.authService.logout({
+      logoutParams: {
+        // Return to the current domain, but not the first one in Auth0 config.
+        returnTo: window.location.origin,
+      },
+    });
   }
 }

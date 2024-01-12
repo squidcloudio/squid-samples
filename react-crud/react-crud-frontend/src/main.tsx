@@ -10,7 +10,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       options={{
         appId: '[YOUR_APP_ID]',
         region: '[YOUR_REGION]', // example: us-east-1.aws
-        environmentId: 'dev | prod',
+        environmentId: 'dev', // 'dev' or 'prod',
         squidDeveloperId: '[YOUR_DEVELOPER_ID]',
       }}
     >
