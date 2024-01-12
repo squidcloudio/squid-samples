@@ -70,6 +70,7 @@ import { SquidAuthProvider } from '@squidcloud/client/dist/typescript-client/src
       clientId: environment.auth0ClientId,
       authorizationParams: {
         redirect_uri: window.location.origin,
+        audience: 'archer-backend-api-for-web'
       },
       cacheLocation: 'localstorage',
     }),
