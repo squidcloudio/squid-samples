@@ -177,11 +177,14 @@ export class ArcherService extends SquidService {
   }
 
   private async getAllTickersMap(): Promise<Record<string, Ticker>> {
-    return (await this.getTickerCollection().query().limit(20000).snapshot()).reduce((acc, item) => {
-      const data = item.data;
-      acc[data.id] = data;
-      return acc;
-    }, {} as Record<string, Ticker>);
+    return (await this.getTickerCollection().query().limit(20000).snapshot()).reduce(
+      (acc, item) => {
+        const data = item.data;
+        acc[data.id] = data;
+        return acc;
+      },
+      {} as Record<string, Ticker>,
+    );
   }
 
   private async getDenyList(): Promise<Set<string>> {
