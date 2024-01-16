@@ -9,7 +9,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <SquidContextProvider
       options={{
         appId: 'YOUR_APP_ID',
-        region: 'YOUR_REGION',
+        region: 'us-east-1.aws',
         environmentId: 'dev',
         squidDeveloperId: 'YOUR_DEVELOPER_ID',
       }}
