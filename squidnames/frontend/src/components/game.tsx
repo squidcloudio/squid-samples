@@ -7,6 +7,9 @@ import { getRandomWords } from '../utils/wordBank.ts';
 type Game = {
   id: string;
   words: string[];
+  lastAccess: number;  // Allows cleanup of old games.
+  blueTeam: string[];
+  redTeam: string[];
 }
 
 const Game: React.FC = () => {
@@ -29,13 +32,26 @@ const Game: React.FC = () => {
   if (data === undefined) {
     // Is a new game, generate a new deck.
     words = getRandomWords();
-    gameRef.update({words: words}).then(() => {
+    const newGame = {
+      id: gameId,
+      words: words,
+      lastAccess: new Date().getTime(),
+      blueTeam: [],
+      redTeam: []
+    }
+    gameRef.insert(newGame).then(() => {
       console.debug(`Saved words to ${gameId}`);
     }).catch(() => {
-      alert('Unable to save game state!')
+      alert(`Unable to save new game!`,)
     })
   } else {
-    words = data?.words;
+    // Grab existing game data and update the access time.
+    const gameData: Game = data;
+    words = gameData.words;
+    gameData.lastAccess = new Date().getTime()
+    gameRef.update(gameData).catch(() => {
+      alert(`Unable to save game state!`,)
+    })
   }
 
   return (

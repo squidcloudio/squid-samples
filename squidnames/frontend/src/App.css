@@ -73,4 +73,5 @@ div.question {
   word-wrap: break-word;
   width: 10vw; /* Set the width of the square */
   height: 10vw; /* Set the height of the square */
+  text-transform: uppercase;
 }
