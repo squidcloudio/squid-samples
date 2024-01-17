@@ -98,6 +98,8 @@ const Game: React.FC = () => {
   } else {
     // Update the local game instance.
     gameData = games[0].data;
+    console.log("Red spymaster:", gameData.redMaster);
+    console.log("Blue spymaster:", gameData.blueMaster);
   }
 
   const handleUserSubmit = (playerName: string, team: Team) => {
@@ -132,13 +134,12 @@ const Game: React.FC = () => {
     updateGameData(gameRef, gameData).then();
   }
 
-  const canBecomeSpymaster = () => {
-    const isOnBlueTeam = gameData?.blueTeam.includes(playerName);
-    const isOnRedTeam = gameData?.redTeam.includes(playerName);
-    const noBlueSpymaster = !gameData?.blueMaster;
-    const noRedSpymaster = !gameData?.redMaster;
-
-    return (isOnBlueTeam && noBlueSpymaster) || (isOnRedTeam && noRedSpymaster);
+  const canBecomeSpymaster = (team: 'red' | 'blue') => {
+    if (team == 'red') {
+      return gameData?.redTeam.includes(playerName) && !gameData?.redMaster;
+    } else {
+      return gameData?.blueTeam.includes(playerName) && !gameData?.blueMaster;
+    }
   };
 
   const handleBecomeSpymaster = () => {
@@ -163,14 +164,20 @@ const Game: React.FC = () => {
       )}
       <h4>Playing as: {playerName}</h4>
       <div className="spymasters">
-        <span>Blue Spymaster: {gameData?.blueMaster || 'None'}</span>
-        <button
-          onClick={handleBecomeSpymaster}
-          disabled={!canBecomeSpymaster()}
-        >
-          Become Spymaster
-        </button>
-        <span>Red Spymaster: {gameData?.redMaster || 'None'}</span>
+        {canBecomeSpymaster('red') ? (
+          <button onClick={() => handleBecomeSpymaster()} disabled={!gameData?.redTeam.includes(playerName)}>
+            Become Spymaster
+          </button>
+        ) : (
+          gameData.redMaster == playerName ? (<div>You are spymaster</div>) : (<div>Red Spymaster: {gameData.redMaster || 'TBD'}</div>)
+        )}
+        {canBecomeSpymaster('blue') ? (
+          <button onClick={() => handleBecomeSpymaster()} disabled={!gameData?.blueTeam.includes(playerName)}>
+            Become Spymaster
+          </button>
+        ) : (
+          gameData.blueMaster == playerName ? (<div>You are spymaster</div>) : (<div>Blue Spymaster: {gameData.blueMaster || 'TBD'}</div>)
+        )}
       </div>
       <Board words={gameData?.words || []} />
     </div>
