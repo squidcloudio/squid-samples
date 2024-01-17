@@ -75,3 +75,12 @@ div.question {
   height: 10vw; /* Set the height of the square */
   text-transform: uppercase;
 }
+
+.spymasters {
+  display: flex;
+  justify-content: space-between;
+}
+
+.spymasters span {
+  flex: 1;
+}
