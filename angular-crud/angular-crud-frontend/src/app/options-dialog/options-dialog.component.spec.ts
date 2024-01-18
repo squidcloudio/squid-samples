@@ -8,7 +8,7 @@ describe('OptionsDialogComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [OptionsDialogComponent]
+      declarations: [OptionsDialogComponent],
     });
     fixture = TestBed.createComponent(OptionsDialogComponent);
     component = fixture.componentInstance;

@@ -11,5 +11,11 @@ module.exports = {
     node: true,
     jest: true,
   },
-  ignorePatterns: ['.eslintrc.js', 'dist', 'node_modules', 'webpack.config.js'],
+  ignorePatterns: [
+    '.eslintrc.js',
+    'dist',
+    'node_modules',
+    'webpack.config.js',
+    'jest.config.js',
+  ],
 };

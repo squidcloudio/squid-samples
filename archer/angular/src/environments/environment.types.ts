@@ -1,4 +1,4 @@
-import { SupportedSquidRegion, EnvironmentId, SquidDeveloperId } from '@squidcloud/common';
+import { EnvironmentId, SquidDeveloperId, SupportedSquidRegion } from '@squidcloud/client';
 
 export interface EnvironmentType {
   squidRegion: SupportedSquidRegion;

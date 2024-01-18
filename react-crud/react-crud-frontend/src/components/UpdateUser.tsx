@@ -12,7 +12,7 @@ export default function UpdateUser({
   setOpen: Dispatch<SetStateAction<boolean>>;
 }) {
   const collection = useCollection<User>('users');
-  const users = useQuery(collection.query(), true /* subscribe */);
+  const users = useQuery(collection.query());
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();

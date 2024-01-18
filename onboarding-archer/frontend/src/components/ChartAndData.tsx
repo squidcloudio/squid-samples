@@ -5,10 +5,10 @@ import { useArcherContext } from '@/utils/ArcherContextProvider';
 import PriceDisplay from '@/components/PriceDisplay';
 import { ReactNode, useEffect, useState } from 'react';
 import { useCollection, useQuery } from '@squidcloud/react';
-import { SimulationDay } from '@/common/common-types';
 import * as _ from 'lodash';
 import Button from '@/components/lib/Button';
 import Icon from '@/components/lib/Icon';
+import { SimulationDay } from 'common/common-types';
 
 interface ChartTimeRange {
   startIndex: number;
@@ -93,7 +93,6 @@ export default function ChartAndData() {
 
   const { data: simulationData } = useQuery(
     simulationDayCollection.query().sortBy('date').dereference(),
-    true,
   );
 
   const data: Array<SimulationData> = [];

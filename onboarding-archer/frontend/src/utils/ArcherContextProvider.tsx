@@ -1,11 +1,11 @@
 import { createContext, ReactNode, useContext, useState } from 'react';
+import { useCollection, useQuery } from '@squidcloud/react';
 import {
   PortfolioItem,
   PortfolioTicker,
   Ticker,
   UserProfile,
-} from '@/common/common-types';
-import { useCollection, useQuery } from '@squidcloud/react';
+} from 'common/common-types';
 
 export interface DocModalData {
   title: string;
@@ -58,19 +58,16 @@ export function ArcherContextProvider({
   const userProfileCollection = useCollection<UserProfile>('userProfile');
   const { loading: userProfileLoading, data: userProfiles } = useQuery(
     userProfileCollection.query().eq('id', 'defaultUser').dereference(),
-    true,
   );
 
   const tickerCollection = useCollection<Ticker>('ticker');
   const { loading: tickersLoading, data: allTickers } = useQuery(
     tickerCollection.query().dereference(),
-    true,
   );
 
   const portfolioCollection = useCollection<PortfolioItem>('portfolio');
   const { loading: portfolioItemsLoading, data: portfolioItems } = useQuery(
     portfolioCollection.query().sortBy('indexInUi').dereference(),
-    true,
   );
 
   const allTickersMap = allTickers.reduce(

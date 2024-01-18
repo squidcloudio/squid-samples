@@ -13,14 +13,12 @@ import {
   TickersResponse,
   UserAsset,
 } from 'archer-common';
-import { CollectionReference } from '@squidcloud/client';
+import { CollectionReference, CronExpression } from '@squidcloud/client';
 import { PromisePool } from '@supercharge/promise-pool';
 import _ from 'lodash';
-import { CronExpression } from '@squidcloud/common';
 
 // noinspection JSUnusedGlobalSymbols
 export class ArcherService extends SquidService {
-  // TODO: update this
   @secureDatabase('all', 'built_in_db')
   @secureApi('polygon', 'gainers')
   @secureApi('polygon', 'losers')
@@ -179,11 +177,14 @@ export class ArcherService extends SquidService {
   }
 
   private async getAllTickersMap(): Promise<Record<string, Ticker>> {
-    return (await this.getTickerCollection().query().limit(20000).snapshot()).reduce((acc, item) => {
-      const data = item.data;
-      acc[data.id] = data;
-      return acc;
-    }, {} as Record<string, Ticker>);
+    return (await this.getTickerCollection().query().limit(20000).snapshot()).reduce(
+      (acc, item) => {
+        const data = item.data;
+        acc[data.id] = data;
+        return acc;
+      },
+      {} as Record<string, Ticker>,
+    );
   }
 
   private async getDenyList(): Promise<Set<string>> {

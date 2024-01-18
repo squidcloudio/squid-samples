@@ -6,7 +6,7 @@ type User = { id: string; email: string; age: number };
 export default function ReadUsers() {
   const collection = useCollection<User>('users');
   /** The list of users will be streamed to the client and kept up-to-date **/
-  const users = useQuery(collection.query(), true /* subscribe */);
+  const users = useQuery(collection.query());
 
   return (
     <>

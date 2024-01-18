@@ -1,5 +1,5 @@
 import { SquidService, secureCollection } from '@squidcloud/backend';
-import { QueryContext, MutationContext } from '@squidcloud/common';
+import { QueryContext, MutationContext } from '@squidcloud/client';
 
 interface UserPayment {
   stripeUserId: string;

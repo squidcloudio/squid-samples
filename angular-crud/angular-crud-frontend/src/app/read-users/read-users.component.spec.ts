@@ -8,7 +8,7 @@ describe('ReadUsersComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ReadUsersComponent]
+      declarations: [ReadUsersComponent],
     });
     fixture = TestBed.createComponent(ReadUsersComponent);
     component = fixture.componentInstance;

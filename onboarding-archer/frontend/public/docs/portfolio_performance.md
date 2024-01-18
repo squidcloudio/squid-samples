@@ -11,8 +11,7 @@ const { data } = useQuery(
     .query()
     .gte('date', startDate)
     .lt('date', endDate)
-    .sortBy('date'),
-  true,
+    .sortBy('date')
 );
 
 const simulationData: Array<SimulationData> = data.map((simulationDay, i) => {
