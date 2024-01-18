@@ -29,13 +29,13 @@ const UserModal: React.FC<UserModalProps> = ({ isOpen, onSubmit, redTeamMembers,
         placeholder="Your player name"
       />
       <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-        <div onClick={() => handleSubmit('red')} style={{ cursor: 'pointer', border: '1px solid red' }}>
+        <div onClick={() => handleSubmit(Team.Red)} style={{ cursor: 'pointer', border: '1px solid red' }}>
           <h3>Red Team</h3>
           <div>
             {redTeamMembers.map(member => <p key={member}>{member}</p>)}
           </div>
         </div>
-        <div onClick={() => handleSubmit('blue')} style={{ cursor: 'pointer', border: '1px solid blue' }}>
+        <div onClick={() => handleSubmit(Team.Blue)} style={{ cursor: 'pointer', border: '1px solid blue' }}>
           <h3>Blue Team</h3>
           <div>
             {blueTeamMembers.map(member => <p key={member}>{member}</p>)}

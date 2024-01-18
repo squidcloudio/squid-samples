@@ -77,15 +77,23 @@ div.question {
 }
 
 .idle {
-  border-color: green;
+  border-color: grey;
 }
 
-.correctly-blue {
+.actually-blue {
   border-color: blue;
 }
 
-.correctly-red {
+.actually-red {
   border-color: red;
+}
+
+.actually-assassin {
+  border: 5px solid black;
+}
+
+.actually-neutral {
+  border-color: green;
 }
 
 .tentative-blue {
@@ -101,6 +109,18 @@ div.question {
 .tentative-both {
   border-color: purple;
   border-style: dashed;
+}
+
+.spymaster-blue {
+  background-color: blue;
+}
+
+.spymaster-red {
+  background-color: red;
+}
+
+.spymaster-assassin {
+  background-color: grey;
 }
 
 .spymasters {

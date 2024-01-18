@@ -17,7 +17,7 @@ const wordList: string[] = [
   'Tornado', 'Universe', 'Velocity', 'Whirlwind', 'Zephyr'
 ];
 
-const getRandomWords = (numWords: number = 25): string[] => {
+const getRandomWords = (numWords: number): string[] => {
   const shuffled = [...wordList].sort(() => 0.5 - Math.random());
   return shuffled.slice(0, numWords);
 };

@@ -5,10 +5,11 @@ import { useCollection, useQuery } from '@squidcloud/react';
 import { getRandomWords } from '../utils/wordBank.ts';
 import UserModal from './userModal.tsx';
 import { DocumentReference } from '@squidcloud/client';
+import Card from './card.tsx';
 
 type Game = {
   id: string;
-  words: string[];
+  cards: Card[];
   wordStatuses: CardStatus[];
   lastAccess: number;  // Allows cleanup of old games.
   blueTeam: string[];
@@ -17,8 +18,46 @@ type Game = {
   redMaster: string | null;
 }
 
-export type Team = 'red' | 'blue' | 'spectator';
-export type CardStatus = 'tentative-blue' | 'tentative-red' | 'tentative-both' | 'correctly-red' | 'correctly-blue' | 'neutral' | 'assassin' | 'idle';
+export enum Team {
+  Neutral = 0,
+  Red = 1,
+  Blue = 2,
+  Assassin = 3,
+}
+
+export enum CardStatus {
+  Idle = 0,
+  TentativeBlue = 1,
+  TentativeRed = 2,
+  TentativeBoth = 3,
+  ActuallyRed = 4,
+  ActuallyBlue = 5,
+  ActuallyNeutral = 6,
+  ActuallyAssassin = 7,
+}
+
+function generateCards(size: number = 25): Card[] {
+  const words = getRandomWords(size);
+  const teamSize = Math.floor(size / 3);
+  let states = Array(teamSize + 1).fill(Team.Red);
+  states = states.concat(Array(teamSize).fill(Team.Blue));
+  states = states.concat(Array(teamSize).fill(Team.Neutral));
+  states[size - 1] = Team.Assassin;
+  states = shuffleArray(states) as Team[]
+  let cards: Card[] = [];
+  for (let i = 0; i < words.length; i++) {
+    cards.push({ word: words[i], state: states[i] })
+  }
+  return cards;
+}
+
+function shuffleArray(array: any[]): any[] {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]]; // Swap elements
+  }
+  return array;
+}
 
 async function updateGameData(gameRef: DocumentReference<Game>, gameData: Game): Promise<void> {
   console.log('In updateGameData');
@@ -44,7 +83,7 @@ const Game: React.FC = () => {
 
   let gameData: Game = {
     id: gameId!,
-    words: [],
+    cards: [],
     wordStatuses: [],
     lastAccess: new Date().getTime(),
     blueTeam: [],
@@ -86,8 +125,8 @@ const Game: React.FC = () => {
     // Is a new game, generate a new game.
     gameData = {
       id: gameId,
-      words: getRandomWords(),
-      wordStatuses: Array(25).fill('idle'),
+      cards: generateCards(),
+      wordStatuses: Array(25).fill(CardStatus.Idle),
       lastAccess: new Date().getTime(),
       blueTeam: [],
       redTeam: [],
@@ -122,16 +161,16 @@ const Game: React.FC = () => {
     gameData.blueTeam = gameData.blueTeam.filter(name => name != playerName && name != oldName)
     gameData.redTeam = gameData.redTeam.filter(name => name != playerName && name != oldName)
     switch (team) {
-      case 'red': {
+      case Team.Red: {
         gameData.redTeam.push(playerName);
         break;
       }
-      case 'blue': {
+      case Team.Blue: {
         gameData.blueTeam.push(playerName);
         break;
       }
       default: {
-        // ?
+        // spectator
       }
     }
 
@@ -139,31 +178,104 @@ const Game: React.FC = () => {
   }
 
   const handleCardClick = (wordIndex: number) => {
-    console.log(`Card clicked: ${gameData.words[wordIndex]}`);
-    if (gameData.redMaster === playerName || gameData.blueMaster === playerName) {
+    console.log(`Card clicked: ${gameData.cards[wordIndex].word}`);
+    const team = getTeam();
+    if (isSpymaster() || team === Team.Neutral) {
       return;
     }
-    if (gameData.redTeam.includes(playerName)) {
-      gameData.wordStatuses[wordIndex] = 'tentative-red';
-    } else if (gameData.blueTeam.includes(playerName)) {
-      gameData.wordStatuses[wordIndex] = 'tentative-blue';
+    const curStatus = gameData.wordStatuses[wordIndex];
+    if (team === Team.Red) {
+      if (curStatus === CardStatus.TentativeRed) {
+        gameData.wordStatuses[wordIndex] = CardStatus.Idle;
+      } else if (curStatus === CardStatus.TentativeBlue) {
+        gameData.wordStatuses[wordIndex] = CardStatus.TentativeBoth;
+      } else if (curStatus === CardStatus.TentativeBoth) {
+        gameData.wordStatuses[wordIndex] = CardStatus.TentativeBlue;
+      } else if (curStatus === CardStatus.Idle) {
+        gameData.wordStatuses[wordIndex] = CardStatus.TentativeRed;
+      }
+    } else if (team === Team.Blue) {
+      if (curStatus === CardStatus.TentativeBlue) {
+        gameData.wordStatuses[wordIndex] = CardStatus.Idle;
+      } else if (curStatus === CardStatus.TentativeRed) {
+        gameData.wordStatuses[wordIndex] = CardStatus.TentativeBoth;
+      } else if (curStatus === CardStatus.TentativeBoth) {
+        gameData.wordStatuses[wordIndex] = CardStatus.TentativeRed;
+      } else if (curStatus === CardStatus.Idle) {
+        gameData.wordStatuses[wordIndex] = CardStatus.TentativeBlue;
+      }
     }
     updateGameData(gameRef, gameData).then();
   };
 
-  const canBecomeSpymaster = (team: 'red' | 'blue') => {
-    if (team == 'red') {
-      return gameData?.redTeam.includes(playerName) && !gameData?.redMaster;
-    } else {
-      return gameData?.blueTeam.includes(playerName) && !gameData?.blueMaster;
+  // const handleCardCancel = (wordIndex: number) => {
+  //   console.log(`Cancel selection of: #${wordIndex}, ${gameData.words[wordIndex]}`);
+  //   if (gameData.redMaster === playerName || gameData.blueMaster === playerName) {
+  //     return;
+  //   }
+  //   if (gameData.redTeam.includes(playerName)) {
+  //     if (gameData.wordStatuses[wordIndex] === CardStatus.TentativeBoth) {
+  //       gameData.wordStatuses[wordIndex] = CardStatus.TentativeBlue;
+  //     } else {
+  //       gameData.wordStatuses[wordIndex] = CardStatus.Idle;
+  //     }
+  //   } else if (gameData.blueTeam.includes(playerName)) {
+  //     if (gameData.wordStatuses[wordIndex] === CardStatus.TentativeBoth) {
+  //       gameData.wordStatuses[wordIndex] = CardStatus.TentativeRed;
+  //     } else {
+  //       gameData.wordStatuses[wordIndex] = CardStatus.Idle;
+  //     }
+  //   }
+  //   updateGameData(gameRef, gameData).then();
+  // };
+
+  const handleCardConfirm = (wordIndex: number) => {
+    console.log(`Confirm selection of: ${gameData.cards[wordIndex].word}`);
+    if (gameData.redMaster === playerName || gameData.blueMaster === playerName) {
+      return;
     }
+    // Logic to handle confirm action
+  };
+
+  const getTeam = () => {
+    if (gameData?.redTeam.includes(playerName)) {
+      return Team.Red;
+    } else if (gameData?.blueTeam.includes(playerName)) {
+      return Team.Blue;
+    }
+    return Team.Neutral;
+  }
+
+  const isSpymaster = () => {
+    return gameData?.redMaster == playerName || gameData?.blueMaster == playerName;
+  }
+
+  const canBecomeSpymaster = (forTeam: Team) => {
+    const team = getTeam();
+    if (forTeam !== team || isSpymaster()) {
+      return false;
+    }
+    if (team === Team.Blue && gameData.blueMaster !== undefined) {
+      return false;
+    }
+    if (team === Team.Red && gameData.redMaster !== undefined) {
+      return false;
+    }
+    return true;
   };
 
   const handleBecomeSpymaster = () => {
-    if (gameData?.blueTeam.includes(playerName)) {
-      gameData.blueMaster = playerName;
-    } else if (gameData?.redTeam.includes(playerName)) {
-      gameData.redMaster = playerName;
+    const team = getTeam();
+    if (!canBecomeSpymaster(team)) {
+      return;
+    }
+    switch (team) {
+      case Team.Red:
+        gameData.redMaster = playerName;
+        break;
+      case Team.Blue:
+        gameData.blueMaster = playerName;
+        break;
     }
     updateGameData(gameRef, gameData).then();
   };
@@ -181,14 +293,14 @@ const Game: React.FC = () => {
       )}
       <h4>Playing as: {playerName}</h4>
       <div className="spymasters">
-        {canBecomeSpymaster('red') ? (
+        {canBecomeSpymaster(Team.Red) ? (
           <button onClick={() => handleBecomeSpymaster()} disabled={!gameData?.redTeam.includes(playerName)}>
             Become Spymaster
           </button>
         ) : (
           gameData.redMaster == playerName ? (<div>You are spymaster</div>) : (<div>Red Spymaster: {gameData.redMaster || 'TBD'}</div>)
         )}
-        {canBecomeSpymaster('blue') ? (
+        {canBecomeSpymaster(Team.Blue) ? (
           <button onClick={() => handleBecomeSpymaster()} disabled={!gameData?.blueTeam.includes(playerName)}>
             Become Spymaster
           </button>
@@ -196,7 +308,7 @@ const Game: React.FC = () => {
           gameData.blueMaster == playerName ? (<div>You are spymaster</div>) : (<div>Blue Spymaster: {gameData.blueMaster || 'TBD'}</div>)
         )}
       </div>
-      <Board words={gameData?.words || []} statuses={gameData?.wordStatuses} onCardClick={handleCardClick} />
+      <Board cards={gameData?.cards || []} statuses={gameData?.wordStatuses} playerTeam={getTeam()} isSpymaster={isSpymaster()} onCardClick={handleCardClick} onCardConfirm={handleCardConfirm} />
     </div>
   );
 };
