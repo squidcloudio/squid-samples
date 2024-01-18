@@ -13,14 +13,12 @@ import {
   TickersResponse,
   UserAsset,
 } from 'archer-common';
-import { CollectionReference } from '@squidcloud/client';
+import { CollectionReference, CronExpression } from '@squidcloud/client';
 import { PromisePool } from '@supercharge/promise-pool';
 import _ from 'lodash';
-import { CronExpression } from '@squidcloud/common';
 
 // noinspection JSUnusedGlobalSymbols
 export class ArcherService extends SquidService {
-  // TODO: update this
   @secureDatabase('all', 'built_in_db')
   @secureApi('polygon', 'gainers')
   @secureApi('polygon', 'losers')
