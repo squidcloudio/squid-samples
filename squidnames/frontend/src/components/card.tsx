@@ -3,7 +3,7 @@ import { Team } from './game.tsx';
 
 type Card = {
   word: string;
-  state: Team;
+  team: Team;
   status: CardStatus
 }
 
@@ -60,7 +60,7 @@ const Card: React.FC<CardProps> = ({ card , playerTeam, isSpymaster, activeTurn,
   }
 
   if (isSpymaster) {
-    switch (card.state) {
+    switch (card.team) {
       case Team.Blue:
         statusClass += ' spymaster-blue';
         break;

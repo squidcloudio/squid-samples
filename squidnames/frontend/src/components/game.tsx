@@ -36,7 +36,7 @@ function generateCards(size: number = 25): Card[] {
   states.sort(() => 0.5 - Math.random());
   let cards: Card[] = [];
   for (let i = 0; i < words.length; i++) {
-    cards.push({ word: words[i], state: states[i], status: CardStatus.Idle })
+    cards.push({ word: words[i], team: states[i], status: CardStatus.Idle })
   }
   return cards;
 }
@@ -188,11 +188,12 @@ const Game: React.FC = () => {
 
   const handleCardConfirm = (wordIndex: number) => {
     console.log(`Confirm selection of: ${gameData.cards[wordIndex].word}`);
-    if (isSpymaster() || getTeam() != gameData.turn) {
+    const team = getTeam();
+    if (isSpymaster() || team != gameData.turn) {
       return;
     }
     const card = gameData.cards[wordIndex];
-    switch (card.state) {
+    switch (card.team) {
       case Team.Red:
         card.status = CardStatus.ActuallyRed;
         break;
@@ -207,6 +208,9 @@ const Game: React.FC = () => {
     }
     gameData.cards[wordIndex] = card;
     updateGameData(gameRef, gameData).then();
+    if (card.team !== team) {
+      handleEndTurn();
+    }
   };
 
   const calculateScore = () => {
@@ -216,7 +220,7 @@ const Game: React.FC = () => {
     let remainRed = 0;
     let remainBlue = 0;
     for (let i = 0; i < gameData.cards.length; i++) {
-      const state = gameData.cards[i].state;
+      const state = gameData.cards[i].team;
       const status = gameData.cards[i].status;
       if (state == Team.Red && status != CardStatus.ActuallyRed) {
         remainRed += 1;
@@ -249,10 +253,7 @@ const Game: React.FC = () => {
     if (team === Team.Blue && gameData.blueMaster) {
       return false;
     }
-    if (team === Team.Red && gameData.redMaster) {
-      return false;
-    }
-    return true;
+    return !(team === Team.Red && gameData.redMaster);
   };
 
   const handleBecomeSpymaster = () => {
@@ -271,6 +272,15 @@ const Game: React.FC = () => {
     updateGameData(gameRef, gameData).then();
   };
 
+  const handleEndTurn = () => {
+    if (gameData.turn === Team.Red) {
+      gameData.turn = Team.Blue;
+    } else {
+      gameData.turn = Team.Red;
+    }
+    updateGameData(gameRef, gameData).then();
+  };
+
   const { remainRed, remainBlue } = calculateScore();
 
   return (
@@ -285,26 +295,30 @@ const Game: React.FC = () => {
         />
       )}
       <h4>Playing as: {playerName}</h4>
-      <div className="spymasters">
-        {canBecomeSpymaster(Team.Red) ? (
-          <button onClick={() => handleBecomeSpymaster()} disabled={!gameData?.redTeam.includes(playerName)}>
-            Become Spymaster
-          </button>
-        ) : (
-          gameData.redMaster == playerName ? (<div>You are spymaster</div>) : (<div>Red Spymaster: {gameData.redMaster || 'TBD'}</div>)
-        )}
-        <div className="spymaster-score">
-          <div className="spymaster-score-red">{remainRed}</div>
-          <div>-</div>
-          <div className="spymaster-score-blue">{remainBlue}</div>
+      <div className="top-bar">
+        <div className="spymasters no-pad">
+          <div>Spymasters:</div>
+          {canBecomeSpymaster(Team.Red) ? (
+            <button className="red" onClick={() => handleBecomeSpymaster()}>
+              Become Spymaster
+            </button>
+          ) : (
+            <div className="red">{gameData.redMaster || '???'}</div>
+          )}
+          {canBecomeSpymaster(Team.Blue) ? (
+            <button className="blue" onClick={() => handleBecomeSpymaster()}>
+              Become Spymaster
+            </button>
+          ) : (
+            <div className="blue">{gameData.blueMaster || '???'}</div>
+          )}
         </div>
-        {canBecomeSpymaster(Team.Blue) ? (
-          <button onClick={() => handleBecomeSpymaster()} disabled={!gameData?.blueTeam.includes(playerName)}>
-            Become Spymaster
-          </button>
-        ) : (
-          gameData.blueMaster == playerName ? (<div>You are spymaster</div>) : (<div>Blue Spymaster: {gameData.blueMaster || 'TBD'}</div>)
-        )}
+        <div className="score no-pad">
+          <div className="red">{remainRed}</div>
+          <div>-</div>
+          <div className="blue">{remainBlue}</div>
+        </div>
+        <button onClick={handleEndTurn} disabled={gameData.turn !== getTeam()}>End Turn</button>
       </div>
       <Board cards={gameData?.cards || []} playerTeam={getTeam()} isSpymaster={isSpymaster()} activeTurn={gameData?.turn} onCardClick={handleCardClick} onCardConfirm={handleCardConfirm} />
     </div>
