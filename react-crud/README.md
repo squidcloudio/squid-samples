@@ -49,7 +49,7 @@ npm install
 npm run dev
 ```
 11. Click the URL in the terminal logs to open the app (likely http://localhost:5173/).
-12. Interact with the UI. To add a new user, click the **Insert new user** button. You can then update a user's age using the **Update age** form, or delete a user using the **Delete user** form.
+12. Interact with the UI. To add a new user, click the **Insert new user** button. You can then update a user's age or delete a user by clicking the options button on the user's row. 
 
 ### Next Steps:
 To understand the code better, visit our [Getting Started tutorial](https://docs.squid.cloud/docs/getting-started/dive-in/). This React application is based on this tutorial, expanding upon it for styling purposes. 
