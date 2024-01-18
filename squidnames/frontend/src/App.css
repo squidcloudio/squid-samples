@@ -80,20 +80,8 @@ div.question {
   border-color: grey;
 }
 
-.actually-blue {
-  border-color: blue;
-}
-
-.actually-red {
-  border-color: red;
-}
-
-.actually-assassin {
-  border: 5px solid black;
-}
-
 .actually-neutral {
-  border-color: green;
+  background-color: green;
 }
 
 .tentative-blue {
@@ -130,4 +118,19 @@ div.question {
 
 .spymasters span {
   flex: 1;
+}
+
+.spymaster-score {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3px; /* Adjust this value to control the spacing */
+}
+
+.spymaster-score-red {
+  color: red;
+}
+
+.spymaster-score-blue {
+  color: blue;
 }

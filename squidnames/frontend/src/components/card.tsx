@@ -1,27 +1,38 @@
 import React from 'react';
-import { CardStatus, Team } from './game.tsx';
+import { Team } from './game.tsx';
 
 type Card = {
   word: string;
   state: Team;
+  status: CardStatus
+}
+
+export enum CardStatus {
+  Idle = 0,
+  TentativeBlue = 1,
+  TentativeRed = 2,
+  TentativeBoth = 3,
+  ActuallyRed = 4,
+  ActuallyBlue = 5,
+  ActuallyNeutral = 6,
+  ActuallyAssassin = 7,
 }
 
 interface CardProps {
   card: Card;
-  status: CardStatus;
   playerTeam: Team;
   isSpymaster: boolean;
   onClick: () => void;
   onConfirm: () => void;
 }
 
-const Card: React.FC<CardProps> = ({ card , status, playerTeam, isSpymaster, onClick, onConfirm }) => {
-  const isTentative = [CardStatus.TentativeBlue, CardStatus.TentativeRed, CardStatus.TentativeBoth].includes(status);
-  const isFinished = [CardStatus.ActuallyBlue, CardStatus.ActuallyRed, CardStatus.ActuallyNeutral, CardStatus.ActuallyAssassin].includes(status);
+const Card: React.FC<CardProps> = ({ card , playerTeam, isSpymaster, onClick, onConfirm }) => {
+  const isTentative = [CardStatus.TentativeBlue, CardStatus.TentativeRed, CardStatus.TentativeBoth].includes(card.status);
+  const isFinished = [CardStatus.ActuallyBlue, CardStatus.ActuallyRed, CardStatus.ActuallyNeutral, CardStatus.ActuallyAssassin].includes(card.status);
   let isInteractive = !isSpymaster && isTentative;
 
   let statusClass: string = 'idle';
-  switch (status) {
+  switch (card.status) {
     case CardStatus.TentativeBlue:
       statusClass = 'tentative-blue';
       isInteractive &&= playerTeam === Team.Blue;
@@ -34,13 +45,13 @@ const Card: React.FC<CardProps> = ({ card , status, playerTeam, isSpymaster, onC
       statusClass = 'tentative-both';
       break;
     case CardStatus.ActuallyBlue:
-      statusClass = 'actually-blue';
+      statusClass = 'spymaster-blue';
       break;
     case CardStatus.ActuallyRed:
-      statusClass = 'actually-red';
+      statusClass = 'spymaster-red';
       break;
     case CardStatus.ActuallyAssassin:
-      statusClass = 'actually-red';
+      statusClass = 'spymaster-assassin';
       break;
     case CardStatus.ActuallyNeutral:
       statusClass = 'actually-neutral';

@@ -1,11 +1,10 @@
 import React from 'react';
 import Card from './card.tsx';
-import { CardStatus, Team } from './game.tsx';
+import { Team } from './game.tsx';
 
 // Define the props for the Board component
 interface BoardProps {
   cards: Card[]; // Array of cards to be displayed on the board
-  statuses: CardStatus[]; // Selection statuses of each card
   playerTeam: Team;
   isSpymaster: boolean;
   onCardClick: (index: number) => void;
@@ -13,7 +12,7 @@ interface BoardProps {
 }
 
 // Board component
-const Board: React.FC<BoardProps> = ({ cards , statuses, playerTeam, isSpymaster,onCardClick, onCardConfirm }) => {
+const Board: React.FC<BoardProps> = ({ cards, playerTeam, isSpymaster,onCardClick, onCardConfirm }) => {
   // Creating a 5x5 grid
   const gridSize = 5;
   const rows = Array.from({ length: gridSize });
@@ -30,7 +29,7 @@ const Board: React.FC<BoardProps> = ({ cards , statuses, playerTeam, isSpymaster
       {rows.map((_, rowIndex) =>
         rows.map((_, colIndex) => {
           const index = rowIndex * gridSize + colIndex;
-          return <Card key={index} card={cards[index]} status={statuses[index]} playerTeam={playerTeam} isSpymaster={isSpymaster} onClick={() => onCardClick(index)}
+          return <Card key={index} card={cards[index]} playerTeam={playerTeam} isSpymaster={isSpymaster} onClick={() => onCardClick(index)}
                        onConfirm={() => onCardConfirm(index)} />;
         }),
       )}
