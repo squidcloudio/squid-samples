@@ -15,15 +15,14 @@
   "license": "ISC",
   "dependencies": {
     "rxjs": "7.5.7",
-    "@squidcloud/common": "^1.0.117",
     "reflect-metadata": "^0.1.13",
-    "@squidcloud/client": "^1.0.132",
-    "@squidcloud/backend": "^1.0.115",
+    "@squidcloud/client": "^1.0.160",
+    "@squidcloud/backend": "^1.0.160",
     "@supercharge/promise-pool": "^2.4.0",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "@squidcloud/local-backend": "^1.0.96",
+    "@squidcloud/local-backend": "^1.0.160",
     "@nestjs/cli": "^9.0.0",
     "@types/lodash": "^4.14.194",
     "copy-webpack-plugin": "^11.0.0",

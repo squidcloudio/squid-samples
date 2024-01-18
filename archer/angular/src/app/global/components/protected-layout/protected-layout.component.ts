@@ -27,6 +27,11 @@ export class ProtectedLayoutComponent {
   }
 
   signOut() {
-    this.authService.logout();
+    this.authService.logout({
+      logoutParams: {
+        // Return to the current domain, but not the first one in Auth0 config.
+        returnTo: window.location.origin,
+      },
+    });
   }
 }
