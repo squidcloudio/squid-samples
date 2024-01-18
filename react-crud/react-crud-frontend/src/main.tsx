@@ -1,20 +1,20 @@
-import React from 'react';
+import { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
 import { SquidContextProvider } from '@squidcloud/react';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
+  <StrictMode>
     <SquidContextProvider
       options={{
-        appId: '0cnwdldhiw2fzetsct',
-        region: 'us-east-1.aws',
-        environmentId: 'dev',
-        squidDeveloperId: '9cggw9fdl73jtrw56a',
+        appId: '[YOUR_APP_ID]',
+        region: 'us-east-1.aws', // example: us-east-1.aws.
+        environmentId: 'dev', // 'dev' or 'prod'.
+        squidDeveloperId: '[YOUR_DEVELOPER_ID]',
       }}
     >
       <App />
     </SquidContextProvider>
-  </React.StrictMode>,
+  </StrictMode>,
 );
