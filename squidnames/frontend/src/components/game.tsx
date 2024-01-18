@@ -9,6 +9,7 @@ import { DocumentReference } from '@squidcloud/client';
 type Game = {
   id: string;
   words: string[];
+  wordStatuses: CardStatus[];
   lastAccess: number;  // Allows cleanup of old games.
   blueTeam: string[];
   redTeam: string[];
@@ -17,6 +18,7 @@ type Game = {
 }
 
 export type Team = 'red' | 'blue' | 'spectator';
+export type CardStatus = 'tentative-blue' | 'tentative-red' | 'tentative-both' | 'correctly-red' | 'correctly-blue' | 'neutral' | 'assassin' | 'idle';
 
 async function updateGameData(gameRef: DocumentReference<Game>, gameData: Game): Promise<void> {
   console.log('In updateGameData');
@@ -43,6 +45,7 @@ const Game: React.FC = () => {
   let gameData: Game = {
     id: gameId!,
     words: [],
+    wordStatuses: [],
     lastAccess: new Date().getTime(),
     blueTeam: [],
     redTeam: [],
@@ -84,6 +87,7 @@ const Game: React.FC = () => {
     gameData = {
       id: gameId,
       words: getRandomWords(),
+      wordStatuses: Array(25).fill('idle'),
       lastAccess: new Date().getTime(),
       blueTeam: [],
       redTeam: [],
@@ -134,6 +138,16 @@ const Game: React.FC = () => {
     updateGameData(gameRef, gameData).then();
   }
 
+  const handleCardClick = (wordIndex: number) => {
+    console.log(`Card clicked: ${gameData.words[wordIndex]}`);
+    if (gameData.redTeam.includes(playerName)) {
+      gameData.wordStatuses[wordIndex] = 'tentative-red';
+    } else if (gameData.blueTeam.includes(playerName)) {
+      gameData.wordStatuses[wordIndex] = 'tentative-blue';
+    }
+    updateGameData(gameRef, gameData).then();
+  };
+
   const canBecomeSpymaster = (team: 'red' | 'blue') => {
     if (team == 'red') {
       return gameData?.redTeam.includes(playerName) && !gameData?.redMaster;
@@ -179,7 +193,7 @@ const Game: React.FC = () => {
           gameData.blueMaster == playerName ? (<div>You are spymaster</div>) : (<div>Blue Spymaster: {gameData.blueMaster || 'TBD'}</div>)
         )}
       </div>
-      <Board words={gameData?.words || []} />
+      <Board words={gameData?.words || []} statuses={gameData?.wordStatuses} onCardClick={handleCardClick} />
     </div>
   );
 };

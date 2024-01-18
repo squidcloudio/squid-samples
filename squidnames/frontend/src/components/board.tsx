@@ -1,13 +1,16 @@
 import React from 'react';
 import Card from './card.tsx';
+import { CardStatus } from './game.tsx';
 
 // Define the props for the Board component
 interface BoardProps {
   words: string[]; // Array of words to be displayed on the board
+  statuses: CardStatus[]; // Selection statuses of each word
+  onCardClick: (index: number) => void;
 }
 
 // Board component
-const Board: React.FC<BoardProps> = ({ words }) => {
+const Board: React.FC<BoardProps> = ({ words , statuses, onCardClick }) => {
   // Creating a 5x5 grid
   const gridSize = 5;
   const rows = Array.from({ length: gridSize });
@@ -23,8 +26,8 @@ const Board: React.FC<BoardProps> = ({ words }) => {
     >
       {rows.map((_, rowIndex) =>
         rows.map((_, colIndex) => {
-          const wordIndex = rowIndex * gridSize + colIndex;
-          return <Card key={wordIndex} word={words[wordIndex]} />;
+          const index = rowIndex * gridSize + colIndex;
+          return <Card key={index} word={words[index]} status={statuses[index]} onClick={() => onCardClick(index)} />;
         }),
       )}
     </div>

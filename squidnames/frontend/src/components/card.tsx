@@ -1,14 +1,15 @@
 import React from 'react';
+import { CardStatus } from './game.tsx';
 
-// Define the props for the Card component
 interface CardProps {
   word: string;
+  status: CardStatus;
+  onClick: () => void;
 }
 
-// Card component
-const Card: React.FC<CardProps> = ({ word }) => {
+const Card: React.FC<CardProps> = ({ word , status, onClick }) => {
   return (
-    <div className="wordCard">
+    <div className={`wordCard ${status}`} onClick={onClick}>
       {word}
     </div>
   );

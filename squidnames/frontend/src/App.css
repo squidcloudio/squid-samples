@@ -66,7 +66,7 @@ div.question {
 }
 
 .wordCard {
-  border: 1px solid black;
+  border: 2px solid black;
   padding: 10px;
   text-align: center;
   hyphens: auto;
@@ -74,6 +74,33 @@ div.question {
   width: 10vw; /* Set the width of the square */
   height: 10vw; /* Set the height of the square */
   text-transform: uppercase;
+}
+
+.idle {
+  border-color: green;
+}
+
+.correctly-blue {
+  border-color: blue;
+}
+
+.correctly-red {
+  border-color: red;
+}
+
+.tentative-blue {
+  border-color: blue;
+  border-style: dashed;
+}
+
+.tentative-red {
+  border-color: red;
+  border-style: dashed;
+}
+
+.tentative-both {
+  border-color: purple;
+  border-style: dashed;
 }
 
 .spymasters {
