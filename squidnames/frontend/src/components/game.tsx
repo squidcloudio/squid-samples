@@ -140,6 +140,9 @@ const Game: React.FC = () => {
 
   const handleCardClick = (wordIndex: number) => {
     console.log(`Card clicked: ${gameData.words[wordIndex]}`);
+    if (gameData.redMaster === playerName || gameData.blueMaster === playerName) {
+      return;
+    }
     if (gameData.redTeam.includes(playerName)) {
       gameData.wordStatuses[wordIndex] = 'tentative-red';
     } else if (gameData.blueTeam.includes(playerName)) {
