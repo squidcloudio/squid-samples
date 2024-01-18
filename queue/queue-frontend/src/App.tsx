@@ -9,9 +9,10 @@ function App() {
   const queue = squid.queue('test_topic');
 
   useEffect(() => {
-    queue.consume().subscribe((message: string) => {
+    const subscription = queue.consume().subscribe((message: string) => {
       setMessage(message);
     });
+    return () => subscription.unsubscribe();
   }, []);
 
   const writeMessage = (e: React.FormEvent) => {
