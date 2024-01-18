@@ -72,7 +72,7 @@ div.question {
   hyphens: auto;
   word-wrap: break-word;
   width: 10vw; /* Set the width of the square */
-  height: 10vw; /* Set the height of the square */
+  height: 8vw; /* Set the height of the square */
   text-transform: uppercase;
 }
 
@@ -81,7 +81,7 @@ div.question {
 }
 
 .actually-neutral {
-  background-color: green;
+  background-color: lightgreen;
 }
 
 .tentative-blue {

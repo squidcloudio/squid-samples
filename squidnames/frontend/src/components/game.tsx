@@ -15,6 +15,7 @@ type Game = {
   redTeam: string[];
   blueMaster: string | null;
   redMaster: string | null;
+  turn: Team;
 }
 
 export enum Team {
@@ -70,6 +71,7 @@ const Game: React.FC = () => {
     redTeam: [],
     blueMaster: null,
     redMaster: null,
+    turn: Team.Red,
   };
 
   useEffect(() => {
@@ -103,15 +105,8 @@ const Game: React.FC = () => {
     return '<div>Something weird happened. Please start a new game.</div>';
   } else if (games.length == 0) {
     // Is a new game, generate a new game.
-    gameData = {
-      id: gameId,
-      cards: generateCards(),
-      lastAccess: new Date().getTime(),
-      blueTeam: [],
-      redTeam: [],
-      blueMaster: null,
-      redMaster: null,
-    };
+    gameData.cards = generateCards();
+    gameData.turn = Team.Red;
     gameRef.insert(gameData).then(() => {
       console.debug(`Saved words to ${gameId}`);
     }).catch(() => {
@@ -193,7 +188,7 @@ const Game: React.FC = () => {
 
   const handleCardConfirm = (wordIndex: number) => {
     console.log(`Confirm selection of: ${gameData.cards[wordIndex].word}`);
-    if (isSpymaster()) {
+    if (isSpymaster() || getTeam() != gameData.turn) {
       return;
     }
     const card = gameData.cards[wordIndex];
@@ -311,7 +306,7 @@ const Game: React.FC = () => {
           gameData.blueMaster == playerName ? (<div>You are spymaster</div>) : (<div>Blue Spymaster: {gameData.blueMaster || 'TBD'}</div>)
         )}
       </div>
-      <Board cards={gameData?.cards || []} playerTeam={getTeam()} isSpymaster={isSpymaster()} onCardClick={handleCardClick} onCardConfirm={handleCardConfirm} />
+      <Board cards={gameData?.cards || []} playerTeam={getTeam()} isSpymaster={isSpymaster()} activeTurn={gameData?.turn} onCardClick={handleCardClick} onCardConfirm={handleCardConfirm} />
     </div>
   );
 };

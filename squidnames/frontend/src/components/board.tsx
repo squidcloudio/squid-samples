@@ -7,12 +7,13 @@ interface BoardProps {
   cards: Card[]; // Array of cards to be displayed on the board
   playerTeam: Team;
   isSpymaster: boolean;
+  activeTurn: Team;
   onCardClick: (index: number) => void;
   onCardConfirm: (index: number) => void;
 }
 
 // Board component
-const Board: React.FC<BoardProps> = ({ cards, playerTeam, isSpymaster,onCardClick, onCardConfirm }) => {
+const Board: React.FC<BoardProps> = ({ cards, playerTeam, isSpymaster, activeTurn,onCardClick, onCardConfirm }) => {
   // Creating a 5x5 grid
   const gridSize = 5;
   const rows = Array.from({ length: gridSize });
@@ -29,7 +30,7 @@ const Board: React.FC<BoardProps> = ({ cards, playerTeam, isSpymaster,onCardClic
       {rows.map((_, rowIndex) =>
         rows.map((_, colIndex) => {
           const index = rowIndex * gridSize + colIndex;
-          return <Card key={index} card={cards[index]} playerTeam={playerTeam} isSpymaster={isSpymaster} onClick={() => onCardClick(index)}
+          return <Card key={index} card={cards[index]} playerTeam={playerTeam} isSpymaster={isSpymaster} activeTurn={activeTurn} onClick={() => onCardClick(index)}
                        onConfirm={() => onCardConfirm(index)} />;
         }),
       )}

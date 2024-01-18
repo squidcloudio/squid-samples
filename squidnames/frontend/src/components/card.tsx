@@ -22,24 +22,25 @@ interface CardProps {
   card: Card;
   playerTeam: Team;
   isSpymaster: boolean;
+  activeTurn: Team;
   onClick: () => void;
   onConfirm: () => void;
 }
 
-const Card: React.FC<CardProps> = ({ card , playerTeam, isSpymaster, onClick, onConfirm }) => {
+const Card: React.FC<CardProps> = ({ card , playerTeam, isSpymaster, activeTurn, onClick, onConfirm }) => {
   const isTentative = [CardStatus.TentativeBlue, CardStatus.TentativeRed, CardStatus.TentativeBoth].includes(card.status);
   const isFinished = [CardStatus.ActuallyBlue, CardStatus.ActuallyRed, CardStatus.ActuallyNeutral, CardStatus.ActuallyAssassin].includes(card.status);
-  let isInteractive = !isSpymaster && isTentative;
+  let isConfirmable = !isSpymaster && isTentative && playerTeam === activeTurn;
 
   let statusClass: string = 'idle';
   switch (card.status) {
     case CardStatus.TentativeBlue:
       statusClass = 'tentative-blue';
-      isInteractive &&= playerTeam === Team.Blue;
+      isConfirmable &&= playerTeam === Team.Blue;
       break;
     case CardStatus.TentativeRed:
       statusClass = 'tentative-red';
-      isInteractive &&= playerTeam === Team.Red;
+      isConfirmable &&= playerTeam === Team.Red;
       break;
     case CardStatus.TentativeBoth:
       statusClass = 'tentative-both';
@@ -80,13 +81,16 @@ const Card: React.FC<CardProps> = ({ card , playerTeam, isSpymaster, onClick, on
   }
   const handleConfirmClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
+    if (playerTeam !== activeTurn) {
+      return;
+    }
     onConfirm();
   };
 
   return (
     <div className={`wordCard ${statusClass}`} onClick={handleClick}>
       {card.word}
-      {isInteractive && (
+      {isConfirmable && (
         <div className='card-actions'>
           <button onClick={handleConfirmClick}>Confirm</button>
         </div>
