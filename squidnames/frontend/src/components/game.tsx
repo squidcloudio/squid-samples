@@ -31,20 +31,13 @@ function generateCards(size: number = 25): Card[] {
   states = states.concat(Array(teamSize).fill(Team.Blue));
   states = states.concat(Array(teamSize).fill(Team.Neutral));
   states[size - 1] = Team.Assassin;
-  states = shuffleArray(states) as Team[]
+  // Shuffle which cards are for which team.
+  states.sort(() => 0.5 - Math.random());
   let cards: Card[] = [];
   for (let i = 0; i < words.length; i++) {
     cards.push({ word: words[i], state: states[i], status: CardStatus.Idle })
   }
   return cards;
-}
-
-function shuffleArray(array: any[]): any[] {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]]; // Swap elements
-  }
-  return array;
 }
 
 async function updateGameData(gameRef: DocumentReference<Game>, gameData: Game): Promise<void> {
