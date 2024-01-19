@@ -13,7 +13,9 @@ const UserModal: React.FC<UserModalProps> = ({ isOpen, onSubmit, redTeamMembers,
   const [displayName, setDisplayName] = useState(playerName ? playerName : '');
 
   const handleSubmit = (team: Team) => {
-    console.log('In handleSubmit user');
+    if (displayName === '') {
+      return;
+    }
     onSubmit(displayName, team);
   };
 

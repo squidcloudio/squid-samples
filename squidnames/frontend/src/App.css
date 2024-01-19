@@ -66,6 +66,7 @@ div.question {
 }
 
 .wordCard {
+  box-sizing: border-box;
   border: 2px solid black;
   padding: 10px;
   text-align: center;
@@ -80,48 +81,52 @@ div.question {
   border-color: grey;
 }
 
-.actually-neutral {
-  background-color: tan;
+.revealed.card-blue {
+  background-color: lightblue;
 }
 
-.tentative-blue {
-  border-color: blue;
-  border-style: dashed;
+.revealed.card-red {
+  background-color: #ffaaaa; /* Lighter red */
 }
 
-.tentative-red {
-  border-color: red;
-  border-style: dashed;
+.revealed.card-assassin {
+  background-color: grey;
 }
 
-.tentative-both {
-  border-color: purple;
-  border-style: dashed;
-}
-
-.spymaster-blue {
+.actual.card-blue {
   background-color: lightskyblue;
 }
 
-.spymaster-red {
-  background-color: #ff5555; /* There is no 'lightred' */
+.actual.card-red {
+  background-color: #ff5555; /* Lighter red */
 }
 
-.spymaster-assassin {
+.actual.card-neutral {
+  background-color: tan;
+}
+
+.actual.card-assassin {
   background-color: black;
   color: white;
 }
 
-.revealed-blue {
-  background-color: lightblue;
+.tentative.guess-blue {
+  border-color: blue;
+  border-style: dashed;
 }
 
-.revealed-red {
-  background-color: #ffaaaa; /* Lighter red */
+.tentative.guess-red {
+  border-color: red;
+  border-style: dashed;
 }
 
-.revealed-assassin {
-  background-color: grey;
+.tentative.guess-both {
+  border-color: purple;
+  border-style: dashed;
+}
+
+.spymaster.actual {
+  border-width: 4px;
 }
 
 .top-bar {
