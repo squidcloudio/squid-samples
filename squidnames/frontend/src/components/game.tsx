@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Board from './board';
-import { useCollection, useQuery } from '@squidcloud/react';
+import { useCollection, useQuery, useSquid } from '@squidcloud/react';
 import { getRandomWords } from '../utils/wordBank.ts';
 import UserModal from './userModal.tsx';
 import { DocumentReference } from '@squidcloud/client';
 import Card, { CardStatus } from './card.tsx';
+import { DistributedLock } from '@squidcloud/client/dist/typescript-client/src/distributed-lock.manager';
 
 type Game = {
   id: string;
@@ -41,8 +42,9 @@ function generateCards(size: number = 25): Card[] {
   return cards;
 }
 
+const gameLock = 'gameLock';
+
 async function updateGameData(gameRef: DocumentReference<Game>, gameData: Game): Promise<void> {
-  console.log('In updateGameData');
   gameData.lastAccess = new Date().getTime()
   gameRef.update(gameData).then(() => {
     console.debug(`Game data updated for ${gameData.id}`);
@@ -55,6 +57,7 @@ const Game: React.FC = () => {
   const { gameId } = useParams<{ gameId: string }>(); // Get the gameId from the URL
   const [playerName, setPlayerName] = useState<string>('???');
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const squid = useSquid();
   const gameCollection = useCollection<Game>('games')
   const { loading: gameLoading, data: games } = useQuery(
     gameCollection
@@ -131,94 +134,129 @@ const Game: React.FC = () => {
       return;
     }
     setPlayerName(playerName);
-    // TODO: acquireLock(`${gameId}::gameUpdate`).then(())
-    gameData.blueTeam = gameData.blueTeam.filter(name => name != playerName && name != oldName)
-    gameData.redTeam = gameData.redTeam.filter(name => name != playerName && name != oldName)
-    switch (team) {
-      case Team.Red: {
-        gameData.redTeam.push(playerName);
-        break;
-      }
-      case Team.Blue: {
-        gameData.blueTeam.push(playerName);
-        break;
-      }
-      default: {
-        // spectator
-      }
-    }
 
-    updateGameData(gameRef, gameData).then();
+    let lock: DistributedLock;
+    squid.acquireLock(gameLock).then(acquiredLock => {
+      lock = acquiredLock;
+      gameData.blueTeam = gameData.blueTeam.filter(name => name != playerName && name != oldName)
+      gameData.redTeam = gameData.redTeam.filter(name => name != playerName && name != oldName)
+      switch (team) {
+        case Team.Red: {
+          gameData.redTeam.push(playerName);
+          break;
+        }
+        case Team.Blue: {
+          gameData.blueTeam.push(playerName);
+          break;
+        }
+        default: {
+          // spectator
+        }
+      }
+      return updateGameData(gameRef, gameData);
+    }).then(() => {
+      console.log(`Player added.`)
+    }).catch((error) => {
+      console.error("Failed to add player.", error);
+    }).finally(() => {
+      if (lock) {
+        lock.release();
+      }
+    })
   }
 
   const handleCardClick = (wordIndex: number) => {
     console.log(`Card clicked: ${gameData.cards[wordIndex].word}`);
-    const team = getTeam();
-    if (isSpymaster() || team === Team.Neutral) {
-      return;
-    }
-    const curStatus = gameData.cards[wordIndex].status;
-    let newStatus = curStatus;
-    if (team === Team.Red) {
-      if (curStatus === CardStatus.TentativeRed) {
-        newStatus = CardStatus.Idle;
-      } else if (curStatus === CardStatus.TentativeBlue) {
-        newStatus = CardStatus.TentativeBoth;
-      } else if (curStatus === CardStatus.TentativeBoth) {
-        newStatus = CardStatus.TentativeBlue;
-      } else if (curStatus === CardStatus.Idle) {
-        newStatus = CardStatus.TentativeRed;
+    let lock: DistributedLock;
+    squid.acquireLock(gameLock).then(acquiredLock => {
+      lock = acquiredLock;
+      const team = getTeam();
+      if (isSpymaster() || team === Team.Neutral) {
+        return;
       }
-    } else if (team === Team.Blue) {
-      if (curStatus === CardStatus.TentativeBlue) {
-        newStatus = CardStatus.Idle;
-      } else if (curStatus === CardStatus.TentativeRed) {
-        newStatus = CardStatus.TentativeBoth;
-      } else if (curStatus === CardStatus.TentativeBoth) {
-        newStatus = CardStatus.TentativeRed;
-      } else if (curStatus === CardStatus.Idle) {
-        newStatus = CardStatus.TentativeBlue;
+      const curStatus = gameData.cards[wordIndex].status;
+      let newStatus = curStatus;
+      if (team === Team.Red) {
+        if (curStatus === CardStatus.TentativeRed) {
+          newStatus = CardStatus.Idle;
+        } else if (curStatus === CardStatus.TentativeBlue) {
+          newStatus = CardStatus.TentativeBoth;
+        } else if (curStatus === CardStatus.TentativeBoth) {
+          newStatus = CardStatus.TentativeBlue;
+        } else if (curStatus === CardStatus.Idle) {
+          newStatus = CardStatus.TentativeRed;
+        }
+      } else if (team === Team.Blue) {
+        if (curStatus === CardStatus.TentativeBlue) {
+          newStatus = CardStatus.Idle;
+        } else if (curStatus === CardStatus.TentativeRed) {
+          newStatus = CardStatus.TentativeBoth;
+        } else if (curStatus === CardStatus.TentativeBoth) {
+          newStatus = CardStatus.TentativeRed;
+        } else if (curStatus === CardStatus.Idle) {
+          newStatus = CardStatus.TentativeBlue;
+        }
       }
-    }
-    if (curStatus !== newStatus) {
-      gameData.cards[wordIndex].status = newStatus
-      updateGameData(gameRef, gameData).then();
-    }
+      if (curStatus !== newStatus) {
+        gameData.cards[wordIndex].status = newStatus
+        return updateGameData(gameRef, gameData);
+      }
+    }).then(() => {
+      console.log(`Card tentatively selected.`)
+    }).catch((error) => {
+      console.error("Failed to tentatively select card.", error);
+    }).finally(() => {
+      if (lock) {
+        lock.release();
+      }
+    })
   };
 
   const handleCardConfirm = (wordIndex: number) => {
     console.log(`Confirm selection of: ${gameData.cards[wordIndex].word}`);
-    const team = getTeam();
-    if (isSpymaster() || team != gameData.turn) {
-      return;
-    }
-    const card = gameData.cards[wordIndex];
-    switch (card.team) {
-      case Team.Red:
-        card.status = CardStatus.ActuallyRed;
-        break;
-      case Team.Blue:
-        card.status = CardStatus.ActuallyBlue;
-        break;
-      case Team.Assassin:
-        card.status = CardStatus.ActuallyAssassin;
+    let lock: DistributedLock;
+    squid.acquireLock(gameLock).then(acquiredLock => {
+      lock = acquiredLock;
+      const team = getTeam();
+      if (isSpymaster() || team != gameData.turn) {
+        return;
+      }
+      const card = gameData.cards[wordIndex];
+      switch (card.team) {
+        case Team.Red:
+          card.status = CardStatus.ActuallyRed;
+          break;
+        case Team.Blue:
+          card.status = CardStatus.ActuallyBlue;
+          break;
+        case Team.Assassin:
+          card.status = CardStatus.ActuallyAssassin;
+          // Using "Neutral" to mean the game is over.
+          gameData.turn = Team.Neutral;
+          break;
+        default:
+          card.status = CardStatus.ActuallyNeutral;
+      }
+      gameData.cards[wordIndex] = card;
+
+      const { remainRed, remainBlue } = calculateScore();
+      if (remainRed === 0 || remainBlue === 0) {
         // Using "Neutral" to mean the game is over.
         gameData.turn = Team.Neutral;
-        break;
-      default:
-        card.status = CardStatus.ActuallyNeutral;
-    }
-    gameData.cards[wordIndex] = card;
-
-    const { remainRed, remainBlue } = calculateScore();
-    if (remainRed === 0 || remainBlue === 0) {
-      // Using "Neutral" to mean the game is over.
-      gameData.turn = Team.Neutral;
-    }
-    if (card.team !== team) {
-      handleEndTurn();
-    }
-    updateGameData(gameRef, gameData).then();
+      }
+      if (card.team !== team) {
+        handleEndTurn();
+      }
+      return updateGameData(gameRef, gameData);
+    }).then(() => {
+      console.log(`Card selection confirmed.`)
+    }).catch((error) => {
+      console.error("Failed to confirm card selection.", error);
+    }).finally(() => {
+      if (lock) {
+        lock.release();
+      }
+    })
   };
 
   const calculateScore = () => {
@@ -265,28 +303,52 @@ const Game: React.FC = () => {
   };
 
   const handleBecomeSpymaster = () => {
-    const team = getTeam();
-    if (!canBecomeSpymaster(team)) {
-      return;
-    }
-    switch (team) {
-      case Team.Red:
-        gameData.redMaster = playerName;
-        break;
-      case Team.Blue:
-        gameData.blueMaster = playerName;
-        break;
-    }
-    updateGameData(gameRef, gameData).then();
+    let lock: DistributedLock;
+    squid.acquireLock(gameLock).then(acquiredLock => {
+      lock = acquiredLock;
+      const team = getTeam();
+      if (!canBecomeSpymaster(team)) {
+        return;
+      }
+      switch (team) {
+        case Team.Red:
+          gameData.redMaster = playerName;
+          break;
+        case Team.Blue:
+          gameData.blueMaster = playerName;
+          break;
+      }
+      return updateGameData(gameRef, gameData);
+    }).then(() => {
+      console.log(`${playerName} is now Spymaster.`)
+    }).catch((error) => {
+      console.error("Failed to assign a spymaster.", error);
+    }).finally(() => {
+      if (lock) {
+        lock.release();
+      }
+    })
   };
 
   const handleEndTurn = () => {
-    if (gameData.turn === Team.Red) {
-      gameData.turn = Team.Blue;
-    } else if (gameData.turn === Team.Blue) {
-      gameData.turn = Team.Red;
-    }
-    updateGameData(gameRef, gameData).then();
+    let lock: DistributedLock;
+    squid.acquireLock(gameLock).then(acquiredLock => {
+      lock = acquiredLock;
+      if (gameData.turn === Team.Red) {
+        gameData.turn = Team.Blue;
+      } else if (gameData.turn === Team.Blue) {
+        gameData.turn = Team.Red;
+      }
+      return updateGameData(gameRef, gameData);
+    }).then(() => {
+      console.log(`Successfully ended turn.`)
+    }).catch((error) => {
+      console.error("Failed to end turn.", error);
+    }).finally(() => {
+      if (lock) {
+        lock.release();
+      }
+    })
   };
 
   const { remainRed, remainBlue } = calculateScore();
