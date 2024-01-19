@@ -30,7 +30,8 @@ interface CardProps {
 const Card: React.FC<CardProps> = ({ card , playerTeam, isSpymaster, activeTurn, onClick, onConfirm }) => {
   const isTentative = [CardStatus.TentativeBlue, CardStatus.TentativeRed, CardStatus.TentativeBoth].includes(card.status);
   const isActual = [CardStatus.ActuallyBlue, CardStatus.ActuallyRed, CardStatus.ActuallyNeutral, CardStatus.ActuallyAssassin].includes(card.status);
-  const isFinished = activeTurn === Team.Neutral || isActual;
+  const gameOver = activeTurn === Team.Neutral; // Using Neutral to mean game over.
+  const isFinished = gameOver || isActual;
   let isConfirmable = !isSpymaster && isTentative && playerTeam === activeTurn;
 
   let classBuilder: Set<string> = new Set(['wordCard']);
@@ -46,27 +47,25 @@ const Card: React.FC<CardProps> = ({ card , playerTeam, isSpymaster, activeTurn,
 
   switch (card.status) {
     case CardStatus.TentativeBlue:
-      // Using "Neutral" to mean the game is over.
-      if (activeTurn === Team.Neutral) {
+      if (gameOver) {
         break;
       }
       classBuilder.add('guess-blue');
       isConfirmable &&= playerTeam === Team.Blue;
       break;
     case CardStatus.TentativeRed:
-      // Using "Neutral" to mean the game is over.
-      if (activeTurn === Team.Neutral) {
+      if (gameOver) {
         break;
       }
       classBuilder.add('guess-red');
-      // Using "Neutral" to mean the game is over.
       isConfirmable &&= playerTeam === Team.Red;
       break;
     case CardStatus.TentativeBoth:
-      if (activeTurn === Team.Neutral) {
+      if (gameOver) {
         break;
       }
       classBuilder.add('guess-both');
+      isConfirmable &&= true;
       break;
     case CardStatus.ActuallyBlue:
       classBuilder.add('card-blue');
@@ -81,8 +80,7 @@ const Card: React.FC<CardProps> = ({ card , playerTeam, isSpymaster, activeTurn,
       classBuilder.add('card-neutral');
       break;
     case CardStatus.Idle:
-      // Using "Neutral" to mean the game is over.
-      if (activeTurn !== Team.Neutral) {
+      if (!gameOver) {
         break;
       }
       classBuilder.add('revealed');
