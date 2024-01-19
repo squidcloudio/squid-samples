@@ -43,11 +43,6 @@ const Card: React.FC<CardProps> = ({ card , playerTeam, isSpymaster, activeTurn,
   if (isActual) {
     classBuilder.add('actual');
   }
-  if (playerTeam === Team.Blue) {
-    classBuilder.add('player-blue');
-  } else if (playerTeam === Team.Red) {
-    classBuilder.add('player-red');
-  }
 
   switch (card.status) {
     case CardStatus.TentativeBlue:
