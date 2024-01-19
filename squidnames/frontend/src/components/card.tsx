@@ -4,8 +4,8 @@ import { Team } from './game.tsx';
 type Card = {
   word: string;
   team: Team;
-  status: CardStatus
-}
+  status: CardStatus;
+};
 
 export enum CardStatus {
   Idle = 0,
@@ -27,9 +27,25 @@ interface CardProps {
   onConfirm: () => void;
 }
 
-const Card: React.FC<CardProps> = ({ card , playerTeam, isSpymaster, activeTurn, onClick, onConfirm }) => {
-  const isTentative = [CardStatus.TentativeBlue, CardStatus.TentativeRed, CardStatus.TentativeBoth].includes(card.status);
-  const isActual = [CardStatus.ActuallyBlue, CardStatus.ActuallyRed, CardStatus.ActuallyNeutral, CardStatus.ActuallyAssassin].includes(card.status);
+const Card: React.FC<CardProps> = ({
+  card,
+  playerTeam,
+  isSpymaster,
+  activeTurn,
+  onClick,
+  onConfirm,
+}) => {
+  const isTentative = [
+    CardStatus.TentativeBlue,
+    CardStatus.TentativeRed,
+    CardStatus.TentativeBoth,
+  ].includes(card.status);
+  const isActual = [
+    CardStatus.ActuallyBlue,
+    CardStatus.ActuallyRed,
+    CardStatus.ActuallyNeutral,
+    CardStatus.ActuallyAssassin,
+  ].includes(card.status);
   const isGameOver = activeTurn === Team.Neutral; // Using Neutral to mean game over.
   const isFinished = isGameOver || isActual;
   let isConfirmable = !isSpymaster && isTentative && playerTeam === activeTurn;
@@ -119,7 +135,7 @@ const Card: React.FC<CardProps> = ({ card , playerTeam, isSpymaster, activeTurn,
       return;
     }
     onClick();
-  }
+  };
   const handleConfirmClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
     if (playerTeam !== activeTurn) {
@@ -132,7 +148,7 @@ const Card: React.FC<CardProps> = ({ card , playerTeam, isSpymaster, activeTurn,
     <div className={Array.from(classBuilder).join(' ')} onClick={handleClick}>
       {card.word}
       {isConfirmable && (
-        <div className='card-actions'>
+        <div className="card-actions">
           <button onClick={handleConfirmClick}>Confirm</button>
         </div>
       )}
