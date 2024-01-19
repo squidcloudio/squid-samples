@@ -149,10 +149,46 @@ div.question {
   gap: 3px; /* Adjust this value to control the spacing */
 }
 
-.red {
+.team-list-container {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+}
+
+.team {
+  flex: 1;
+  margin: 5px;
+}
+
+.team h3 {
+  text-align: center;
+}
+
+.team ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.red-member {
   color: red;
 }
 
-.blue {
+.blue-member {
   color: blue;
+}
+
+.red-score {
+  color: red;
+}
+
+.blue-score {
+  color: blue;
+}
+
+.current-user {
+  font-style: italic;
+}
+
+.is-spymaster {
+  font-weight: bold;
 }

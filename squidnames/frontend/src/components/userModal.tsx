@@ -4,11 +4,9 @@ import { Team } from './game.tsx';
 interface UserModalProps {
   isOpen: boolean;
   onSubmit: (displayName: string, team: Team) => void;
-  redTeamMembers: string[];
-  blueTeamMembers: string[];
 }
 
-const UserModal: React.FC<UserModalProps> = ({ isOpen, onSubmit, redTeamMembers, blueTeamMembers }) => {
+const UserModal: React.FC<UserModalProps> = ({ isOpen, onSubmit }) => {
   const playerName = localStorage.getItem('playerName');
   const [displayName, setDisplayName] = useState(playerName ? playerName : '');
 
@@ -31,20 +29,13 @@ const UserModal: React.FC<UserModalProps> = ({ isOpen, onSubmit, redTeamMembers,
         placeholder="Your player name"
       />
       <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-        <div onClick={() => handleSubmit(Team.Red)} style={{ cursor: 'pointer', border: '1px solid red' }}>
-          <h3>Red Team</h3>
-          <div>
-            {redTeamMembers.map(member => <p key={member}>{member}</p>)}
-          </div>
+        <div onClick={() => handleSubmit(Team.Red)} style={{ cursor: 'pointer', border: '3px solid red' }}>
+          <h3>Join Red</h3>
         </div>
-        <div onClick={() => handleSubmit(Team.Blue)} style={{ cursor: 'pointer', border: '1px solid blue' }}>
-          <h3>Blue Team</h3>
-          <div>
-            {blueTeamMembers.map(member => <p key={member}>{member}</p>)}
-          </div>
+        <div onClick={() => handleSubmit(Team.Blue)} style={{ cursor: 'pointer', border: '3px solid blue' }}>
+          <h3>Join Blue</h3>
         </div>
       </div>
-      {/*<button onClick={onClose}>Confirm</button>*/}
     </div>
   );
 };

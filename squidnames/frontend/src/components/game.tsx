@@ -7,6 +7,7 @@ import UserModal from './userModal.tsx';
 import { DocumentReference } from '@squidcloud/client';
 import Card, { CardStatus } from './card.tsx';
 import { DistributedLock } from '@squidcloud/client/dist/typescript-client/src/distributed-lock.manager';
+import TeamList from './teamList.tsx';
 
 type Game = {
   id: string;
@@ -351,44 +352,65 @@ const Game: React.FC = () => {
     })
   };
 
+  const handleNewGame = () => {
+    let lock: DistributedLock;
+    squid.acquireLock(gameLock).then(acquiredLock => {
+      lock = acquiredLock;
+      return gameRef.delete();
+    }).then(() => {
+      console.log(`Successfully reset the game.`)
+    }).catch((error) => {
+      console.error("Failed to reset the game.", error);
+    }).finally(() => {
+      if (lock) {
+        lock.release();
+      }
+    })
+  };
+
   const { remainRed, remainBlue } = calculateScore();
 
   return (
     <div>
-      <h2>Game ID: {gameId}</h2>
+      <h4>Game ID: {gameId}</h4>
       {isModalOpen && (
         <UserModal
           isOpen={isModalOpen}
           onSubmit={handleUserSubmit}
-          redTeamMembers={gameData?.redTeam || []}
-          blueTeamMembers={gameData?.blueTeam || []}
         />
       )}
-      <h4>Playing as: {playerName}</h4>
+      <TeamList redTeamMembers={gameData.redTeam} blueTeamMembers={gameData.blueTeam} playerName={playerName} redMaster={gameData.redMaster} blueMaster={gameData.blueMaster} />
       <div className="top-bar">
         <div className="spymasters no-pad">
           <div>Spymasters:</div>
           {canBecomeSpymaster(Team.Red) ? (
-            <button className="red" onClick={() => handleBecomeSpymaster()}>
+            <button className="red-member" onClick={() => handleBecomeSpymaster()}>
               Become Spymaster
             </button>
           ) : (
-            <div className="red">{gameData.redMaster || '???'}</div>
+            <div className="red-member">{gameData.redMaster || '???'}</div>
           )}
           {canBecomeSpymaster(Team.Blue) ? (
-            <button className="blue" onClick={() => handleBecomeSpymaster()}>
+            <button className="blue-member" onClick={() => handleBecomeSpymaster()}>
               Become Spymaster
             </button>
           ) : (
-            <div className="blue">{gameData.blueMaster || '???'}</div>
+            <div className="blue-member">{gameData.blueMaster || '???'}</div>
           )}
         </div>
         <div className="score no-pad">
-          <div className="red">{remainRed}</div>
+          <div className="red-score">{remainRed}</div>
           <div>-</div>
-          <div className="blue">{remainBlue}</div>
+          <div className="blue-score">{remainBlue}</div>
         </div>
-        <button onClick={handleEndTurn} disabled={gameData.turn !== getTeam()}>End Turn</button>
+        {
+          gameData.turn === Team.Neutral ? (
+            <button onClick={handleNewGame}>New Game</button>
+          ) : (
+            <button onClick={handleEndTurn} disabled={gameData.turn !== getTeam()}>End Turn</button>
+          )
+        }
+        {/*<button onClick={handleEndTurn} disabled={gameData.turn !== getTeam()}>End Turn</button>*/}
       </div>
       <Board cards={gameData?.cards || []} playerTeam={getTeam()} isSpymaster={isSpymaster()} activeTurn={gameData?.turn} onCardClick={handleCardClick} onCardConfirm={handleCardConfirm} />
     </div>

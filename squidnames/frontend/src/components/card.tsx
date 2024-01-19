@@ -30,8 +30,8 @@ interface CardProps {
 const Card: React.FC<CardProps> = ({ card , playerTeam, isSpymaster, activeTurn, onClick, onConfirm }) => {
   const isTentative = [CardStatus.TentativeBlue, CardStatus.TentativeRed, CardStatus.TentativeBoth].includes(card.status);
   const isActual = [CardStatus.ActuallyBlue, CardStatus.ActuallyRed, CardStatus.ActuallyNeutral, CardStatus.ActuallyAssassin].includes(card.status);
-  const gameOver = activeTurn === Team.Neutral; // Using Neutral to mean game over.
-  const isFinished = gameOver || isActual;
+  const isGameOver = activeTurn === Team.Neutral; // Using Neutral to mean game over.
+  const isFinished = isGameOver || isActual;
   let isConfirmable = !isSpymaster && isTentative && playerTeam === activeTurn;
 
   let classBuilder: Set<string> = new Set(['wordCard']);
@@ -47,21 +47,21 @@ const Card: React.FC<CardProps> = ({ card , playerTeam, isSpymaster, activeTurn,
 
   switch (card.status) {
     case CardStatus.TentativeBlue:
-      if (gameOver) {
+      if (isGameOver) {
         break;
       }
       classBuilder.add('guess-blue');
       isConfirmable &&= playerTeam === Team.Blue;
       break;
     case CardStatus.TentativeRed:
-      if (gameOver) {
+      if (isGameOver) {
         break;
       }
       classBuilder.add('guess-red');
       isConfirmable &&= playerTeam === Team.Red;
       break;
     case CardStatus.TentativeBoth:
-      if (gameOver) {
+      if (isGameOver) {
         break;
       }
       classBuilder.add('guess-both');
@@ -80,7 +80,7 @@ const Card: React.FC<CardProps> = ({ card , playerTeam, isSpymaster, activeTurn,
       classBuilder.add('card-neutral');
       break;
     case CardStatus.Idle:
-      if (!gameOver) {
+      if (!isGameOver) {
         break;
       }
       classBuilder.add('revealed');
