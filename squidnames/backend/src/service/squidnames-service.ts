@@ -14,8 +14,7 @@ import { secureDatabase, secureDistributedLock, SquidService } from '@squidcloud
  *
  * For more information and examples see: https://docs.squid.cloud/docs/development-tools/backend/
  */
-export class ExampleService extends SquidService {
-  // TODO: !!!IMPORTANT!!! - Replace this function with your own granular security rules
+export class SquidnamesService extends SquidService {
   @secureDatabase('all', 'built_in_db')
   allowAllAccessToBuiltInDb(): boolean {
     return true;

@@ -20,9 +20,9 @@ There are three architectural parts to keep in mind when developing with Squid:
 
 To develop locally, run `npm run start-squid`
 
-## ExampleService
+## SquidnamesService
 
-The generated code has a class named `ExampleService` that can be used as a playground. You can modify this class to
+The generated code has a class named `SquidnamesService` that can be used as a playground. You can modify this class to
 experiment with Squid's functionality and explore the Squid Backend SDK.
 
 ## Deploying your code
