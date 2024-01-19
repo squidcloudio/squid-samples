@@ -100,14 +100,27 @@ div.question {
 }
 
 .spymaster-blue {
-  background-color: lightblue;
+  background-color: lightskyblue;
 }
 
 .spymaster-red {
-  background-color: #ff6666; /* There is no 'lightred' */
+  background-color: #ff5555; /* There is no 'lightred' */
 }
 
 .spymaster-assassin {
+  background-color: black;
+  color: white;
+}
+
+.revealed-blue {
+  background-color: lightblue;
+}
+
+.revealed-red {
+  background-color: #ffaaaa; /* Lighter red */
+}
+
+.revealed-assassin {
   background-color: grey;
 }
 

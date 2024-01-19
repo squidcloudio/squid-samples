@@ -57,6 +57,24 @@ const Card: React.FC<CardProps> = ({ card , playerTeam, isSpymaster, activeTurn,
     case CardStatus.ActuallyNeutral:
       statusClass = 'actually-neutral';
       break;
+    case CardStatus.Idle:
+      // Using "Neutral" to mean the game is over.
+      if (activeTurn !== Team.Neutral) {
+        break;
+      }
+      switch (card.team) {
+        case Team.Red:
+          statusClass = 'revealed-red';
+          break;
+        case Team.Blue:
+          statusClass = 'revealed-blue';
+          break;
+        case Team.Assassin:
+          statusClass = 'revealed-assassin';
+          break;
+      }
+
+      break;
   }
 
   if (isSpymaster) {

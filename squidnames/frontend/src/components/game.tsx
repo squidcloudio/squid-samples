@@ -202,15 +202,23 @@ const Game: React.FC = () => {
         break;
       case Team.Assassin:
         card.status = CardStatus.ActuallyAssassin;
+        // Using "Neutral" to mean the game is over.
+        gameData.turn = Team.Neutral;
         break;
       default:
         card.status = CardStatus.ActuallyNeutral;
     }
     gameData.cards[wordIndex] = card;
-    updateGameData(gameRef, gameData).then();
+
+    const { remainRed, remainBlue } = calculateScore();
+    if (remainRed === 0 || remainBlue === 0) {
+      // Using "Neutral" to mean the game is over.
+      gameData.turn = Team.Neutral;
+    }
     if (card.team !== team) {
       handleEndTurn();
     }
+    updateGameData(gameRef, gameData).then();
   };
 
   const calculateScore = () => {
@@ -275,7 +283,7 @@ const Game: React.FC = () => {
   const handleEndTurn = () => {
     if (gameData.turn === Team.Red) {
       gameData.turn = Team.Blue;
-    } else {
+    } else if (gameData.turn === Team.Blue) {
       gameData.turn = Team.Red;
     }
     updateGameData(gameRef, gameData).then();
