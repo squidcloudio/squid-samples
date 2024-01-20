@@ -22,9 +22,15 @@ export class SquidnamesService extends SquidService {
       .where('lastAccess', '<', new Date().getTime() - maxAge)
       .snapshot();
     games.forEach((gameRef) => {
-      gameRef.delete().then().catch((error) => {
-        console.error(`Failed to delete game with reference ID: ${gameRef.refId}`, error);
-      })
-    })
+      const id = gameRef.data.id;
+      gameRef
+        .delete()
+        .then(() => {
+          console.log(`Cleaned up old game ID: ${id}`);
+        })
+        .catch((error) => {
+          console.error(`Failed to delete game ID: ${id}`, error);
+        });
+    });
   }
 }
