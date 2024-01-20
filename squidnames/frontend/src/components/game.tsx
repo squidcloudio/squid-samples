@@ -65,7 +65,6 @@ const Game: React.FC = () => {
   };
 
   useEffect(() => {
-    console.log('In useEffect storedName');
     // Check if player name is stored in local storage
     const storedName = localStorage.getItem('playerName');
     console.log(`Got stored name: ${storedName}`);
@@ -115,7 +114,6 @@ const Game: React.FC = () => {
   }
 
   const handleUserSubmit = (playerName: string, team: Team) => {
-    console.log('In handleUserSubmit');
     // Get their previous name, if it exists.
     const oldName = localStorage.getItem('playerName');
     // Save the new name to local storage.
