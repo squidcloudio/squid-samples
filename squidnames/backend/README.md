@@ -1,6 +1,7 @@
 # Backend for the Squid Names game
 
-This project is designed to be a clone of the Codenames board game with the purpose showing how Squid Cloud can be used to make such a game.
+This project is designed to be a clone of the Codenames board game with the purpose showing how Squid Cloud can be used
+to make such a game.
 
 ## Architecture
 
@@ -19,7 +20,13 @@ To develop locally, run `npm run start-squid`
 
 ## SquidnamesService
 
-There isn't much to do in the application backend for the Squid Names game, so `SquidnamesService` just has boilerplate functions to permit all clients to access the built-in database and to acquire programmatic locks.
+The backend service for Squid Names is relatively simple.
+
+First, we have boilerplate functions to permit all clients to access Squid's built-in database and to acquire
+programmatic locks for database mutations.
+
+Second, to purge old games, we have a scheduled task that will find all games in the database with an access time older
+than a day and delete them.
 
 ## Deploying your code
 
