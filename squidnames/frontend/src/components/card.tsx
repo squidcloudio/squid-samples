@@ -1,8 +1,8 @@
 import React from 'react';
-import { Card, CardStatus, Team } from 'shared-types';
+import { CardState, CardStatus, Team } from 'shared-types';
 
 interface CardProps {
-  card: Card;
+  card: CardState;
   playerTeam: Team;
   isSpymaster: boolean;
   activeTurn: Team;

@@ -1,10 +1,10 @@
 import React from 'react';
 import Card from './card.tsx';
-import { Team } from 'shared-types';
+import { CardState, Team } from 'shared-types';
 
 // Define the props for the Board component
 interface BoardProps {
-  cards: Card[]; // Array of cards to be displayed on the board
+  cards: CardState[]; // Array of cards to be displayed on the board
   playerTeam: Team;
   isSpymaster: boolean;
   activeTurn: Team;

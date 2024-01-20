@@ -1,6 +1,6 @@
 export type GameState = {
   id: string;
-  cards: Card[];
+  cards: CardState[];
   lastAccess: number; // Allows cleanup of old games.
   blueTeam: string[];
   redTeam: string[];
@@ -16,7 +16,7 @@ export enum Team {
   Assassin = 3,
 }
 
-export type Card = {
+export type CardState = {
   word: string;
   team: Team;
   status: CardStatus;

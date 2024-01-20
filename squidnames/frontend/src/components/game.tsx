@@ -7,9 +7,9 @@ import UserModal from './userModal.tsx';
 import { DocumentReference } from '@squidcloud/client';
 import { DistributedLock } from '@squidcloud/client/dist/typescript-client/src/distributed-lock.manager';
 import TeamList from './teamList.tsx';
-import { GameState, Card, Team, CardStatus } from 'shared-types';
+import { GameState, CardState, Team, CardStatus } from 'shared-types';
 
-function generateCards(size: number = 25): Card[] {
+function generateCards(size: number = 25): CardState[] {
   const words = getRandomWords(size);
   const teamSize = Math.floor(size / 3);
   let states = Array(teamSize + 1).fill(Team.Red);
@@ -18,7 +18,7 @@ function generateCards(size: number = 25): Card[] {
   states[size - 1] = Team.Assassin;
   // Shuffle which cards are for which team.
   states.sort(() => 0.5 - Math.random());
-  let cards: Card[] = [];
+  let cards: CardState[] = [];
   for (let i = 0; i < words.length; i++) {
     cards.push({ word: words[i], team: states[i], status: CardStatus.Idle });
   }
