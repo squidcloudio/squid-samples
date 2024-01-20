@@ -1,6 +1,6 @@
 import React from 'react';
 import Card from './card.tsx';
-import { Team } from './game.tsx';
+import { Team } from 'shared-types';
 
 // Define the props for the Board component
 interface BoardProps {

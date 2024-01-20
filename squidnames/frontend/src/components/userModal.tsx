@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Team } from './game.tsx';
+import { Team } from 'shared-types';
 
 interface UserModalProps {
   isOpen: boolean;

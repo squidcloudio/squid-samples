@@ -5,27 +5,9 @@ import { useCollection, useQuery, useSquid } from '@squidcloud/react';
 import { getRandomWords } from '../utils/wordBank.ts';
 import UserModal from './userModal.tsx';
 import { DocumentReference } from '@squidcloud/client';
-import Card, { CardStatus } from './card.tsx';
 import { DistributedLock } from '@squidcloud/client/dist/typescript-client/src/distributed-lock.manager';
 import TeamList from './teamList.tsx';
-
-type Game = {
-  id: string;
-  cards: Card[];
-  lastAccess: number; // Allows cleanup of old games.
-  blueTeam: string[];
-  redTeam: string[];
-  blueMaster: string | null;
-  redMaster: string | null;
-  turn: Team;
-};
-
-export enum Team {
-  Neutral = 0,
-  Red = 1,
-  Blue = 2,
-  Assassin = 3,
-}
+import { GameState, Card, Team, CardStatus } from 'shared-types';
 
 function generateCards(size: number = 25): Card[] {
   const words = getRandomWords(size);
@@ -46,8 +28,8 @@ function generateCards(size: number = 25): Card[] {
 const gameLock = 'gameLock';
 
 async function updateGameData(
-  gameRef: DocumentReference<Game>,
-  gameData: Game,
+  gameRef: DocumentReference<GameState>,
+  gameData: GameState,
 ): Promise<void> {
   gameData.lastAccess = new Date().getTime();
   gameRef
@@ -65,13 +47,13 @@ const Game: React.FC = () => {
   const [playerName, setPlayerName] = useState<string>('???');
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const squid = useSquid();
-  const gameCollection = useCollection<Game>('games');
+  const gameCollection = useCollection<GameState>('games');
   const { loading: gameLoading, data: games } = useQuery(
     gameCollection.query().eq('id', gameId!),
     { enabled: !!gameId },
   );
 
-  let gameData: Game = {
+  let gameData: GameState = {
     id: gameId!,
     cards: [],
     lastAccess: new Date().getTime(),

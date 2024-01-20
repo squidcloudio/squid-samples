@@ -1,22 +1,5 @@
 import React from 'react';
-import { Team } from './game.tsx';
-
-type Card = {
-  word: string;
-  team: Team;
-  status: CardStatus;
-};
-
-export enum CardStatus {
-  Idle = 0,
-  TentativeBlue = 1,
-  TentativeRed = 2,
-  TentativeBoth = 3,
-  ActuallyRed = 4,
-  ActuallyBlue = 5,
-  ActuallyNeutral = 6,
-  ActuallyAssassin = 7,
-}
+import { Card, CardStatus, Team } from 'shared-types';
 
 interface CardProps {
   card: Card;
