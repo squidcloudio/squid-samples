@@ -22,7 +22,7 @@
 
     "baseUrl": "./",
     "paths": {
-      "shared-types": ["../shared/types"]
+      "common/*": ["../common/src/*"]
     }
   },
   "include": ["src"],

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-// TODO - Using 'shared-types' doesn't work.
-import { Team } from '../../../shared/types';
+import { Team } from 'common/common-types';
 
 interface UserModalProps {
   isOpen: boolean;

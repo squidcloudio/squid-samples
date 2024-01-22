@@ -1,6 +1,6 @@
 import { scheduler, secureDatabase, secureDistributedLock, SquidService } from '@squidcloud/backend';
 import { CronExpression } from '@squidcloud/client';
-import { GameState } from 'shared-types';
+import { GameState } from 'common/common-types';
 
 export class SquidnamesService extends SquidService {
   @secureDatabase('all', 'built_in_db')

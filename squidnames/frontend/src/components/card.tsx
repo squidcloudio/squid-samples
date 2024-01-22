@@ -1,6 +1,5 @@
 import React from 'react';
-// TODO - Using 'shared-types' doesn't work.
-import { CardState, CardStatus, Team } from '../../../shared/types';
+import { CardState, CardStatus, Team } from 'common/common-types';
 
 interface CardProps {
   card: CardState;

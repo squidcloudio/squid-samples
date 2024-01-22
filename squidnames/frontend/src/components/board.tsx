@@ -1,7 +1,6 @@
 import React from 'react';
 import Card from './card.tsx';
-// TODO - Why does this work but the other files require a direct path?
-import { CardState, Team } from 'shared-types';
+import { CardState, Team } from 'common/common-types';
 
 // Define the props for the Board component
 interface BoardProps {

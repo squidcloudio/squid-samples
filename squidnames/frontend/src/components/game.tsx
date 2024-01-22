@@ -7,8 +7,7 @@ import UserModal from './userModal.tsx';
 import { DocumentReference } from '@squidcloud/client';
 import { DistributedLock } from '@squidcloud/client/dist/typescript-client/src/distributed-lock.manager';
 import TeamList from './teamList.tsx';
-// TODO - Using 'shared-types' doesn't work.
-import { CardState, CardStatus, GameState, Team } from '../../../shared/types';
+import { CardState, CardStatus, GameState, Team } from 'common/common-types';
 
 function generateCards(size: number = 25): CardState[] {
   const words = getRandomWords(size);
