@@ -192,3 +192,23 @@ div.question {
 .is-spymaster {
   font-weight: bold;
 }
+
+.team-selection {
+  display: flex;
+  justify-content: center;
+  gap: 10px; /* Adjust gap between the buttons */
+}
+
+.join-red, .join-blue {
+  cursor: pointer;
+  padding: 10px; /* Add some padding for better appearance */
+  border-radius: 5px; /* Optional: for rounded corners */
+}
+
+.join-red {
+  border: 3px solid red;
+}
+
+.join-blue {
+  border: 3px solid blue;
+}

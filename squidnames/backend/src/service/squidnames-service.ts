@@ -8,7 +8,7 @@ export class SquidnamesService extends SquidService {
     return true;
   }
 
-  @secureDistributedLock('gameLock')
+  @secureDistributedLock()
   allowAllAccessToAcquiringLock(): boolean {
     return true;
   }

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Team } from 'shared-types';
+// TODO - Using 'shared-types' doesn't work.
+import { Team } from '../../../shared/types';
 
 interface UserModalProps {
   isOpen: boolean;
@@ -28,16 +29,16 @@ const UserModal: React.FC<UserModalProps> = ({ isOpen, onSubmit }) => {
         onChange={(e) => setDisplayName(e.target.value)}
         placeholder="Your player name"
       />
-      <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+      <div className="team-selection">
         <div
           onClick={() => handleSubmit(Team.Red)}
-          style={{ cursor: 'pointer', border: '3px solid red' }}
+          className="join-red"
         >
           <h3>Join Red</h3>
         </div>
         <div
           onClick={() => handleSubmit(Team.Blue)}
-          style={{ cursor: 'pointer', border: '3px solid blue' }}
+          className="join-blue"
         >
           <h3>Join Blue</h3>
         </div>

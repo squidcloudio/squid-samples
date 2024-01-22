@@ -7,7 +7,8 @@ import UserModal from './userModal.tsx';
 import { DocumentReference } from '@squidcloud/client';
 import { DistributedLock } from '@squidcloud/client/dist/typescript-client/src/distributed-lock.manager';
 import TeamList from './teamList.tsx';
-import { GameState, CardState, Team, CardStatus } from 'shared-types';
+// TODO - Using 'shared-types' doesn't work.
+import { CardState, CardStatus, GameState, Team } from '../../../shared/types';
 
 function generateCards(size: number = 25): CardState[] {
   const words = getRandomWords(size);
@@ -25,7 +26,7 @@ function generateCards(size: number = 25): CardState[] {
   return cards;
 }
 
-const gameLock = 'gameLock';
+const gameLockSuffix = '_gameLock';
 
 async function updateGameData(
   gameRef: DocumentReference<GameState>,
@@ -52,6 +53,7 @@ const Game: React.FC = () => {
     gameCollection.query().eq('id', gameId!),
     { enabled: !!gameId },
   );
+  const gameLock = gameId! + gameLockSuffix;
 
   let gameData: GameState = {
     id: gameId!,
@@ -377,7 +379,12 @@ const Game: React.FC = () => {
       .acquireLock(gameLock)
       .then((acquiredLock) => {
         lock = acquiredLock;
-        return gameRef.delete();
+        // Reset relevant fields while keeping the existing teams.
+        gameData.turn = Team.Red;
+        gameData.redMaster = null;
+        gameData.blueMaster = null;
+        gameData.cards = generateCards();
+        return updateGameData(gameRef, gameData);
       })
       .then(() => {
         console.log(`Successfully reset the game.`);
