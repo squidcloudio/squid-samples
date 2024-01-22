@@ -207,8 +207,10 @@ div.question {
 
 .join-red {
   border: 3px solid red;
+  color: red;
 }
 
 .join-blue {
   border: 3px solid blue;
+  color: blue;
 }
