@@ -16,25 +16,24 @@ function App() {
   const { setAuthProvider } = useSquid();
 
   useEffect(() => {
-    console.log(user)
+    console.log(user);
 
-  setAuthProvider({
-    integrationId: 'auth0',
-    getToken: async () => {
-      if (!user) return undefined;
-      return getAccessTokenSilently();
-  }});
-  if (isLoading) return;
-  if (!user) {
-    setLoginMessage('You are logged out!');
-    setToastOpen(true);
-  } else {
-    setLoginMessage('You are logged in!');
-    setToastOpen(true);
-  }
-}, [user, isLoading, getAccessTokenSilently, setAuthProvider]);
-     
-
+    setAuthProvider({
+      integrationId: 'auth0',
+      getToken: async () => {
+        if (!user) return undefined;
+        return getAccessTokenSilently();
+      },
+    });
+    if (isLoading) return;
+    if (!user) {
+      setLoginMessage('You are logged out!');
+      setToastOpen(true);
+    } else {
+      setLoginMessage('You are logged in!');
+      setToastOpen(true);
+    }
+  }, [user, isLoading, getAccessTokenSilently, setAuthProvider]);
 
   if (isLoading) {
     return <span>Loading...</span>;
@@ -49,7 +48,11 @@ function App() {
       <NavBar isAuthenticated={!!user} />
       <img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/Sepioteuthis_sepioidea_%28Caribbean_Reef_Squid%29.jpg" />
       <SquidFactsAI />
-      <Snackbar open={toastOpen} onClose={handleToClose} autoHideDuration={6000}>
+      <Snackbar
+        open={toastOpen}
+        onClose={handleToClose}
+        autoHideDuration={6000}
+      >
         <Alert severity="success">{loginMessage}</Alert>
       </Snackbar>
     </>

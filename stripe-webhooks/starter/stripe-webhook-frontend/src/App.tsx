@@ -6,37 +6,35 @@ import NavBar from './components/nav-bar';
 import { Button } from '@mui/material';
 import DisplayInvoices from './components/display-invoices';
 import { UserPayment } from './common/user-payment';
+import { Subscription } from 'rxjs';
 
 function App() {
   const stripeUserId = '[YOUR_STRIPE_CUSTOMER_ID]';
-  const { isAuthenticated, isLoading, getIdTokenClaims, user } = useAuth0();
+  const { isAuthenticated, getAccessTokenSilently, user } = useAuth0();
   const [userPayment, setUserPayment] = useState<UserPayment>();
-  const { setAuthIdToken, executeFunction } = useSquid();
+  const { setAuthProvider, executeFunction } = useSquid();
   const userPaymentsCollection = useCollection<UserPayment>('userPayments');
 
   useEffect(() => {
-    const updateAuth = async () => {
-      if (isLoading) return;
-      if (!isAuthenticated) {
-        setAuthIdToken(undefined, 'auth0');
-      } else {
-        setAuthIdToken(
-          getIdTokenClaims().then((claims) => claims?.__raw),
-          'auth0',
-        );
-        const user_id = user!.sub!;
+    setAuthProvider({
+      integrationId: 'auth0',
+      getToken: async () => {
+        if (!user) return undefined;
+        return getAccessTokenSilently();
+      },
+    });
+  }, [user, getAccessTokenSilently, setAuthProvider]);
 
-        userPaymentsCollection
-          .doc(user_id)
-          .snapshots()
-          .subscribe((doc) => {
-            console.log(doc);
-            setUserPayment(doc);
-          });
-      }
-    };
-    updateAuth().then();
-  }, [isAuthenticated, getIdTokenClaims, setAuthIdToken, user]);
+  useEffect(() => {
+    let subscription: Subscription | undefined;
+    if (user?.sub) {
+      subscription = userPaymentsCollection
+        .doc(user?.sub)
+        .snapshots()
+        .subscribe((data) => setUserPayment(data));
+    }
+    return () => subscription?.unsubscribe();
+  }, [user?.sub]);
 
   const addData = () => {
     executeFunction('addMockData', stripeUserId);

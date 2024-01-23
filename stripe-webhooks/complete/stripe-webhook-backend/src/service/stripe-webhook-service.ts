@@ -1,5 +1,5 @@
 import { SquidService, webhook } from '@squidcloud/backend';
-import { WebhookRequest, WebhookResponse } from '@squidcloud/common';
+import { WebhookRequest, WebhookResponse } from '@squidcloud/client';
 
 export class StripeWebhookService extends SquidService {
   async addInvoiceToDatabase(stripeUserId: string, invoiceId: string, paid: boolean): Promise<string> {

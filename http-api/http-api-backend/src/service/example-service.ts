@@ -1,5 +1,5 @@
 import { secureApi, secureDatabase, SquidService } from '@squidcloud/backend';
-import { ApiCallContext } from '@squidcloud/common';
+import { ApiCallContext } from '@squidcloud/client';
 
 export class ExampleService extends SquidService {
   @secureApi('catFacts')

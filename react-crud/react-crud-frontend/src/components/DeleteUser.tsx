@@ -4,7 +4,7 @@ type User = { id: string; email: string; age: number };
 
 export default function DeleteUser({ id }: { id: string }) {
   const collection = useCollection<User>('users');
-  const users = useQuery(collection.query(), true /* subscribe */);
+  const users = useQuery(collection.query());
 
   const onClick = () => {
     // Find the user with the matching id

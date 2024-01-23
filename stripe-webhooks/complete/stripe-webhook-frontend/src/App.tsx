@@ -11,24 +11,23 @@ import { Subscription } from 'rxjs';
 
 function App() {
   const stripeUserId = '[YOUR_STRIPE_USER_ID]';
-  const { isAuthenticated, isLoading, getIdTokenClaims, user } = useAuth0();
+  const { isAuthenticated, isLoading, getAccessTokenSilently, user } =
+    useAuth0();
   const userPaymentsCollection = useCollection<UserPayment>('userPayments');
-  const { setAuthIdToken, executeFunction } = useSquid();
+  const { setAuthProvider, executeFunction } = useSquid();
 
   // const [userId, setUserId] = useState<string | undefined>();
   const [userPayment, setUserPayment] = useState<UserPayment>();
 
   useEffect(() => {
-    if (isLoading) return;
-    if (!isAuthenticated) {
-      setAuthIdToken(undefined, 'auth0');
-    } else {
-      setAuthIdToken(
-        getIdTokenClaims().then((claims) => claims?.__raw),
-        'auth0',
-      );
-    }
-  }, [isAuthenticated, getIdTokenClaims, setAuthIdToken]);
+    setAuthProvider({
+      integrationId: 'auth0',
+      getToken: async () => {
+        if (!user) return undefined;
+        return getAccessTokenSilently();
+      },
+    });
+  }, [user, getAccessTokenSilently, setAuthProvider]);
 
   useEffect(() => {
     let subscription: Subscription | undefined;

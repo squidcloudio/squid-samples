@@ -1,5 +1,5 @@
 import { executable, scheduler, secureDatabase, SquidService } from '@squidcloud/backend';
-import { CronExpression } from '@squidcloud/common';
+import { CronExpression } from '@squidcloud/client';
 import { fluctuatePrice, getRandomNumber, isSameDate } from '../utils/ticker.utils';
 import dayjs from 'dayjs';
 import _ from 'lodash';
