@@ -94,7 +94,7 @@ const Game: React.FC = () => {
 
   if (games.length > 1) {
     console.error(`Got more than one matching game for game ID: '${gameId}'`);
-    return '<div>Something weird happened. Please start a new game.</div>';
+    return 'Something strange happened. Please start a new game.';
   } else if (games.length == 0) {
     // Is a new game, generate a new game.
     gameData.cards = generateCards();

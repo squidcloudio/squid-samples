@@ -41,7 +41,7 @@ const App: React.FC = () => {
         element={
           <div style={{ textAlign: 'center', marginTop: '50px' }}>
             <h1>Welcome to Squid Names!</h1>
-            <h2>A Codenames clone</h2>
+            <h2>A Codenames clone built using <a href="https://squid.cloud">Squid Cloud</a></h2>
             <input
               type="text"
               value={gameId}
