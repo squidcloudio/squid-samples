@@ -12,7 +12,7 @@ const AiDatabot = () => {
 
   function askQuestion() {
     setComplete(false);
-    squid?.executeFunction('askQuestion', question).then((response) => {
+    squid.executeFunction('askQuestion', question).then((response) => {
       setHistory((prev) => [
         ...prev,
         { author: 'user', answer: question },

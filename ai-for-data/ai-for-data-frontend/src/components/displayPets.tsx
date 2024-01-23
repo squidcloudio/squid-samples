@@ -6,7 +6,7 @@ interface FavoritePetsProps {
 
 const DisplayPets: React.FC<FavoritePetsProps> = ({ favoritePets }) => {
   return (
-    <div>
+    <div className="scrolling">
       <table>
         <thead>
           <tr>
