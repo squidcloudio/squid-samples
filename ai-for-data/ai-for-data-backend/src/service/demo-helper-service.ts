@@ -11,8 +11,9 @@ export class AddDataService extends SquidService {
         // hopefully people's current pet is more likely to be their favorite, so let's improve those odds
         const currPetVotes = [...votes, favPet, favPet, favPet, favPet];
         const currPet = currPetVotes[Math.floor(Math.random() * currPetVotes.length)];
-        this.squid.collection('animals').doc().update({ favorite_pet: favPet, current_pet: currPet }, transactionId);
+        this.squid.collection('animals').doc().insert({ favorite_pet: favPet, current_pet: currPet }, transactionId);
       }
     });
+    console.log('Done adding pets');
   }
 }
