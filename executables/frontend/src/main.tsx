@@ -5,7 +5,6 @@ import './index.css';
 import React from 'react';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
     <SquidContextProvider
       options={{
         appId: 'YOUR_APP_ID',
@@ -16,5 +15,4 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     >
       <App />
     </SquidContextProvider>
-  </React.StrictMode>,
 );
