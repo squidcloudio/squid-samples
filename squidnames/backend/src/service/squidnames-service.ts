@@ -5,17 +5,29 @@ import { GameState } from 'common/common-types';
 export class SquidnamesService extends SquidService {
   @secureDatabase('all', 'built_in_db')
   allowAllAccessToBuiltInDb(): boolean {
-    // The game does not involve any user accounts so there is nothing to lock down.
-    // However, this is technically insecure. Whenever appropriate, logic should be added here to
+    // NOTE: This is insecure! Whenever appropriate, logic should be added here to
     // secure access.
+    //
+    // Possible things to secure:
+    // - Users only make valid modifications based on their team color.
+    // - Client IDs that are not part of the game do not make modifications.
+    // - Spymasters should not only have read-only access to the game.
+    //
+    // These are more appropriately secured in a write-specific function such as:
+    // ```
+    // @secureDatabase('write', 'built_in_db')
+    // checkModifications(context: MutationContext)
+    // ```
     return true;
   }
 
   @secureDistributedLock()
   allowAllAccessToAcquiringLock(): boolean {
-    // The game does not involve any user accounts so there is nothing to lock down.
-    // However, this is technically insecure. Whenever appropriate, logic should be added here to
+    // NOTE: This is insecure! Whenever appropriate, logic should be added here to
     // secure access.
+    //
+    // Possible thing to secure: Spymasters should not be able to acquire a lock as they
+    // have no reason to have any write access.
     return true;
   }
 

@@ -452,7 +452,6 @@ const Game: React.FC = () => {
             End Turn
           </button>
         )}
-        {/*<button onClick={handleEndTurn} disabled={gameData.turn !== getTeam()}>End Turn</button>*/}
       </div>
       <Board
         cards={gameData?.cards || []}
