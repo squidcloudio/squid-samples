@@ -34,7 +34,7 @@ const Card: React.FC<CardProps> = ({
   let isConfirmable = !isSpymaster && isTentative && playerTeam === activeTurn;
   let reveal = isSpymaster;
 
-  let classBuilder: Set<string> = new Set(['wordCard']);
+  let classBuilder: Set<string> = new Set(['word-card']);
   if (isSpymaster) {
     classBuilder.add('spymaster');
   }
@@ -79,10 +79,7 @@ const Card: React.FC<CardProps> = ({
       classBuilder.add('card-neutral');
       break;
     case CardStatus.Idle:
-      if (!isGameOver) {
-        break;
-      }
-      reveal = true;
+      reveal ||= isGameOver;
       break;
   }
 
