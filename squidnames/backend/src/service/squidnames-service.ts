@@ -11,7 +11,7 @@ export class SquidnamesService extends SquidService {
     // Possible things to secure:
     // - Users only make valid modifications based on their team color.
     // - Client IDs that are not part of the game do not make modifications.
-    // - Spymasters should not only have read-only access to the game.
+    // - Spymasters should have read-only access to the game.
     //
     // These are more appropriately secured in a write-specific function such as:
     // ```
@@ -27,7 +27,7 @@ export class SquidnamesService extends SquidService {
     // secure access.
     //
     // Possible thing to secure: Spymasters should not be able to acquire a lock as they
-    // have no reason to have any write access.
+    // have no reason to make any modifications.
     return true;
   }
 
