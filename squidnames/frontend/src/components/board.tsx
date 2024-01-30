@@ -23,33 +23,27 @@ const Board: React.FC<BoardProps> = ({
 }) => {
   // Creating a 5x5 grid
   const gridSize = 5;
-  const rows = Array.from({ length: gridSize });
 
   return (
     <div
-      className="boardGrid"
+      className="board-grid"
       style={{
-        display: 'grid',
         gridTemplateColumns: `repeat(${gridSize}, 1fr)`,
-        gap: '10px',
       }}
     >
-      {rows.map((_, rowIndex) =>
-        rows.map((_, colIndex) => {
-          const index = rowIndex * gridSize + colIndex;
-          return (
-            <Card
-              key={index}
-              card={cards[index]}
-              playerTeam={playerTeam}
-              isSpymaster={isSpymaster}
-              activeTurn={activeTurn}
-              onClick={() => onCardClick(index)}
-              onConfirm={() => onCardConfirm(index)}
-            />
-          );
-        }),
-      )}
+      {cards.map((card, index) => {
+        return (
+          <Card
+            key={index}
+            card={card}
+            playerTeam={playerTeam}
+            isSpymaster={isSpymaster}
+            activeTurn={activeTurn}
+            onClick={() => onCardClick(index)}
+            onConfirm={() => onCardConfirm(index)}
+          />
+        );
+      })}
     </div>
   );
 };

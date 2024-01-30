@@ -32,6 +32,7 @@ const Card: React.FC<CardProps> = ({
   const isGameOver = activeTurn === Team.Neutral; // Using Neutral to mean game over.
   const isFinished = isGameOver || isActual;
   let isConfirmable = !isSpymaster && isTentative && playerTeam === activeTurn;
+  let reveal = isSpymaster;
 
   let classBuilder: Set<string> = new Set(['wordCard']);
   if (isSpymaster) {
@@ -64,7 +65,6 @@ const Card: React.FC<CardProps> = ({
         break;
       }
       classBuilder.add('guess-both');
-      isConfirmable &&= true;
       break;
     case CardStatus.ActuallyBlue:
       classBuilder.add('card-blue');
@@ -82,23 +82,11 @@ const Card: React.FC<CardProps> = ({
       if (!isGameOver) {
         break;
       }
-      classBuilder.add('revealed');
-      switch (card.team) {
-        case Team.Red:
-          classBuilder.add('card-red');
-          break;
-        case Team.Blue:
-          classBuilder.add('card-blue');
-          break;
-        case Team.Assassin:
-          classBuilder.add('card-assassin');
-          break;
-      }
-
+      reveal = true;
       break;
   }
 
-  if (isSpymaster) {
+  if (reveal) {
     classBuilder.add('revealed');
     switch (card.team) {
       case Team.Blue:

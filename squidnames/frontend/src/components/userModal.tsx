@@ -29,16 +29,10 @@ const UserModal: React.FC<UserModalProps> = ({ isOpen, onSubmit }) => {
         placeholder="Your player name"
       />
       <div className="team-selection">
-        <div
-          onClick={() => handleSubmit(Team.Red)}
-          className="join-red"
-        >
+        <div onClick={() => handleSubmit(Team.Red)} className="join-red">
           <h3>Join Red</h3>
         </div>
-        <div
-          onClick={() => handleSubmit(Team.Blue)}
-          className="join-blue"
-        >
+        <div onClick={() => handleSubmit(Team.Blue)} className="join-blue">
           <h3>Join Blue</h3>
         </div>
       </div>

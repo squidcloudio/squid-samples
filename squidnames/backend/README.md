@@ -1,7 +1,7 @@
 # Backend for the Squid Names game
 
-This project is designed to be a clone of the Codenames board game with the purpose showing how Squid Cloud can be used
-to make such a game.
+This is the Squid application backend for Squid Names, a Codenames implementation designed to showcase Squid Cloud
+functionality.
 
 ## Architecture
 
@@ -34,7 +34,7 @@ When you are ready to deploy your code, you can run `squid deploy`. This will de
 server,
 making it available to your client application.
 
-In conclusion, the Squid Backend code has extensive power and flexibility, making it a powerful tool for developers who
-need to build complex backend functionality for their applications.
+While this is a relatively simple example, the Squid application backend has extensive power and flexibility, making it
+a powerful tool for developers who need to build complex backend functionality for their applications.
 
 For more information, see the [documentation](https://docs.squid.cloud/docs/backend/).

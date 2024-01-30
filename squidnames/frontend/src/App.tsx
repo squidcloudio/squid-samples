@@ -39,17 +39,20 @@ const App: React.FC = () => {
       <Route
         path="/"
         element={
-          <div style={{ textAlign: 'center', marginTop: '50px' }}>
+          <div className="welcome-page">
             <h1>Welcome to Squid Names!</h1>
-            <h2>A Codenames clone built using <a href="https://squid.cloud">Squid Cloud</a></h2>
+            <h2>
+              A Codenames game built using{' '}
+              <a href="https://squid.cloud">Squid Cloud</a>
+            </h2>
             <input
               type="text"
               value={gameId}
               onChange={handleGameIdChange}
               placeholder="Game ID"
-              style={{ marginRight: '10px', padding: '10px' }}
+              className="game-id"
             />
-            <button onClick={handleEnterGame} style={{ padding: '10px 20px' }}>
+            <button onClick={handleEnterGame} className="game-enter">
               Enter Game
             </button>
           </div>

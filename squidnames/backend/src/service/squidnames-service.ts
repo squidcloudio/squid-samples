@@ -5,11 +5,17 @@ import { GameState } from 'common/common-types';
 export class SquidnamesService extends SquidService {
   @secureDatabase('all', 'built_in_db')
   allowAllAccessToBuiltInDb(): boolean {
+    // The game does not involve any user accounts so there is nothing to lock down.
+    // However, this is technically insecure. Whenever appropriate, logic should be added here to
+    // secure access.
     return true;
   }
 
   @secureDistributedLock()
   allowAllAccessToAcquiringLock(): boolean {
+    // The game does not involve any user accounts so there is nothing to lock down.
+    // However, this is technically insecure. Whenever appropriate, logic should be added here to
+    // secure access.
     return true;
   }
 
