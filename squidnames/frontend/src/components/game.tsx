@@ -17,7 +17,7 @@ function generateCards(size: number = 25): CardState[] {
   let states = [
     ...Array(redSize).fill(Team.Red),
     ...Array(blueSize).fill(Team.Blue),
-    Array(neutralSize).fill(Team.Neutral),
+    ...Array(neutralSize).fill(Team.Neutral),
     Team.Assassin,
   ];
   // Shuffle which cards are for which team.
