@@ -12,8 +12,8 @@ import { CardState, CardStatus, GameState, Team } from 'common/common-types';
 function generateCards(size: number = 25): CardState[] {
   const words = getRandomWords(size);
   const blueSize = Math.floor(size / 3);
-  const redSize = blueSize + 1;
-  const neutralSize = size - redSize - blueSize - 1;
+  const redSize = blueSize + 1; // Starting team gets one more card.
+  const neutralSize = size - redSize - blueSize - 1; // Subtract 1 assassin.
   let states = [
     ...Array(redSize).fill(Team.Red),
     ...Array(blueSize).fill(Team.Blue),
@@ -22,11 +22,9 @@ function generateCards(size: number = 25): CardState[] {
   ];
   // Shuffle which cards are for which team.
   states.sort(() => 0.5 - Math.random());
-  let cards: CardState[] = [];
-  for (let i = 0; i < words.length; i++) {
-    cards.push({ word: words[i], team: states[i], status: CardStatus.Idle });
-  }
-  return cards;
+  return words.map((word, i) => {
+    return { word, team: states[i], status: CardStatus.Idle };
+  });
 }
 
 const gameLockSuffix = '_gameLock';
@@ -36,14 +34,12 @@ async function updateGameData(
   gameData: GameState,
 ): Promise<void> {
   gameData.lastAccess = new Date().getTime();
-  gameRef
-    .update(gameData)
-    .then(() => {
-      console.debug(`Game data updated for ${gameData.id}`);
-    })
-    .catch((error: any) => {
-      console.error(`Error updating game data for ${gameData.id}:`, error);
-    });
+  try {
+    await gameRef.update(gameData);
+    console.debug(`Game data updated for ${gameData.id}`);
+  } catch(error: any) {
+    console.error(`Error updating game data for ${gameData.id}:`, error);
+  }
 }
 
 const Game: React.FC = () => {
@@ -180,28 +176,25 @@ const Game: React.FC = () => {
         if (isSpymaster() || team === Team.Neutral) {
           return;
         }
+        const redTeamStatusChange = new Map([
+          [CardStatus.TentativeRed, CardStatus.Idle],
+          [CardStatus.TentativeBlue, CardStatus.TentativeBoth],
+          [CardStatus.TentativeBoth, CardStatus.TentativeBlue],
+          [CardStatus.Idle, CardStatus.TentativeRed],
+        ]);
+
+        const blueTeamStatusChange = new Map([
+          [CardStatus.TentativeBlue, CardStatus.Idle],
+          [CardStatus.TentativeRed, CardStatus.TentativeBoth],
+          [CardStatus.TentativeBoth, CardStatus.TentativeRed],
+          [CardStatus.Idle, CardStatus.TentativeBlue],
+        ]);
         const curStatus = gameData.cards[wordIndex].status;
         let newStatus = curStatus;
         if (team === Team.Red) {
-          if (curStatus === CardStatus.TentativeRed) {
-            newStatus = CardStatus.Idle;
-          } else if (curStatus === CardStatus.TentativeBlue) {
-            newStatus = CardStatus.TentativeBoth;
-          } else if (curStatus === CardStatus.TentativeBoth) {
-            newStatus = CardStatus.TentativeBlue;
-          } else if (curStatus === CardStatus.Idle) {
-            newStatus = CardStatus.TentativeRed;
-          }
+          newStatus = redTeamStatusChange.get(curStatus) ?? curStatus;
         } else if (team === Team.Blue) {
-          if (curStatus === CardStatus.TentativeBlue) {
-            newStatus = CardStatus.Idle;
-          } else if (curStatus === CardStatus.TentativeRed) {
-            newStatus = CardStatus.TentativeBoth;
-          } else if (curStatus === CardStatus.TentativeBoth) {
-            newStatus = CardStatus.TentativeRed;
-          } else if (curStatus === CardStatus.Idle) {
-            newStatus = CardStatus.TentativeBlue;
-          }
+          newStatus = blueTeamStatusChange.get(curStatus) ?? curStatus;
         }
         if (curStatus !== newStatus) {
           gameData.cards[wordIndex].status = newStatus;
