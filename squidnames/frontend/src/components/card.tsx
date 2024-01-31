@@ -104,6 +104,7 @@ const Card: React.FC<CardProps> = ({
     }
     onClick();
   };
+
   const handleConfirmClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
     if (playerTeam !== activeTurn) {

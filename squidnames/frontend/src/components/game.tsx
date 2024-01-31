@@ -37,7 +37,7 @@ async function updateGameData(
   try {
     await gameRef.update(gameData);
     console.debug(`Game data updated for ${gameData.id}`);
-  } catch(error: any) {
+  } catch (error: any) {
     console.error(`Error updating game data for ${gameData.id}:`, error);
   }
 }
@@ -273,11 +273,10 @@ const Game: React.FC = () => {
     let remainRed = 0;
     let remainBlue = 0;
     for (let i = 0; i < gameData.cards.length; i++) {
-      const state = gameData.cards[i].team;
-      const status = gameData.cards[i].status;
-      if (state == Team.Red && status != CardStatus.ActuallyRed) {
+      const { team, status } = gameData.cards[i];
+      if (team == Team.Red && status != CardStatus.ActuallyRed) {
         remainRed += 1;
-      } else if (state == Team.Blue && status != CardStatus.ActuallyBlue) {
+      } else if (team == Team.Blue && status != CardStatus.ActuallyBlue) {
         remainBlue += 1;
       }
     }
@@ -293,22 +292,15 @@ const Game: React.FC = () => {
     return Team.Neutral;
   };
 
-  const isSpymaster = () => {
-    return (
-      gameData?.redMaster == playerName || gameData?.blueMaster == playerName
-    );
-  };
+  const isSpymaster = () =>
+    gameData?.redMaster === playerName || gameData?.blueMaster === playerName;
 
-  const canBecomeSpymaster = (forTeam: Team) => {
-    const team = getTeam();
-    if (forTeam !== team || isSpymaster()) {
-      return false;
-    }
-    if (team === Team.Blue && gameData.blueMaster) {
-      return false;
-    }
-    return !(team === Team.Red && gameData.redMaster);
-  };
+  const hasSpymaster = (forTeam: Team) =>
+    (forTeam === Team.Blue && gameData.blueMaster) ||
+    (forTeam === Team.Red && gameData.redMaster);
+
+  const canBecomeSpymaster = (forTeam: Team) =>
+    forTeam === getTeam() && !isSpymaster() && !hasSpymaster(forTeam);
 
   const handleBecomeSpymaster = () => {
     let lock: DistributedLock;
