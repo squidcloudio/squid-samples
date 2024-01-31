@@ -15,7 +15,7 @@ function generateCards(size: number = 25): CardState[] {
   const redSize = blueSize + 1;
   const neutralSize = size - redSize - blueSize - 1;
   let states = [
-    ...Array(blueSize + 1).fill(Team.Red),
+    ...Array(redSize).fill(Team.Red),
     ...Array(blueSize).fill(Team.Blue),
     Array(neutralSize).fill(Team.Neutral),
     Team.Assassin,
