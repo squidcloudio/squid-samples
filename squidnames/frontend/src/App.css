@@ -1,0 +1,236 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+div {
+  padding: 10px;
+}
+
+.scrolling {
+  overflow-y: auto;
+  max-height: 250px;
+  display: flex;
+  justify-content: center;
+}
+
+.messages {
+  text-align: left;
+  width: 75%;
+}
+
+div.question {
+  margin: 0 auto;
+  width: 75%;
+  display: flex;
+  justify-content: space-between;
+  background-color: #ffffff;
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+.word-card {
+  box-sizing: border-box;
+  border: 2px solid black;
+  padding: 10px;
+  text-align: center;
+  hyphens: auto;
+  word-wrap: break-word;
+  width: 10vw; /* Set the width of the square */
+  height: 8vw; /* Set the height of the square */
+  text-transform: uppercase;
+}
+
+.idle {
+  border-color: grey;
+}
+
+.revealed.card-blue {
+  background-color: lightblue;
+}
+
+.revealed.card-red {
+  background-color: #ffaaaa; /* Lighter red */
+}
+
+.revealed.card-assassin {
+  background-color: grey;
+}
+
+.actual.card-blue {
+  background-color: lightskyblue;
+}
+
+.actual.card-red {
+  background-color: #ff5555; /* Lighter red */
+}
+
+.actual.card-neutral {
+  background-color: tan;
+}
+
+.actual.card-assassin {
+  background-color: black;
+  color: white;
+}
+
+.tentative.guess-blue {
+  border-color: blue;
+  border-style: dashed;
+}
+
+.tentative.guess-red {
+  border-color: red;
+  border-style: dashed;
+}
+
+.tentative.guess-both {
+  border-color: purple;
+  border-style: dashed;
+}
+
+.spymaster.actual {
+  border-width: 4px;
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+}
+
+.no-pad {
+  padding: 0;
+}
+
+.spymasters {
+  display: flex;
+}
+
+.score {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3px; /* Adjust this value to control the spacing */
+}
+
+.team-list-container {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+}
+
+.team {
+  flex: 1;
+  margin: 5px;
+}
+
+.team h3 {
+  text-align: center;
+}
+
+.team ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.red-member {
+  color: red;
+}
+
+.blue-member {
+  color: blue;
+}
+
+.red-score {
+  color: red;
+}
+
+.blue-score {
+  color: blue;
+}
+
+.current-user {
+  font-style: italic;
+}
+
+.is-spymaster {
+  font-weight: bold;
+}
+
+.team-selection {
+  display: flex;
+  justify-content: center;
+  gap: 10px; /* Adjust gap between the buttons */
+}
+
+.join-red,
+.join-blue {
+  cursor: pointer;
+  padding: 10px; /* Add some padding for better appearance */
+  border-radius: 5px; /* Optional: for rounded corners */
+}
+
+.join-red {
+  border: 3px solid red;
+  color: red;
+}
+
+.join-blue {
+  border: 3px solid blue;
+  color: blue;
+}
+
+.board-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.welcome-page {
+  text-align: center;
+  margin-top: 50px;
+}
+
+input.game-id {
+  margin-right: 10px;
+  padding: 10px;
+}
+
+button.game-enter {
+  padding: 10px 20px;
+}
