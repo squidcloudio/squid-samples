@@ -11,11 +11,15 @@ import { CardState, CardStatus, GameState, Team } from 'common/common-types';
 
 function generateCards(size: number = 25): CardState[] {
   const words = getRandomWords(size);
-  const teamSize = Math.floor(size / 3);
-  let states = Array(teamSize + 1).fill(Team.Red);
-  states = states.concat(Array(teamSize).fill(Team.Blue));
-  states = states.concat(Array(teamSize).fill(Team.Neutral));
-  states[size - 1] = Team.Assassin;
+  const blueSize = Math.floor(size / 3);
+  const redSize = blueSize + 1;
+  const neutralSize = size - redSize - blueSize - 1;
+  let states = [
+    ...Array(blueSize + 1).fill(Team.Red),
+    ...Array(blueSize).fill(Team.Blue),
+    Array(neutralSize).fill(Team.Neutral),
+    Team.Assassin,
+  ];
   // Shuffle which cards are for which team.
   states.sort(() => 0.5 - Math.random());
   let cards: CardState[] = [];
@@ -37,7 +41,7 @@ async function updateGameData(
     .then(() => {
       console.debug(`Game data updated for ${gameData.id}`);
     })
-    .catch((error) => {
+    .catch((error: any) => {
       console.error(`Error updating game data for ${gameData.id}:`, error);
     });
 }
@@ -114,7 +118,7 @@ const Game: React.FC = () => {
     console.log('Blue spymaster:', gameData.blueMaster);
   }
 
-  const handleUserSubmit = (playerName: string, team: Team) => {
+  const handleModalSubmit = (playerName: string, team: Team) => {
     // Get their previous name, if it exists.
     const oldName = localStorage.getItem('playerName');
     // Save the new name to local storage.
@@ -129,7 +133,7 @@ const Game: React.FC = () => {
     let lock: DistributedLock;
     squid
       .acquireLock(gameLock)
-      .then((acquiredLock) => {
+      .then((acquiredLock: DistributedLock) => {
         lock = acquiredLock;
         gameData.blueTeam = gameData.blueTeam.filter(
           (name) => name != playerName && name != oldName,
@@ -155,7 +159,7 @@ const Game: React.FC = () => {
       .then(() => {
         console.log(`Player added.`);
       })
-      .catch((error) => {
+      .catch((error: any) => {
         console.error('Failed to add player.', error);
       })
       .finally(() => {
@@ -170,7 +174,7 @@ const Game: React.FC = () => {
     let lock: DistributedLock;
     squid
       .acquireLock(gameLock)
-      .then((acquiredLock) => {
+      .then((acquiredLock: DistributedLock) => {
         lock = acquiredLock;
         const team = getTeam();
         if (isSpymaster() || team === Team.Neutral) {
@@ -207,7 +211,7 @@ const Game: React.FC = () => {
       .then(() => {
         console.log(`Card tentatively selected.`);
       })
-      .catch((error) => {
+      .catch((error: any) => {
         console.error('Failed to tentatively select card.', error);
       })
       .finally(() => {
@@ -222,7 +226,7 @@ const Game: React.FC = () => {
     let lock: DistributedLock;
     squid
       .acquireLock(gameLock)
-      .then((acquiredLock) => {
+      .then((acquiredLock: DistributedLock) => {
         lock = acquiredLock;
         const team = getTeam();
         if (isSpymaster() || team != gameData.turn) {
@@ -259,7 +263,7 @@ const Game: React.FC = () => {
       .then(() => {
         console.log(`Card selection confirmed.`);
       })
-      .catch((error) => {
+      .catch((error: any) => {
         console.error('Failed to confirm card selection.', error);
       })
       .finally(() => {
@@ -317,7 +321,7 @@ const Game: React.FC = () => {
     let lock: DistributedLock;
     squid
       .acquireLock(gameLock)
-      .then((acquiredLock) => {
+      .then((acquiredLock: DistributedLock) => {
         lock = acquiredLock;
         const team = getTeam();
         if (!canBecomeSpymaster(team)) {
@@ -336,7 +340,7 @@ const Game: React.FC = () => {
       .then(() => {
         console.log(`${playerName} is now Spymaster.`);
       })
-      .catch((error) => {
+      .catch((error: any) => {
         console.error('Failed to assign a spymaster.', error);
       })
       .finally(() => {
@@ -350,7 +354,7 @@ const Game: React.FC = () => {
     let lock: DistributedLock;
     squid
       .acquireLock(gameLock)
-      .then((acquiredLock) => {
+      .then((acquiredLock: DistributedLock) => {
         lock = acquiredLock;
         if (gameData.turn === Team.Red) {
           gameData.turn = Team.Blue;
@@ -362,7 +366,7 @@ const Game: React.FC = () => {
       .then(() => {
         console.log(`Successfully ended turn.`);
       })
-      .catch((error) => {
+      .catch((error: any) => {
         console.error('Failed to end turn.', error);
       })
       .finally(() => {
@@ -376,19 +380,23 @@ const Game: React.FC = () => {
     let lock: DistributedLock;
     squid
       .acquireLock(gameLock)
-      .then((acquiredLock) => {
+      .then((acquiredLock: DistributedLock) => {
         lock = acquiredLock;
-        // Reset relevant fields while keeping the existing teams.
+        // Reset relevant fields while keeping the existing players.
         gameData.turn = Team.Red;
         gameData.redMaster = null;
         gameData.blueMaster = null;
+        // Swap team colors.
+        const red = gameData.redTeam;
+        gameData.redTeam = gameData.blueTeam;
+        gameData.blueTeam = red;
         gameData.cards = generateCards();
         return updateGameData(gameRef, gameData);
       })
       .then(() => {
         console.log(`Successfully reset the game.`);
       })
-      .catch((error) => {
+      .catch((error: any) => {
         console.error('Failed to reset the game.', error);
       })
       .finally(() => {
@@ -404,7 +412,7 @@ const Game: React.FC = () => {
     <div>
       <h4>Game ID: {gameId}</h4>
       {isModalOpen && (
-        <UserModal isOpen={isModalOpen} onSubmit={handleUserSubmit} />
+        <UserModal isOpen={isModalOpen} onSubmit={handleModalSubmit} />
       )}
       <TeamList
         redTeamMembers={gameData.redTeam}
