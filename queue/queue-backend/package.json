@@ -15,8 +15,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@squidcloud/backend": "1.0.161",
-    "@squidcloud/client": "1.0.161",
+    "@squidcloud/backend": "1.0.172",
+    "@squidcloud/client": "1.0.172",
     "@types/react": "^18.2.47",
     "reflect-metadata": "^0.1.13",
     "rxjs": ">=7.5.7 <8.0.0"
