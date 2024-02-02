@@ -6,9 +6,9 @@ This sample code accompanies a [tutorial](https://docs.squid.cloud/docs/tutorial
 
 2. Follow the steps in the [tutorial](https://docs.squid.cloud/docs/tutorials/http-api/#create-an-api-integration) to create a new API integration in the Squid Cloud Console.
 
-3. Connect the Squid backend to the `cat-facts` by scrolling in the console to the **Backend** section and selecting **Create .env file**. Copy the command.
+3. Connect the Squid backend to the `cat-facts` by scrolling in the console **Overview** page to the **Backend project** section and selecting **Create .env file**. Copy the command.
 
-4. Open a terminal window and change to the `http-api-backend-backend` directory.
+4. Open a terminal window and change to the `http-api-backend` directory.
 
 ```bash
 cd http-api/http-api-backend
