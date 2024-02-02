@@ -6,20 +6,26 @@ type User = { id: string; email: string; age: number };
 @Component({
   selector: 'read-users',
   template: `
-    <tr>
-      <th>Email</th>
-      <th>Age</th>
-    </tr>
-    <tr *ngFor="let user of users | async">
-      <td>
-        {{ user.email }}
-      </td>
-      <td>
-        {{ user.age }}
-      </td>
-      <!-- options contains update and delete -->
-      <options [id]="user.id" />
-    </tr>
+    <table>
+      <thead>
+        <tr>
+          <th>Email</th>
+          <th>Age</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users | async">
+          <td>
+            {{ user.email }}
+          </td>
+          <td>
+            {{ user.age }}
+          </td>
+          <!-- options contains update and delete -->
+          <options [id]="user.id" />
+        </tr>
+      </tbody>
+    </table>
   `,
 })
 export class ReadUsersComponent {
