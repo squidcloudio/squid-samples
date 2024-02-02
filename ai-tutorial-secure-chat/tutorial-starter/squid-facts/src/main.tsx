@@ -15,10 +15,10 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   >
     <SquidContextProvider
       options={{
-      appId: import.meta.env.VITE_SQUID_APP_ID,
+      appId: 'YOU_SQUID_APP_ID',
       region: 'us-east-1.aws', // replace with your region
       environmentId: 'dev',
-      squidDeveloperId: import.meta.env.VITE_SQUID_DEVELOPER_ID,
+      squidDeveloperId: 'YOUR_SQUID_DEVELOPER_ID',
       }}
     >
       <App />
