@@ -7,7 +7,7 @@ import { useState } from 'react';
 function App() {
   // Set state of toast message
   const [toastOpen, setToastOpen] = useState(false);
-  const [loginMessage, _] = useState('');
+  const [loginMessage, setLoginMessage] = useState('');
 
   const handleToClose = () => {
     setToastOpen(false);
