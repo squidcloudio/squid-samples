@@ -20,16 +20,43 @@ There are three architectural parts to keep in mind when developing with Squid:
 
 To develop locally, run `npm run start-squid`
 
-## ExampleService
+## ExecutorService
 
-The generated code has a class named `ExampleService` that can be used as a playground. You can modify this class to
+The generated code has a class named `ExecutorService` that can be used as a playground. You can modify this class to
 experiment with Squid's functionality and explore the Squid Backend SDK.
+
+In the case of this sample app, the backend contains a couple executable functions: `sendEmail`, `generateApiKey`, and
+`validateApiKey`.
+
+### Setting up the `sendEmail` function
+
+The `*ApiKey` functions work as-is, but `sendEmail` requires a valid email configuration before it can be used.
+
+For the lines below, `YOUR_EMAIL_SERVICE` must be changed to the email service you are using, which must be one of the
+services supported by nodemailer.
+```typescript
+const transporter = nodemailer.createTransport({
+  service: 'YOUR_EMAIL_SERVICE',
+```
+
+Likewise, you should set relevant addresses for these lines:
+```typescript
+await transporter.sendMail({
+  from: 'YOUR_EMAIL@DOMAIN',
+  to: 'RECEIVER_EMAIL@DOMAIN',
+```
+
+Lastly, the username and password to authenticate with the email service must be set in your Squid application. In the
+Squid Console for your application, go to the **Secrets** tab and add the login information to the following secret keys:
+- `email_username`
+- `email_password`
+
+Click **Store new secret** to create the entries.
 
 ## Deploying your code
 
 When you are ready to deploy your code, you can run `squid deploy`. This will deploy your code to the Squid cloud
-server,
-making it available to your client application.
+server, making it available to your client application.
 
 In conclusion, the Squid Backend code has extensive power and flexibility, making it a powerful tool for developers who
 need to build complex backend functionality for their applications.

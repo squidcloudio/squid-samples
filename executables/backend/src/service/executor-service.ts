@@ -9,7 +9,7 @@ import nodemailer from 'nodemailer';
  *   - Generating an API key.
  *   - Validating an API key.
  */
-export class ExampleService extends SquidService {
+export class ExecutorService extends SquidService {
   @executable()
   async sendEmail(from: string, subject: string, body: string): Promise<boolean> {
     const username = (await this.squid.secrets.get('email_username'))?.value;
