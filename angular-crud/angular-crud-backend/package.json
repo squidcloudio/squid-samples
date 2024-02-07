@@ -14,15 +14,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@squidcloud/backend": "latest",
-    "@squidcloud/client": "latest",
+    "@squidcloud/backend": "^1.0.172",
+    "@squidcloud/client": "^1.0.172",
     "axios": "^1.6.3",
     "reflect-metadata": "^0.1.13",
     "rxjs": "7.5.7"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.0.0",
-    "@squidcloud/local-backend": "latest",
+    "@squidcloud/local-backend": "^1.0.172",
     "@types/express": "^4.17.13",
     "@types/lodash": "^4.14.189",
     "@types/node": "18.11.18",
