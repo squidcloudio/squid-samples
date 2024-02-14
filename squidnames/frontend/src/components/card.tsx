@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { CardState, CardStatus, Team } from 'common/common-types';
 
 interface CardProps {
@@ -34,9 +34,24 @@ const Card: React.FC<CardProps> = ({
   let isConfirmable = !isSpymaster && isTentative && playerTeam === activeTurn;
   let reveal = isSpymaster;
 
+  const [buttonDisabled, setButtonDisabled] = useState(true);
+
+  useEffect(() => {
+    if (isConfirmable) {
+      const timer = setTimeout(() => {
+        setButtonDisabled(false);
+      }, 1000);
+      return () => clearTimeout(timer);
+    } else {
+      setButtonDisabled(true);
+    }
+  }, [isConfirmable]);
+
   let classBuilder: Set<string> = new Set(['word-card']);
   if (isSpymaster) {
     classBuilder.add('spymaster');
+  } else {
+    classBuilder.add('player');
   }
   if (isTentative) {
     classBuilder.add('tentative');
@@ -83,7 +98,7 @@ const Card: React.FC<CardProps> = ({
       break;
   }
 
-  if (reveal) {
+  if (reveal && !isActual) {
     classBuilder.add('revealed');
     switch (card.team) {
       case Team.Blue:
@@ -118,7 +133,7 @@ const Card: React.FC<CardProps> = ({
       {card.word}
       {isConfirmable && (
         <div className="card-actions">
-          <button onClick={handleConfirmClick}>Confirm</button>
+          <button onClick={handleConfirmClick} disabled={buttonDisabled}>Confirm</button>
         </div>
       )}
     </div>

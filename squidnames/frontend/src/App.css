@@ -81,23 +81,23 @@ div.question {
   border-color: grey;
 }
 
-.revealed.card-blue {
+.player.revealed.card-blue, .spymaster.actual.card-blue {
   background-color: lightblue;
 }
 
-.revealed.card-red {
-  background-color: #ffaaaa; /* Lighter red */
+.player.revealed.card-red, .spymaster.actual.card-red {
+  background-color: #ff9999; /* Lighter red */
 }
 
 .revealed.card-assassin {
   background-color: grey;
 }
 
-.actual.card-blue {
+.player.actual.card-blue, .spymaster.revealed.card-blue {
   background-color: lightskyblue;
 }
 
-.actual.card-red {
+.player.actual.card-red, .spymaster.revealed.card-red {
   background-color: #ff5555; /* Lighter red */
 }
 
@@ -125,10 +125,6 @@ div.question {
   border-style: dashed;
 }
 
-.spymaster.actual {
-  border-width: 4px;
-}
-
 .top-bar {
   display: flex;
   justify-content: space-between;
@@ -140,6 +136,18 @@ div.question {
 
 .spymasters {
   display: flex;
+}
+
+.spymaster.actual.card-blue {
+  border-color: lightblue;
+}
+
+.spymaster.actual.card-red {
+  border-color: #ff9999; /* Lighter red */
+}
+
+.spymaster.actual.card-neutral {
+  border-color: tan; /* Lighter red */
 }
 
 .score {
