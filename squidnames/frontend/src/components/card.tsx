@@ -36,6 +36,8 @@ const Card: React.FC<CardProps> = ({
 
   const [buttonDisabled, setButtonDisabled] = useState(true);
 
+  // Disable the confirm button for a short time after the button is displayed.
+  // Prevents accidentally clicking the button when it suddenly appears due to a teammate.
   useEffect(() => {
     if (isConfirmable) {
       const timer = setTimeout(() => {
