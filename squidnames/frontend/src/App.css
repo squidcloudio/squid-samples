@@ -81,11 +81,13 @@ div.question {
   border-color: grey;
 }
 
-.player.revealed.card-blue, .spymaster.actual.card-blue {
+.player.revealed.card-blue,
+.spymaster.actual.card-blue {
   background-color: lightblue;
 }
 
-.player.revealed.card-red, .spymaster.actual.card-red {
+.player.revealed.card-red,
+.spymaster.actual.card-red {
   background-color: #ff9999; /* Lighter red */
 }
 
@@ -93,11 +95,13 @@ div.question {
   background-color: grey;
 }
 
-.player.actual.card-blue, .spymaster.revealed.card-blue {
+.player.actual.card-blue,
+.spymaster.revealed.card-blue {
   background-color: lightskyblue;
 }
 
-.player.actual.card-red, .spymaster.revealed.card-red {
+.player.actual.card-red,
+.spymaster.revealed.card-red {
   background-color: #ff5555; /* Lighter red */
 }
 

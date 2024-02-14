@@ -133,7 +133,9 @@ const Card: React.FC<CardProps> = ({
       {card.word}
       {isConfirmable && (
         <div className="card-actions">
-          <button onClick={handleConfirmClick} disabled={buttonDisabled}>Confirm</button>
+          <button onClick={handleConfirmClick} disabled={buttonDisabled}>
+            Confirm
+          </button>
         </div>
       )}
     </div>
