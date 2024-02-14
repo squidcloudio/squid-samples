@@ -1,6 +1,6 @@
-@use '../../style/colors' as c;
-@use '../../style/typography' as t;
-@use '../../style/sizes' as s;
+ @use 'colors' as c;
+ @use 'typography' as t;
+ @use 'sizes' as s;
 
 .calendar {
   background-color: c.colors(bg-c);

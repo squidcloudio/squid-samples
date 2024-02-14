@@ -1,6 +1,6 @@
 @use '../../app.component';
-@use '../../style/colors' as c;
-@use '../../style/typography' as t;
+ @use 'colors' as c;
+ @use 'typography' as t;
 
 .newList-select {
   margin-top: 24px;

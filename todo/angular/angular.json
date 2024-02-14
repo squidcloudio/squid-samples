@@ -25,6 +25,12 @@
             "inlineStyleLanguage": "scss",
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": ["src/styles.scss", "src/app/app.component.scss"],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src",
+                "src/app/style"
+              ]
+            },
             "scripts": [],
             "allowedCommonJsDependencies": ["@squidcloud/client", "dayjs"]
           },
@@ -87,6 +93,12 @@
             "inlineStyleLanguage": "scss",
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": ["src/styles.scss"],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src",
+                "src/app/style"
+              ]
+            },
             "scripts": []
           }
         },
