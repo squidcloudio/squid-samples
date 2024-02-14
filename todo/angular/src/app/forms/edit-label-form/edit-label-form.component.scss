@@ -1,9 +1,10 @@
-@use '../../../styles';
-@use '../../style/colors' as c;
+ @use 'colors' as c;
+
 .form {
   &-title {
-    @include styles.formTitle();
+    @include formTitle();
   }
+
   &-container {
     margin-top: 24px;
     display: flex;
@@ -17,8 +18,10 @@
     }
   }
 }
+
 .form-dark {
   background-color: c.colors(bg-c, true);
+
   & .form-title {
     color: c.colors(font, true);
   }

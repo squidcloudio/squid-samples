@@ -1,6 +1,6 @@
-@use '../../style/colors' as c;
-@use '../../style/sizes' as s;
-@use '../../style/typography' as t;
+ @use 'colors' as c;
+ @use 'sizes' as s;
+ @use 'typography' as t;
 .task {
   width: s.size(full);
   display: grid;
