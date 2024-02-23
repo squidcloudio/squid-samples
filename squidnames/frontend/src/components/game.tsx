@@ -395,7 +395,8 @@ const Game: React.FC = () => {
 
   return (
     <div>
-      <h4>Game ID: {gameId}</h4>
+      <h4>Shareable URL</h4>
+      <p>https://squidnames.netlify.app/game/{gameId}</p>
       {isModalOpen && (
         <UserModal isOpen={isModalOpen} onSubmit={handleModalSubmit} />
       )}
