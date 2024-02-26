@@ -116,5 +116,11 @@ npm run dev
 12. Interact with the UI!
     - Under the "Games" tab you should see a game summary that updates with a new game every 5 seconds.
     - Under the "Players" tab you should see a paginated list of players, sorted by total points.
-      - Clicking the "?" button should generate a random fact about the NBA player.
-      - Clicking the "↔" on one player, and then another, should generate a comparison of the two players' stats.
+    - Clicking the "?" button should generate a random fact about the NBA player.
+    - Clicking the "↔" on one player, and then another, should generate a comparison of the two players' stats.
+
+**Note**: For the player comparison (↔) to execute, you'll first need to save the auto-generated schema of the Built-In database integration. This can be done with the following steps:
+- Navigate to the `built_in_db` integration in the `dev` application in the Squid Cloud Console.
+- Click on the three dots (**...**) and then **Schema**.
+- On the next page you should see `players` and `randomGame` collections.
+- Click **Save Schema**.
