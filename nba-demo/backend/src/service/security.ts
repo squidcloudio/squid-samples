@@ -8,7 +8,7 @@ export class SecurityService extends SquidService {
   }
 
   @secureCollection('players', 'read')
-  allowBigQueryRead(): boolean {
+  allowPlayersRead(): boolean {
     return true;
   }
 }

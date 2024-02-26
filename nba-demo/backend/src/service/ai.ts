@@ -9,7 +9,7 @@ export class AiService extends SquidService {
   }
 
   @executable()
-  async getRandomPlayerFact(name) {
+  async getRandomFact(name) {
     return this.getRandomPlayerFactInternal(name);
   }
 
@@ -32,7 +32,7 @@ export class AiService extends SquidService {
 
   async comparePlayersInternal(pid1, pid2) {
     const prompt = `Compare the stats between the player with ID ${pid1} and the player with ID ${pid2} and generate a three sentence summary highlighting the differences. Refer to the players by name, not by unique ID.`;
-    const response = await this.squid.ai().executeAiQuery('nba-bigquery', prompt);
+    const response = await this.squid.ai().executeAiQuery('built_in_db', prompt);
     return response.answer;
   }
 }

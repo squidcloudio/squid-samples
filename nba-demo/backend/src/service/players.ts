@@ -18,7 +18,6 @@ export class PlayersService extends SquidService {
     const parsedPlayers = parsePlayerStats(playersResponse.body);
     await this.squid.runInTransaction(async (txId) => {
       parsedPlayers.forEach((player) => {
-        // console.log(player);
         void this.squid.collection('players').doc(player.playerId.toString()).insert(player, txId);
       });
     });
