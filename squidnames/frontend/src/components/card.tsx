@@ -31,7 +31,12 @@ const Card: React.FC<CardProps> = ({
   ].includes(card.status);
   const isGameOver = activeTurn === Team.Neutral; // Using Neutral to mean game over.
   const isFinished = isGameOver || isActual;
-  let isConfirmable = !isSpymaster && isTentative && playerTeam === activeTurn;
+  let isPlayerTentative =
+    card.status === CardStatus.TentativeBoth ||
+    (card.status === CardStatus.TentativeBlue && playerTeam === Team.Blue) ||
+    (card.status === CardStatus.TentativeRed && playerTeam === Team.Red);
+  let isConfirmable =
+    !isSpymaster && isPlayerTentative && playerTeam === activeTurn;
   let reveal = isSpymaster;
 
   const [buttonDisabled, setButtonDisabled] = useState(true);
