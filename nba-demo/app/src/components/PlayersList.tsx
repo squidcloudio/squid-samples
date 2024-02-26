@@ -1,29 +1,22 @@
-import { useCollection, usePagination, useQuery } from "@squidcloud/react";
-import { useState } from "react";
+import { useCollection, usePagination, useSquid } from '@squidcloud/react';
+import { useState } from 'react';
 
 const PlayersList = () => {
-  const [message, setMessage] = useState("");
+  const squid = useSquid();
+  const [message, setMessage] = useState('');
   const [generating, setGenerating] = useState(false);
   const [comparePid, setComparePid] = useState(null);
 
-  const collection = useCollection("players", "nba-bigquery");
+  const collection = useCollection('players');
   const { data, loading, error, next, prev, hasPrev, hasNext } = usePagination(
-    collection.query().sortBy("pts", false).dereference(),
+    collection.query().sortBy('pts', false).dereference(),
     { pageSize: 50, subscribe: true },
   );
 
   const getRandomFact = async (name) => {
     setGenerating(true);
-    const response = await fetch(
-      "https://[YOUR_APP_ID]-dev-[YOUR_SQUID_DEVELOPER_ID].us-east-1.aws.squid.cloud/webhooks/getRandomFact",
-      {
-        method: "post",
-        body: JSON.stringify({
-          name,
-        }),
-      },
-    );
-    setMessage(await response.text());
+    const response = await squid.executeFunction('getRandomFact', name);
+    setMessage(await response);
     setGenerating(false);
   };
 
@@ -37,19 +30,13 @@ const PlayersList = () => {
 
     setGenerating(true);
 
-    const response = await fetch(
-      "https://[YOUR_APP_ID]-dev-[YOUR_SQUID_DEVELOPER_ID].us-east-1.aws.squid.cloud/webhooks/comparePlayers",
-      {
-        method: "post",
-        body: JSON.stringify({
-          pid1: comparePid,
-          pid2: pid,
-        }),
-      },
+    const response = await squid.executeFunction(
+      'comparePlayers',
+      comparePid,
+      pid,
     );
-
     setComparePid(null);
-    setMessage(await response.text());
+    setMessage(await response);
     setGenerating(false);
   };
 
@@ -61,7 +48,7 @@ const PlayersList = () => {
   return (
     <div className="flex flex-col items-center">
       <span className="inline-block mb-4">
-        {generating ? "Generating..." : message}
+        {generating ? 'Generating...' : message}
       </span>
       <div className="flex gap-2 mb-4">
         <button onClick={prev} disabled={!hasPrev || loading}>
