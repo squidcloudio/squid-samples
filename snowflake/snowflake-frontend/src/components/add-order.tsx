@@ -30,8 +30,7 @@ const AddOrder: React.FC = () => {
 
   const getRandomOrderStatus = (): string => {
     const randomNum = Math.round(Math.random());
-    const orderStatus = randomNum === 1 ? 'O' : 'F';
-    return orderStatus;
+    return randomNum === 1 ? 'O' : 'F';
   };
 
   const addRandomOrder = async () => {
